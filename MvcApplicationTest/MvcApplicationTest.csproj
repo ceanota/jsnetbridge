@@ -274,15 +274,6 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.dll" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.pdb" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.vshost.exe" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.pdb" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Newtonsoft.Json.dll" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Newtonsoft.Json.xml" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\System.Web.Mvc.dll" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\System.Web.Mvc.xml" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
     <Content Include="Areas\HelpPage\Views\Shared\_Layout.cshtml" />
@@ -295,11 +286,6 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.config" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.json" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\JsNetBridgeGenerator.vshost.exe.config" />
-    <Content Include="Generator\Diphap.JsNetBridge.Generator\JsNetBridgeGenerator.vshost.exe.manifest" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\app\AspNet.js" />
     <Content Include="Scripts\app\test.js" />
