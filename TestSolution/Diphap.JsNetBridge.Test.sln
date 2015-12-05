@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcApplicationTest", "..\Mv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge", "..\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj", "{57119D8E-CED9-4E30-B88B-3C9724782760}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge.Generator", "..\Dihap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.csproj", "{31B8FA9E-A833-4BCD-89D3-0196564BCDDB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge.Generator", "..\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.csproj", "{31B8FA9E-A833-4BCD-89D3-0196564BCDDB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

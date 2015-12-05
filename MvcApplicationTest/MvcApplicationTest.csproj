@@ -357,10 +357,6 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dihap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.csproj">
-      <Project>{31b8fa9e-a833-4bcd-89d3-0196564bcddb}</Project>
-      <Name>Diphap.JsNetBridge.Generator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj">
       <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
       <Name>Diphap.JsNetBridge</Name>

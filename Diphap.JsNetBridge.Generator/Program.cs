@@ -43,7 +43,7 @@ namespace Diphap.JsNetBridge.Generator
 
                 if (File.Exists(_config.dll_asp_absolute) == false)
                 {
-                    var ex = new FileNotFoundException("FileNotFoundException =>", _config.dll_asp_absolute);
+                    var ex = new FileNotFoundException("FileNotFoundException =>" + _config.dll_asp_absolute, _config.dll_asp_absolute);
                     Console.WriteLine(ex.Message);
                     throw ex;
                 }
