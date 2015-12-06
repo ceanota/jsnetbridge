@@ -99,9 +99,9 @@
       <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
       <Name>Diphap.JsNetBridge</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\MvcApplicationTest\MvcApplicationTest.csproj">
-      <Project>{ef29c5f0-6989-41c2-b1d0-157eff476957}</Project>
-      <Name>MvcApplicationTest</Name>
+    <ProjectReference Include="..\..\MvcAppExample\MvcAppExample.csproj">
+      <Project>{c366c3f5-11bf-486d-90de-ded2e47485cb}</Project>
+      <Name>MvcAppExample</Name>
     </ProjectReference>
   </ItemGroup>
   <Choose>

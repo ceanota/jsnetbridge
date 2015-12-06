@@ -43,9 +43,14 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="js_root"></param>
         /// <returns></returns>
-        public string ToJS_SetUrl(string js_root)
+        public string ToJS_SetUrl(WebViewPage webViewPage = null)
         {
-            string properties = GetJsSetUrl(this.AreaInfoList, js_root);
+            if (webViewPage != null)
+            {
+                this.SetUrlValue(webViewPage);
+            }
+
+            string properties = GetJsSetUrl(this.AreaInfoList, Config.url_set);
             return properties;
         }
 

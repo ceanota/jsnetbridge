@@ -2,11 +2,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Diphap.JsNetBridge;
 using System.Reflection;
-using MvcApplicationTest.Areas.HelpPage.Models;
+using MvcAppExample.Areas.HelpPage.Models;
 using System.Web.Http.Controllers;
 using System.Linq;
 using System.Web.Http.Description;
-using MvcApplicationTest.Models;
+using MvcAppExample.Models;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -23,12 +23,10 @@ namespace UnitTest_JsNetBridge
         [TestMethod]
         public void TestMethod1()
         {
-            string fileName = @"D:\utilisateurs\diphap\documents\visual studio 2012\Projects\MvcApplication5\MvcApplication5\bin\MvcApplication5.dll";
-            //string fileName = @"D:\DEV\NouvelleGamme\Eden\MVC\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
+            string fileName = @"C:\Users\diphap\Source\Repos\jsnet\MvcApplicationTest\bin\MvcApplicationTest.dll";
 
-            AspMvcInfo Singleton = new AspMvcInfo(fileName);
-            string setUrl = Singleton.UrlInfo.ToJS_SetUrl("");
-            string toJs = Singleton.UrlInfo.ToJS();
+            AspMvcInfo Singleton = new AspMvcInfo(Assembly.LoadFrom(fileName));
+            string setUrl = Singleton.UrlInfo.ToJS_SetUrl();
         }
 
         [TestMethod]

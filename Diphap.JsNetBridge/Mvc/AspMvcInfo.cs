@@ -46,20 +46,10 @@ namespace Diphap.JsNetBridge
         internal List<Type> Types_Controller { get; private set; }
         #endregion
 
-        /// <summary>
-        /// Instanciate information about AspMvc Application.
-        /// </summary>
-        /// <param name="appAspNetPath"></param>
-        /// <param name="typeSetList"></param>
-        /// 
-        /// <returns></returns>
-        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
+        private void InitiliazeForAspNetObjects(Assembly asp_net)
         {
             Type type_obj = typeof(System.Object);
             Type type_type = typeof(System.Type);
-
-            #region  "asp_net"
-            Assembly asp_net = Assembly.LoadFrom(appAspNetPath);
 
             Type[] types = asp_net.GetTypes();
 
@@ -82,9 +72,17 @@ namespace Diphap.JsNetBridge
                     this.Types_Model.Add(t_work);
                 }
             }
+        }
 
-
-            #endregion
+        /// <summary>
+        /// Instanciate information about AspMvc Application.
+        /// </summary>
+        /// <param name="appAspNetPath"></param>
+        /// <param name="typeSetList"></param>
+        /// <returns></returns>
+        public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
+        {
+            InitiliazeForAspNetObjects(asp_net);
 
             foreach (var f in typeSetList)
             {
@@ -105,6 +103,30 @@ namespace Diphap.JsNetBridge
                 }
 
             }
+        }
+
+        /// <summary>
+        /// Instanciate information about AspMvc Application.
+        /// </summary>
+        /// <param name="appAspNetPath"></param>
+        /// <param name="typeSetList"></param>
+        /// <returns></returns>
+        public AspMvcInfo(Assembly asp_net)
+            : this(asp_net, new AssemblySet[] { })
+        {
+
+        }
+
+        /// <summary>
+        /// Instanciate information about AspMvc Application.
+        /// </summary>
+        /// <param name="appAspNetPath"></param>
+        /// <param name="typeSetList"></param>
+        /// <returns></returns>
+        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
+            : this(Assembly.LoadFrom(appAspNetPath), typeSetList)
+        {
+
         }
 
         /// <summary>
