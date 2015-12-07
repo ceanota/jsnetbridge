@@ -82,6 +82,7 @@ window.todoApp.datacontext = (function () {
 
         var options = action.AjaxOptions;
         options.data = JSON.stringify(ko.toJS(todoItem));
+        options.type = options.methods.put;
 
         var url = action.Url;
 

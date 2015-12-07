@@ -170,20 +170,18 @@ namespace Diphap.JsNetBridge
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", this.IsHttpResponseMessage ? "text" : "json"); 
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", this.IsHttpResponseMessage ? "text" : "json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
 
-            string httpMethod = WebApiHelper.GetHttpMethod(this.MethodInfo);
+            string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
 
-            if (string.IsNullOrWhiteSpace(httpMethod) == false)
+            if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
             {
                 sb_ajax_options.Append(",");
-                sb_ajax_options.AppendFormat("type:\"{0}\"", httpMethod);
-                sb_ajax_options.Append(",");
-                sb_ajax_options.AppendFormat("method:\"{0}\"", httpMethod);
+                sb_ajax_options.AppendFormat("methods:{0}", httpMethod_jsObj);
             }
 
             sb_ajax_options.Append("}");
