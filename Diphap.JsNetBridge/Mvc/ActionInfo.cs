@@ -1,4 +1,5 @@
 ﻿using Diphap.JsNetBridge.Common.JS;
+using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -122,27 +123,92 @@ namespace Diphap.JsNetBridge
             return jsonValue;
         }
 
-        static public readonly bool GetInfo = false;
+        //static public readonly bool GetInfo = false;
 
         /// <summary>
         /// Value.
-        /// [{url:null, param:null, return:null }]
+        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
         /// </summary>
         public string JsValue
         {
             get
             {
-                string jsObj_info = "{}";
+                StringBuilder sb = new StringBuilder();
+                sb.Append("{");
+                sb.Append(Config.VS_JsEnumKeyValue);
+                sb.Append("Url:null,");
+                sb.AppendFormat("Params:{0},", JSHelper.GetFactory(this.ToJS_Params()));
+                sb.AppendFormat("Return:{0},", JSHelper.GetFactory(this.ToJS_Return()));
 
-                if (GetInfo)
+
+                if (this.IsApiController)
                 {
-                    jsObj_info = string.Format("{{ IsApiController:{0},IsActionResult:{1},IsHttpResponseMessage:{2},IsJsonResult:{3},IsViewResult:{4},IsIEnumerable:{5} }}", this.IsApiController.ToString().ToLower(), this.IsActionResult.ToString().ToLower(), this.IsHttpResponseMessage.ToString().ToLower(), this.IsJsonResult.ToString().ToLower(), this.IsViewResult.ToString().ToLower(), this.IsIEnumerable.ToString().ToLower());
+                    sb.AppendFormat("IsApiController:{0},", this.IsApiController.ToString().ToLower());
+
+                    StringBuilder sb_ajax_options = GetAjaxOptions_ForWebApi();
+                    sb.AppendFormat("AjaxOptions:{0}", sb_ajax_options.ToString());
+                }
+                else
+                {
+                    StringBuilder sb_ajax_options = GetAjaxOptions_ForMvc();
+                    sb.AppendFormat("AjaxOptions:{0}", sb_ajax_options.ToString());
                 }
 
-                string json = string.Format("{{" + Config.VS_JsEnumKeyValue + "Url:{0}, Params:{1}, Return:{2}, Info:{3} }}",
-                    "null", JSHelper.GetFactory(this.ToJS_Params()), JSHelper.GetFactory(this.ToJS_Return()), jsObj_info);
+                sb.Append("}");
+
+                string json = sb.ToString();
+
                 return json;
             }
+        }
+
+        /// <summary>
+        /// Get ajax options for js.
+        /// </summary>
+        /// <returns></returns>
+        private StringBuilder GetAjaxOptions_ForWebApi()
+        {
+            StringBuilder sb_ajax_options = new StringBuilder();
+            sb_ajax_options.Append("{");
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", this.IsHttpResponseMessage ? "text" : "json"); 
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("cache:{0}", "false");
+
+            string httpMethod = WebApiHelper.GetHttpMethod(this.MethodInfo);
+
+            if (string.IsNullOrWhiteSpace(httpMethod) == false)
+            {
+                sb_ajax_options.Append(",");
+                sb_ajax_options.AppendFormat("type:\"{0}\"", httpMethod);
+                sb_ajax_options.Append(",");
+                sb_ajax_options.AppendFormat("method:\"{0}\"", httpMethod);
+            }
+
+            sb_ajax_options.Append("}");
+            return sb_ajax_options;
+        }
+
+        /// <summary>
+        /// Get ajax options for js.
+        /// </summary>
+        /// <returns></returns>
+        private StringBuilder GetAjaxOptions_ForMvc()
+        {
+            StringBuilder sb_ajax_options = new StringBuilder();
+            sb_ajax_options.Append("{");
+
+            if (this.IsJsonResult)
+            {
+                sb_ajax_options.AppendFormat("dataType:\"{0}\"", "json");
+                sb_ajax_options.Append(",");
+                sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
+                sb_ajax_options.Append(",");
+                sb_ajax_options.AppendFormat("cache:{0}", "false");
+            }
+            sb_ajax_options.Append("}");
+            return sb_ajax_options;
         }
 
         /// <summary>

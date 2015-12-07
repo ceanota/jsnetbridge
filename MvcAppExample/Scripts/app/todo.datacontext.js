@@ -71,6 +71,37 @@ window.todoApp.datacontext = (function () {
     }
     function saveChangedTodoItem(todoItem) {
         clearErrorMessage(todoItem);
+
+        debugger;
+
+        var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem;
+        
+        var data = action.Params();
+        data.id = todoItem.todoItemId;
+        data.todoItemDto = ko.toJS(todoItem);
+
+        var options = action.AjaxOptions;
+        options.data = JSON.stringify(ko.toJS(todoItem));
+
+        var url = action.Url;
+
+        if (data.id)
+        {
+            url = url + "/" + data.id;
+        }
+
+        var antiForgeryToken = $("#antiForgeryToken").val();
+        if (antiForgeryToken) {
+            options.headers = {
+                'RequestVerificationToken': antiForgeryToken
+            }
+        }
+
+        return $.ajax(url, options)
+            .fail(function () {
+                todoItem.errorMessage("Error updating todo item.");
+            });
+
         return ajaxRequest("put", todoItemUrl(todoItem.todoItemId), todoItem, "text")
             .fail(function () {
                 todoItem.errorMessage("Error updating todo item.");
@@ -83,6 +114,7 @@ window.todoApp.datacontext = (function () {
                 todoList.errorMessage("Error updating the todo list title. Please make sure it is non-empty.");
             });
     }
+
 
     // Private
     function clearErrorMessage(entity) { entity.errorMessage(null); }
@@ -102,8 +134,11 @@ window.todoApp.datacontext = (function () {
         }
         return $.ajax(url, options);
     }
+
     // routes
-    function todoListUrl(id) { return "/api/todolist/" + (id || ""); }
+    function todoListUrl(id) {
+        return "/api/todolist/" + (id || "");
+    }
     function todoItemUrl(id) { return "/api/todo/" + (id || ""); }
 
 })();

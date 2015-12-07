@@ -5,6 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace Diphap.JsNetBridge
 {
@@ -22,10 +23,11 @@ namespace Diphap.JsNetBridge
         /// Set url value.
         /// </summary>
         /// <param name="webViewPage"></param>
+        /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        public UrlInfo SetUrlValue(WebViewPage webViewPage)
+        public UrlInfo SetUrlValue(WebViewPage webViewPage, string apiRouteName = "DefaultApi")
         {
-            SetUrlValue(webViewPage, this.AreaInfoList);
+            SetUrlValue(webViewPage, this.AreaInfoList, apiRouteName);
             return this;
         }
 
@@ -73,8 +75,9 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="webViewPage"></param>
         /// <param name="areaInfoList"></param>
+        /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        private static List<AreaInfo> SetUrlValue(WebViewPage webViewPage, List<AreaInfo> areaInfoList)
+        private static List<AreaInfo> SetUrlValue(WebViewPage webViewPage, List<AreaInfo> areaInfoList, string apiRouteName)
         {
             foreach (var ai in areaInfoList)
             {
@@ -82,14 +85,24 @@ namespace Diphap.JsNetBridge
                 {
                     foreach (var u in ci.ActionInfoCol)
                     {
-                        if (string.IsNullOrWhiteSpace(u.Area))
+                        RouteValueDictionary dic = new RouteValueDictionary();
+
+                        if (string.IsNullOrWhiteSpace(u.Area) == false)
                         {
-                            u.Url = webViewPage.Url.Action(u.Action, u.Controller);
+                            dic.Add("area", u.Area);
+                        }
+
+                        if (u.IsApiController)
+                        {
+                            dic.Add("httproute", "");
+                            dic.Add("controller", u.Controller);
+                            u.Url = webViewPage.Url.RouteUrl(apiRouteName, dic);
                         }
                         else
                         {
-                            u.Url = webViewPage.Url.Action(u.Action, u.Controller, new { area = u.Area });
+                            u.Url = webViewPage.Url.Action(u.Action, u.Controller, dic);
                         }
+
 
                     }
                 }
@@ -164,7 +177,7 @@ namespace Diphap.JsNetBridge
             IEnumerable<string> properties = aiList
                 .SelectMany(x => x.ControllerInfoCol)
                 .SelectMany(x => x.ActionInfoCol)
-                .Select(x =>  js_rootTemp + x.JsSetUrl);
+                .Select(x => js_rootTemp + x.JsSetUrl);
 
             string js = string.Join(";", properties);
             js = js + ";";

@@ -23,9 +23,10 @@ namespace UnitTest_JsNetBridge
         [TestMethod]
         public void TestMethod1()
         {
-            string fileName = @"C:\Users\diphap\Source\Repos\jsnet\MvcApplicationTest\bin\MvcApplicationTest.dll";
+            string fileName = @"C:\Users\diphap\Source\Repos\jsnet\MvcAppExample\bin\MvcAppExample.dll";
 
             AspMvcInfo Singleton = new AspMvcInfo(Assembly.LoadFrom(fileName));
+            var ss = Singleton.ToJS();
             string setUrl = Singleton.UrlInfo.ToJS_SetUrl();
         }
 

@@ -97,6 +97,7 @@
     <Compile Include="Mvc\AspMvcInfo.cs" />
     <Compile Include="Mvc\ActionInfo.cs" />
     <Compile Include="Common\JS\SerializeNet.cs" />
+    <Compile Include="Mvc\Helpers\WebApiHelper.cs" />
     <Compile Include="Mvc\UrlInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AssemblySet.cs" />
