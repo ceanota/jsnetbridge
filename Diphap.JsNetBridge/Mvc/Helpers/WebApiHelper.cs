@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,24 +10,42 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 {
     class WebApiHelper
     {
+
         static public string GetHttpMethod_ToJS(MethodInfo MethodInfo)
         {
             string[] httpMethods = WebApiHelper.GetHttpMethod(MethodInfo);
 
             if (httpMethods.Length > 0)
             {
-                StringBuilder sb_methods = new StringBuilder();
-                sb_methods.Append("{");
+                StringBuilder sb_principal = new StringBuilder();
+                sb_principal.Append("{");
+
+
                 for (int idx = 0; idx < httpMethods.Length; idx++)
                 {
                     if (idx > 0)
                     {
-                        sb_methods.Append(",");
+                        sb_principal.Append(",");
                     }
-                    sb_methods.AppendFormat("{0}:\"{0}\"", httpMethods[idx]);
+                    sb_principal.AppendFormat("{0}:\"{0}\"", httpMethods[idx]);
                 }
-                sb_methods.Append("}");
-                return sb_methods.ToString();
+
+                sb_principal.Append(",");
+
+                sb_principal.AppendFormat("items:[{0}]", string.Join(",", httpMethods.Select(x => string.Format("\"{0}\"", x))));
+                sb_principal.Append(",");
+                if (httpMethods.Length == 1)
+                {
+                    sb_principal.AppendFormat("single:\"{0}\"", httpMethods[0]);
+                }
+                else
+                {
+                    sb_principal.AppendFormat("single:{0}", "null");
+                }
+
+                sb_principal.Append("}");
+
+                return sb_principal.ToString();
             }
             else
             {
@@ -63,6 +82,22 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             }
 
             return new string[0];
+        }
+
+        static public string GetAjaxDataType(MethodInfo MethodInfo)
+        {
+            bool isText = typeof(void) == MethodInfo.ReturnType ||
+                AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
+
+            if (isText)
+            {
+                return "text";
+            }
+            else
+            {
+                return "json";
+            }
+
         }
 
         static Type[] THttpAttributes = new Type[] { typeof(System.Web.Http.HttpGetAttribute), typeof(System.Web.Http.HttpPostAttribute), typeof(System.Web.Http.HttpPutAttribute), typeof(System.Web.Http.HttpDeleteAttribute), typeof(System.Web.Http.HttpHeadAttribute) };

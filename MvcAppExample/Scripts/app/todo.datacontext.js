@@ -73,40 +73,19 @@ window.todoApp.datacontext = (function () {
         clearErrorMessage(todoItem);
 
         debugger;
-
-        var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem;
         
-        var data = action.Params();
-        data.id = todoItem.todoItemId;
-        data.todoItemDto = ko.toJS(todoItem);
-
-        var options = action.AjaxOptions;
-        options.data = JSON.stringify(ko.toJS(todoItem));
-        options.type = options.methods.put;
-
-        var url = action.Url;
-
-        if (data.id)
-        {
-            url = url + "/" + data.id;
-        }
-
-        var antiForgeryToken = $("#antiForgeryToken").val();
-        if (antiForgeryToken) {
-            options.headers = {
-                'RequestVerificationToken': antiForgeryToken
-            }
-        }
-
-        return $.ajax(url, options)
+        var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem;
+        var options = getAjaxOptions(action.IsApiController.methods.single, todoItem, action, todoItem.todoItemId);
+        
+        return $.ajax(options)
             .fail(function () {
                 todoItem.errorMessage("Error updating todo item.");
             });
 
-        return ajaxRequest("put", todoItemUrl(todoItem.todoItemId), todoItem, "text")
-            .fail(function () {
-                todoItem.errorMessage("Error updating todo item.");
-            });
+        //return ajaxRequest("put", todoItemUrl(todoItem.todoItemId), todoItem, "text")
+        //    .fail(function () {
+        //        todoItem.errorMessage("Error updating todo item.");
+        //    });
     }
     function saveChangedTodoList(todoList) {
         clearErrorMessage(todoList);
@@ -134,6 +113,27 @@ window.todoApp.datacontext = (function () {
             }
         }
         return $.ajax(url, options);
+    }
+
+    function getAjaxOptions(type, data, action, id) {
+
+        var options = action.AjaxOptions();
+        options.url = action.Url;
+        if (id) {
+            options.url = options.url + "/" + id;
+        }
+        
+        options.data = data ? data.toJson() : null;
+        options.type = type;
+
+        var antiForgeryToken = $("#antiForgeryToken").val();
+        if (antiForgeryToken) {
+            options.headers = {
+                'RequestVerificationToken': antiForgeryToken
+            }
+        }
+
+        return options;
     }
 
     // routes

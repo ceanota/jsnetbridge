@@ -73,13 +73,15 @@ namespace Diphap.JsNetBridge
             this.MethodInfo = methodInfo;
 
             this.IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
-
+            
             this.IsJsonResult = AspMvcInfo.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsHttpResponseMessage = AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsActionResult = AspMvcInfo.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsViewResult = AspMvcInfo.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
         }
+
+
 
         /// <summary>
         /// Types of class.
@@ -136,23 +138,39 @@ namespace Diphap.JsNetBridge
                 StringBuilder sb = new StringBuilder();
                 sb.Append("{");
                 sb.Append(Config.VS_JsEnumKeyValue);
-                sb.Append("Url:null,");
-                sb.AppendFormat("Params:{0},", JSHelper.GetFactory(this.ToJS_Params()));
-                sb.AppendFormat("Return:{0},", JSHelper.GetFactory(this.ToJS_Return()));
 
+                sb.Append("Url:null");
 
+                sb.Append(",");
+                sb.AppendFormat("Params:{0}", JSHelper.GetFactory(this.ToJS_Params()));
+                
+                sb.Append(",");
+                sb.AppendFormat("Return:{0}", JSHelper.GetFactory(this.ToJS_Return()));
+
+                sb.Append(",");
                 if (this.IsApiController)
                 {
-                    sb.AppendFormat("IsApiController:{0},", this.IsApiController.ToString().ToLower());
-
-                    StringBuilder sb_ajax_options = GetAjaxOptions_ForWebApi();
-                    sb.AppendFormat("AjaxOptions:{0}", sb_ajax_options.ToString());
+                    string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
+                    sb.AppendFormat("IsApiController:{{ methods:{0} }}", httpMethod_jsObj);
                 }
                 else
                 {
-                    StringBuilder sb_ajax_options = GetAjaxOptions_ForMvc();
-                    sb.AppendFormat("AjaxOptions:{0}", sb_ajax_options.ToString());
+                    sb.AppendFormat("IsApiController:null");
                 }
+
+                string sb_ajax_options;
+                if (this.IsApiController)
+                {
+                    sb_ajax_options = GetAjaxOptions_ForWebApi().ToString(); 
+                }
+                else
+                {
+                    sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
+                }
+
+                sb.Append(",");
+
+                sb.AppendFormat("AjaxOptions:{0}", JSHelper.GetFactory(sb_ajax_options));
 
                 sb.Append("}");
 
@@ -170,19 +188,11 @@ namespace Diphap.JsNetBridge
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", this.IsHttpResponseMessage ? "text" : "json");
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
-
-            string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-
-            if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
-            {
-                sb_ajax_options.Append(",");
-                sb_ajax_options.AppendFormat("methods:{0}", httpMethod_jsObj);
-            }
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;
