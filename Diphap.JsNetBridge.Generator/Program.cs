@@ -22,7 +22,6 @@ namespace Diphap.JsNetBridge.Generator
                 Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: BEGIN"));
 
                 #region "First argument"
-                string dll_site = null;
                 string js_config = null;
 
                 if (args.Length > 0)
