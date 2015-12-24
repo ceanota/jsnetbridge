@@ -33,7 +33,7 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/ajaxlogin")
     @RenderSection("scripts", required: false)
-    <script src="~/Scripts/Diphap.JsNetBridge.js"></script>
+    @Scripts.Render("~/bundles/JsNetBridge");
     <script>
         @(new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
     </script>
