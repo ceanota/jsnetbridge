@@ -27,13 +27,18 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         private static string TrySerializeObject(Type tobj)
         {
-            string jsonValue = "";
-            if (tobj.GetConstructors().Any(x => x.GetParameters().Count() == 0))
-            {
-                object instance = Activator.CreateInstance(tobj);
-                jsonValue = Newtonsoft.Json.JsonConvert.SerializeObject(instance);
-            }
-            return jsonValue;
+            #region "DON'T DELETE: No dependance to Newtonsoft.Json"
+            //string jsonValue = "";
+            //if (tobj.GetConstructors().Any(x => x.GetParameters().Count() == 0))
+            //{
+            //    object instance = Activator.CreateInstance(tobj);
+            //    jsonValue = Newtonsoft.Json.JsonConvert.SerializeObject(instance);
+            //}
+            //return jsonValue;
+            #endregion
+
+            throw new NotImplementedException();
+
         }
 
         /// <summary>
