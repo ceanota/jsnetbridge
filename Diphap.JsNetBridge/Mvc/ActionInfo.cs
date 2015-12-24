@@ -1,19 +1,10 @@
 ﻿using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Dynamic;
-using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Json;
 using System.Text;
-using System.Threading.Tasks;
-using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Diphap.JsNetBridge
 {
@@ -124,8 +115,6 @@ namespace Diphap.JsNetBridge
             string jsonValue = GetJS_EmptyValue(type_return);
             return jsonValue;
         }
-
-        //static public readonly bool GetInfo = false;
 
         /// <summary>
         /// Value.
