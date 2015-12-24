@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Data.Enum;
 using System;
@@ -171,6 +172,26 @@ namespace Diphap.JsNetBridge
         {
             StringBuilder sb = new StringBuilder();
 
+            string description =
+@"/******************************************************************************************
+            {0} v{1}
+            {2}
+            {3}
+
+            http://jsnet.codeplex.com/
+            The MIT License (MIT)
+            
+            Creator:    TRAN Alexandre 
+                        tran-alexandre@hotmail.fr
+*******************************************************************************************/";
+
+            AssemblyInfo assInfo = new AssemblyInfo(Assembly.GetExecutingAssembly());
+            sb.AppendFormat(description,
+                assInfo.ProductTitle,
+                assInfo.Version,
+                assInfo.Description,
+                assInfo.Copyright);
+            sb.AppendLine();
             sb.AppendLine(JSArrayFactory.Implementation());
 
             sb.AppendLine(this.ModelInfo.ToJSCore());

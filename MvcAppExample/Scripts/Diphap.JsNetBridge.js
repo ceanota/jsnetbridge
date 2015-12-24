@@ -1,3 +1,14 @@
+/******************************************************************************************
+            Diphap.JsNetBridge v1.1.0.0
+            Build ASP.NET Objects API for javascript
+            Copyright (c)  2015 Diphap
+
+            http://jsnet.codeplex.com/
+            The MIT License (MIT)
+            
+            Creator:    TRAN Alexandre 
+                        tran-alexandre@hotmail.fr
+*******************************************************************************************/
 window.$dp = window.$dp || {};window.$dp.shared = window.$dp.shared || {};
 $dp.shared.arrayFactory=$dp.shared.arrayFactory||function (ref) {
     var aa = [];
