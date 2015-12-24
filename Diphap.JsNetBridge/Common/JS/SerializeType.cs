@@ -145,15 +145,7 @@ namespace Diphap.JsNetBridge
 
                             if (isCollection)
                             {
-                                if (false)
-                                {
-                                    value = "[" + value + "]";
-                                }
-                                else
-                                {
-                                    value = JSArrayFactory.FunctionDefinitionCall(value);
-                                }
-                                
+                                value = JSArrayFactory.FunctionDefinitionCall(value);
                             }
                         }
                         else

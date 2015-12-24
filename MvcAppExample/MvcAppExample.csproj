@@ -288,13 +288,10 @@
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.config" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.json" />
-    <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.dll" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.pdb" />
-    <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.vshost.exe" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.pdb" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Newtonsoft.Json.dll" />
     <Content Include="JsGenerators\Diphap.JsNetBridge.Generator\Newtonsoft.Json.xml" />

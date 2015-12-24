@@ -96,15 +96,7 @@ namespace Diphap.JsNetBridge
                     }
                     else
                     {
-                        if (false)
-                        {
-                            jsValue = "[" + jsValue + "]";
-                        }
-                        else
-                        {
-                            jsValue = JSArrayFactory.FunctionDefinitionCall(jsValue);
-                        }
-                        
+                        jsValue = JSArrayFactory.FunctionDefinitionCall(jsValue);
                     }
                 }
                 else
