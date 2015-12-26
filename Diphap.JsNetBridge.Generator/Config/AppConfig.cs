@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Generator.Config
     {
         public string dll_asp;
         public const string file_name_out = "Diphap.JsNetBridge";
-        public readonly string js_out = string.Format(@"Scripts\{0}.js", file_name_out);
+        internal string js_out = string.Format(@"Scripts\{0}.js", file_name_out);
         public const string file_name_exe = file_name_out + ".Generator.exe";
         public AssemblyConfig[] dll_set;
 
