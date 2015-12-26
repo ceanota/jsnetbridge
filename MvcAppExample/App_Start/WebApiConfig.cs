@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web.Http;
 using Newtonsoft.Json.Serialization;
 
-namespace MvcAppExample
+namespace SingleAppExample
 {
     public static class WebApiConfig
     {

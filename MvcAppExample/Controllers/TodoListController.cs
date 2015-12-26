@@ -6,10 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using MvcAppExample.Filters;
-using MvcAppExample.Models;
+using SingleAppExample.Filters;
+using SingleAppExample.Models;
 
-namespace MvcAppExample.Controllers
+namespace SingleAppExample.Controllers
 {
     [Authorize]
     public class TodoListController : ApiController

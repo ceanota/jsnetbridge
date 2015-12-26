@@ -7,10 +7,10 @@ using System.Web.Security;
 using DotNetOpenAuth.AspNet;
 using Microsoft.Web.WebPages.OAuth;
 using WebMatrix.WebData;
-using MvcAppExample.Filters;
-using MvcAppExample.Models;
+using SingleAppExample.Filters;
+using SingleAppExample.Models;
 
-namespace MvcAppExample.Controllers
+namespace SingleAppExample.Controllers
 {
     [Authorize]
     [InitializeSimpleMembership]

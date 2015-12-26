@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
 
-namespace MvcAppExample.Areas.HelpPage.Models
+namespace SingleAppExample.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

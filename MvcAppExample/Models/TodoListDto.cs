@@ -5,7 +5,7 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json;
 
-namespace MvcAppExample.Models
+namespace SingleAppExample.Models
 {
     /// <summary>
     /// Data transfer object for <see cref="TodoList"/>

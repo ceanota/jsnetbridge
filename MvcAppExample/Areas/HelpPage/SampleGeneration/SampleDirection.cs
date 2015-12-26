@@ -1,4 +1,4 @@
-namespace MvcAppExample.Areas.HelpPage
+namespace SingleAppExample.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

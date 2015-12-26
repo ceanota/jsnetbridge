@@ -35,7 +35,7 @@
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/JsNetBridge");
     <script>
-        @(new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
+        @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
     </script>
 </body>
 </html>

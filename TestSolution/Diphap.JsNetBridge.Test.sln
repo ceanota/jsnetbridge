@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge", "..\Di
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge.Generator", "..\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.csproj", "{31B8FA9E-A833-4BCD-89D3-0196564BCDDB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcAppExample", "..\MvcAppExample\MvcAppExample.csproj", "{C366C3F5-11BF-486D-90DE-DED2E47485CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SingleAppExample", "..\MvcAppExample\SingleAppExample.csproj", "{C366C3F5-11BF-486D-90DE-DED2E47485CB}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Diphap.JsNetBridge.Mvc", "..\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj", "{96C2625F-54A7-45E1-BBEF-BA29AA1E4B0B}"
 EndProject

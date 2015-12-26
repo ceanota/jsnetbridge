@@ -8,7 +8,7 @@ using System.Web.Http.Controllers;
 using System.Web.Http.Filters;
 using System.Web.Mvc;
 
-namespace MvcAppExample.Filters
+namespace SingleAppExample.Filters
 {
     public class ValidateHttpAntiForgeryTokenAttribute : AuthorizationFilterAttribute
     {
