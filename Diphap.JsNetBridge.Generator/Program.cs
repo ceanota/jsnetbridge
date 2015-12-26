@@ -19,7 +19,7 @@ namespace Diphap.JsNetBridge.Generator
         {
             try
             {
-                Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: BEGIN"));
+                Console.WriteLine(string.Format("{0}: BEGIN",config.file_name_exe));
 
                 #region "First argument"
                 string js_config = null;
@@ -74,7 +74,7 @@ namespace Diphap.JsNetBridge.Generator
                     throw ex;
                 }
 
-                Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: SUCCESS"));
+                Console.WriteLine(string.Format("{0}: SUCCESS",config.file_name_exe));
 
             }
             catch (Exception ex)

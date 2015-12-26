@@ -17,7 +17,9 @@ namespace Diphap.JsNetBridge.Generator.Config
     public class config
     {
         public string dll_asp;
-        public string js_out = @"Scripts\Diphap.JsNetBridge.js";
+        public const string file_name_out = "Diphap.JsNetBridge";
+        public readonly string js_out = string.Format(@"Scripts\{0}.js", file_name_out);
+        public const string file_name_exe = file_name_out + ".Generator.exe";
         public AssemblyConfig[] dll_set;
 
         internal string json_content;
@@ -68,7 +70,7 @@ namespace Diphap.JsNetBridge.Generator.Config
 
             config _config = ExtractConfig(config_content);
 
-            Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "_config.dll_asp", _config.dll_asp));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.dll_asp", _config.dll_asp, file_name_exe));
 
             if (Path.IsPathRooted(_config.dll_asp))
             {
@@ -116,9 +118,9 @@ namespace Diphap.JsNetBridge.Generator.Config
             _config.dll_asp_absolute = new FileInfo(dll_asp).FullName;
             #endregion
 
-            Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "_config.folder_site_absolute", _config.folder_site_absolute));
-            Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "_config.file_js_absolute", _config.file_js_absolute));
-            Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "_config.dll_asp_absolute", _config.dll_asp_absolute));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.folder_site_absolute", _config.folder_site_absolute, file_name_exe));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.file_js_absolute", _config.file_js_absolute, file_name_exe));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.dll_asp_absolute", _config.dll_asp_absolute, file_name_exe));
 
             return _config;
         }
@@ -128,7 +130,7 @@ namespace Diphap.JsNetBridge.Generator.Config
             string config_file = null;
             string path_exe = System.Reflection.Assembly.GetEntryAssembly().Location;
             string folder_bin = Path.GetDirectoryName(path_exe);
-            Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "path_exe", path_exe));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "path_exe", path_exe, file_name_exe));
 
             if (string.IsNullOrWhiteSpace(config_content))
             {
@@ -141,7 +143,7 @@ namespace Diphap.JsNetBridge.Generator.Config
                 }
 
                 config_content = File.ReadAllText(config_content).Replace(@"\", "/");
-                Console.WriteLine(string.Format("Diphap.JsNetBridge.Generator.exe: [{0}:{1}]", "config_file", config_file));
+                Console.WriteLine(string.Format("{2}: [{0}:{1}]", "config_file", config_file, file_name_exe));
             }
             else
             {
