@@ -13,7 +13,7 @@ using System.Text;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Diphap.JsNetBridge
+namespace Diphap.JsNetBridge.Mvc
 {
 
     /// <summary>

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Diphap.JsNetBridge
+namespace Diphap.JsNetBridge.Mvc
 {
     /// <summary>
     /// Informations on action method.

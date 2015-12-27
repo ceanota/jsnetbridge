@@ -10,14 +10,14 @@
             
             Creator:    TRAN Alexandre 
                         tran-alexandre@hotmail.fr
-            Created:    27/12/2015 17:13:50, 01:00:00, Paris, Madrid (heure d’été)
+            Created:    27/12/2015 20:10:44, 01:00:00, Paris, Madrid (heure d’été)
 */
 //#endregion
 
 
 //#region "GET STARTED"
 /***************************************************************************************************************
-            //GET STARTED: Here's an example to start using the software:
+            //GET STARTED: Here's an example to start using the API:
 ***************************************************************************************************************/
 // 1- Paste this code into the file 'BundleConfig.cs' in the function 'RegisterBundles' of the class 'BundleConfig':
 
@@ -26,14 +26,14 @@
 
 // 2- Paste this code into the file 'Global.asax.cs' in class 'MvcApplication':
 
-            //static Diphap.JsNetBridge.AspMvcInfo _AspMvcInfo;
-            //static public Diphap.JsNetBridge.AspMvcInfo AspMvcInfo
+            //static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+            //static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
             //{
             //    get
             //    {
             //        if (_AspMvcInfo == null)
             //        {
-            //            _AspMvcInfo = new Diphap.JsNetBridge.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
+            //            _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
             //        }
 
             //        return _AspMvcInfo;
@@ -44,8 +44,11 @@
 
             //@Scripts.Render("~/bundles/JsNetBridge")
             //<script>
-            //    @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
+            //    @(new MvcHtmlString({MyApplicationWeb}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
             //</script>
+
+// 4- Replace the word '{MyApplicationWeb}' with the name of your web application.
+
 //#endregion
 
 

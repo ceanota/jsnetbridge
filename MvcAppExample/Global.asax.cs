@@ -1,5 +1,4 @@
-﻿using Diphap.JsNetBridge;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -26,15 +25,15 @@ namespace MvcAppExample
             AuthConfig.RegisterAuth();
         }
 
-        static AspMvcInfo _AspMvcInfo;
-        public static AspMvcInfo AspMvcInfo
+        static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+        public static Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
         {
             get 
             {
 
                 if (_AspMvcInfo == null)
                 {
-                    _AspMvcInfo = new AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
+                    _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
                 }
                 return _AspMvcInfo;
             }

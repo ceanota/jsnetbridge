@@ -11,6 +11,7 @@ namespace Diphap.JsNetBridge.Mvc
     {
         static public string FileInfo(AssemblyInfo assInfo)
         {
+            #region "Literal"
             string descriptionFormat =
 @"
 //#region ""COPYRIGHT""
@@ -28,6 +29,7 @@ namespace Diphap.JsNetBridge.Mvc
 */
 //#endregion
 ";
+            #endregion
 
             string description = string.Format(descriptionFormat,
                 assInfo.ProductTitle,
@@ -43,11 +45,12 @@ namespace Diphap.JsNetBridge.Mvc
 
         static public string GetStarted()
         {
+            #region"Literal"
             string text =
 @"
 //#region ""GET STARTED""
 /***************************************************************************************************************
-            //GET STARTED: Here's an example to start using the software:
+            //GET STARTED: Here's an example to start using the API:
 ***************************************************************************************************************/
 // 1- Paste this code into the file 'BundleConfig.cs' in the function 'RegisterBundles' of the class 'BundleConfig':
 
@@ -56,14 +59,14 @@ namespace Diphap.JsNetBridge.Mvc
 
 // 2- Paste this code into the file 'Global.asax.cs' in class 'MvcApplication':
 
-            //static Diphap.JsNetBridge.AspMvcInfo _AspMvcInfo;
-            //static public Diphap.JsNetBridge.AspMvcInfo AspMvcInfo
+            //static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+            //static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
             //{
             //    get
             //    {
             //        if (_AspMvcInfo == null)
             //        {
-            //            _AspMvcInfo = new Diphap.JsNetBridge.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
+            //            _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
             //        }
 
             //        return _AspMvcInfo;
@@ -74,10 +77,15 @@ namespace Diphap.JsNetBridge.Mvc
 
             //@Scripts.Render(""~/bundles/JsNetBridge"")
             //<script>
-            //    @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
+            //    @(new MvcHtmlString({MyApplicationWeb}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
             //</script>
+
+// 4- Replace the word '{MyApplicationWeb}' with the name of your web application.
+
 //#endregion
 ";
+            #endregion
+
             return text;
         }
     }

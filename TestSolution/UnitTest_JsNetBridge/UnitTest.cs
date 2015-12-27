@@ -14,6 +14,7 @@ using System.IO;
 using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data.Enum;
 using Diphap.JsNetBridge.Data;
+using Diphap.JsNetBridge.Mvc;
 
 namespace UnitTest_JsNetBridge
 {

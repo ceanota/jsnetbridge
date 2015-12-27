@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge
+namespace Diphap.JsNetBridge.Mvc
 {
     public class AreaInfo
     {

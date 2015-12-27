@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Diphap.JsNetBridge
+namespace Diphap.JsNetBridge.Mvc
 {
     public class UrlInfo
     {

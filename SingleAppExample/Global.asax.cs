@@ -25,14 +25,14 @@ namespace SingleAppExample
             AuthConfig.RegisterAuth();
         }
 
-        static Diphap.JsNetBridge.AspMvcInfo _AspMvcInfo;
-        static public Diphap.JsNetBridge.AspMvcInfo AspMvcInfo
+        static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+        static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
         {
             get
             {
                 if (_AspMvcInfo == null)
                 {
-                    _AspMvcInfo = new Diphap.JsNetBridge.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
+                    _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
                 }
 
                 return _AspMvcInfo;
