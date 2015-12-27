@@ -25,7 +25,6 @@ namespace Diphap.JsNetBridge.Mvc
             
             Creator:    TRAN Alexandre 
                         tran-alexandre@hotmail.fr
-            Created:    {4}, {5}, {6}
 */
 //#endregion
 ";
@@ -35,10 +34,7 @@ namespace Diphap.JsNetBridge.Mvc
                 assInfo.ProductTitle,
                 assInfo.Version,
                 assInfo.Description,
-                assInfo.Copyright,
-                DateTime.Now.ToString(),
-                TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now),
-                TimeZone.CurrentTimeZone.DaylightName);
+                assInfo.Copyright);
 
             return description;
         }
