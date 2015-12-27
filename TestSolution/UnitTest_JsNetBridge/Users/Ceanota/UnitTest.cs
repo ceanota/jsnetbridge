@@ -16,7 +16,7 @@ using Diphap.JsNetBridge.Data.Enum;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc;
 
-namespace UnitTest_JsNetBridge
+namespace UnitTest_JsNetBridge.Users.Ceanota
 {
     [TestClass]
     public class UnitTest
