@@ -2,6 +2,7 @@
 using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Data.Enum;
+using Diphap.JsNetBridge.Mvc;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -170,27 +171,10 @@ namespace Diphap.JsNetBridge
         {
             StringBuilder sb = new StringBuilder();
 
-            string description =
-@"/******************************************************************************************
-            {0} v{1}
-            {2}
-            {3}
+            sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
 
-            http://jsnet.codeplex.com/
-            The MIT License (MIT)
-            
-            Creator:    TRAN Alexandre 
-                        tran-alexandre@hotmail.fr
-            Created:    {4}, {5}, {6}
-*******************************************************************************************/";
+            sb.AppendLine(LiteralText.GetStarted());
 
-            AssemblyInfo assInfo = new AssemblyInfo(Assembly.GetExecutingAssembly());
-            sb.AppendFormat(description,
-                assInfo.ProductTitle,
-                assInfo.Version,
-                assInfo.Description,
-                assInfo.Copyright,
-                DateTime.Now.ToString(), TimeZone.CurrentTimeZone.GetUtcOffset(DateTime.Now), TimeZone.CurrentTimeZone.DaylightName);
             sb.AppendLine();
             sb.AppendLine(JSArrayFactory.Implementation());
 
