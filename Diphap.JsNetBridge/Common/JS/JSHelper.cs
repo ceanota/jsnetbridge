@@ -72,7 +72,7 @@ namespace Diphap.JsNetBridge
             {
                 jsValue = "\"\"";
             }
-            else if (TypeHelper.IsNumber(tmember) ||TypeHelper.IsEnum(tmember))
+            else if (TypeHelper.IsNumber(tmember) || TypeHelper.IsEnum(tmember))
             {
                 jsValue = "0";
             }
@@ -111,15 +111,23 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
         /// </summary>
+        /// <param name="jsObj">JS object.</param>
+        /// <param name="constructorName">function name.</param>
         /// <returns></returns>
-        static public string GetFactory(string jsObj)
+        static public string GetFactory(string jsObj, string constructorName = null)
         {
             if ((string.IsNullOrWhiteSpace(jsObj) == false) == false)
             {
                 throw new ArgumentNullException("jsObj");
             }
 
-            return string.Format("function(){{ return {0}; }}", jsObj);
+            string constructorInstruction = null;
+            if (string.IsNullOrWhiteSpace(constructorName) == false)
+            {
+                constructorInstruction = string.Format("obj.constructor={0};", constructorName);
+            }
+
+            return string.Format("function(){{ var obj = {0};{1} return obj; }}", jsObj, constructorInstruction);
         }
 
         /// <summary>
@@ -141,7 +149,18 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetFactoryDeclaration(Type t, string jsObj)
         {
-            return GetObjectDeclaration(t, GetFactory(jsObj));
+            return GetObjectDeclaration(t, GetFactory(jsObj, GetObjectFullName(t)));
+        }
+
+        /// <summary>
+        /// full name of object.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        static public string GetObjectFullName(Type t)
+        {
+            string objFullname = string.Format("{0}.{1}", Config.prefix_ns, t.FullName.Replace("+", "."));
+            return objFullname;
         }
 
         /// <summary>
@@ -152,7 +171,19 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetObjectDeclaration(Type t, string jsObj)
         {
-            return string.Format("{0}.{1} = {0}.{1} || {2};", Config.prefix_ns, t.FullName.Replace("+", "."), jsObj);
+            return GetObjectDeclaration(GetObjectFullName(t), jsObj);
         }
+
+        /// <summary>
+        /// $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
+        /// </summary>
+        /// <param name="objectFullName"></param>
+        /// <param name="jsObj"></param>
+        /// <returns></returns>
+        static public string GetObjectDeclaration(string objectFullName, string jsObj)
+        {
+            return string.Format("{0} = {0} || {1};", objectFullName, jsObj);
+        }
+
     }
 }
