@@ -29,6 +29,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -37,8 +38,21 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Diphap.JsNetBridge, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Diphap.JsNetBridge.Generator, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.Generator.exe</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -310,20 +324,6 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.csproj">
-      <Project>{31b8fa9e-a833-4bcd-89d3-0196564bcddb}</Project>
-      <Name>Diphap.JsNetBridge.Generator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj">
-      <Project>{96c2625f-54a7-45e1-bbef-ba29aa1e4b0b}</Project>
-      <Name>Diphap.JsNetBridge.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj">
-      <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
-      <Name>Diphap.JsNetBridge</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -353,7 +353,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)..\Diphap.JsNetBridge.Generator\bin\Release\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)bin\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
