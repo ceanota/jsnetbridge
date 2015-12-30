@@ -42,15 +42,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Diphap.JsNetBridge, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="Diphap.JsNetBridge.Generator, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.Generator.exe</HintPath>
+      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.4\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.3\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.4\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -287,6 +283,16 @@
     <Content Include="Content\themes\base\minified\jquery.ui.slider.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.dll" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.XML" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.dll" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.xml" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.xml" />
+    <Content Include="Diphap.JsNetBridge.Generator\Newtonsoft.Json.dll" />
+    <Content Include="Diphap.JsNetBridge.Generator\Newtonsoft.Json.xml" />
+    <Content Include="Diphap.JsNetBridge.Generator\System.Web.Mvc.dll" />
+    <Content Include="Diphap.JsNetBridge.Generator\System.Web.Mvc.xml" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -300,6 +306,8 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\HelpPageApiModel.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.json" />
+    <Content Include="Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\Diphap.JsNetBridge.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
@@ -396,7 +404,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)bin\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.                                                                                      
        Other similar extension points exist, see Microsoft.Common.targets.                                                                                                                

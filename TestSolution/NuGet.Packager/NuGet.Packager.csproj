@@ -51,8 +51,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="lib\net45\Diphap.JsNetBridge.Generator.exe.config" />
-    <None Include="lib\net45\Diphap.JsNetBridge.Generator.exe.json" />
+    <None Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.config" />
+    <None Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.json" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
@@ -63,15 +63,24 @@
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="content\" />
     <Folder Include="src\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.dll" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.pdb" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.XML" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.dll" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.pdb" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.xml" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.pdb" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.xml" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Newtonsoft.Json.dll" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Newtonsoft.Json.xml" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\System.Web.Mvc.dll" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\System.Web.Mvc.xml" />
     <Content Include="Icon.png" />
     <Content Include="lib\net45\Diphap.JsNetBridge.dll" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.pdb" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.XML" />
     <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
     <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.pdb" />
     <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.xml" />
