@@ -83,7 +83,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var u in ci.ActionInfoCol)
                     {
-                        RouteValueDictionary dic = new RouteValueDictionary();
+                        Dictionary<string, object> dic = new Dictionary<string, object>();
 
                         if (string.IsNullOrWhiteSpace(u.Area) == false)
                         {
