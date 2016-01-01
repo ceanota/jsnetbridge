@@ -57,34 +57,21 @@
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
     <None Include="NuGet.config" />
-    <None Include="Package.nuspec" />
+    <None Include="src\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="tools\init.ps1" />
     <None Include="tools\install.ps1" />
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="src\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.dll" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.pdb" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.XML" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.pdb" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Mvc.xml" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.pdb" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.xml" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Newtonsoft.Json.dll" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\Newtonsoft.Json.xml" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\System.Web.Mvc.dll" />
-    <Content Include="content\Diphap.JsNetBridge.Generator\System.Web.Mvc.xml" />
+    <Content Include="content\Diphap.JsNetBridge.Generator\Readme.txt" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge.js" />
     <Content Include="Icon.png" />
     <Content Include="lib\net45\Diphap.JsNetBridge.dll" />
+    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.exe" />
+    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.XML" />
     <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.pdb" />
     <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.xml" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.pdb" />
     <Content Include="lib\net45\Diphap.JsNetBridge.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

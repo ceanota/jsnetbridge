@@ -15,7 +15,7 @@
 
         errorSummary.find('ul').empty().append(items);
     };
-
+    
     var formSubmitHandler = function (e) {
         var $form = $(this);
 

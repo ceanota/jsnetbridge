@@ -164,11 +164,11 @@ function Write-Log {
 				2011-03-10 : Andy Arismendi - Created.
 	#>
 }
-
+	
 $choices = [System.Management.Automation.Host.ChoiceDescription[]](
 	(New-Object System.Management.Automation.Host.ChoiceDescription "&Add API Key","Add an API Key for this URL"),
 	(New-Object System.Management.Automation.Host.ChoiceDescription "&Skip","Skip pushing to this URL"))
-
+	 
 	Write-Output ""
 	Write-Log "Invalid API key for this repository URL, or there is a version conflict" Warn
 
