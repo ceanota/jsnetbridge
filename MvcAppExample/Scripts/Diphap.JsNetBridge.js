@@ -55,7 +55,10 @@ window.$dp = window.$dp || {};window.$dp.shared = window.$dp.shared || {};
 $dp.shared.arrayFactory=$dp.shared.arrayFactory||function (ref) {
     var aa = [];
     aa.$dpItemFactory = function () {
-        return ref;
+        var result;
+        if(typeof ref === 'function'){ result = ref(); }
+        else { result = ref; }
+        return result;
     };
     return aa;
 };

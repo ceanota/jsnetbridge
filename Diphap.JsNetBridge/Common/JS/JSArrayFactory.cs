@@ -25,7 +25,10 @@ namespace Diphap.JsNetBridge.Common.JS
 @"function (ref) {
     var aa = [];
     aa.$dpItemFactory = function () {
-        return ref;
+        var result;
+        if(typeof ref === 'function'){ result = ref(); }
+        else { result = ref; }
+        return result;
     };
     return aa;
 };";

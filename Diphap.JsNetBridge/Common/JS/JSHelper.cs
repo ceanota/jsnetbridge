@@ -10,6 +10,27 @@ namespace Diphap.JsNetBridge
     public class JSHelper
     {
         /// <summary>
+        /// Get name of object factory.
+        /// </summary>
+        /// <param name="telem_work"></param>
+        /// <param name="isCollection"></param>
+        /// <param name="functionReference"></param>
+        /// <returns></returns>
+        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference = true)
+        {
+            string jsvalue = string.Format("{0}.{1}()", Config.prefix_ns, telem_work.FullName.Replace("+", "."));
+            if (isCollection)
+            {
+                jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
+            }
+            if (functionReference)
+            {
+                jsvalue = jsvalue.Replace("()", null);
+            }
+            return jsvalue;
+        }
+
+        /// <summary>
         /// Create namespace.
         /// </summary>
         /// <param name="js_obj_fullName"></param>

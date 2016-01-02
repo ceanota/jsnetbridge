@@ -50,11 +50,11 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <summary>
         /// Get element type of collection if 't' is collection other else return 't'. 
         /// </summary>
-        public Type[] TComplexMembers 
+        public Type[] TComplexMembers
         {
-            get 
+            get
             {
-                if (_TComplexMembers == null) 
+                if (_TComplexMembers == null)
                 {
                     _TComplexMembers = this.ComplexMembers.Select(mi => TypeHelper.GetElementTypeOfCollectionOrDefault(TypeHelper.GetMemberType(mi))).ToArray();
                 }
@@ -114,37 +114,47 @@ namespace Diphap.JsNetBridge.Common.JS
                         {
                             TypesIgnored.Add(tmem);
 
-                            string js_key_value;
-                            if (isCollection)
-                            {
-                                string jsvalue = string.Format("{0}.{1}()", prefix_namespace, telem_work.FullName.Replace("+", "."));
-                                jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
-                                js_key_value = string.Format("\"{0}\":{1}", mi.Name, jsvalue);
-                            }
-                            else
-                            {
-                                js_key_value = string.Format("\"{0}\":{1}.{2}()", mi.Name, prefix_namespace, telem_work.FullName.Replace("+", "."));
-                            }
-
+                            string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
                             js_key_value_list.Add(js_key_value);
-
-
                         }
                     }
                 }
             }
         }
 
+        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, bool functionReference)
+        {
+            return string.Format("\"{0}\":{1}", mi.Name, JSHelper.GetObjectFactoryName(telem_work, isCollection, functionReference));
+        }
+
         /// <summary>
         /// Force.
         /// </summary>
         /// <param name="mi"></param>
-        /// <param name="value"></param>
-        public void ResolveComplexMember(MemberInfo mi, string value)
+        /// <param name="jsvalue"></param>
+        public void ResolveComplexMember(MemberInfo mi, string jsvalue)
         {
             if (this.ComplexMembers.Contains(mi))
             {
-                js_key_value_list.Add(string.Format("\"{0}\":{1}", mi.Name, value));
+                //string valueTemp = jsvalue;
+                //if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
+                //{
+                //    valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
+                //}
+                //string js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
+
+                Type tmem = TypeHelper.GetMemberType(mi);
+                Type telem_work;
+                bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                if (isCollection == false)
+                {
+                    telem_work = tmem;
+                }
+
+                string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
+
+                js_key_value_list.Add(js_key_value);
                 this.ComplexMembers.Remove(mi);
             }
         }

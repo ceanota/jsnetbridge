@@ -64,7 +64,7 @@ namespace Diphap.JsNetBridge.Mvc
             this.MethodInfo = methodInfo;
 
             this.IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
-            
+
             this.IsJsonResult = AspMvcInfo.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsHttpResponseMessage = AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsActionResult = AspMvcInfo.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
@@ -132,7 +132,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.Append(",");
                 sb.AppendFormat("Params:{0}", JSHelper.GetFactory(this.ToJS_Params()));
-                
+
                 sb.Append(",");
                 sb.AppendFormat("Return:{0}", JSHelper.GetFactory(this.ToJS_Return()));
 
@@ -150,7 +150,7 @@ namespace Diphap.JsNetBridge.Mvc
                 string sb_ajax_options;
                 if (this.IsApiController)
                 {
-                    sb_ajax_options = GetAjaxOptions_ForWebApi().ToString(); 
+                    sb_ajax_options = GetAjaxOptions_ForWebApi().ToString();
                 }
                 else
                 {
@@ -209,7 +209,7 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
-        /// Key and value.
+        /// Key and jsvalue.
         /// [action_name: {url:null, param:null, return:null }]
         /// </summary>
         public string JsKeyValue
@@ -268,19 +268,13 @@ namespace Diphap.JsNetBridge.Mvc
 
                 jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType);
 
-                if (jsValue.Contains("test"))
-                {
-
-                }
-
-
                 jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
             }
             return jsParams;
         }
 
         /// <summary>
-        /// Get empty value of type in js.
+        /// Get empty jsvalue of type in js.
         /// </summary> 
         /// <param name="t"></param>
         /// <returns></returns>
@@ -289,27 +283,24 @@ namespace Diphap.JsNetBridge.Mvc
             string jsValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsValue))
             {
-                //-- it's class so, we use factory.
-
+                //-- it's class so, we use functionReference.
                 Type telem_work;
+                bool isCollection = TypeHelper.GetElementTypeOfCollection(t, out telem_work);
 
-                if (TypeHelper.GetElementTypeOfCollection(t, out telem_work))
+                if (isCollection == false)
                 {
-                    //-- Type is collection, so telem_work is used.
-                    jsValue = string.Format("{0}.{1}()", Config.prefix_ns, telem_work.FullName.Replace("+", "."));//for nested type.
-                    jsValue = JSArrayFactory.FunctionDefinitionCall(jsValue);
+                    telem_work = t;
                 }
-                else
-                {
-                    jsValue = string.Format("{0}.{1}()", Config.prefix_ns, t.FullName.Replace("+", "."));//for nested type.
-                }
+
+                jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
+
             }
 
             return jsValue;
         }
 
         /// <summary>
-        /// Get empty value of type in js.
+        /// Get empty jsvalue of type in js.
         /// </summary> 
         /// <param name="t"></param>
         /// <returns></returns>

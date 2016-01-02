@@ -58,14 +58,14 @@
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_EmptyValue_WithFactory(System.Type)">
             <summary>
-            Get empty value of type in js.
+            Get empty jsvalue of type in js.
             </summary> 
             <param name="t"></param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_EmptyValue(System.Type)">
             <summary>
-            Get empty value of type in js.
+            Get empty jsvalue of type in js.
             </summary> 
             <param name="t"></param>
             <returns></returns>
@@ -109,7 +109,7 @@
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsKeyValue">
             <summary>
-            Key and value.
+            Key and jsvalue.
             [action_name: {url:null, param:null, return:null }]
             </summary>
         </member>
@@ -210,7 +210,7 @@
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(System.Web.Mvc.WebViewPage,System.String)">
             <summary>
-            Set url value.
+            Set url jsvalue.
             </summary>
             <param name="webViewPage"></param>
             <param name="apiRouteName"></param>

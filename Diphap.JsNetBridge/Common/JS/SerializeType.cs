@@ -62,18 +62,50 @@ namespace Diphap.JsNetBridge
         /// </summary>
         public Dictionary<Type, TypeSorter> SimpleTypes = new Dictionary<Type, TypeSorter>();
 
-       
+
         public List<Type> TypesToIgnore = new List<Type>();
 
-        class Recursive
+        public class GlobalRecursiveContext
         {
-            public Dictionary<Type, int> TMembers = new Dictionary<Type, int>();
-            public int Idx = 0;
-            public int IdxMax = 10;
+            readonly public Dictionary<Type, int> Occurences = new Dictionary<Type, int>();
+            readonly int _IdxMax;
+            readonly Type TObj;
+            public int Idx { get; private set; }
+
+            public GlobalRecursiveContext(int idx_max, Type tobj)
+            {
+                this.TObj = tobj;
+                this._IdxMax = idx_max;
+            }
+
+            public void Add(Type tmemb)
+            {
+                this.Idx++;
+                if (Occurences.ContainsKey(tmemb) == false)
+                {
+                    Occurences.Add(tmemb, 0);
+                }
+                else
+                {
+                    Occurences[tmemb]++;
+                }
+            }
+
+            public bool TestOverFlow(Type tmem)
+            {
+                return this.Occurences.ContainsKey(tmem) && this.Occurences[tmem] > this._IdxMax;
+            }
+
+            public override string ToString()
+            {
+                string text = string.Format("{0}, {1}", this.Idx, this.TObj);
+                return text;
+            }
         }
 
         private List<Type> TMembersOfCurrentParent = new List<Type>();
-        public int idx_max = 10;
+        public int idx_max = 0;
+        private Diphap.JsNetBridge.SerializeType.GlobalRecursiveContext Context_global;
 
         /// <summary>
         /// Serialalize type.
@@ -85,12 +117,10 @@ namespace Diphap.JsNetBridge
         {
             int _idx = 0;
             TMembersOfCurrentParent.Clear();
-
+            Context_global = new GlobalRecursiveContext(idx_max, tobj);
             Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
-            string result = this.Execute(tobj, this.idx_max, ref _idx, context_old, exclude);
 
-            _idx = 0;
-            TMembersOfCurrentParent.Clear();
+            string result = this.Execute(tobj, this.idx_max, ref _idx, context_old, exclude);
 
             return result;
         }
@@ -143,7 +173,8 @@ namespace Diphap.JsNetBridge
                     {
                         if (context_old == null ||
                             context_old != null && telem_work != context_old.Tobj &&
-                            (this.TMembersOfCurrentParent.Contains(telem_work) == false || (this.TMembersOfCurrentParent.Contains(telem_work) == true && _idx <= _idx_max)))
+                            this.Context_global.TestOverFlow(telem_work) == false)
+                        //(this.TMembersOfCurrentParent.Contains(telem_work) == false || (this.TMembersOfCurrentParent.Contains(telem_work) == true && _idx <= _idx_max)))
                         {
                             _idx++;
                             if (this.TMembersOfCurrentParent.Contains(telem_work) == false)
@@ -151,13 +182,26 @@ namespace Diphap.JsNetBridge
                                 TMembersOfCurrentParent.Add(telem_work);
                             }
 
+                            Context_global.Add(telem_work);
+
                             value = Execute(telem_work, _idx_max, ref _idx,
                                 new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
 
                         }
                         else
                         {
-                            value = context_old.GetJsonValue();
+                            if (telem_work == context_old.Tobj)
+                            {
+                                value = context_old.GetJsonValue();
+                            }
+                            else
+                            {
+                                value = "{}";
+                                if (this.SimpleTypes.ContainsKey(telem_work)) 
+                                {
+                                    value = this.SimpleTypes[telem_work].JSValue;
+                                }
+                            }
 
                             //-- it's recursive member.
                             tSorter.ResolveComplexMember(mi, value);

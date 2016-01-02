@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
-        /// Set url value.
+        /// Set url jsvalue.
         /// </summary>
         /// <param name="webViewPage"></param>
         /// <param name="apiRouteName"></param>
