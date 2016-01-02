@@ -62,29 +62,35 @@ namespace Diphap.JsNetBridge
         /// </summary>
         public Dictionary<Type, TypeSorter> SimpleTypes = new Dictionary<Type, TypeSorter>();
 
-        private List<Type> TMembersOfCurrentParent = new List<Type>();
-        private const int _idx_max2 = 10;
-
+       
         public List<Type> TypesToIgnore = new List<Type>();
+
+        class Recursive
+        {
+            public Dictionary<Type, int> TMembers = new Dictionary<Type, int>();
+            public int Idx = 0;
+            public int IdxMax = 10;
+        }
+
+        private List<Type> TMembersOfCurrentParent = new List<Type>();
+        public int idx_max = 10;
 
         /// <summary>
         /// Serialalize type.
         /// </summary>
         /// <param name="tobj"></param>
-        /// <param name="_idx_max"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        public string Execute(Type tobj, int _idx_max, string exclude = "System.")
+        public string Execute(Type tobj, string exclude = "System.")
         {
             int _idx = 0;
             TMembersOfCurrentParent.Clear();
 
             Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
-            string result = this.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
+            string result = this.Execute(tobj, this.idx_max, ref _idx, context_old, exclude);
 
             _idx = 0;
             TMembersOfCurrentParent.Clear();
-            
 
             return result;
         }
@@ -100,8 +106,6 @@ namespace Diphap.JsNetBridge
         internal string Execute(Type tobj, int _idx_max,
             ref int _idx, PrevisousRecursiveContext context_old = null, string exclude = "System.")
         {
-
-
             TypeSorter tSorter = new TypeSorter(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
@@ -116,66 +120,63 @@ namespace Diphap.JsNetBridge
 
                 Type tmem = TypeHelper.GetMemberType(mi);
 
-                if (_idx < _idx_max)
+                Type telem_work;
+                bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                if (isCollection == false)
                 {
-                    Type telem_work;
-                    bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+                    telem_work = tmem;
+                }
+                else
+                {
+                    value = "[]";
+                }
 
-                    if (isCollection == false)
+                if (typeof(System.Object) == telem_work)
+                {
+                    value = "{}";
+                    tSorter.ResolveComplexMember(mi, value);
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(exclude) || (string.IsNullOrWhiteSpace(exclude) == false && telem_work.FullName != null && telem_work.FullName.Contains(exclude) == false))
                     {
-                        telem_work = tmem;
-                    }
-                    else
-                    {
-                        value = "[]";
-                    }
-
-                    if (typeof(System.Object) == telem_work)
-                    {
-                        value = "{}";
-                        tSorter.ResolveComplexMember(mi, value);
-                    }
-                    else
-                    {
-                        if (string.IsNullOrWhiteSpace(exclude) || (string.IsNullOrWhiteSpace(exclude) == false && telem_work.FullName != null && telem_work.FullName.Contains(exclude) == false))
+                        if (context_old == null ||
+                            context_old != null && telem_work != context_old.Tobj &&
+                            (this.TMembersOfCurrentParent.Contains(telem_work) == false || (this.TMembersOfCurrentParent.Contains(telem_work) == true && _idx <= _idx_max)))
                         {
-                            if (context_old == null ||
-                                context_old != null && telem_work != context_old.Tobj &&
-                                (this.TMembersOfCurrentParent.Contains(telem_work) == false || (this.TMembersOfCurrentParent.Contains(telem_work) == true && _idx <= _idx_max2)))
+                            _idx++;
+                            if (this.TMembersOfCurrentParent.Contains(telem_work) == false)
                             {
-                                _idx++;
-                                if (this.TMembersOfCurrentParent.Contains(telem_work) == false)
-                                {
-                                    TMembersOfCurrentParent.Add(telem_work);
-                                }
-
-                                value = Execute(telem_work, _idx_max, ref _idx,
-                                    new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
-
-                            }
-                            else
-                            {
-                                value = context_old.GetJsonValue();
-
-                                //-- it's recursive member.
-                                tSorter.ResolveComplexMember(mi, value);
+                                TMembersOfCurrentParent.Add(telem_work);
                             }
 
-                            if (string.IsNullOrWhiteSpace(value))
-                            {
-                                value = "{}";
-                            }
+                            value = Execute(telem_work, _idx_max, ref _idx,
+                                new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
 
-                            if (isCollection)
-                            {
-                                value = JSArrayFactory.FunctionDefinitionCall(value);
-                            }
                         }
                         else
                         {
-                            value = "{}";
+                            value = context_old.GetJsonValue();
+
+                            //-- it's recursive member.
                             tSorter.ResolveComplexMember(mi, value);
                         }
+
+                        if (string.IsNullOrWhiteSpace(value))
+                        {
+                            value = "{}";
+                        }
+
+                        if (isCollection)
+                        {
+                            value = JSArrayFactory.FunctionDefinitionCall(value);
+                        }
+                    }
+                    else
+                    {
+                        value = "{}";
+                        tSorter.ResolveComplexMember(mi, value);
                     }
                 }
 
@@ -189,8 +190,6 @@ namespace Diphap.JsNetBridge
             {
                 SimpleTypes.Add(tobj, tSorter);
             }
-
-            _idx++;
 
             return jsonValue;
         }

@@ -107,6 +107,11 @@
             <param name="mi"></param>
             <param name="value"></param>
         </member>
+        <member name="P:Diphap.JsNetBridge.Common.JS.TypeSorter.TComplexMembers">
+            <summary>
+            Get element type of collection if 't' is collection other else return 't'. 
+            </summary>
+        </member>
         <member name="T:Diphap.JsNetBridge.SerializeEnum">
             <summary>
             Serialize Enum

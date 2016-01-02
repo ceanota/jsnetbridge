@@ -45,17 +45,17 @@ namespace Diphap.JsNetBridge
         /// Serialize type.
         /// </summary>
         /// <param name="tobj"></param>
-        /// <param name="_idx_max"></param>
+        /// 
         /// <param name="exclude"></param>
         /// <returns></returns>
-        private static string TrySerializeType(Type tobj, int _idx_max, string exclude = "System.")
+        private static string TrySerializeType(Type tobj, string exclude = "System.")
         {
             //int _idx = 0;
             //Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
             //return SerializeType.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
 
             SerializeType st = new SerializeType();
-            return st.Execute(tobj, _idx_max, exclude);
+            return st.Execute(tobj, exclude);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Diphap.JsNetBridge
                     jsValue = TrySerializeObject(tobj);
                     break;
                 case EnumTrySerialize.TrySerializeType:
-                    jsValue = TrySerializeType(tobj, int.MaxValue);
+                    jsValue = TrySerializeType(tobj);
                     break;
                 default:
                     throw new NotImplementedException("TrySerialize");
