@@ -20,7 +20,7 @@ namespace Diphap.JsNetBridge.Generator
         {
             try
             {
-                Console.WriteLine(string.Format("{0}: BEGIN",config.file_name_exe));
+                Console.WriteLine(string.Format("{0}: BEGIN", config.file_name_exe));
 
                 #region "First argument"
                 string js_config = null;
@@ -75,11 +75,20 @@ namespace Diphap.JsNetBridge.Generator
                     throw ex;
                 }
 
-                Console.WriteLine(string.Format("{0}: SUCCESS",config.file_name_exe));
+                Console.WriteLine(string.Format("{0}: SUCCESS", config.file_name_exe));
 
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                Console.WriteLine(DateTime.Now);
+                foreach (var item in ex.LoaderExceptions)
+                {
+                    Console.WriteLine(item.Message);
+                }
             }
             catch (Exception ex)
             {
+
                 Console.WriteLine(ex.Message);
                 throw ex;
             }

@@ -1,4 +1,5 @@
 ﻿using Diphap.JsNetBridge.Common.JS;
+using Diphap.JsNetBridge.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -61,6 +62,9 @@ namespace Diphap.JsNetBridge
         /// </summary>
         public Dictionary<Type, TypeSorter> SimpleTypes = new Dictionary<Type, TypeSorter>();
 
+        private List<Type> TMembersOfCurrentParent = new List<Type>();
+        private const int _idx_max2 = 10;
+
         public List<Type> TypesToIgnore = new List<Type>();
 
         /// <summary>
@@ -73,8 +77,16 @@ namespace Diphap.JsNetBridge
         public string Execute(Type tobj, int _idx_max, string exclude = "System.")
         {
             int _idx = 0;
+            TMembersOfCurrentParent.Clear();
+
             Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
-            return this.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
+            string result = this.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
+
+            _idx = 0;
+            TMembersOfCurrentParent.Clear();
+            
+
+            return result;
         }
 
 
@@ -88,6 +100,8 @@ namespace Diphap.JsNetBridge
         internal string Execute(Type tobj, int _idx_max,
             ref int _idx, PrevisousRecursiveContext context_old = null, string exclude = "System.")
         {
+
+
             TypeSorter tSorter = new TypeSorter(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
@@ -125,10 +139,19 @@ namespace Diphap.JsNetBridge
                     {
                         if (string.IsNullOrWhiteSpace(exclude) || (string.IsNullOrWhiteSpace(exclude) == false && telem_work.FullName != null && telem_work.FullName.Contains(exclude) == false))
                         {
-                            if (context_old == null || context_old != null && telem_work != context_old.Tobj)
+                            if (context_old == null ||
+                                context_old != null && telem_work != context_old.Tobj &&
+                                (this.TMembersOfCurrentParent.Contains(telem_work) == false || (this.TMembersOfCurrentParent.Contains(telem_work) == true && _idx <= _idx_max2)))
                             {
+                                _idx++;
+                                if (this.TMembersOfCurrentParent.Contains(telem_work) == false)
+                                {
+                                    TMembersOfCurrentParent.Add(telem_work);
+                                }
+
                                 value = Execute(telem_work, _idx_max, ref _idx,
                                     new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
+
                             }
                             else
                             {

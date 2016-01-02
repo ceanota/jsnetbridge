@@ -45,6 +45,24 @@ namespace Diphap.JsNetBridge.Common.JS
             }
 
         }
+
+        Type[] _TComplexMembers;
+        /// <summary>
+        /// Get element type of collection if 't' is collection other else return 't'. 
+        /// </summary>
+        public Type[] TComplexMembers 
+        {
+            get 
+            {
+                if (_TComplexMembers == null) 
+                {
+                    _TComplexMembers = this.ComplexMembers.Select(mi => TypeHelper.GetElementTypeOfCollectionOrDefault(TypeHelper.GetMemberType(mi))).ToArray();
+                }
+                return _TComplexMembers;
+            }
+
+        }
+
         public TypeSorter(Type tobj)
         {
             this.TObj = tobj;

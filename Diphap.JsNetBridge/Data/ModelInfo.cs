@@ -49,6 +49,10 @@ namespace Diphap.JsNetBridge.Data
 
             foreach (Type t in allTypesTemp)
             {
+                string test = t.FullName;
+                if (test == "ContosoUniversity.Models.Course")
+                {
+                }
                 st.Execute(t, int.MaxValue);
             }
 
