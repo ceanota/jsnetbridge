@@ -48,14 +48,14 @@ namespace Diphap.JsNetBridge
         /// 
         /// <param name="exclude"></param>
         /// <returns></returns>
-        private static string TrySerializeType(Type tobj, string exclude = "System.")
+        private static string TrySerializeType(Type tobj, bool noReturn, string exclude = "System.")
         {
             //int _idx = 0;
             //Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
             //return SerializeType.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
 
             SerializeType st = new SerializeType();
-            return st.Execute(tobj, exclude);
+            return st.Execute(tobj, noReturn, exclude);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Diphap.JsNetBridge
                     jsValue = TrySerializeObject(tobj);
                     break;
                 case EnumTrySerialize.TrySerializeType:
-                    jsValue = TrySerializeType(tobj);
+                    jsValue = TrySerializeType(tobj, false);
                     break;
                 default:
                     throw new NotImplementedException("TrySerialize");

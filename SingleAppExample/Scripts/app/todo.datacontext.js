@@ -76,7 +76,7 @@ window.todoApp.datacontext = (function () {
         
         var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem;
         var options = getAjaxOptions(action.IsApiController.methods.single, todoItem, action, todoItem.todoItemId);
-
+        
         return $.ajax(options)
             .fail(function () {
                 todoItem.errorMessage("Error updating todo item.");

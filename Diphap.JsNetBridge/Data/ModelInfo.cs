@@ -49,7 +49,7 @@ namespace Diphap.JsNetBridge.Data
 
             foreach (Type t in allTypesTemp)
             {
-                st.Execute(t);
+                st.Execute(t, true);
             }
 
             var cl = st.SimpleTypes.ToDictionary(kv => kv.Key, kv => kv.Value);

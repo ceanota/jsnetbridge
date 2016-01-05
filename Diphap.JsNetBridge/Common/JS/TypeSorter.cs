@@ -121,7 +121,14 @@ namespace Diphap.JsNetBridge.Common.JS
                 }
             }
         }
-
+        /// <summary>
+        /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+        /// </summary>
+        /// <param name="mi"></param>
+        /// <param name="telem_work"></param>
+        /// <param name="isCollection"></param>
+        /// <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
+        /// <returns></returns>
         private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, bool functionReference)
         {
             return string.Format("\"{0}\":{1}", mi.Name, JSHelper.GetObjectFactoryName(telem_work, isCollection, functionReference));
@@ -132,27 +139,36 @@ namespace Diphap.JsNetBridge.Common.JS
         /// </summary>
         /// <param name="mi"></param>
         /// <param name="jsvalue"></param>
-        public void ResolveComplexMember(MemberInfo mi, string jsvalue)
+        public void ResolveComplexMember(MemberInfo mi, string jsvalue = null)
         {
             if (this.ComplexMembers.Contains(mi))
             {
-                //string valueTemp = jsvalue;
-                //if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
-                //{
-                //    valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
-                //}
-                //string js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
-
-                Type tmem = TypeHelper.GetMemberType(mi);
-                Type telem_work;
-                bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
-
-                if (isCollection == false)
+                string js_key_value;
+                if (jsvalue == null)
                 {
-                    telem_work = tmem;
+                    string valueTemp = jsvalue;
+                    if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
+                    {
+                        valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
+                    }
+                    js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
+                }
+                else 
+                {
+                    Type tmem = TypeHelper.GetMemberType(mi);
+                    Type telem_work;
+                    bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                    if (isCollection == false)
+                    {
+                        telem_work = tmem;
+                    }
+
+                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
                 }
 
-                string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
+
+
 
                 js_key_value_list.Add(js_key_value);
                 this.ComplexMembers.Remove(mi);
