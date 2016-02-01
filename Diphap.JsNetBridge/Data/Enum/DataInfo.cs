@@ -20,7 +20,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             {
                 return string.Format("\"{0}\":{1}",
                     TObj.Name,
-                    this.flagGetFactory ? JSHelper.GetFactory(this.JsObj) : this.JsObj);
+                    this.flagGetFactory ? JSHelper.GetFactory(this.JsObj, false) : this.JsObj);
             }
         }
 
@@ -28,7 +28,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
             get
             {
-                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj) : JSHelper.GetObjectDeclaration(TObj, this.JsObj);
+                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false) : JSHelper.GetObjectDeclaration(TObj, this.JsObj);
             }
         }
 

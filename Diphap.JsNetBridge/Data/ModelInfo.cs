@@ -90,7 +90,7 @@ namespace Diphap.JsNetBridge.Data
                         }
                     }
 
-                    string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue);
+                    string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true);
                     funcDecl_Array.Add(funcDecl);
                 }
             }

@@ -131,10 +131,10 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.Append("Url:null");
 
                 sb.Append(",");
-                sb.AppendFormat("Params:{0}", JSHelper.GetFactory(this.ToJS_Params()));
+                sb.AppendFormat("Params:{0}", JSHelper.GetFactory(this.ToJS_Params(), false));
 
                 sb.Append(",");
-                sb.AppendFormat("Return:{0}", JSHelper.GetFactory(this.ToJS_Return()));
+                sb.AppendFormat("Return:{0}", JSHelper.GetFactory(this.ToJS_Return(), false));
 
                 sb.Append(",");
                 if (this.IsApiController)
@@ -159,7 +159,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.Append(",");
 
-                sb.AppendFormat("AjaxOptions:{0}", JSHelper.GetFactory(sb_ajax_options));
+                sb.AppendFormat("AjaxOptions:{0}", JSHelper.GetFactory(sb_ajax_options, false));
 
                 sb.Append("}");
 

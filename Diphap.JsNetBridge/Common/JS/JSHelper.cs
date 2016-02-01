@@ -135,7 +135,7 @@ namespace Diphap.JsNetBridge
         /// <param name="jsObj">JS object.</param>
         /// <param name="constructorName">function name.</param>
         /// <returns></returns>
-        static public string GetFactory(string jsObj, string constructorName = null)
+        static public string GetFactory(string jsObj, bool withArgs, string constructorName = null)
         {
             if ((string.IsNullOrWhiteSpace(jsObj) == false) == false)
             {
@@ -148,7 +148,13 @@ namespace Diphap.JsNetBridge
                 constructorInstruction = string.Format("obj.constructor={0};", constructorName);
             }
 
-            return string.Format("function(){{ var args = Array.prototype.slice.call(arguments); var obj = {0};{1} return obj; }}", jsObj, constructorInstruction);
+            string argsInstruction = null;
+            if (withArgs)
+            {
+                argsInstruction = "var args = Array.prototype.slice.call(arguments);";
+            }
+
+            return string.Format("function(){{ {0} var obj = {1};{2} return obj; }}", argsInstruction, jsObj, constructorInstruction);
         }
 
         /// <summary>
@@ -167,10 +173,11 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="t"></param>
         /// <param name="jsObj"></param>
+        /// <param name="withArgs"></param>
         /// <returns></returns>
-        static public string GetFactoryDeclaration(Type t, string jsObj)
+        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs)
         {
-            return GetObjectDeclaration(t, GetFactory(jsObj, GetObjectFullName(t)));
+            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t)));
         }
 
         /// <summary>
