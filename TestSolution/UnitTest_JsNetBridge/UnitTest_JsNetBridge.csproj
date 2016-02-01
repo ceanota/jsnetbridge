@@ -91,12 +91,14 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
+    <Compile Include="Users\Ceanota\Classes.cs" />
     <Compile Include="Users\Ceanota\UnitTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
     <None Include="packages.config" />
+    <None Include="Users\Ceanota\Classes.cd" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj">

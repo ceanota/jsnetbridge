@@ -177,6 +177,9 @@ namespace Diphap.JsNetBridge.Mvc
             sb.AppendLine();
             sb.AppendLine(JSArrayFactory.Implementation());
 
+            sb.AppendLine();
+            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
+
             sb.AppendLine(this.ModelInfo.ToJSCore());
 
             sb.AppendLine(this.EnumInfo.ToJSCore());

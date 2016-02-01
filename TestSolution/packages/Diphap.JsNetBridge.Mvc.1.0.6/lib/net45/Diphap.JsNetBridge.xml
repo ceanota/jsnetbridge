@@ -34,6 +34,15 @@
             Gets the company information for the product.
             </summary>
         </member>
+        <member name="M:Diphap.JsNetBridge.JSHelper.GetObjectFactoryName(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Get name of object factory.
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference"></param>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.JSHelper.CreateNamespace(System.String)">
             <summary>
             Create namespace.
@@ -105,7 +114,12 @@
             Force.
             </summary>
             <param name="mi"></param>
-            <param name="value"></param>
+            <param name="jsvalue"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.JS.TypeSorter.TComplexMembers">
+            <summary>
+            Get element type of collection if 't' is collection other else return 't'. 
+            </summary>
         </member>
         <member name="T:Diphap.JsNetBridge.SerializeEnum">
             <summary>
@@ -143,12 +157,11 @@
             Types who containe only primitive type.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.Int32,System.String)">
+        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.String)">
             <summary>
             Serialalize type.
             </summary>
             <param name="tobj"></param>
-            <param name="_idx_max"></param>
             <param name="exclude"></param>
             <returns></returns>
         </member>
@@ -300,12 +313,12 @@
             <param name="tobj"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.SerializeNet.TrySerializeType(System.Type,System.Int32,System.String)">
+        <member name="M:Diphap.JsNetBridge.SerializeNet.TrySerializeType(System.Type,System.String)">
             <summary>
             Serialize type.
             </summary>
             <param name="tobj"></param>
-            <param name="_idx_max"></param>
+            
             <param name="exclude"></param>
             <returns></returns>
         </member>

@@ -63,7 +63,13 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
-        public string ToJSCore()
+        /// <summary>
+        /// Code JS of factories of c# classes.
+        /// There is not 'JSArrayFactory'
+        /// </summary>
+        /// <param name="withDependencies">append js dependencies.</param>
+        /// <returns></returns>
+        public string ToJSCore(bool withDependencies = false)
         {
             this.Execute();
 
@@ -89,16 +95,30 @@ namespace Diphap.JsNetBridge.Data
                 }
             }
 
+            if (withDependencies)
+            {
+                nsDecl_Array.Add(JSArrayFactory.Implementation());
+                nsDecl_Array.Add(JSCircularReferenceManagerFactoryHelper.Implementation());
+            }
+
             nsDecl_Array.AddRange(funcDecl_Array);
 
             return string.Join("\r\n", nsDecl_Array);
 
         }
 
+        /// <summary>
+        /// All code js.
+        /// </summary>
+        /// <returns></returns>
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
+            sb.AppendLine();
             sb.AppendLine(JSArrayFactory.Implementation());
+            sb.AppendLine();
+            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
+            sb.AppendLine();
             sb.AppendLine(this.ToJSCore());
             return sb.ToString();
         }

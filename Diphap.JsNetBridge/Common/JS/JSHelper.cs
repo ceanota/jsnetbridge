@@ -148,7 +148,7 @@ namespace Diphap.JsNetBridge
                 constructorInstruction = string.Format("obj.constructor={0};", constructorName);
             }
 
-            return string.Format("function(){{ var obj = {0};{1} return obj; }}", jsObj, constructorInstruction);
+            return string.Format("function(){{ var args = Array.prototype.slice.call(arguments); var obj = {0};{1} return obj; }}", jsObj, constructorInstruction);
         }
 
         /// <summary>

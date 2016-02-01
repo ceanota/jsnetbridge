@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Test.CA">
+    <Position X="4.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAggAgAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="C" />
+      <Field Name="E" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Test.CB">
+    <Position X="11.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAIAAAAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="A" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Test.CC">
+    <Position X="11.5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAEAAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="B" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Test.CD">
+    <Position X="0.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="E" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Test.CE">
+    <Position X="2.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAEAAAAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="F" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="Test.CF">
+    <Position X="5.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Users\Ceanota\Classes.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Field Name="C" />
+    </ShowAsAssociation>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

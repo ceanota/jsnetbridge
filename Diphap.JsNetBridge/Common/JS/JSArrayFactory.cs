@@ -6,42 +6,33 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Common.JS
 {
+    /// <summary>
+    /// My array factory extends a js array.
+    /// New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
+    /// </summary>
     public class JSArrayFactory
     {
         const string prefixe_ns = "$dp";
 
-        private static string GetNamespace()
-        {
-
-            return string.Format("window.{0} = window.{0} || {{}};window.{0}.shared = window.{0}.shared || {{}};", prefixe_ns);
-        }
-
+        /// <summary>
+        /// Name of factory.
+        /// </summary>
         static private string FunctionName = prefixe_ns + ".shared.arrayFactory";
 
-        private static string FunctionDefinition()
-        {
-            string jstext =
-                FunctionName + "=" + FunctionName + "||" +
-@"function (ref) {
-    var aa = [];
-    aa.$dpItemFactory = function () {
-        var result;
-        if(typeof ref === 'function'){ result = ref(); }
-        else { result = ref; }
-        return result;
-    };
-    return aa;
-};";
-            return jstext;
-        }
-
+        /// <summary>
+        /// Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
+        /// </summary>
+        /// <returns></returns>
         static public string Implementation()
         {
-            string jstext = JSArrayFactory.GetNamespace();
-            jstext += "\r\n" + JSArrayFactory.FunctionDefinition() + "\r\n";
-            return jstext;
+            return JsNetBridge.Properties.Resources.arrayFactory;
         }
 
+        /// <summary>
+        /// JS code of call of my factory who extends instances of array.
+        /// </summary>
+        /// <param name="var"></param>
+        /// <returns></returns>
         public static string FunctionDefinitionCall(string var)
         {
             string jstext = string.Format("{0}({1})", FunctionName, var);

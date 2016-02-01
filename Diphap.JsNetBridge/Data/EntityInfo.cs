@@ -26,8 +26,13 @@ namespace Diphap.JsNetBridge.Data
         {
             StringBuilder sb = new StringBuilder();
 
+            sb.AppendLine();
             sb.AppendLine(JSArrayFactory.Implementation());
+            sb.AppendLine();
+            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
+            sb.AppendLine();
             sb.AppendLine(this._ModelInfo.ToJSCore());
+            sb.AppendLine();
             sb.AppendLine(this._EnumColInfo.ToJSCore());
 
             return sb.ToString();

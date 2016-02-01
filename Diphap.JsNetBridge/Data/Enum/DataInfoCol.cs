@@ -40,6 +40,9 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(JSArrayFactory.Implementation());
+            sb.AppendLine();
+            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
+            sb.AppendLine();
             sb.AppendLine(this.ToJSCore());
             return sb.ToString();
         }

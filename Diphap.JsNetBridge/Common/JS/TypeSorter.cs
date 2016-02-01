@@ -114,13 +114,14 @@ namespace Diphap.JsNetBridge.Common.JS
                         {
                             TypesIgnored.Add(tmem);
 
-                            string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
+                            string js_key_value =  GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
                             js_key_value_list.Add(js_key_value);
                         }
                     }
                 }
             }
         }
+
         /// <summary>
         /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
         /// </summary>
@@ -129,31 +130,22 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name="isCollection"></param>
         /// <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
         /// <returns></returns>
-        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, bool functionReference)
+        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
         {
-            return string.Format("\"{0}\":{1}", mi.Name, JSHelper.GetObjectFactoryName(telem_work, isCollection, functionReference));
+            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection));
         }
 
         /// <summary>
         /// Force.
         /// </summary>
         /// <param name="mi"></param>
-        /// <param name="jsvalue"></param>
+        /// <param name="jsvalue">force value</param>
         public void ResolveComplexMember(MemberInfo mi, string jsvalue = null)
         {
             if (this.ComplexMembers.Contains(mi))
             {
                 string js_key_value;
                 if (jsvalue == null)
-                {
-                    string valueTemp = jsvalue;
-                    if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
-                    {
-                        valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
-                    }
-                    js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
-                }
-                else 
                 {
                     Type tmem = TypeHelper.GetMemberType(mi);
                     Type telem_work;
@@ -164,7 +156,16 @@ namespace Diphap.JsNetBridge.Common.JS
                         telem_work = tmem;
                     }
 
-                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, true);
+                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
+                }
+                else 
+                {
+                    string valueTemp = jsvalue;
+                    if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
+                    {
+                        valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
+                    }
+                    js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
                 }
 
 

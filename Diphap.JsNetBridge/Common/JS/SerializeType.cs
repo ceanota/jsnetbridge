@@ -118,11 +118,141 @@ namespace Diphap.JsNetBridge
             Context_global = new GlobalRecursiveContext(idx_max, tobj);
             Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
 
-            string result = this.Execute(tobj, this.idx_max, noReturn, context_old, exclude);
+            string result = this.Execute(tobj, this.idx_max, noReturn, exclude);
 
             return result;
         }
 
+        public bool? HasRecursive
+        {
+            get
+            {
+                bool? value;
+
+                if (this.Context_global != null)
+                {
+                    if (this.Context_global.Occurences.Count == 0)
+                    {
+                        value = false;
+                    }
+                    else
+                    {
+                        if (this.Context_global.Occurences.All(x => x.Value == 0))
+                        {
+                            value = false;
+                        }
+                        else
+                        {
+                            value = true;
+                        }
+                    }
+                }
+                else 
+                {
+                    value = null;
+                }
+
+                return value;
+
+            }
+        }
+
+        /// <summary>
+        /// Serialalize type.
+        /// </summary>
+        /// <param name="tobj">type of object</param>
+        /// <param name="_idx_max"></param>
+        /// <param name="noReturn"></param>
+        /// <param name="exclude"></param>
+        /// <returns></returns>
+        internal string Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
+        {
+            TypeSorter tSorter = new TypeSorter(tobj);
+            tSorter.TypesToIgnore = TypesToIgnore;
+            tSorter.Execute();
+
+            List<string> js_key_value_list = tSorter.Js_key_value_list;
+
+            IList<MemberInfo> ComplexMembersTemp = tSorter.ComplexMembers.ToArray();
+
+            foreach (MemberInfo mi in ComplexMembersTemp)
+            {
+                string value = "{}";
+
+                Type tmem = TypeHelper.GetMemberType(mi);
+
+                Type telem_work;
+                bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                if (isCollection == false)
+                {
+                    telem_work = tmem;
+                }
+                else
+                {
+                    value = "[]";
+                }
+
+                if (typeof(System.Object) == telem_work)
+                {
+                    value = "{}";
+                    tSorter.ResolveComplexMember(mi, value);
+                }
+                else
+                {
+                    if (string.IsNullOrWhiteSpace(exclude) || (string.IsNullOrWhiteSpace(exclude) == false && telem_work.FullName != null && telem_work.FullName.Contains(exclude) == false))
+                    {
+                        if (this.Context_global.TestOverFlow(telem_work) == false)
+                        {
+                            Context_global.Add(telem_work);
+                            value = Execute(telem_work, _idx_max, noReturn, exclude);
+
+                        }
+                        else
+                        {
+                            //-- it's recursive member.
+                            tSorter.ResolveComplexMember(mi/*, value*/);
+                        }
+
+                        if (string.IsNullOrWhiteSpace(value))
+                        {
+                            value = "{}";
+                        }
+
+                        if (isCollection)
+                        {
+                            value = JSArrayFactory.FunctionDefinitionCall(value);
+                        }
+                    }
+                    else
+                    {
+                        value = "{}";
+                        tSorter.ResolveComplexMember(mi, value);
+                    }
+                }
+
+                js_key_value_list.Add(string.Format("\"{0}\":{1}", mi.Name, value));
+            }
+
+            string jsonValue;
+
+            if (noReturn == true)
+            {
+                jsonValue = "";
+            }
+            else
+            {
+                jsonValue = "{" + string.Join(",", js_key_value_list) + "}";
+            }
+
+
+            if (tSorter.IsSimpleType && (SimpleTypes.ContainsKey(tobj) == false))
+            {
+                SimpleTypes.Add(tobj, tSorter);
+            }
+
+            return jsonValue;
+        }
 
         /// <summary>
         /// Serialalize type.
@@ -134,7 +264,7 @@ namespace Diphap.JsNetBridge
         /// <param name="context_old"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        internal string Execute(Type tobj, int _idx_max, bool noReturn, PrevisousRecursiveContext context_old = null, string exclude = "System.")
+        internal string Execute_old(Type tobj, int _idx_max, bool noReturn, PrevisousRecursiveContext context_old = null, string exclude = "System.")
         {
             TypeSorter tSorter = new TypeSorter(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
@@ -176,7 +306,7 @@ namespace Diphap.JsNetBridge
                             this.Context_global.TestOverFlow(telem_work) == false)
                         {
                             Context_global.Add(telem_work);
-                            value = Execute(telem_work, _idx_max, noReturn, new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
+                            value = Execute_old(telem_work, _idx_max, noReturn, new PrevisousRecursiveContext { js_key_value_list = js_key_value_list, MemberInfo = mi, Tobj = tobj }, exclude);
 
                         }
                         else

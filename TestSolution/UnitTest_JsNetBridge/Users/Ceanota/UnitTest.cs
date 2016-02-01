@@ -15,20 +15,30 @@ using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data.Enum;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc;
+using Test;
 
 namespace UnitTest_JsNetBridge.Users.Ceanota
 {
+
+    
+
     [TestClass]
     public class UnitTest
     {
         [TestMethod]
         public void TestMethod1()
         {
-            string fileName = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
 
-            AspMvcInfo Singleton = new AspMvcInfo(Assembly.LoadFrom(fileName));
-            var ss = Singleton.ToJS();
-            string setUrl = Singleton.UrlInfo.ToJS_SetUrl();
+            ModelInfo st = new ModelInfo(new List<Type> { typeof(CA), typeof(CB), typeof(CC), typeof(CD), typeof(CE), typeof(CF) });
+            string jsCore = st.ToJS();
+
+            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\Scripts\_JavaScript1.js", jsCore);
+
+            //string fileName = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
+
+            //AspMvcInfo Singleton = new AspMvcInfo(Assembly.LoadFrom(fileName));
+            //var ss = Singleton.ToJS();
+            //string setUrl = Singleton.UrlInfo.ToJS_SetUrl();
         }
 
         [TestMethod]
