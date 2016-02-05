@@ -11,7 +11,7 @@ namespace Diphap.JsNetBridge.Mvc
     /// <summary>
     /// Informations on action method.
     /// </summary>
-    public class ActionInfo
+    public class ActionInfo : Diphap.JsNetBridge.Mvc.IActionInfo
     {
         /// <summary>
         /// Action name.
@@ -29,7 +29,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string Area { get; set; }
 
         /// <summary>
-        /// MethodInfo on action.
+        /// MethodInfoGroup on action.
         /// </summary>
         public MethodInfo MethodInfo { get; set; }
 
@@ -40,12 +40,13 @@ namespace Diphap.JsNetBridge.Mvc
 
         private readonly Type _type_controller;
 
-        public readonly bool IsApiController = false;
-        public readonly bool IsJsonResult = false;
-        public readonly bool IsHttpResponseMessage = false;
-        public readonly bool IsActionResult = false;
-        public readonly bool IsViewResult = false;
-        public readonly bool IsIEnumerable = false;
+        readonly bool _IsApiController = false;
+        public bool IsApiController { get { return this._IsApiController; } }
+        public bool IsJsonResult { get; private set; }
+        public bool IsHttpResponseMessage { get; private set; }
+        public bool IsActionResult { get; private set; }
+        public bool IsViewResult { get; private set; }
+        public bool IsIEnumerable { get; private set; }
 
         /// <summary>
         /// Intanciate an instance of informations on action method.
@@ -53,7 +54,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="action"></param>
         /// <param name="controller"></param>
         /// <param name="area"></param>
-        /// <param name="methodInfo"></param>
+        /// <param name="miGroup">differents signatures of one method</param>
         public ActionInfo(string action, Type type_controller, string areaName, MethodInfo methodInfo)
         {
             this.Action = action;
@@ -63,7 +64,7 @@ namespace Diphap.JsNetBridge.Mvc
             this.Url = "";
             this.MethodInfo = methodInfo;
 
-            this.IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
+            this._IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
 
             this.IsJsonResult = AspMvcInfo.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsHttpResponseMessage = AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
@@ -124,27 +125,39 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("{");
-                sb.Append(Config.VS_JsEnumKeyValue);
+                string json = GetJsValue(true);
 
-                sb.Append("Url:null");
+                return json;
+            }
+        }
 
-                sb.Append(",");
-                sb.AppendFormat("Params:{0}", JSHelper.GetFactory(this.ToJS_Params(), false));
+        /// <summary>
+        /// Value.
+        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+        /// </summary>
+        /// <param name="hasUrl"></param>
+        /// <returns></returns>
+        public string GetJsValue(bool hasUrl)
+        {
+            StringBuilder sb = new StringBuilder();
+            {
+                string objName = "action";
+                sb.Append("var action = {};");
+                sb.Append(Config.VS_JsEnumKeyValue_instruction(objName));
 
-                sb.Append(",");
-                sb.AppendFormat("Return:{0}", JSHelper.GetFactory(this.ToJS_Return(), false));
+                if (hasUrl) { sb.Append("action.Url = null;"); }
 
-                sb.Append(",");
+                sb.AppendFormat("action.Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
+                sb.AppendFormat("action.Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
+
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat("IsApiController:{{ methods:{0} }}", httpMethod_jsObj);
+                    sb.AppendFormat("IsApiController = {{ methods:{0} }};", httpMethod_jsObj);
                 }
                 else
                 {
-                    sb.AppendFormat("IsApiController:null");
+                    sb.Append("action.IsApiController = null;");
                 }
 
                 string sb_ajax_options;
@@ -157,16 +170,13 @@ namespace Diphap.JsNetBridge.Mvc
                     sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
                 }
 
-                sb.Append(",");
+                sb.AppendFormat("action.AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
 
-                sb.AppendFormat("AjaxOptions:{0}", JSHelper.GetFactory(sb_ajax_options, false));
-
-                sb.Append("}");
-
-                string json = sb.ToString();
-
-                return json;
+                sb.Append("return action;");
             }
+
+            string json = JSHelper.GetFunction(sb.ToString(), true, "actionFactory");
+            return json;
         }
 
         /// <summary>
@@ -246,18 +256,50 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                string url = string.IsNullOrWhiteSpace(this.Url) ? "null" : "\"" + this.Url + "\"";
-                string json = this.JsLongName + ".Url=" + url;
-                return json;
+                return GetJsSetUrl(this.Url);
             }
         }
 
+        /// <summary>
+        /// ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+        /// </summary>
+        /// <param name="url_"></param>
+        /// <returns></returns>
+        public string GetJsSetUrl(string url_)
+        {
+            string url = string.IsNullOrWhiteSpace(url_) ? "null" : "\"" + url_ + "\"";
+            string json = this.JsLongName + ".Url=" + url;
+            return json;
+        }
+
+        /// <summary>
+        /// Text representing instance.
+        /// </summary>
+        /// <returns></returns>
+        public override string ToString()
+        {
+            string text;
+
+            if (string.IsNullOrWhiteSpace(this.Area))
+            {
+                text = string.Format("{0}.{1}", this.Controller, this.Action);
+            }
+            else
+            {
+                text = string.Format("{0}.{1}.{2}", this.Area, this.Controller, this.Action);
+
+            }
+
+            return text;
+        }
+
+        #region "private"
         /// <summary>
         /// Get parameters of action in JS.
         /// </summary>
         /// <param name="piArray"></param>
         /// <returns></returns>
-        private List<string> GetJS_Params(ParameterInfo[] piArray)
+        static internal List<string> GetJS_Params(ParameterInfo[] piArray)
         {
             List<string> jsParams = new List<string>();
             foreach (var pi in piArray)
@@ -278,7 +320,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary> 
         /// <param name="t"></param>
         /// <returns></returns>
-        private static string GetJS_EmptyValue_WithFactory(Type t)
+        internal static string GetJS_EmptyValue_WithFactory(Type t)
         {
             string jsValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsValue))
@@ -304,7 +346,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary> 
         /// <param name="t"></param>
         /// <returns></returns>
-        private static string GetJS_EmptyValue(Type t)
+        internal static string GetJS_EmptyValue(Type t)
         {
             string jsonValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsonValue))
@@ -355,26 +397,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             return jsonValue;
         }
+        #endregion
 
-        /// <summary>
-        /// Text representing instance.
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            string text;
-
-            if (string.IsNullOrWhiteSpace(this.Area))
-            {
-                text = string.Format("{0}.{1}", this.Controller, this.Action);
-            }
-            else
-            {
-                text = string.Format("{0}.{1}.{2}", this.Area, this.Controller, this.Action);
-
-            }
-
-            return text;
-        }
     }
 }

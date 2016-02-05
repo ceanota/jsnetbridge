@@ -187,7 +187,11 @@ namespace Diphap.JsNetBridge.Mvc
         {
             List<AreaInfo> aiList = new List<AreaInfo>();
 
-            List<ActionInfo> urlList = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/);
+            IList<IActionInfo> urlList;
+            {
+                List<ActionInfoGroup> urlListTemp = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/);
+                urlList = urlListTemp.Cast<IActionInfo>().ToArray();
+            }
 
             List<string> areas = urlList.Where(x => string.IsNullOrWhiteSpace(x.Area) == false).Select(x => x.Area).Distinct().ToList();
             foreach (var a in areas)
@@ -203,7 +207,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
-        private static AreaInfo GetAreaInfo(List<ActionInfo> urlList, string a)
+        private static AreaInfo GetAreaInfo(IList<IActionInfo> urlList, string a)
         {
             var url_list_byArea = urlList.Where(x => x.Area == a);
             var groupByController = url_list_byArea.GroupBy(x => x.Controller);
@@ -219,53 +223,68 @@ namespace Diphap.JsNetBridge.Mvc
             return ai;
         }
 
-        private static List<ActionInfo> ExtractUrlFromAspNetMvcApplication(IList<Type> types_contoller)
+        private static List<ActionInfoGroup> ExtractUrlFromAspNetMvcApplication(IList<Type> types_contoller)
         {
-            List<ActionInfo> urlList = new List<ActionInfo>();
+            List<ActionInfoGroup> urlList = new List<ActionInfoGroup>();
 
             for (int ii = 0; ii < types_contoller.Count; ii++)
             {
-                List<ActionInfo> urlListTemp = ExtractUrlFromController(types_contoller[ii]);
+                List<ActionInfoGroup> urlListTemp = ExtractUrlFromController(types_contoller[ii]);
 
                 urlList.AddRange(urlListTemp);
             }
+
             return urlList;
         }
 
-        private static List<ActionInfo> ExtractUrlFromController(Type type_controller_current)
+        private static List<ActionInfoGroup> ExtractUrlFromController(Type type_controller_current)
         {
-            List<ActionInfo> urlListTemp = new List<ActionInfo>();
+            List<ActionInfoGroup> urlListTemp = new List<ActionInfoGroup>();
 
-            MethodInfo[] miArray = type_controller_current.GetMethods(BindingFlags.Public |
-                BindingFlags.Instance | BindingFlags.DeclaredOnly);
-
-            for (int jj = 0; jj < miArray.Length; jj++)
+            IGrouping<string, MethodInfo>[] miGroups;
             {
-                MethodInfo mi_current = miArray[jj];
+                MethodInfo[] miArray = type_controller_current.GetMethods(BindingFlags.Public |
+    BindingFlags.Instance | BindingFlags.DeclaredOnly);
 
-                ActionInfo url = CreateUrl(type_controller_current, mi_current);
+                miGroups = miArray
+                    .Where(x => x.Name.IndexOf("get_") < 0)
+                    .GroupBy(x => x.Name).ToArray();
+            }
+
+
+            for (int jj = 0; jj < miGroups.Length; jj++)
+            {
+                IGrouping<string, MethodInfo> mig_current = miGroups[jj];
+
+                //-- TODO: passer à ActionInfo, plusieurs signatures d'une méthode.
+                ActionInfoGroup url = CreateUrl(type_controller_current, mig_current);
                 if (url != null)
                 {
                     urlListTemp.Add(url);
                 }
             }
+
             return urlListTemp;
         }
 
-        private static ActionInfo CreateUrl(Type type_controller_current, MethodInfo mi_current)
+        /// <summary>
+        /// Creates instance of ActionInfo.
+        /// </summary>
+        /// <param name="type_controller_current"></param>
+        /// <param name="mig_current">differents signatures of one method</param>
+        /// <returns></returns>
+        private static ActionInfoGroup CreateUrl(Type type_controller_current, IGrouping<string, MethodInfo> miGroup)
         {
-            ActionInfo url = null;
+            ActionInfoGroup url = null;
 
-            if (mi_current.Name.IndexOf("get_") < 0)
-            {
-                string area = TryGetArea(type_controller_current);
+            string area = TryGetArea(type_controller_current);
 
-                url = new ActionInfo(mi_current.Name,
-                    type_controller_current,
-                    area,
-                    mi_current);
+            url = new ActionInfoGroup(miGroup.Key,
+                type_controller_current,
+                area,
+                miGroup);
 
-            }
+
             return url;
         }
 

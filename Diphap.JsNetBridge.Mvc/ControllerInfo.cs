@@ -14,16 +14,17 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// List of ActionInfo.
         /// </summary>
-        public IList<ActionInfo> ActionInfoCol { get; set; }
+        public IList<IActionInfo> ActionInfoCol { get; set; }
 
         /// <summary>
         /// Controller name.
         /// </summary>
         public string Name { get; set; }
 
-        public ControllerInfo(IList<ActionInfo> urlCol, string name)
+        public ControllerInfo(IList<IActionInfo> urlCol, string name)
         {
             this.ActionInfoCol = urlCol;
+            
             this.Name = name;
         }
 

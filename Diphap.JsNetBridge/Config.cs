@@ -18,6 +18,13 @@ namespace Diphap.JsNetBridge
                 return (true ? null : "\"__enum\":true,");
             }
         }
+        /// <summary>
+        /// JS ENUM Intellisense.
+        /// </summary>
+        public static string VS_JsEnumKeyValue_instruction(string objName)
+        {
+            return (true ? null : string.Format("{0}.__enum = true;",objName));
+        }
 
         public static string prefix_ns = "$dp.$JsNet";
 

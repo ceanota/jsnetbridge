@@ -245,8 +245,8 @@ namespace Diphap.JsNetBridge.Mvc
         {
             Type[] types = this.UrlInfo.AreaInfoList
                 .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
-                .SelectMany<ControllerInfo, ActionInfo>(ci => ci.ActionInfoCol)
-                .SelectMany<ActionInfo, Type>(ai => ai.ParameterClassType())
+                .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
+                .SelectMany<IActionInfo, Type>(ai => ai.ParameterClassType())
                 .Where(t => t.FullName.Contains("System.") == false)
                 .Distinct()
                 .ToArray();

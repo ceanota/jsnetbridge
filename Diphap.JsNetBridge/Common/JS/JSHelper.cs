@@ -130,6 +130,18 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
+        /// Get Function.
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="call"></param>
+        /// <param name="funcName"></param>
+        /// <returns></returns>
+        static public string GetFunction(string body, bool call, string funcName = null)
+        {
+            return string.Format("function {0} () {{ {1} }}{2}", funcName, body, call ? "()" : null);
+        }
+
+        /// <summary>
         /// Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
         /// </summary>
         /// <param name="jsObj">JS object.</param>
