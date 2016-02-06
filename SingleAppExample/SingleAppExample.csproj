@@ -43,9 +43,8 @@
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diphap.JsNetBridge, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Diphap.JsNetBridge">
       <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.6\lib\net45\Diphap.JsNetBridge.dll</HintPath>
-      <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Generator, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\TestSolution\packages\Diphap.JsNetBridge.Mvc.1.0.6\lib\net45\Diphap.JsNetBridge.Generator.exe</HintPath>
