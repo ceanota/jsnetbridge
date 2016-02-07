@@ -44,7 +44,9 @@
   <ItemGroup>
     <Compile Include="Common\AssemblyInfo.cs" />
     <Compile Include="Common\JsNetIgnore.cs" />
-    <Content Include="Common\JS\JSCode\arrayFactory.js" />
+    <Content Include="Common\JS\JSCode\arrayFactory.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Compile Include="Common\JS\JSHelper.cs" />
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
     <Compile Include="Common\JS\TypeSorter.cs" />
@@ -69,7 +71,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Common\JS\JSCode\circularReferenceManagerFactory.js" />
+    <Content Include="Common\JS\JSCode\circularReferenceManagerFactory.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">

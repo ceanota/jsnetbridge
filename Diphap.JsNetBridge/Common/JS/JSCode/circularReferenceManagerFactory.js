@@ -1,31 +1,31 @@
 ﻿(function () {
     window.$dp = window.$dp || {};
-    window.$dp.shared = window.$dp.shared || {};
+    window.$dp.$shared = window.$dp.$shared || {};
 
-    if (window.$dp.shared.circularReferenceManagerFactory !== undefined) { return; }
+    if (window.$dp.$shared.$circularReferenceManagerFactory !== undefined) { return; }
 
-    window.$dp.shared.circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
+    window.$dp.$shared.$circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
         /// <signature>
         ///   <summary>Factory gives un new instance of Function that handles the circular reference objects.</summary>
         ///   <param name="sameIntance" type="bool">If sameInstance === undefined: new instance of function. Otherwise, we use the same instance.</param>
         ///   <returns type="Function" />
         /// </signature>
         if (sameIntance === undefined) {
-            var newFunc = window.$dp.shared.circularReferenceManagerFactory._managerFunc.bind();
+            var newFunc = window.$dp.$shared.$circularReferenceManagerFactory._managerFunc.bind();
             newFunc.factories = [];
-            window.$dp.shared.circularReferenceManagerFactory.instance = newFunc;
+            window.$dp.$shared.$circularReferenceManagerFactory.instance = newFunc;
         }
-        return window.$dp.shared.circularReferenceManagerFactory.instance;
+        return window.$dp.$shared.$circularReferenceManagerFactory.instance;
     }
 
-    window.$dp.shared.circularReferenceManagerFactory._managerFunc = function _managerFunc(func) {
+    window.$dp.$shared.$circularReferenceManagerFactory._managerFunc = function _managerFunc(func) {
         /// <signature>
         ///   <summary>it is the function that handles the circular reference objects</summary>
         ///   <param name="func" type="Function">Factory of instances.</param>
         ///   <returns type="Object" />
         /// </signature>
 
-        var internalFunc = window.$dp.shared.circularReferenceManagerFactory.instance;
+        var internalFunc = window.$dp.$shared.$circularReferenceManagerFactory.instance;
 
         var foundedIdx = -1;
         for (var idx = 0; idx < internalFunc.factories.length; idx++) {

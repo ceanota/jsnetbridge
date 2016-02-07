@@ -17,7 +17,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <summary>
         /// Name of factory.
         /// </summary>
-        static private string FunctionName = prefixe_ns + ".shared.circularReferenceManagerFactory";
+        static private string FunctionName = prefixe_ns + "." + Config.brandLetter + "shared" + "." + Config.brandLetter + "circularReferenceManagerFactory";
 
         /// <summary>
         ///  ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
