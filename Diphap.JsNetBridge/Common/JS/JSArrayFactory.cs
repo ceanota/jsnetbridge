@@ -12,12 +12,13 @@ namespace Diphap.JsNetBridge.Common.JS
     /// </summary>
     public class JSArrayFactory
     {
-        const string prefixe_ns = "$dp";
+
+        
 
         /// <summary>
         /// Name of factory.
         /// </summary>
-        static private string FunctionName = prefixe_ns + ".shared.arrayFactory";
+        static private string FunctionName = Config.prefix_ns_jsnet + ".shared.arrayFactory";
 
         /// <summary>
         /// Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.

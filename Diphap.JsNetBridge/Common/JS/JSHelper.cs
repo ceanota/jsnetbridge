@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference = true)
         {
-            string jsvalue = string.Format("{0}.{1}()", Config.prefix_ns, telem_work.FullName.Replace("+", "."));
+            string jsvalue = string.Format("{0}.{1}()", Config.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
             if (isCollection)
             {
                 jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
@@ -199,7 +199,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetObjectFullName(Type t)
         {
-            string objFullname = string.Format("{0}.{1}", Config.prefix_ns, t.FullName.Replace("+", "."));
+            string objFullname = string.Format("{0}.{1}", Config.prefix_ns_jsnet, t.FullName.Replace("+", "."));
             return objFullname;
         }
 

@@ -158,7 +158,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="jsFilePath"></param>
         public void WriteAllText(string jsFilePath)
         {
-            File.WriteAllText(jsFilePath, this.ToJS());
+            File.WriteAllText(jsFilePath, this.ToJS(), Encoding.UTF8);
         }
 
         public void AppendAllText(string jsFilePath)
@@ -169,26 +169,31 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
-
-            sb.AppendLine(LiteralText.GetStarted());
-
-            sb.AppendLine();
-            sb.AppendLine(JSArrayFactory.Implementation());
-
-            sb.AppendLine();
-            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
-
-            sb.AppendLine(this.ModelInfo.ToJSCore());
-
-            sb.AppendLine(this.EnumInfo.ToJSCore());
-
+            sb.AppendLine("(function () {");
             {
-                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(Config.url_set)));
-                sb.AppendLine(string.Format("{0} = {1};", Config.url_set, this.UrlInfo.ToJS()));
+                sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
+
+                sb.AppendLine(LiteralText.GetStarted());
+
+                sb.AppendLine();
+                sb.AppendLine(JSArrayFactory.Implementation());
+
+                sb.AppendLine();
+                sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
             }
 
+            {
+                sb.AppendLine("(function () {");
+                sb.AppendLine(this.ModelInfo.ToJSCore());
+
+                sb.AppendLine(this.EnumInfo.ToJSCore());
+
+
+                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(Config.url_set)));
+                sb.AppendLine(string.Format("{0} = {1};", Config.url_set, this.UrlInfo.ToJS()));
+                sb.AppendLine("})();");
+            }
+            sb.AppendLine("})();");
             return sb.ToString();
         }
 

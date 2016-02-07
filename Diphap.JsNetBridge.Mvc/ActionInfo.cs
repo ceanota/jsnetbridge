@@ -147,17 +147,17 @@ namespace Diphap.JsNetBridge.Mvc
 
                 if (hasUrl) { sb.Append("action.Url = null;"); }
 
-                sb.AppendFormat("action.Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
-                sb.AppendFormat("action.Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
+                sb.AppendFormat(objName + "." + Config.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
+                sb.AppendFormat(objName + "." + Config.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
 
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat("action.IsApiController = {{ methods:{0} }};", httpMethod_jsObj);
+                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ methods:{0} }};", httpMethod_jsObj);
                 }
                 else
                 {
-                    sb.Append("action.IsApiController = null;");
+                    sb.Append(objName + "." + Config.brandLetter + "IsApiController = null;");
                 }
 
                 string sb_ajax_options;
@@ -170,7 +170,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
                 }
 
-                sb.AppendFormat("action.AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+                sb.AppendFormat(objName + "." + Config.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
 
                 sb.Append("return action;");
             }
@@ -268,7 +268,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string GetJsSetUrl(string url_)
         {
             string url = string.IsNullOrWhiteSpace(url_) ? "null" : "\"" + url_ + "\"";
-            string json = this.JsLongName + ".Url=" + url;
+            string json = this.JsLongName + "." + Config.brandLetter + "Url=" + url;
             return json;
         }
 

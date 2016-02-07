@@ -15,7 +15,7 @@ namespace Diphap.JsNetBridge.Common.JS
         public List<MemberInfo> ComplexMembers = new List<MemberInfo>();
         public readonly MemberInfo[] miArray;
         List<string> js_key_value_list;
-        public static string prefix_namespace = Config.prefix_ns;
+        public static string prefix_namespace = Config.prefix_ns_jsnet;
 
         public List<string> Js_key_value_list
         {

@@ -23,11 +23,15 @@ namespace Diphap.JsNetBridge
         /// </summary>
         public static string VS_JsEnumKeyValue_instruction(string objName)
         {
-            return (true ? null : string.Format("{0}.__enum = true;",objName));
+            return (true ? null : string.Format("{0}.__enum = true;", objName));
         }
 
-        public static string prefix_ns = "$dp.$JsNet";
+        public const string brandLetter = "$";
 
-        public static string url_set = Config.prefix_ns + ".$UrlSet";
+        public const string prefixe_ns_dp = Config.brandLetter + "dp";
+
+        public static string prefix_ns_jsnet = Config.prefixe_ns_dp + "." + brandLetter + "JsNet";
+
+        public static string url_set = Config.prefix_ns_jsnet + "." + brandLetter + "UrlSet";
     }
 }

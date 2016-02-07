@@ -29,7 +29,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
         {
-            string jsvalue = string.Format("{0}.{1}", Config.prefix_ns, telem_work.FullName.Replace("+", "."));
+            string jsvalue = string.Format("{0}.{1}", Config.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
             jsvalue = string.Format("{0}.apply(null, args)({1})", JSCircularReferenceManagerFactoryHelper.FunctionName, jsvalue);
             if (isCollection)
             {

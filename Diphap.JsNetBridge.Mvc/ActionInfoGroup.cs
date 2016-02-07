@@ -80,11 +80,11 @@ namespace Diphap.JsNetBridge.Mvc
                     string objName = "action";
                     sb.Append("var action = {};");
                     sb.Append(Config.VS_JsEnumKeyValue_instruction(objName));
-                    sb.Append("action.Url = null;");
+                    sb.Append(objName + "." + Config.brandLetter + "Url = null;");
 
                     for (int ii = 0; ii < this._signatures.Length; ii++)
                     {
-                        sb.AppendFormat("action.sig{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
+                        sb.AppendFormat(objName + "." + Config.brandLetter + "sig{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
                     }
 
                     sb.Append("return action;");
