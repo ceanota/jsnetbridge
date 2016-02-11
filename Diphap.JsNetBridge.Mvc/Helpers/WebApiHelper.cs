@@ -24,20 +24,20 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
                     {
                         sb_principal.Append(",");
                     }
-                    sb_principal.AppendFormat("{0}:\"{0}\"", httpMethods[idx]);
+                    sb_principal.AppendFormat("{0}{1}:\"{1}\"", Config.brandLetter, httpMethods[idx]);
                 }
 
                 sb_principal.Append(",");
 
-                sb_principal.AppendFormat("items:[{0}]", string.Join(",", httpMethods.Select(x => string.Format("\"{0}\"", x))));
+                sb_principal.AppendFormat(Config.brandLetter + "items:[{0}]", string.Join(",", httpMethods.Select(x => string.Format("\"{0}\"", x))));
                 sb_principal.Append(",");
                 if (httpMethods.Length == 1)
                 {
-                    sb_principal.AppendFormat("single:\"{0}\"", httpMethods[0]);
+                    sb_principal.AppendFormat(Config.brandLetter + "single:\"{0}\"", httpMethods[0]);
                 }
                 else
                 {
-                    sb_principal.AppendFormat("single:{0}", "null");
+                    sb_principal.AppendFormat(Config.brandLetter + "single:{0}", "null");
                 }
 
                 sb_principal.Append("}");

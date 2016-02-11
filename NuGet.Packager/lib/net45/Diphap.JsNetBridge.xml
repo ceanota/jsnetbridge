@@ -58,7 +58,16 @@
             <param name="jsValue"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.JSHelper.GetFactory(System.String,System.String)">
+        <member name="M:Diphap.JsNetBridge.JSHelper.GetFunction(System.String,System.Boolean,System.String)">
+            <summary>
+            Get Function.
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.JSHelper.GetFactory(System.String,System.Boolean,System.String)">
             <summary>
             Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
             </summary>
@@ -73,12 +82,13 @@
             <param name="instructions"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.JSHelper.GetFactoryDeclaration(System.Type,System.String)">
+        <member name="M:Diphap.JsNetBridge.JSHelper.GetFactoryDeclaration(System.Type,System.String,System.Boolean)">
             <summary>
             $dp.namespace = $dp.namespace || function(){ return {param1:obj1, param2:2, param3:"" }; };
             </summary>
             <param name="t"></param>
             <param name="jsObj"></param>
+            <param name="withArgs"></param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.JSHelper.GetObjectFullName(System.Type)">
@@ -104,17 +114,53 @@
             <param name="jsObj"></param>
             <returns></returns>
         </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper">
+            <summary>
+            Factory gives un new instance of Function that handles the circular reference objects.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.Type,System.Boolean)">
+            <summary>
+             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.Implementation">
+            <summary>
+            Factory gives un new instance of Function that handles the circular reference objects.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.Execute">
             <summary>
             Executes.
             </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
+            <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.ResolveComplexMember(System.Reflection.MemberInfo,System.String)">
             <summary>
             Force.
             </summary>
             <param name="mi"></param>
-            <param name="jsvalue"></param>
+            <param name="jsvalue">force value</param>
         </member>
         <member name="P:Diphap.JsNetBridge.Common.JS.TypeSorter.TComplexMembers">
             <summary>
@@ -157,21 +203,35 @@
             Types who containe only primitive type.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.String)">
+        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.Boolean,System.String)">
             <summary>
             Serialalize type.
             </summary>
             <param name="tobj"></param>
             <param name="exclude"></param>
+            <param name="noReturn"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.Int32,System.Int32@,Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext,System.String)">
+        <member name="M:Diphap.JsNetBridge.SerializeType.Execute(System.Type,System.Int32,System.Boolean,System.String)">
             <summary>
             Serialalize type.
             </summary>
             <param name="tobj">type of object</param>
             <param name="_idx_max"></param>
-            <param name="_idx"></param>
+            <param name="noReturn"></param>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.SerializeType.Execute_old(System.Type,System.Int32,System.Boolean,Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext,System.String)">
+            <summary>
+            Serialalize type.
+            </summary>
+            <param name="tobj">type of object</param>
+            <param name="_idx_max"></param>
+            
+            <param name="noReturn"></param>
+            <param name="context_old"></param>
+            <param name="exclude"></param>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext">
@@ -185,6 +245,49 @@
             </summary>
             <param name="tmem"></param>
             <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSArrayFactory">
+            <summary>
+            My array factory extends a js array.
+            New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.Implementation">
+            <summary>
+            Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionDefinitionCall(System.String)">
+            <summary>
+            JS code of call of my factory who extends instances of array.
+            </summary>
+            <param name="var"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ToJSCore(System.Boolean)">
+            <summary>
+            Code JS of factories of c# classes.
+            There is not 'JSArrayFactory'
+            </summary>
+            <param name="withDependencies">append js dependencies.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ToJS">
+            <summary>
+            All code js.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Config.VS_JsEnumKeyValue_instruction(System.String)">
+            <summary>
+            JS ENUM Intellisense.
+            </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Config.VS_JsEnumKeyValue">
             <summary>
@@ -313,7 +416,7 @@
             <param name="tobj"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.SerializeNet.TrySerializeType(System.Type,System.String)">
+        <member name="M:Diphap.JsNetBridge.SerializeNet.TrySerializeType(System.Type,System.Boolean,System.String)">
             <summary>
             Serialize type.
             </summary>
@@ -338,6 +441,51 @@
             <param name="tobj"></param>
             <param name="isCollection"></param>
             <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.arrayFactory">
+             <summary>
+               Looks up a localized string similar to (function () {
+            
+                window.$dp = window.$dp || {}; window.$dp.shared = window.$dp.shared || {};
+            
+                if (window.$dp.shared.arrayFactory !== undefined) { return; }
+            
+                $dp.shared.arrayFactory = function arrayFactory(ref) {
+                    /// &lt;signature&gt;
+                    ///   &lt;summary&gt;this function returns a array with added function &apos;$dpItemFactory&apos; who creates instance of item of array.&lt;/summary&gt;
+                    ///   &lt;param name=&quot;ref&quot; type=&quot;Function&quot;&gt;ref is factory who creates instance of item of array&lt;/param&gt;
+                    [rest of string was truncated]&quot;;.
+             </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.circularReferenceManagerFactory">
+             <summary>
+               Looks up a localized string similar to (function () {
+                window.$dp = window.$dp || {};
+                window.$dp.shared = window.$dp.shared || {};
+            
+                if (window.$dp.shared.circularReferenceManagerFactory !== undefined) { return; }
+            
+                window.$dp.shared.circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
+                    /// &lt;signature&gt;
+                    ///   &lt;summary&gt;Factory gives un new instance of Function that handles the circular reference objects.&lt;/summary&gt;
+                    ///   &lt;param name=&quot;sameIntance&quot; type=&quot;bool&quot;&gt;If sameIn [rest of string was truncated]&quot;;.
+             </summary>
         </member>
     </members>
 </doc>

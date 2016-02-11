@@ -153,7 +153,7 @@ namespace Diphap.JsNetBridge.Mvc
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ methods:{0} }};", httpMethod_jsObj);
+                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ {0}httpMethods:{1} }};", Config.brandLetter, httpMethod_jsObj);
                 }
                 else
                 {

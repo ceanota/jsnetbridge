@@ -16,7 +16,7 @@
             <param name="action"></param>
             <param name="controller"></param>
             <param name="area"></param>
-            <param name="methodInfo"></param>
+            <param name="miGroup">differents signatures of one method</param>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ParameterClassType">
             <summary>
@@ -37,6 +37,14 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsValue(System.Boolean)">
+            <summary>
+            Value.
+            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+            </summary>
+            <param name="hasUrl"></param>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForWebApi">
             <summary>
             Get ajax options for js.
@@ -46,6 +54,19 @@
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForMvc">
             <summary>
             Get ajax options for js.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsSetUrl(System.String)">
+            <summary>
+            ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+            </summary>
+            <param name="url_"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToString">
+            <summary>
+            Text representing instance.
             </summary>
             <returns></returns>
         </member>
@@ -70,12 +91,6 @@
             <param name="t"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToString">
-            <summary>
-            Text representing instance.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.Action">
             <summary>
             Action name.
@@ -93,7 +108,7 @@
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.MethodInfo">
             <summary>
-            MethodInfo on action.
+            MethodInfoGroup on action.
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.Url">
@@ -119,6 +134,79 @@
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsSetUrl">
+            <summary>
+            ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.ActionInfoGroup">
+            <summary>
+            Informations on action method.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.#ctor(System.String,System.Type,System.String,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo})">
+            <summary>
+            Intanciate an instance of informations on action method.
+            </summary>
+            <param name="action"></param>
+            <param name="controller"></param>
+            <param name="area"></param>
+            <param name="methodInfo">differents signatures of one method</param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ParameterClassType">
+            <summary>
+            Types of class.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ToString">
+            <summary>
+            Text representing instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.Action">
+            <summary>
+            Action name.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.Controller">
+            <summary>
+            Controller name.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.Area">
+            <summary>
+            Area name.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.MethodInfoGroup">
+            <summary>
+            MethodInfoGroup on action.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.Url">
+            <summary>
+            Url.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsValue">
+            <summary>
+            Value.
+            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsKeyValue">
+            <summary>
+            Key and jsvalue.
+            [action_name: {url:null, param:null, return:null }]
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsLongName">
+            <summary>
+            ex: 'AreaName.ControllerName.ActionName'
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsSetUrl">
             <summary>
             ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
             </summary>
@@ -270,6 +358,14 @@
              <summary>
             ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
              </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.CreateUrl(System.Type,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo})">
+            <summary>
+            Creates instance of ActionInfo.
+            </summary>
+            <param name="type_controller_current"></param>
+            <param name="mig_current">differents signatures of one method</param>
+            <returns></returns>
         </member>
     </members>
 </doc>
