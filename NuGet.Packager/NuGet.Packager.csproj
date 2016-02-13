@@ -51,8 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.config" />
-    <None Include="content\Diphap.JsNetBridge.Generator\Diphap.JsNetBridge.Generator.exe.json" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
@@ -62,18 +60,12 @@
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="lib\net45\" />
     <Folder Include="_bin\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\Diphap.JsNetBridge.Generator\Readme.txt" />
     <Content Include="content\Scripts\Diphap.JsNetBridge.js" />
     <Content Include="Icon.png" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.dll" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Generator.XML" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.Mvc.xml" />
-    <Content Include="lib\net45\Diphap.JsNetBridge.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
