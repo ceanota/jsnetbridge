@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="Common\AssemblyInfo.cs" />
     <Compile Include="Common\JsNetIgnore.cs" />
-    <dpContent Include="Common\JS\JSCode\arrayFactory.js" />
     <Compile Include="Common\JS\JSHelper.cs" />
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
     <Compile Include="Common\JS\TypeSorter.cs" />
@@ -69,11 +68,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <dpContent Include="Common\JS\JSCode\circularReferenceManagerFactory.js">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </dpContent>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -84,8 +78,9 @@
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
-  -->
-  <Target Name="AfterBuild">
+    <Target Name="AfterBuild">
     <Copy SourceFiles="@(dpContent)" DestinationFolder="$(ProjectDir)..\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\" />
   </Target>
+  -->
+
 </Project>

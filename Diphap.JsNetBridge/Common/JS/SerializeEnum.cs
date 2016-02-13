@@ -73,7 +73,7 @@ namespace Diphap.JsNetBridge
 
             foreach (string n in names)
             {
-                int value = (int)Enum.Parse(tenum, n);
+                int value = Convert.ToInt32((Enum.Parse(tenum, n)));
                 dic.Add(n, value);
             }
             return dic;
