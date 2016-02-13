@@ -59,42 +59,5 @@ namespace Diphap.JsNetBridge.Properties {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to (function () {
-        ///
-        ///    window.$dp = window.$dp || {}; window.$dp.shared = window.$dp.shared || {};
-        ///
-        ///    if (window.$dp.shared.arrayFactory !== undefined) { return; }
-        ///
-        ///    $dp.shared.arrayFactory = function arrayFactory(ref) {
-        ///        /// &lt;signature&gt;
-        ///        ///   &lt;summary&gt;this function returns a array with added function &apos;$dpItemFactory&apos; who creates instance of item of array.&lt;/summary&gt;
-        ///        ///   &lt;param name=&quot;ref&quot; type=&quot;Function&quot;&gt;ref is factory who creates instance of item of array&lt;/param&gt;
-        ///        [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string arrayFactory {
-            get {
-                return ResourceManager.GetString("arrayFactory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to (function () {
-        ///    window.$dp = window.$dp || {};
-        ///    window.$dp.shared = window.$dp.shared || {};
-        ///
-        ///    if (window.$dp.shared.circularReferenceManagerFactory !== undefined) { return; }
-        ///
-        ///    window.$dp.shared.circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
-        ///        /// &lt;signature&gt;
-        ///        ///   &lt;summary&gt;Factory gives un new instance of Function that handles the circular reference objects.&lt;/summary&gt;
-        ///        ///   &lt;param name=&quot;sameIntance&quot; type=&quot;bool&quot;&gt;If sameIn [rest of string was truncated]&quot;;.
-        /// </summary>
-        internal static string circularReferenceManagerFactory {
-            get {
-                return ResourceManager.GetString("circularReferenceManagerFactory", resourceCulture);
-            }
-        }
     }
 }

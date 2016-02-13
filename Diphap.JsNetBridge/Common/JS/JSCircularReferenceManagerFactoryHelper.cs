@@ -25,7 +25,6 @@ namespace Diphap.JsNetBridge.Common.JS
         /// </summary>
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
-        /// <param name="functionReference"></param>
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
         {
@@ -39,12 +38,13 @@ namespace Diphap.JsNetBridge.Common.JS
         }
 
         /// <summary>
-        /// Factory gives un new instance of Function that handles the circular reference objects.
+        /// [it's not necessary]Factory gives un new instance of Function that handles the circular reference objects.
         /// </summary>
         /// <returns></returns>
         static public string Implementation()
         {
-            return Diphap.JsNetBridge.Properties.Resources.circularReferenceManagerFactory;
+            return  /*it's not necessary*/  "";
+
         }
 
     }

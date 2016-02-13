@@ -95,6 +95,10 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <dpContent Include="Docs\GetStarted.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
@@ -110,4 +114,8 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+    <Target Name="AfterBuild">
+    <Copy SourceFiles="@(dpContent)" DestinationFolder="$(ProjectDir)..\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\" />
+  </Target>
+  
 </Project>

@@ -296,6 +296,24 @@
             Controller name.
             </summary>
         </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.LiteralText">
+            <summary>
+            literal text.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.LiteralText.FileInfo(Diphap.JsNetBridge.Common.AssemblyInfo)">
+            <summary>
+            About generated file js.
+            </summary>
+            <param name="assInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.LiteralText.GetStarted">
+            <summary>
+            It's not necessary.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(System.Web.Mvc.WebViewPage,System.String)">
             <summary>
             Set url jsvalue.

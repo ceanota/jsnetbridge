@@ -51,6 +51,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.config" />
+    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.json" />
+    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.config" />
+    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
@@ -64,7 +68,22 @@
     <Folder Include="_bin\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\Scripts\Diphap.JsNetBridge.js" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.dll" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.pdb" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.XML" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.dll" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.pdb" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.xml" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.pdb" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.xml" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Newtonsoft.Json.dll" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\Newtonsoft.Json.xml" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\GetStarted.txt" />
     <Content Include="Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

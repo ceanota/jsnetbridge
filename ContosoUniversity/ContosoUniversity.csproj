@@ -49,13 +49,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diphap.JsNetBridge, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.6\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge, Version=1.2.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.8\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.6\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.8\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -336,7 +335,10 @@
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.json" />
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\GetStarted.txt" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

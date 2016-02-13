@@ -136,7 +136,7 @@
         </member>
         <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.Implementation">
             <summary>
-            Factory gives un new instance of Function that handles the circular reference objects.
+            [it's not necessary]Factory gives un new instance of Function that handles the circular reference objects.
             </summary>
             <returns></returns>
         </member>
@@ -259,7 +259,7 @@
         </member>
         <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.Implementation">
             <summary>
-            Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
+            [it's not necessary] Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
             </summary>
             <returns></returns>
         </member>

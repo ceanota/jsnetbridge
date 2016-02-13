@@ -24,7 +24,9 @@ namespace ContosoUniversity
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/JsNetBridge").Include(
-"~/Scripts/Diphap.JsNetBridge.js"));
+"~/Scripts/Diphap.JsNetBridge/arrayFactory.js").Include(
+"~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js").Include(
+"~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/ajaxlogin").Include(
     "~/Scripts/app/ajaxlogin.js"));

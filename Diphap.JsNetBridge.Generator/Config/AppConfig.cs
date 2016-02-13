@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Generator.Config
     {
         public string dll_asp;
         public const string file_name_out = "Diphap.JsNetBridge";
-        internal string js_out = string.Format(@"Scripts\{0}.js", file_name_out);
+        internal string js_out = string.Format(@"Scripts\Diphap.JsNetBridge\{0}.js", file_name_out);
         public const string file_name_exe = file_name_out + ".Generator.exe";
         public AssemblyConfig[] dll_set;
 
@@ -84,7 +84,7 @@ namespace Diphap.JsNetBridge.Generator.Config
                 var config_example = new config()
                 {
                     dll_asp = @"C:\www\MyApplicationMvc\bin\MyApplicationMvc.dll (ASP.NET MVC application)",
-                    js_out = @"Scripts\Diphap.JsNetBridge.js (output file, relative path from folder of ASP.NET MVC application)",
+                    js_out = @"Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js (output file, relative path from folder of ASP.NET MVC application)",
                     dll_set = new AssemblyConfig[] 
                         { 
                             new AssemblyConfig() { file = @"bin\MyBusinessEntities.dll (relative path from folder of ASP.NET MVC application)", ns_filters = new string[] { "MyBusinessEntities.dto (or no items)", "MyBusinessEntities.enum (or no items)" } },

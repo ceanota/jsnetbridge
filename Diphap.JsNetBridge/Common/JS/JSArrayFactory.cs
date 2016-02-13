@@ -21,12 +21,12 @@ namespace Diphap.JsNetBridge.Common.JS
         static private string FunctionName = Config.prefixe_ns_dp + "." + Config.brandLetter + "shared" + "." + Config.brandLetter + "arrayFactory";
 
         /// <summary>
-        /// Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
+        /// [it's not necessary] Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.
         /// </summary>
         /// <returns></returns>
         static public string Implementation()
         {
-            return JsNetBridge.Properties.Resources.arrayFactory;
+            return  /*[it's not necessary]*/ "";
         }
 
         /// <summary>
