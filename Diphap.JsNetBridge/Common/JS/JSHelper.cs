@@ -130,15 +130,33 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Get Function.
+        /// Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
         /// </summary>
         /// <param name="body"></param>
         /// <param name="call"></param>
         /// <param name="funcName"></param>
+        /// <param name="exceptionMessage"></param>
         /// <returns></returns>
-        static public string GetFunction(string body, bool call, string funcName = null)
+        static public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
-            return string.Format("function {0} () {{ {1} }}{2}", funcName, body, call ? "()" : null);
+            return string.Format("function {0} () {{ try {{ {1} }} catch(ex) {{ {3}  }} }}{2}",
+                funcName,
+                body,
+                call ? "()" : null,
+                exceptionMessage == null ? "throw ex;" : string.Format("var new_message = '{0}' + ' => ' + ex.message; throw new_message;", exceptionMessage));
+        }
+
+        /// <summary>
+        /// Get Module => ex: (function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }())
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="call"></param>
+        /// <param name="funcName"></param>
+        /// <param name="exceptionMessage"></param>
+        /// <returns></returns>
+        static public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null)
+        {
+            return "(" + GetFunction(body, call, funcName, exceptionMessage) + ")";
         }
 
         /// <summary>

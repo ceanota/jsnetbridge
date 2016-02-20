@@ -83,7 +83,7 @@
     <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\GetStarted.txt" />
+    <Content Include="content\Generators\Diphap.JsNetBridge\_ReadMe.txt" />
     <Content Include="Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
