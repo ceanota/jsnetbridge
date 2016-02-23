@@ -16,10 +16,10 @@ namespace Diphap.JsNetBridge.Data
         ModelInfo _ModelInfo;
         EnumColInfo _EnumColInfo;
 
-        public EntityInfo(string appAspNetPath, string[] namespaces)
+        public EntityInfo(string appAspNetPath, string[] whiteNamespaces, string[] blackNamespaces)
         {
-            _ModelInfo = new ModelInfo(appAspNetPath, namespaces);
-            _EnumColInfo = new EnumColInfo(appAspNetPath, namespaces);
+            _ModelInfo = new ModelInfo(appAspNetPath, whiteNamespaces, blackNamespaces);
+            _EnumColInfo = new EnumColInfo(appAspNetPath, whiteNamespaces, blackNamespaces);
         }
 
         public string ToJS()

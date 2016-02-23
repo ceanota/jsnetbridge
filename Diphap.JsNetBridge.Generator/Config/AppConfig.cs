@@ -87,7 +87,7 @@ namespace Diphap.JsNetBridge.Generator.Config
                     js_out = @"Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js (output file, relative path from folder of ASP.NET MVC application)",
                     dll_set = new AssemblyConfig[] 
                         { 
-                            new AssemblyConfig() { file = @"bin\MyBusinessEntities.dll (relative path from folder of ASP.NET MVC application)", ns_filters = new string[] { "MyBusinessEntities.dto (or no items)", "MyBusinessEntities.enum (or no items)" } },
+                            new AssemblyConfig() { file = @"bin\MyBusinessEntities.dll (relative path from folder of ASP.NET MVC application)", whitens_filters = new string[] { "MyBusinessEntities.dto (or no items)", "MyBusinessEntities.enum (or no items)" }, blackns_filters = new string[] {  } },
                             new AssemblyConfig() { file = @"bin\MyViewEntities.dll (relative path from folder of ASP.NET MVC application)" }
                         }
                 };

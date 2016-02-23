@@ -21,26 +21,26 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         }
 
-        public EnumColInfo(Assembly ass, IList<string> namespaces)
-            : base(TypeHelper.GetTypesOfEnum(ass, namespaces))
+        public EnumColInfo(Assembly ass, IList<string> whiteNamespaces, IList<string> blackNamespaces)
+            : base(TypeHelper.GetTypesOfEnum(ass, whiteNamespaces, blackNamespaces))
         {
 
         }
 
         public EnumColInfo(Assembly ass)
-            : base(TypeHelper.GetTypesOfEnum(ass, new string[] { }))
+            : base(TypeHelper.GetTypesOfEnum(ass, new string[] { }, new string[] { }))
         {
 
         }
 
-        public EnumColInfo(string appAspNetPath, IList<string> namespaces)
-            : base(TypeHelper.GetTypesOfEnum(appAspNetPath, namespaces))
+        public EnumColInfo(string appAspNetPath, IList<string> whiteNamespaces, IList<string> blackNamespaces)
+            : base(TypeHelper.GetTypesOfEnum(appAspNetPath, whiteNamespaces, blackNamespaces))
         {
 
         }
 
         public EnumColInfo(string appAspNetPath)
-            : base(TypeHelper.GetTypesOfEnum(appAspNetPath, new string[] { }))
+            : base(TypeHelper.GetTypesOfEnum(appAspNetPath, new string[] { }, new string[] { }))
         {
 
         }

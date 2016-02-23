@@ -40,8 +40,8 @@
 	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"
 
 	5.2- : .net object of MVC Models only and other .net objects in other assemblies.
-	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', ns_filters:[]}] }"
+	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', whitens_filters:[], blackns_filters:[]}] }"
 
 	5.3- : .net object of MVC Models only and other .net objects in other assemblies with WHITE FILTERS.
-	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', ns_filters:['Newtonsoft.Json.Serialization']}] }"
+	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', whitens_filters:['Newtonsoft.Json.Serialization']}], blackns_filters:[] }"
 

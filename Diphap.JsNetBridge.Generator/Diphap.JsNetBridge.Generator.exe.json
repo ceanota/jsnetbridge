@@ -7,7 +7,7 @@
 
 	//-- relative path from folder of ASP.NET MVC application.
 	/*"dll_set":[
-		{"file":"bin\QuadraEdenTransverse.dll", "ns_filters":[]},
-		{"file":"bin\QuadraEdenDomain.dll", "ns_filters":[]}
+		{"file":"bin\QuadraEdenTransverse.dll", "whitens_filters":[], "blackns_filters":[]},
+		{"file":"bin\QuadraEdenDomain.dll", "whitens_filters":[], "blackns_filters":[]}
 	]*/
 }

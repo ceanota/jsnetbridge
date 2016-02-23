@@ -18,15 +18,15 @@ namespace Diphap.JsNetBridge.Data
             this.Types = allTypes;
         }
 
-        public ModelInfo(string appAspNetPath, IList<string> namespaces)
-            : this(TypeHelper.GetTypesOfClass(appAspNetPath, namespaces))
+        public ModelInfo(string appAspNetPath, IList<string> whiteNamespaces, IList<string> blackNamespaces)
+            : this(TypeHelper.GetTypesOfClass(appAspNetPath, whiteNamespaces, blackNamespaces))
         {
 
         }
 
         public ModelInfo(string appAspNetPath)
         {
-            this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { });
+            this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
         }
 
         public void Execute()

@@ -55,9 +55,9 @@ namespace Diphap.JsNetBridge.Mvc
             this.Types_Model = TypeHelper.GetTypesOfClass(types
                 .Where(t => t.FullName.Contains(".Models")
                     && (t.BaseType == type_obj || t.BaseType == null || (t.BaseType.FullName != null && t.BaseType.FullName.Contains("System.") == false))).ToArray(),
-                new string[] { }).ToList();
+                new string[] { }, new string[] { }).ToList();
 
-            this.Types_Enum = TypeHelper.GetTypesOfEnum(asp_net, new string[] { });
+            this.Types_Enum = TypeHelper.GetTypesOfEnum(asp_net, new string[] { }, new string[] { });
 
             this.Types_Controller = types.Where(t => t.Name.Contains("Controller")).ToList();
 

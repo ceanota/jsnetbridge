@@ -59,7 +59,7 @@ namespace Diphap.JsNetBridge.Generator
                         foreach (AssemblyConfig dto in _config.dll_set)
                         {
                             dto.validate(_config.asp_bin_absolute);
-                            assemblySetList.Add(new AssemblySet(dto.file, dto.ns_filters));
+                            assemblySetList.Add(new AssemblySet(dto.file, dto.whitens_filters, dto.blackns_filters));
                         }
                     }
 

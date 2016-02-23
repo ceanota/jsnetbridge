@@ -11,7 +11,8 @@ namespace Diphap.JsNetBridge.Generator.Config
     public class AssemblyConfig
     {
         public string file;
-        public IList<string> ns_filters;
+        public IList<string> whitens_filters;
+        public IList<string> blackns_filters;
         public void validate(string folder)
         {
             this.file = folder + "/" + this.file;

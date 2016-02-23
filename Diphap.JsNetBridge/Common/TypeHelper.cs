@@ -188,23 +188,25 @@ namespace Diphap.JsNetBridge
         /// Get Types
         /// </summary>
         /// <param name="fileName"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfClass(string fileName, IList<string> namespaces)
+        public static List<Type> GetTypesOfClass(string fileName, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
             Assembly ass = Assembly.LoadFrom(fileName);
-            return GetTypesOfClass(ass, namespaces);
+            return GetTypesOfClass(ass, whiteNamespaces, blackNamespaces);
         }
 
         /// <summary>
         /// Get Types of class.
         /// </summary>
         /// <param name="ass"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfClass(Assembly ass, IList<string> namespaces)
+        public static List<Type> GetTypesOfClass(Assembly ass, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
-            List<Type> types_selected = GetTypesOfClass(ass.GetTypes(), namespaces);
+            List<Type> types_selected = GetTypesOfClass(ass.GetTypes(), whiteNamespaces);
             return types_selected;
         }
 
@@ -212,9 +214,10 @@ namespace Diphap.JsNetBridge
         /// filter types of class.
         /// </summary>
         /// <param name="types"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfClass(Type[] types, IList<string> namespaces = null)
+        public static List<Type> GetTypesOfClass(Type[] types, IList<string> whiteNamespaces = null, IList<string> blackNamespaces = null)
         {
             List<Type> types_selected = new List<Type>(types.Length);
 
@@ -222,23 +225,14 @@ namespace Diphap.JsNetBridge
             {
                 Type t = types[idx];
 
-                if (namespaces == null || namespaces.Count == 0 ||
-                    (namespaces.Count > 0 && namespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0)))
+                bool goFlag = AurthorizeTypeOfObject(whiteNamespaces, blackNamespaces, t, types_selected);
+
+                if (goFlag)
                 {
-                    if (t.GetCustomAttribute(typeof(JsNetIgnoreAttribute), true) == null)
+                    if (t.IsPublic && (t.IsClass || t.IsInterface) && t.IsNested == false && !t.Name.Contains("<") && t.IsGenericType == false)
                     {
-                        if (types_selected.IndexOf(t) < 0)
-                        {
-                            if (t.IsPublic && (t.IsClass || t.IsInterface) && t.IsNested == false && !t.Name.Contains("<") && t.IsGenericType == false)
-                            {
-                                t = TypeHelper.GetElementTypeOfCollectionOrDefault(t);
-                                types_selected.Add(t);
-                            }
-                        }
-                    }
-                    else
-                    {
-                        //-- nothing for debug.
+                        t = TypeHelper.GetElementTypeOfCollectionOrDefault(t);
+                        types_selected.Add(t);
                     }
                 }
             }
@@ -246,16 +240,38 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
+        /// Authorize  Type of object ?
+        /// </summary>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
+        /// <param name="t">current type</param>
+        /// <param name="types_selected"></param>
+        /// <returns></returns>
+        private static bool AurthorizeTypeOfObject(IList<string> whiteNamespaces, IList<string> blackNamespaces, Type t, IList<Type> types_selected)
+        {
+            Func<bool> noSelectedFlag = () => types_selected.IndexOf(t) < 0;
+            Func<bool> noAttFlag = () => t.GetCustomAttribute(typeof(JsNetIgnoreAttribute), true) == null;
+            Func<bool> nothingFlag = () => ((whiteNamespaces == null || whiteNamespaces.Count == 0) && (blackNamespaces == null || blackNamespaces.Count == 0));
+            Func<bool> whiteFlag = () => (whiteNamespaces != null && whiteNamespaces.Count > 0 && whiteNamespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0));
+            Func<bool> blackFlag = () => (blackNamespaces != null && blackNamespaces.Count > 0 && blackNamespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0));
+
+            bool goFlag = noSelectedFlag() && noAttFlag() && (nothingFlag() || whiteFlag() || ((blackNamespaces != null && blackNamespaces.Count > 0) && !blackFlag()));
+
+            return goFlag;
+        }
+
+        /// <summary>
         /// Get types of enum.
         /// </summary>
         /// <param name="ass"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfEnum(Assembly ass, IList<string> namespaces)
+        public static List<Type> GetTypesOfEnum(Assembly ass, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
             Type[] types = ass.GetTypes();
 
-            List<Type> types_selected = GetTypesOfEnum(types, namespaces);
+            List<Type> types_selected = GetTypesOfEnum(types, whiteNamespaces, blackNamespaces);
             return types_selected;
 
         }
@@ -264,9 +280,9 @@ namespace Diphap.JsNetBridge
         /// Get types of enum.
         /// </summary>
         /// <param name="types"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfEnum(Type[] types, IList<string> namespaces = null)
+        public static List<Type> GetTypesOfEnum(Type[] types, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
             List<Type> types_selected = new List<Type>(types.Length);
 
@@ -274,15 +290,14 @@ namespace Diphap.JsNetBridge
             {
                 Type t = types[idx];
 
-                if (namespaces == null || namespaces.Count == 0 ||
-                    (namespaces.Count > 0 && namespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0)))
+
+                bool goFlag = AurthorizeTypeOfObject(whiteNamespaces, blackNamespaces, t, types_selected);
+
+                if (goFlag)
                 {
-                    if (t.GetCustomAttribute(typeof(JsNetIgnoreAttribute), true) == null && types_selected.IndexOf(t) < 0)
+                    if (t.IsEnum && t.IsNested == false)
                     {
-                        if (t.IsEnum && t.IsNested == false)
-                        {
-                            types_selected.Add(t);
-                        }
+                        types_selected.Add(t);
                     }
                 }
             }
@@ -293,12 +308,13 @@ namespace Diphap.JsNetBridge
         /// Get Types of enum.
         /// </summary>
         /// <param name="fileName"></param>
-        /// <param name="namespaces"></param>
+        /// <param name="whiteNamespaces"></param>
+        /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfEnum(string fileName, IList<string> namespaces)
+        public static List<Type> GetTypesOfEnum(string fileName, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
             Assembly ass = Assembly.LoadFrom(fileName);
-            return GetTypesOfEnum(ass, namespaces);
+            return GetTypesOfEnum(ass, whiteNamespaces, blackNamespaces);
         }
 
 

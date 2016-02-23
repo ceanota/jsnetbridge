@@ -35,5 +35,5 @@
  4- Replace the word '{MyApplicationWeb}' with the name of your web application.
 
  5- Post-build event command line:
-	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', ns_filters:['Newtonsoft.Json.Serialization']}] }"
+	"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', whitens_filters:['Newtonsoft.Json.Serialization']}], blackns_filters:[]}] }"
 

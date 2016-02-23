@@ -328,11 +328,12 @@
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.xml" />
     <Content Include="Generators\Diphap.JsNetBridge\Newtonsoft.Json.dll" />
     <Content Include="Generators\Diphap.JsNetBridge\Newtonsoft.Json.xml" />
+    <Content Include="Generators\Diphap.JsNetBridge\_ReadMe.txt" />
     <Content Include="Global.asax" />
     <Content Include="Models\Models.cd" />
+    <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.json" />
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.json" />
     <Content Include="Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
@@ -471,7 +472,7 @@
   </ProjectExtensions>
   <Import Project="$(SolutionDir)\.nuget\nuget.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', ns_filters:['Newtonsoft.Json.Serialization']}] }"</PostBuildEvent>
+    <PostBuildEvent>"$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' , dll_set:[{file:'Newtonsoft.Json.dll', whitens_filters:['Newtonsoft.Json.Serialization']}] }"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
