@@ -51,10 +51,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.config" />
-    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe.json" />
-    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <None Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
@@ -62,29 +58,32 @@
     <None Include="tools\init.ps1" />
     <None Include="tools\install.ps1" />
     <None Include="tools\uninstall.ps1" />
+    <None Include="_bin\Diphap.JsNetBridge.Generator.exe.config" />
+    <None Include="_bin\Diphap.JsNetBridge.Generator.exe.json" />
+    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
+    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\net45\" />
-    <Folder Include="_bin\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.dll" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.pdb" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.vshost.exe" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.XML" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.pdb" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Mvc.xml" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.pdb" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.xml" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Newtonsoft.Json.dll" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\Newtonsoft.Json.xml" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
-    <Content Include="content\Generators\Diphap.JsNetBridge\_ReadMe.txt" />
     <Content Include="Icon.png" />
+    <Content Include="_bin\Diphap.JsNetBridge.dll" />
+    <Content Include="_bin\Diphap.JsNetBridge.Generator.exe" />
+    <Content Include="_bin\Diphap.JsNetBridge.Generator.pdb" />
+    <Content Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
+    <Content Include="_bin\Diphap.JsNetBridge.Generator.XML" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.dll" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.pdb" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.xml" />
+    <Content Include="_bin\Diphap.JsNetBridge.pdb" />
+    <Content Include="_bin\Diphap.JsNetBridge.xml" />
+    <Content Include="_bin\Newtonsoft.Json.dll" />
+    <Content Include="_bin\Newtonsoft.Json.xml" />
+    <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
