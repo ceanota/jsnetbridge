@@ -322,7 +322,6 @@
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge\GetStarted.txt" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
