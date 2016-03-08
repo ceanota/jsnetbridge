@@ -184,6 +184,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             {
                 sb.AppendLine("(function () {");
+                sb.AppendLine(Config.stampFuncInstruction);
                 sb.AppendLine(this.ModelInfo.ToJSCore());
 
                 sb.AppendLine(this.EnumInfo.ToJSCore());
@@ -191,6 +192,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendLine(string.Join("", JSHelper.CreateNamespace(Config.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", Config.url_set, this.UrlInfo.ToJS()));
+                
                 sb.AppendLine("})();");
             }
             sb.AppendLine("})();");

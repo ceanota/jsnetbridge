@@ -163,9 +163,11 @@ namespace Diphap.JsNetBridge
         /// Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
         /// </summary>
         /// <param name="jsObj">JS object.</param>
+        /// <param name="withArgs"></param>
         /// <param name="constructorName">function name.</param>
+        /// <param name="stampFunc"></param>
         /// <returns></returns>
-        static public string GetFactory(string jsObj, bool withArgs, string constructorName = null)
+        static public string GetFactory(string jsObj, bool withArgs, string constructorName = null, bool stampFunc = false)
         {
             if ((string.IsNullOrWhiteSpace(jsObj) == false) == false)
             {
@@ -178,13 +180,19 @@ namespace Diphap.JsNetBridge
                 constructorInstruction = string.Format("obj.constructor={0};", constructorName);
             }
 
+            string stampObjInstruction = null;
+            if (stampFunc)
+            {
+                constructorInstruction = string.Format("obj.{0}stamp = {1};", Config.brandLetter, Config.stampFunc);
+            }
+
             string argsInstruction = null;
             if (withArgs)
             {
                 argsInstruction = "var args = Array.prototype.slice.call(arguments);";
             }
 
-            return string.Format("function(){{ {0} var obj = {1};{2} return obj; }}", argsInstruction, jsObj, constructorInstruction);
+            return string.Format("function(){{ {0} var obj = {1};{2}{3} return obj; }}", argsInstruction, jsObj, constructorInstruction, stampObjInstruction);
         }
 
         /// <summary>
@@ -207,7 +215,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs)
         {
-            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t)));
+            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t), true));
         }
 
         /// <summary>
