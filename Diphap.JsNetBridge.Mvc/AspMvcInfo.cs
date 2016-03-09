@@ -175,6 +175,16 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendLine(LiteralText.GetStarted());
 
+                sb.AppendLine("//#region [references]");
+                sb.AppendLine("/*");
+                Type[] types = new Type[] { AspMvcInfo.Type_ActionResult, AspMvcInfo.Type_ApiController, AspMvcInfo.Type_HttpResponseMessage, AspMvcInfo.Type_JsonResult, AspMvcInfo.Type_ViewResult };
+                foreach (var t in types)
+                {
+                    sb.AppendLine(t.AssemblyQualifiedName.ToString() + " - " + t.Assembly.Location);
+                }
+                sb.AppendLine("*/");
+                sb.AppendLine("//#endregion");
+
                 sb.AppendLine();
                 sb.AppendLine(JSArrayFactory.Implementation());
 
@@ -192,7 +202,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendLine(string.Join("", JSHelper.CreateNamespace(Config.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", Config.url_set, this.UrlInfo.ToJS()));
-                
+
                 sb.AppendLine("})();");
             }
             sb.AppendLine("})();");

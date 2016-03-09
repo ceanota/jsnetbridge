@@ -32,6 +32,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             ModelInfo st = new ModelInfo(new List<Type> { typeof(CA), typeof(CB), typeof(CC), typeof(CD), typeof(CE), typeof(CF) });
             string jsCore = st.ToJS();
 
+            var aa = typeof(ModelInfo);
+
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\Scripts\_JavaScript1.js", jsCore);
 
             //string fileName = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";

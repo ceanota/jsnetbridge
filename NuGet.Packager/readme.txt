@@ -5,7 +5,7 @@
 1- Paste this code into the file 'BundleConfig.cs' in the function 'RegisterBundles' of the class 'BundleConfig':
 
             //bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
-            //    .Include( "~/Scripts/Diphap.JsNetBridge/Diphap.Shared.js")
+            //    .Include( "~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 

@@ -2,7 +2,7 @@
 
 //#region "COPYRIGHT"
 /***************************************************************************************************************
-            Diphap.JsNetBridge.Mvc v1.1.0.0
+            Diphap.JsNetBridge.Mvc v1.1.0.1
             Build ASP.NET Objects API for javascript
             Copyright (c)  2015
 
@@ -15,6 +15,13 @@
 //#endregion
 
 
+/*
+System.Web.Mvc.ActionResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+System.Web.Http.ApiController, System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+System.Net.Http.HttpResponseMessage, System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
+System.Web.Mvc.JsonResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+System.Web.Mvc.ViewResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+*/
 
 
 
