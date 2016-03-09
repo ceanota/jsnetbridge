@@ -64,12 +64,12 @@ namespace Diphap.JsNetBridge.Mvc
             this.Url = "";
             this.MethodInfo = methodInfo;
 
-            this._IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
+            this._IsApiController = AspMvcInfo.TypesOfAspNetSet.Type_ApiController.IsAssignableFrom(this._type_controller);
 
-            this.IsJsonResult = AspMvcInfo.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsHttpResponseMessage = AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsActionResult = AspMvcInfo.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsViewResult = AspMvcInfo.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsJsonResult = AspMvcInfo.TypesOfAspNetSet.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsHttpResponseMessage = AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsActionResult = AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsViewResult = AspMvcInfo.TypesOfAspNetSet.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
         }
 
@@ -153,7 +153,7 @@ namespace Diphap.JsNetBridge.Mvc
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ {0}httpMethods:{1} }};", Config.brandLetter, httpMethod_jsObj);
+                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", Config.brandLetter, httpMethod_jsObj);
                 }
                 else
                 {
@@ -386,8 +386,8 @@ namespace Diphap.JsNetBridge.Mvc
                     {
                         jsonValue = "{}";
 
-                        if (AspMvcInfo.Type_ActionResult.IsAssignableFrom(t) == false &&
-                            AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(t) == false)
+                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(t) == false &&
+                            AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(t) == false)
                         {
                             jsonValue = SerializeNet.TrySerialize(t);
                         }

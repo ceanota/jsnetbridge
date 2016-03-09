@@ -27,10 +27,10 @@
 
 3- Paste this code in each layout file (ex: '_Layout.cshtml), before JS app:
 
-            //@Scripts.Render("~/bundles/JsNetBridge")
-            //<script>
-            //    @(new MvcHtmlString({MyApplicationWeb}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
-            //</script>
+            @Scripts.Render("~/bundles/JsNetBridge")
+			<script>
+				@(new MvcHtmlString({MyWebApp}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+			</script>
 
  4- Replace the word '{MyApplicationWeb}' with the name of your web application.
 

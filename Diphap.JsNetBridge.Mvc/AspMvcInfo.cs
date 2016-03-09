@@ -6,11 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net.Http;
 using System.Reflection;
 using System.Text;
-using System.Web.Http;
-using System.Web.Mvc;
 
 namespace Diphap.JsNetBridge.Mvc
 {
@@ -21,11 +18,7 @@ namespace Diphap.JsNetBridge.Mvc
     public class AspMvcInfo
     {
         #region "Constants"
-        static internal readonly Type Type_ApiController = typeof(ApiController);
-        static internal readonly Type Type_JsonResult = typeof(JsonResult);
-        static internal readonly Type Type_HttpResponseMessage = typeof(HttpResponseMessage);
-        static internal readonly Type Type_ActionResult = typeof(ActionResult);
-        static internal readonly Type Type_ViewResult = typeof(ViewResult);
+        public static readonly TypesOfAspNetSet TypesOfAspNetSet = new TypesOfAspNetSet();
         #endregion
 
         #region "Internal"
@@ -177,7 +170,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendLine("//#region [references]");
                 sb.AppendLine("/*");
-                Type[] types = new Type[] { AspMvcInfo.Type_ActionResult, AspMvcInfo.Type_ApiController, AspMvcInfo.Type_HttpResponseMessage, AspMvcInfo.Type_JsonResult, AspMvcInfo.Type_ViewResult };
+                Type[] types = new Type[] { AspMvcInfo.TypesOfAspNetSet.Type_ActionResult, AspMvcInfo.TypesOfAspNetSet.Type_ApiController, AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage, AspMvcInfo.TypesOfAspNetSet.Type_JsonResult, AspMvcInfo.TypesOfAspNetSet.Type_ViewResult };
                 foreach (var t in types)
                 {
                     sb.AppendLine(t.AssemblyQualifiedName.ToString() + " - " + t.Assembly.Location);

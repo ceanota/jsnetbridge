@@ -61,7 +61,7 @@ namespace Diphap.JsNetBridge.Mvc
             this.Url = "";
             this.MethodInfoGroup = miGroup;
 
-            this._IsApiController = AspMvcInfo.Type_ApiController.IsAssignableFrom(this._type_controller);
+            this._IsApiController = AspMvcInfo.TypesOfAspNetSet.Type_ApiController.IsAssignableFrom(this._type_controller);
 
             this._signatures = miGroup.Select(x => new ActionInfo(this.Action, this._type_controller, this.Area, x)).ToArray();
 

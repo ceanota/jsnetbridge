@@ -63,7 +63,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
 
             {
-                string[] methods = GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
+                string[] methods = AspMvcInfo.TypesOfAspNetSet.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
                 if (methods.Length > 0)
                 {
                     return methods;
@@ -84,7 +84,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         static public string GetAjaxDataType(MethodInfo MethodInfo)
         {
             bool isText = typeof(void) == MethodInfo.ReturnType ||
-                AspMvcInfo.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
+                AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
 
             if (isText)
             {
@@ -97,13 +97,10 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
         }
 
-        static Type[] THttpAttributes = new Type[] { typeof(System.Web.Http.HttpGetAttribute), typeof(System.Web.Http.HttpPostAttribute), typeof(System.Web.Http.HttpPutAttribute), typeof(System.Web.Http.HttpDeleteAttribute), typeof(System.Web.Http.HttpHeadAttribute) };
-
-
         static private string GetHttpMethod_FromHttpAttribute(MethodInfo MethodInfo)
         {
 
-            foreach (var t in THttpAttributes)
+            foreach (var t in AspMvcInfo.TypesOfAspNetSet.THttpAttributes)
             {
                 var att = MethodInfo.GetCustomAttribute(t);
                 if (att != null)
@@ -113,20 +110,6 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             }
 
             return "";
-        }
-
-        static private string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo)
-        {
-
-            System.Web.Http.AcceptVerbsAttribute att = MethodInfo.GetCustomAttribute<System.Web.Http.AcceptVerbsAttribute>();
-
-            if (att != null)
-            {
-                return att.HttpMethods.Select(x => x.Method).ToArray();
-            }
-
-            return new string[0];
-
         }
 
         private static string GetHttpMethod_FromActionName(string actionName)

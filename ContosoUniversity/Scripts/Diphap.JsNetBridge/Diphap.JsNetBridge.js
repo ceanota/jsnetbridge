@@ -2,7 +2,7 @@
 
 //#region "COPYRIGHT"
 /***************************************************************************************************************
-            Diphap.JsNetBridge.Mvc v1.1.0.1
+            Diphap.JsNetBridge.Mvc v1.1.0.4
             Build ASP.NET Objects API for javascript
             Copyright (c)  2015
 

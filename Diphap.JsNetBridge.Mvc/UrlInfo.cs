@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Web.Mvc;
-using System.Web.Routing;
 
 namespace Diphap.JsNetBridge.Mvc
 {
@@ -84,7 +82,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var u in ci.ActionInfoCol)
                     {
-                        RouteValueDictionary dic = new RouteValueDictionary();
+                        IDictionary<string, object> dic = urlHelper.CreateInstanceOfRouteValueDictionary();
 
                         if (string.IsNullOrWhiteSpace(u.Area) == false)
                         {
@@ -95,11 +93,11 @@ namespace Diphap.JsNetBridge.Mvc
                         {
                             dic.Add("httproute", "");
                             dic.Add("controller", u.Controller);
-                            u.Url = urlHelper.RouteUrl(apiRouteName, dic);
+                            u.Url = urlHelper.RouteUrl_(apiRouteName, dic);
                         }
                         else
                         {
-                            u.Url = urlHelper.Action(u.Action, u.Controller, dic);
+                            u.Url = urlHelper.Action_(u.Action, u.Controller, dic);
                         }
 
 
