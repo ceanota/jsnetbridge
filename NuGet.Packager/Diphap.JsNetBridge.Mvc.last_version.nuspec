@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>Diphap.JsNetBridge.Mvc</id>
+        <version>1.0.9</version>
+        <title>Diphap.JsNetBridge.Mvc</title>
+        <authors>diphap</authors>
+        <owners>diphap</owners>
+        <licenseUrl>http://jsnet.codeplex.com/license</licenseUrl>
+        <projectUrl>http://jsnet.codeplex.com/</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>JsNetBridge: Build ASP.NET Objects API for javascript</description>
+        <summary>JsNetBridge: Build ASP.NET Objects API for javascript</summary>
+        <releaseNotes />
+        <copyright>Copyright (c) 2015</copyright>
+        <language>en-US</language>
+        <tags>Build JS javascript ASP.NET Generate Intellisense URL API</tags>
+        <dependencies>
+            <group targetFramework=".NETFramework4.5">
+                <dependency id="Microsoft.AspNet.Mvc" version="4.0.20710.0" />
+                <dependency id="Microsoft.AspNet.Razor" version="2.0.30506.0" />
+                <dependency id="Microsoft.AspNet.WebPages" version="2.0.30506.0" />
+                <dependency id="Microsoft.Web.Infrastructure" version="1.0.0.0" />
+                <dependency id="Newtonsoft.Json" version="4.5.11" />
+            </group>
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" target="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
+        <file src="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" target="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
+        <file src="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" target="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+        <file src="lib\net45\Diphap.JsNetBridge.dll" target="lib\net45\Diphap.JsNetBridge.dll" />
+        <file src="lib\net45\Diphap.JsNetBridge.Mvc.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
+        <file src="lib\net45\Diphap.JsNetBridge.Mvc.XML" target="lib\net45\Diphap.JsNetBridge.Mvc.XML" />
+        <file src="lib\net45\Diphap.JsNetBridge.XML" target="lib\net45\Diphap.JsNetBridge.XML" />
+        <file src="tools\init.ps1" target="tools\init.ps1" />
+        <file src="tools\install.ps1" target="tools\install.ps1" />
+        <file src="tools\uninstall.ps1" target="tools\uninstall.ps1" />
+        <file src="_bin\Diphap.JsNetBridge.dll" target="_bin\Diphap.JsNetBridge.dll" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.exe" target="_bin\Diphap.JsNetBridge.Generator.exe" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.exe.config" target="_bin\Diphap.JsNetBridge.Generator.exe.config" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.exe.json" target="_bin\Diphap.JsNetBridge.Generator.exe.json" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.pdb" target="_bin\Diphap.JsNetBridge.Generator.pdb" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.XML" target="_bin\Diphap.JsNetBridge.Generator.XML" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.dll" target="_bin\Diphap.JsNetBridge.Mvc.dll" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.pdb" target="_bin\Diphap.JsNetBridge.Mvc.pdb" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.xml" target="_bin\Diphap.JsNetBridge.Mvc.xml" />
+        <file src="_bin\Diphap.JsNetBridge.pdb" target="_bin\Diphap.JsNetBridge.pdb" />
+        <file src="_bin\Diphap.JsNetBridge.xml" target="_bin\Diphap.JsNetBridge.xml" />
+        <file src="_bin\Newtonsoft.Json.dll" target="_bin\Newtonsoft.Json.dll" />
+        <file src="_bin\Newtonsoft.Json.xml" target="_bin\Newtonsoft.Json.xml" />
+        <file src="Icon.png" target="Icon.png" />
+        <file src="readme.txt" target="readme.txt" />
+    </files>
+</package>

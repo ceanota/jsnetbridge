@@ -29,6 +29,15 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         public void TestMethod1()
         {
 
+
+            Testt tt = new Testt();
+
+            CA ca = new CA();
+            tt.Method1 = ca.Hello;
+
+            var bon = tt.Method1("bonjour");
+
+
             ModelInfo st = new ModelInfo(new List<Type> { typeof(CA), typeof(CB), typeof(CC), typeof(CD), typeof(CE), typeof(CF) });
             string jsCore = st.ToJS();
 

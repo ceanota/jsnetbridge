@@ -15,13 +15,15 @@
 //#endregion
 
 
+//#region [references]
 /*
-System.Web.Mvc.ActionResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Http.ApiController, System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Net.Http.HttpResponseMessage, System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a
-System.Web.Mvc.JsonResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
-System.Web.Mvc.ViewResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35
+System.Web.Mvc.ActionResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35 - C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Mvc\v4.0_4.0.0.1__31bf3856ad364e35\System.Web.Mvc.dll
+System.Web.Http.ApiController, System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35 - C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Http\v4.0_4.0.0.0__31bf3856ad364e35\System.Web.Http.dll
+System.Net.Http.HttpResponseMessage, System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a - C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Net.Http\v4.0_4.0.0.0__b03f5f7f11d50a3a\System.Net.Http.dll
+System.Web.Mvc.JsonResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35 - C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Mvc\v4.0_4.0.0.1__31bf3856ad364e35\System.Web.Mvc.dll
+System.Web.Mvc.ViewResult, System.Web.Mvc, Version=4.0.0.1, Culture=neutral, PublicKeyToken=31bf3856ad364e35 - C:\Windows\Microsoft.Net\assembly\GAC_MSIL\System.Web.Mvc\v4.0_4.0.0.1__31bf3856ad364e35\System.Web.Mvc.dll
 */
+//#endregion
 
 
 

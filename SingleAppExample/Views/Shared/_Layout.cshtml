@@ -24,7 +24,7 @@
                 <li>@Html.ActionLink("Todo List", "Index", "Home", new { area = "" }, null)</li>
                 <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
             </ul>
-        </nav> 
+        </nav>
         <p>Learn more about <a href="http://go.microsoft.com/fwlink/?LinkId=273732">Single Page Applications</a></p>
         <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
     </footer>
@@ -32,10 +32,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/ajaxlogin")
-        @Scripts.Render("~/bundles/JsNetBridge")
+
+    @Scripts.Render("~/bundles/JsNetBridge")
     <script>
-        @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this)))
+        @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.UrlManager(this.Url.Action, this.Url.RouteUrl))))
     </script>
+
     <script src="~/Scripts/_JavaScript1.js"></script>
     @RenderSection("scripts", required: false)
 

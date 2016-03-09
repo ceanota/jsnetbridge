@@ -20,12 +20,12 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Set url jsvalue.
         /// </summary>
-        /// <param name="webViewPage"></param>
+        /// <param name="urlHelper"></param>
         /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        public UrlInfo SetUrlValue(WebViewPage webViewPage, string apiRouteName = "DefaultApi")
+        public UrlInfo SetUrlValue(UrlManager urlHelper, string apiRouteName = "DefaultApi")
         {
-            SetUrlValue(webViewPage, this.AreaInfoList, apiRouteName);
+            SetUrlValue(urlHelper, this.AreaInfoList, apiRouteName);
             return this;
         }
 
@@ -41,13 +41,13 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Get instructions set for url.
         /// </summary>
-        /// <param name="js_root"></param>
+        /// <param name="urlHelper"></param>
         /// <returns></returns>
-        public string ToJS_SetUrl(WebViewPage webViewPage = null)
+        public string ToJS_SetUrl(UrlManager urlHelper = null)
         {
-            if (webViewPage != null)
+            if (urlHelper != null)
             {
-                this.SetUrlValue(webViewPage);
+                this.SetUrlValue(urlHelper);
             }
 
             string properties = GetJsSetUrl(this.AreaInfoList, Config.url_set);
@@ -72,11 +72,11 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Set action url.
         /// </summary>
-        /// <param name="webViewPage"></param>
+        /// <param name="urlHelper"></param>
         /// <param name="areaInfoList"></param>
         /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        private static List<AreaInfo> SetUrlValue(WebViewPage webViewPage, List<AreaInfo> areaInfoList, string apiRouteName)
+        private static List<AreaInfo> SetUrlValue(UrlManager urlHelper, List<AreaInfo> areaInfoList, string apiRouteName)
         {
             foreach (var ai in areaInfoList)
             {
@@ -95,11 +95,11 @@ namespace Diphap.JsNetBridge.Mvc
                         {
                             dic.Add("httproute", "");
                             dic.Add("controller", u.Controller);
-                            u.Url = webViewPage.Url.RouteUrl(apiRouteName, dic);
+                            u.Url = urlHelper.RouteUrl(apiRouteName, dic);
                         }
                         else
                         {
-                            u.Url = webViewPage.Url.Action(u.Action, u.Controller, dic);
+                            u.Url = urlHelper.Action(u.Action, u.Controller, dic);
                         }
 
 

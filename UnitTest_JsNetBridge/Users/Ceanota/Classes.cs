@@ -6,13 +6,27 @@ using System.Threading.Tasks;
 
 namespace Test //UnitTest_JsNetBridge.Users.Ceanota
 {
+
+    public class Testt
+    {
+        public Func<string, string> Method1;
+    }
+
     public class CA
     {
-        public string propA = "";
+        public string propA = "World";
         //public CB B = new CB();
-        public CC C = new CC();
+        //public CC C = new CC();
 
-        public CE E = new CE();
+        //public CE E = new CE();
+
+
+
+        public string Hello(string aa)
+        {
+            return aa + " " + this.propA;
+        }
+
     }
 
     public class CB
