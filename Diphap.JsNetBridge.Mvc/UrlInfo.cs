@@ -82,22 +82,34 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var u in ci.ActionInfoCol)
                     {
-                        IDictionary<string, object> dic = urlHelper.CreateInstanceOfRouteValueDictionary();
 
-                        if (string.IsNullOrWhiteSpace(u.Area) == false)
-                        {
-                            dic.Add("area", u.Area);
-                        }
+                        object dic;
 
                         if (u.IsApiController)
                         {
-                            dic.Add("httproute", "");
-                            dic.Add("controller", u.Controller);
-                            u.Url = urlHelper.RouteUrl_(apiRouteName, dic);
+                            if (string.IsNullOrWhiteSpace(u.Area) == false)
+                            {
+                                dic = new { area = u.Area, httproute = "",  controller = u.Controller };
+                            }
+                            else
+                            {
+                                dic = new { httproute = "", controller = u.Controller };
+                            }
+
+                            u.Url = urlHelper.RouteUrl(apiRouteName, dic);
                         }
                         else
                         {
-                            u.Url = urlHelper.Action_(u.Action, u.Controller, dic);
+                            if (string.IsNullOrWhiteSpace(u.Area) == false)
+                            {
+                                dic = new { area = u.Area };
+                            }
+                            else
+                            {
+                                dic = new { };
+                            }
+
+                            u.Url = urlHelper.Action(u.Action, u.Controller, dic);
                         }
 
 
