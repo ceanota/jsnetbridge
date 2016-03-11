@@ -29,7 +29,7 @@
 
             @Scripts.Render("~/bundles/JsNetBridge")
 			<script>
-				@(new MvcHtmlString({MyWebApp}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+				@(new MvcHtmlString({MyWebApp}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
 			</script>
 
  4- Replace the word '{MyApplicationWeb}' with the name of your web application.

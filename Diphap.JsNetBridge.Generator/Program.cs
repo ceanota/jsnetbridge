@@ -22,7 +22,9 @@ namespace Diphap.JsNetBridge.Generator
         {
             try
             {
-                Console.WriteLine(string.Format("{0}: BEGIN", config.file_name_exe));
+                Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+
+                Console.WriteLine(string.Format("{0}: BEGIN [{1}]", config.file_name_exe, DateTimeOffset.Now));
 
                 #region "First argument"
                 string js_config = null;
@@ -64,7 +66,9 @@ namespace Diphap.JsNetBridge.Generator
 
                 try
                 {
+                    Console.WriteLine(string.Format("Generate JS code - Begin  [{0}]", sw.Elapsed.TotalSeconds));
                     #region "Generate JS code"
+
                     List<AssemblySet> assemblySetList = new List<Diphap.JsNetBridge.AssemblySet>();
 
                     if (_config.dll_set != null)
@@ -77,18 +81,22 @@ namespace Diphap.JsNetBridge.Generator
                     }
 
                     AspMvcInfo api = new AspMvcInfo(_config.dll_asp_absolute, assemblySetList);
+                    Console.WriteLine(string.Format("Instanciate AspMvcInfo - End [{0}]", sw.Elapsed.TotalSeconds));
 
                     //-- js code.
                     api.WriteAllText(_config.file_js_absolute);
+                    Console.WriteLine(string.Format("api.WriteAllText(); - End [{0}]", sw.Elapsed.TotalSeconds));
+
                     #endregion
+                    Console.WriteLine(string.Format("Generate JS code - End [{0}]", sw.Elapsed.TotalSeconds));
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
                     throw ex;
                 }
-
-                Console.WriteLine(string.Format("{0}: SUCCESS", config.file_name_exe));
+                sw.Stop();
+                Console.WriteLine(string.Format("{0}: SUCCESS [{1} sec]", config.file_name_exe, sw.Elapsed.TotalSeconds));
 
             }
             catch (ReflectionTypeLoadException ex)
