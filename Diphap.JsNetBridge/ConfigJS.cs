@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge
 {
-    public class Config
+    public class ConfigJS
     {
         /// <summary>
         /// JS ENUM Intellisense.
@@ -28,13 +28,13 @@ namespace Diphap.JsNetBridge
 
         public const string brandLetter = "$";
 
-        public const string prefixe_ns_dp = Config.brandLetter + "dp";
+        public const string prefixe_ns_dp = ConfigJS.brandLetter + "dp";
 
-        public const string prefix_ns_jsnet = Config.prefixe_ns_dp + "." + brandLetter + "JsNet";
+        public const string prefix_ns_jsnet = ConfigJS.prefixe_ns_dp + "." + brandLetter + "JsNet";
 
-        public const string url_set = Config.prefix_ns_jsnet + "." + brandLetter + "UrlSet";
+        public const string url_set = ConfigJS.prefix_ns_jsnet + "." + brandLetter + "UrlSet";
 
         public const string stampFunc = "_stampFunc";
-        public static readonly string stampFuncInstruction = string.Format("var {0} = function() {{ return {1}; }};", stampFunc, Config.prefix_ns_jsnet);
+        public static readonly string stampFuncInstruction = string.Format("var {0} = function() {{ return {1}; }};", stampFunc, ConfigJS.prefix_ns_jsnet);
     }
 }

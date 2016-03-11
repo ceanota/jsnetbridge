@@ -19,6 +19,7 @@ namespace Diphap.JsNetBridge.Mvc
     {
         #region "Constants"
         public static TypesOfAspNetSet TypesOfAspNetSet { get; private set; }
+        public static ConfigDynamicAssembly ConfigReferences { get; private set; }
         #endregion
 
         #region "Internal"
@@ -192,14 +193,14 @@ namespace Diphap.JsNetBridge.Mvc
 
             {
                 sb.AppendLine("(function () {");
-                sb.AppendLine(Config.stampFuncInstruction);
+                sb.AppendLine(ConfigJS.stampFuncInstruction);
                 sb.AppendLine(this.ModelInfo.ToJSCore());
 
                 sb.AppendLine(this.EnumInfo.ToJSCore());
 
 
-                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(Config.url_set)));
-                sb.AppendLine(string.Format("{0} = {1};", Config.url_set, this.UrlInfo.ToJS()));
+                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
+                sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
 
                 sb.AppendLine("})();");
             }

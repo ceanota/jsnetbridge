@@ -35,7 +35,7 @@ namespace Diphap.JsNetBridge.Mvc
                 List<string> keys = this.ActionInfoCol.Select(x => x.JsKeyValue).ToList();
 
                 string keys_string = string.Join(",", keys);
-                string json = "{" + Config.VS_JsEnumKeyValue + keys_string + "}";
+                string json = "{" + ConfigJS.VS_JsEnumKeyValue + keys_string + "}";
                 json = string.Format("\"{0}\":{1}", this.Name, json);
                 return json;
             }

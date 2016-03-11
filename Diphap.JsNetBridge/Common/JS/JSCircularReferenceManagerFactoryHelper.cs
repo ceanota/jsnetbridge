@@ -17,7 +17,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <summary>
         /// Name of factory.
         /// </summary>
-        static private string FunctionName = prefixe_ns + "." + Config.brandLetter + "shared" + "." + Config.brandLetter + "circularReferenceManagerFactory";
+        static private string FunctionName = prefixe_ns + "." + ConfigJS.brandLetter + "shared" + "." + ConfigJS.brandLetter + "circularReferenceManagerFactory";
 
         /// <summary>
         ///  ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
@@ -28,7 +28,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
         {
-            string jsvalue = string.Format("{0}.{1}", Config.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
+            string jsvalue = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
             jsvalue = string.Format("{0}.apply(null, args)({1})", JSCircularReferenceManagerFactoryHelper.FunctionName, jsvalue);
             if (isCollection)
             {

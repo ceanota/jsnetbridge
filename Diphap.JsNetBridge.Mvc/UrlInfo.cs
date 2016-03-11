@@ -48,7 +48,7 @@ namespace Diphap.JsNetBridge.Mvc
                 this.SetUrlValue(urlHelper);
             }
 
-            string properties = GetJsSetUrl(this.AreaInfoList, Config.url_set);
+            string properties = GetJsSetUrl(this.AreaInfoList, ConfigJS.url_set);
 
             return Diphap.JsNetBridge.JSHelper.GetFunctionModule(properties, true, null, "NetObjectGenerationException\\r\\nCheck that the .NET objects are generated in the js file [/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js].\\r\\nPlease read the file [/Generators/Diphap.JsNetBridge/_ReadMe.txt]"); ;
         }

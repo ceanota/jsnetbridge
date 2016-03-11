@@ -54,7 +54,7 @@
     <Compile Include="Data\Enum\EnumInfo.cs" />
     <Compile Include="Data\Enum\DataInfo.cs" />
     <Compile Include="Data\EntityInfo.cs" />
-    <Compile Include="Config.cs" />
+    <Compile Include="ConfigJS.cs" />
     <Compile Include="Data\Enum\EnumColInfo.cs" />
     <Compile Include="Data\Enum\DataInfoCol.cs" />
     <Compile Include="Common\TypeHelper.cs" />
@@ -82,5 +82,4 @@
     <Copy SourceFiles="@(dpContent)" DestinationFolder="$(ProjectDir)..\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\" />
   </Target>
   -->
-
 </Project>

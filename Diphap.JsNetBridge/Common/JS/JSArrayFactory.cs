@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <summary>
         /// Name of factory.
         /// </summary>
-        static private string FunctionName = Config.prefixe_ns_dp + "." + Config.brandLetter + "shared" + "." + Config.brandLetter + "arrayFactory";
+        static private string FunctionName = ConfigJS.prefixe_ns_dp + "." + ConfigJS.brandLetter + "shared" + "." + ConfigJS.brandLetter + "arrayFactory";
 
         /// <summary>
         /// [it's not necessary] Gives js code of factory extends instance of Array with  added function '$dpItemFactory' who creates instance of item of array.

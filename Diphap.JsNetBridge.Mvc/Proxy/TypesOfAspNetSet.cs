@@ -50,9 +50,9 @@ namespace Diphap.JsNetBridge.Mvc
         {
             #region "_Ass_WebMvc"
             {
-                string dllName = "System.Web.Mvc.dll";
-                string dllPath = Path.Combine(binFolderPath, dllName);
-                this._Ass_WebMvc = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load("System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                string assName = "System.Web.Mvc";
+                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
+                this._Ass_WebMvc = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
             }
 
             foreach (var t in this._Ass_WebMvc.ExportedTypes)
@@ -72,9 +72,9 @@ namespace Diphap.JsNetBridge.Mvc
                     this.Type_ViewResult = t;
                 }
 
-                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null) 
-                { 
-                    break; 
+                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null)
+                {
+                    break;
                 }
             }
 
@@ -82,9 +82,9 @@ namespace Diphap.JsNetBridge.Mvc
 
             #region "_Ass_NetHttp"
             {
-                string dllName = "System.Net.Http.dll";
-                string dllPath = Path.Combine(binFolderPath, dllName);
-                this._Ass_NetHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load("System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
+                string assName = "System.Net.Http";
+                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
+                this._Ass_NetHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
             }
             foreach (var t in this._Ass_NetHttp.ExportedTypes)
             {
@@ -110,9 +110,9 @@ namespace Diphap.JsNetBridge.Mvc
 
             #region "_Ass_WebHttp"
             {
-                string dllName = "System.Web.Http.dll";
-                string dllPath = Path.Combine(binFolderPath, dllName);
-                this._Ass_WebHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load("System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35");
+                string assName = "System.Web.Http";
+                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
+                this._Ass_WebHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
             }
 
             foreach (var t in this._Ass_WebHttp.ExportedTypes)

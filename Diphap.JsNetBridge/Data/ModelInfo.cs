@@ -80,7 +80,7 @@ namespace Diphap.JsNetBridge.Data
             {
                 foreach (var kv in dic)
                 {
-                    List<string> objDecl_Array_Temp = JSHelper.CreateNamespace(Config.prefix_ns_jsnet + "." + kv.Key.FullName.Replace("+", "."));
+                    List<string> objDecl_Array_Temp = JSHelper.CreateNamespace(ConfigJS.prefix_ns_jsnet + "." + kv.Key.FullName.Replace("+", "."));
 
                     foreach (var objDecl in objDecl_Array_Temp)
                     {

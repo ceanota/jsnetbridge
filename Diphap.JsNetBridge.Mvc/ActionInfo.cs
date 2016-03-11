@@ -143,21 +143,21 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 string objName = "action";
                 sb.Append("var action = {};");
-                sb.Append(Config.VS_JsEnumKeyValue_instruction(objName));
+                sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
                 if (hasUrl) { sb.Append("action.Url = null;"); }
 
-                sb.AppendFormat(objName + "." + Config.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
-                sb.AppendFormat(objName + "." + Config.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
 
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat(objName + "." + Config.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", Config.brandLetter, httpMethod_jsObj);
+                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
                 }
                 else
                 {
-                    sb.Append(objName + "." + Config.brandLetter + "IsApiController = null;");
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "IsApiController = null;");
                 }
 
                 string sb_ajax_options;
@@ -170,7 +170,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
                 }
 
-                sb.AppendFormat(objName + "." + Config.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
 
                 sb.Append("return action;");
             }
@@ -268,7 +268,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string GetJsSetUrl(string url_)
         {
             string url = string.IsNullOrWhiteSpace(url_) ? "null" : "\"" + url_ + "\"";
-            string json = this.JsLongName + "." + Config.brandLetter + "Url=" + url;
+            string json = this.JsLongName + "." + ConfigJS.brandLetter + "Url=" + url;
             return json;
         }
 

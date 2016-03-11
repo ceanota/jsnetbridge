@@ -21,7 +21,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                string json = "{" + Config.VS_JsEnumKeyValue + string.Join(",", ControllerInfoCol.Select(x => x.ToJS)) + "}";
+                string json = "{" + ConfigJS.VS_JsEnumKeyValue + string.Join(",", ControllerInfoCol.Select(x => x.ToJS)) + "}";
                 return json;
             }
         }
