@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Diphap.JsNetBridge.Mvc.Proxy</name>
+    </assembly>
+    <members>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.ConfigDynamicAssembly">
+            <summary>
+            For loading dynamically Assemblies.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.ConfigDynamicAssembly.References">
+            <summary>
+            For loading dynamically Assemblies.
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.UrlManager">
+            <summary>
+            Contains methods to build URLs for ASP.NET MVC within an application.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.UrlManager.Action">
+            <summary>
+             Generates a fully qualified URL to an action method by using the specified
+                action name.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.UrlManager.RouteUrl">
+            <summary>
+            Generates a fully qualified URL for the specified route values.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.UrlManager.#ctor(Diphap.JsNetBridge.Mvc.Proxy.UrlManager.delAction,Diphap.JsNetBridge.Mvc.Proxy.UrlManager.delRouteUrl)">
+            <summary>
+                Initializes a new instance of the System.Web.Mvc.UrlHelper class using the
+                specified request context
+            </summary>
+            <param name="action"></param>
+            <param name="routeUrl"></param>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.UrlManager.delAction">
+            <summary>
+            Generates a fully qualified URL to an action method by using the specified
+                action name.
+            </summary>
+            <param name="actionName"></param>
+            <param name="controllerName"></param>
+            <param name="routeValues"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.UrlManager.delRouteUrl">
+            <summary>
+            Generates a fully qualified URL for the specified route values.
+            </summary>
+            <param name="routeName"></param>
+            <param name="routeValues"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

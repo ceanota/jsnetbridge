@@ -31,6 +31,8 @@
         <file src="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" target="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
         <file src="lib\net45\Diphap.JsNetBridge.dll" target="lib\net45\Diphap.JsNetBridge.dll" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
+        <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" />
+        <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.XML" target="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.XML" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.XML" target="lib\net45\Diphap.JsNetBridge.Mvc.XML" />
         <file src="lib\net45\Diphap.JsNetBridge.XML" target="lib\net45\Diphap.JsNetBridge.XML" />
         <file src="tools\init.ps1" target="tools\init.ps1" />
@@ -40,17 +42,9 @@
         <file src="_bin\Diphap.JsNetBridge.Generator.exe" target="_bin\Diphap.JsNetBridge.Generator.exe" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.config" target="_bin\Diphap.JsNetBridge.Generator.exe.config" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.json" target="_bin\Diphap.JsNetBridge.Generator.exe.json" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.pdb" target="_bin\Diphap.JsNetBridge.Generator.pdb" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.XML" target="_bin\Diphap.JsNetBridge.Generator.XML" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.dll" target="_bin\Diphap.JsNetBridge.Mvc.dll" />
-        <file src="_bin\Diphap.JsNetBridge.Mvc.pdb" target="_bin\Diphap.JsNetBridge.Mvc.pdb" />
-        <file src="_bin\Diphap.JsNetBridge.Mvc.xml" target="_bin\Diphap.JsNetBridge.Mvc.xml" />
-        <file src="_bin\Diphap.JsNetBridge.pdb" target="_bin\Diphap.JsNetBridge.pdb" />
-        <file src="_bin\Diphap.JsNetBridge.xml" target="_bin\Diphap.JsNetBridge.xml" />
+        <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
         <file src="_bin\Newtonsoft.Json.dll" target="_bin\Newtonsoft.Json.dll" />
-        <file src="_bin\Newtonsoft.Json.xml" target="_bin\Newtonsoft.Json.xml" />
         <file src="Icon.png" target="Icon.png" />
         <file src="readme.txt" target="readme.txt" />
     </files>

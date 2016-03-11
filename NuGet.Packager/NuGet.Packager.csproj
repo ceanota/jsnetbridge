@@ -78,6 +78,9 @@
     <Content Include="_bin\Diphap.JsNetBridge.Generator.XML" />
     <Content Include="_bin\Diphap.JsNetBridge.Mvc.dll" />
     <Content Include="_bin\Diphap.JsNetBridge.Mvc.pdb" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.pdb" />
+    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" />
     <Content Include="_bin\Diphap.JsNetBridge.Mvc.xml" />
     <Content Include="_bin\Diphap.JsNetBridge.pdb" />
     <Content Include="_bin\Diphap.JsNetBridge.xml" />

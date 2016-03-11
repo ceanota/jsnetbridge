@@ -34,7 +34,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Diphap.JsNetBridge.Generator.XML</DocumentationFile>
+    <DocumentationFile>..\NuGet.Packager\_bin\Diphap.JsNetBridge.Generator.XML</DocumentationFile>
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
@@ -79,6 +79,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj">
+      <Project>{5f5a4e70-5562-4c29-843e-6043e21895e0}</Project>
+      <Name>Diphap.JsNetBridge.Mvc.Proxy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj">
       <Project>{96c2625f-54a7-45e1-bbef-ba29aa1e4b0b}</Project>
       <Name>Diphap.JsNetBridge.Mvc</Name>

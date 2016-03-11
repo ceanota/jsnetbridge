@@ -1,6 +1,7 @@
 ﻿using Diphap.JsNetBridge.Generator.Common;
 using Diphap.JsNetBridge.Generator.Config;
 using Diphap.JsNetBridge.Mvc;
+using Diphap.JsNetBridge.Mvc.Proxy;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;

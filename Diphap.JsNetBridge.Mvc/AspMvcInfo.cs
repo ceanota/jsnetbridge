@@ -2,6 +2,7 @@
 using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Data.Enum;
+using Diphap.JsNetBridge.Mvc.Proxy;
 using System;
 using System.Collections.Generic;
 using System.IO;

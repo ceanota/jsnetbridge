@@ -53,12 +53,13 @@
     <Compile Include="IActionInfo.cs" />
     <Compile Include="LiteralText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Proxy\TypesOfAspNetSet.cs" />
-    <Compile Include="Proxy\ConfigDynamicAssembly.cs" />
-    <Compile Include="Proxy\UrlManager.cs" />
     <Compile Include="UrlInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj">
+      <Project>{5f5a4e70-5562-4c29-843e-6043e21895e0}</Project>
+      <Name>Diphap.JsNetBridge.Mvc.Proxy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj">
       <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
       <Name>Diphap.JsNetBridge</Name>

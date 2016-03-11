@@ -53,8 +53,12 @@
       <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.9\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.1.0.5, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.1.0.6, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.9\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.9\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

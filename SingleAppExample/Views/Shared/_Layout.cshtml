@@ -35,7 +35,7 @@
 
     @Scripts.Render("~/bundles/JsNetBridge")
     <script>
-        @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+        @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
     </script>
 
     <script src="~/Scripts/_JavaScript1.js"></script>

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge.Mvc
+namespace Diphap.JsNetBridge.Mvc.Proxy
 {
     /// <summary>
     /// Contains methods to build URLs for ASP.NET MVC within an application.
