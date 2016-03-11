@@ -42,8 +42,6 @@ namespace Diphap.JsNetBridge.Generator
                 ConfigDynamicAssembly.References["System.Web.Http"] = Diphap.JsNetBridge.Generator.Properties.Settings.Default.System_Web_Http;
                 ConfigDynamicAssembly.References["System.Web.Mvc"] = Diphap.JsNetBridge.Generator.Properties.Settings.Default.System_Web_Mvc;
 
-                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.GetHandler(_config.asp_bin_absolute);
-
                 #endregion
 
 

@@ -6,12 +6,12 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge.Generator.Common
+namespace Diphap.JsNetBridge.Common
 {
     /// <summary>
     ///  Occurs when the resolution of an assembly fails.
     /// </summary>
-    class AssemblyResolver
+    public class AssemblyResolver
     {
         private readonly Dictionary<string, Assembly> Redirects = new Dictionary<string, Assembly>();
 

@@ -52,7 +52,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Common\AssemblyResolver.cs" />
     <Compile Include="Config\AssemblyConfig.cs" />
     <Compile Include="Config\AppConfig.cs" />
     <Compile Include="Common\Helper.cs" />

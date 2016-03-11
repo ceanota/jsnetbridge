@@ -62,6 +62,7 @@
     <None Include="_bin\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="_bin\Diphap.JsNetBridge.Generator.exe.json" />
     <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
+    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\net45\" />
@@ -73,19 +74,10 @@
     <Content Include="Icon.png" />
     <Content Include="_bin\Diphap.JsNetBridge.dll" />
     <Content Include="_bin\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="_bin\Diphap.JsNetBridge.Generator.pdb" />
     <Content Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
-    <Content Include="_bin\Diphap.JsNetBridge.Generator.XML" />
     <Content Include="_bin\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.pdb" />
     <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.pdb" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.xml" />
-    <Content Include="_bin\Diphap.JsNetBridge.pdb" />
-    <Content Include="_bin\Diphap.JsNetBridge.xml" />
     <Content Include="_bin\Newtonsoft.Json.dll" />
-    <Content Include="_bin\Newtonsoft.Json.xml" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

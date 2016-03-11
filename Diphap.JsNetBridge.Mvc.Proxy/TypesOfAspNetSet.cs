@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diphap.JsNetBridge.Common;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -51,6 +52,8 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         public TypesOfAspNetSet(string binFolderPath)
         {
+            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.GetHandler(binFolderPath);
+
             #region "_Ass_WebMvc"
             {
                 string assName = "System.Web.Mvc";
