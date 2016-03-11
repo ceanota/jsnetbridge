@@ -86,40 +86,31 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void Test_()
         {
-            string jsFilePath = @"D:\utilisateurs\diphap\documents\visual studio 2012\Projects\MvcApplication5\MvcApplication5\Scripts\Test.js";
-
-            File.WriteAllText(jsFilePath, null);
-
             List<AssemblySet> typeSetList = new List<Diphap.JsNetBridge.AssemblySet>();
+            //{
+            //    #region ""
+            //    string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
+            //    string assemblyPath = rootPath + @"\QuadraEdenTransverse.dll";
+            //    #endregion
+
+            //    typeSetList.Add(new AssemblySet(assemblyPath));
+            //}
+
+            //{
+            //    #region ""
+            //    string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
+            //    string assemblyPath = rootPath + @"\QuadraEdenDomain.dll";
+            //    #endregion
+
+            //    typeSetList.Add(new AssemblySet(assemblyPath));
+            //}
+
             {
-                #region ""
-                string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
-                string assemblyPath = rootPath + @"\QuadraEdenTransverse.dll";
-                #endregion
-
-                typeSetList.Add(new AssemblySet(assemblyPath));
-            }
-
-            {
-                #region ""
-                string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
-                string assemblyPath = rootPath + @"\QuadraEdenDomain.dll";
-                #endregion
-
-                typeSetList.Add(new AssemblySet(assemblyPath));
-            }
-
-            {
-                string rootPath = @"D:\utilisateurs\diphap\documents\visual studio 2012\Projects\MvcApplication5\MvcApplication5";
-                string assemblyPath = rootPath + @"\bin\MvcApplication5.dll";
-
-                //#region ""
-                rootPath = @"D:\DEV\NouvelleGamme\Eden\MVC\QuadraEdenMVC_UI";
-                assemblyPath = rootPath + @"\bin\QuadraEdenMVC_UI.dll";
-                //#endregion
+                string rootPath = @"D:\Utilisateurs\diphap\Downloads\Getting Started with ASP.NET MVC 5\C#\MvcMovie";//@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample";//@"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity";
+                string assemblyPath = rootPath + @"\bin\MvcMovie.dll";//@"\bin\SingleAppExample.dll";//@"\bin\ContosoUniversity.dll";
 
                 AspMvcInfo api = new AspMvcInfo(assemblyPath, typeSetList);
-                api.AppendAllText(jsFilePath);
+
             }
 
         }

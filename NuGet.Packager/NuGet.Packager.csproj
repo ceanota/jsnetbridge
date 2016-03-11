@@ -62,7 +62,6 @@
     <None Include="_bin\Diphap.JsNetBridge.Generator.exe.config" />
     <None Include="_bin\Diphap.JsNetBridge.Generator.exe.json" />
     <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="lib\net45\" />

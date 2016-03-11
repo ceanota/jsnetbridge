@@ -100,7 +100,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         static private string GetHttpMethod_FromHttpAttribute(MethodInfo MethodInfo)
         {
 
-            foreach (var t in AspMvcInfo.TypesOfAspNetSet.THttpAttributes)
+            foreach (var t in AspMvcInfo.TypesOfAspNetSet.THttpAttributes.Values)
             {
                 var att = MethodInfo.GetCustomAttribute(t);
                 if (att != null)

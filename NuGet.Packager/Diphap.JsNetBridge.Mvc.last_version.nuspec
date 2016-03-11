@@ -43,7 +43,6 @@
         <file src="_bin\Diphap.JsNetBridge.Generator.pdb" target="_bin\Diphap.JsNetBridge.Generator.pdb" />
         <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
         <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
         <file src="_bin\Diphap.JsNetBridge.Generator.XML" target="_bin\Diphap.JsNetBridge.Generator.XML" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.dll" target="_bin\Diphap.JsNetBridge.Mvc.dll" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.pdb" target="_bin\Diphap.JsNetBridge.Mvc.pdb" />

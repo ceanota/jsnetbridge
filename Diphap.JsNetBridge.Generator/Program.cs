@@ -16,6 +16,7 @@ namespace Diphap.JsNetBridge.Generator
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             try
@@ -33,6 +34,12 @@ namespace Diphap.JsNetBridge.Generator
 
                 config _config = config.ResolveAbsolutePathes(js_config);
 
+
+                #region "AssemblyResolve"
+                AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.GetHandler(_config.asp_bin_absolute) ;
+                #endregion
+
+
                 #region "validation"
                 if (Directory.Exists(Path.GetDirectoryName(_config.file_js_absolute)) == false)
                 {
@@ -48,6 +55,7 @@ namespace Diphap.JsNetBridge.Generator
                     throw ex;
                 }
                 #endregion
+
 
                 try
                 {

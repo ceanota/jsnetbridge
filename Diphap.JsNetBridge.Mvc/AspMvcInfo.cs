@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Mvc
     public class AspMvcInfo
     {
         #region "Constants"
-        public static readonly TypesOfAspNetSet TypesOfAspNetSet = new TypesOfAspNetSet();
+        public static TypesOfAspNetSet TypesOfAspNetSet { get; private set; }
         #endregion
 
         #region "Internal"
@@ -74,7 +74,12 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
         {
+            string binFolderPath = Path.GetDirectoryName(asp_net.Location);
+            AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);
+
             InitiliazeForAspNetObjects(asp_net);
+
+            
 
             foreach (var f in typeSetList)
             {

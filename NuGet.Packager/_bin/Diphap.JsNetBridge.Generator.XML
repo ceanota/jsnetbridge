@@ -4,6 +4,26 @@
         <name>Diphap.JsNetBridge.Generator</name>
     </assembly>
     <members>
+        <member name="T:Diphap.JsNetBridge.Generator.Common.AssemblyResolver">
+            <summary>
+             Occurs when the resolution of an assembly fails.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Generator.Common.AssemblyResolver.AssemblyResolveEventHandler(System.Object,System.ResolveEventArgs)">
+            <summary>
+            Occurs when the resolution of an assembly fails.
+            </summary>
+            <param name="sender"></param>
+            <param name="argss"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Generator.Common.AssemblyResolver.GetHandler(System.String)">
+            <summary>
+            Occurs when the resolution of an assembly fails.
+            </summary>
+            <param name="appFolderPath"></param>
+            <returns></returns>
+        </member>
         <member name="T:Diphap.JsNetBridge.Generator.Config.config">
             <summary>
             configuration of application.
