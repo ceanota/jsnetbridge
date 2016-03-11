@@ -1,0 +1,15 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="Diphap.JsNetBridge.Generator.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="System_Web_Mvc" Type="System.String" Scope="User">
+      <Value Profile="(Default)">System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Value>
+    </Setting>
+    <Setting Name="System_Net_Http" Type="System.String" Scope="User">
+      <Value Profile="(Default)">System.Net.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</Value>
+    </Setting>
+    <Setting Name="System_Web_Http" Type="System.String" Scope="User">
+      <Value Profile="(Default)">System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
