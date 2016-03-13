@@ -1,0 +1,14 @@
+﻿<#@ template debug="false" hostspecific="false" language="C#" #>
+<#@ assembly name="System.Core" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.dll" #>
+<#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.Proxy.dll" #>
+<#@ output extension=".js" #>
+
+<# string appName = "ContosoUniversity"; #>
+
+<#= new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.Load(appName)).ToJS() #>
+

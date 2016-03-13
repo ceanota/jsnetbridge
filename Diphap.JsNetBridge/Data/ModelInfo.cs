@@ -18,6 +18,12 @@ namespace Diphap.JsNetBridge.Data
             this.Types = allTypes;
         }
 
+        public ModelInfo(params Type[] allTypes)
+            : this(allTypes.ToList())
+        {
+
+        }
+
         public ModelInfo(string appAspNetPath, IList<string> whiteNamespaces, IList<string> blackNamespaces)
             : this(TypeHelper.GetTypesOfClass(appAspNetPath, whiteNamespaces, blackNamespaces))
         {
@@ -67,9 +73,8 @@ namespace Diphap.JsNetBridge.Data
         /// Code JS of factories of c# classes.
         /// There is not 'JSArrayFactory'
         /// </summary>
-        /// <param name="withDependencies">append js dependencies.</param>
         /// <returns></returns>
-        public string ToJSCore(bool withDependencies = false)
+        public string ToJSCore()
         {
             this.Execute();
 
@@ -95,12 +100,6 @@ namespace Diphap.JsNetBridge.Data
                 }
             }
 
-            if (withDependencies)
-            {
-                nsDecl_Array.Add(JSArrayFactory.Implementation());
-                nsDecl_Array.Add(JSCircularReferenceManagerFactoryHelper.Implementation());
-            }
-
             nsDecl_Array.AddRange(funcDecl_Array);
 
             return string.Join("\r\n", nsDecl_Array);
@@ -114,10 +113,6 @@ namespace Diphap.JsNetBridge.Data
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine(JSArrayFactory.Implementation());
-            sb.AppendLine();
-            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
             sb.AppendLine();
             sb.AppendLine(this.ToJSCore());
             return sb.ToString();

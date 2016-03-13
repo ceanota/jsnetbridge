@@ -110,6 +110,10 @@
       <Project>{c366c3f5-11bf-486d-90de-ded2e47485cb}</Project>
       <Name>SingleAppExample</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TestModels\TestModels.csproj">
+      <Project>{0a8036b1-aee5-4046-9906-a016bfa857a7}</Project>
+      <Name>TestModels</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

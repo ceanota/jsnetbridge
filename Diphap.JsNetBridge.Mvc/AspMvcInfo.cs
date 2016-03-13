@@ -184,12 +184,6 @@ namespace Diphap.JsNetBridge.Mvc
                 }
                 sb.AppendLine("*/");
                 sb.AppendLine("//#endregion");
-
-                sb.AppendLine();
-                sb.AppendLine(JSArrayFactory.Implementation());
-
-                sb.AppendLine();
-                sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
             }
 
             {

@@ -25,11 +25,6 @@ namespace Diphap.JsNetBridge.Data
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
-
-            sb.AppendLine();
-            sb.AppendLine(JSArrayFactory.Implementation());
-            sb.AppendLine();
-            sb.AppendLine(JSCircularReferenceManagerFactoryHelper.Implementation());
             sb.AppendLine();
             sb.AppendLine(this._ModelInfo.ToJSCore());
             sb.AppendLine();

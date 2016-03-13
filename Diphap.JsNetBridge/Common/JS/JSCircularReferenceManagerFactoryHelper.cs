@@ -37,15 +37,6 @@ namespace Diphap.JsNetBridge.Common.JS
             return jsvalue;
         }
 
-        /// <summary>
-        /// [it's not necessary]Factory gives un new instance of Function that handles the circular reference objects.
-        /// </summary>
-        /// <returns></returns>
-        static public string Implementation()
-        {
-            return  /*it's not necessary*/  "";
-
-        }
 
     }
 }

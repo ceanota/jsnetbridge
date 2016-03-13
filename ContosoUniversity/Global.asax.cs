@@ -22,7 +22,7 @@ namespace ContosoUniversity
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            AuthConfig.RegisterAuth();
+            AuthConfig.RegisterAuth(); 
         }
 
         static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
@@ -34,7 +34,7 @@ namespace ContosoUniversity
                 {
                     _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
                 }
-
+                
                 return _AspMvcInfo;
             }
         }

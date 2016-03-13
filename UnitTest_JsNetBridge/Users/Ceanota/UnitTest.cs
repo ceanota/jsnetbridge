@@ -29,27 +29,13 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         public void TestMethod1()
         {
 
-
-            Testt tt = new Testt();
-
-            CA ca = new CA();
-            tt.Method1 = ca.Hello;
-
-            var bon = tt.Method1("bonjour");
-
-
-            ModelInfo st = new ModelInfo(new List<Type> { typeof(CA), typeof(CB), typeof(CC), typeof(CD), typeof(CE), typeof(CF) });
+            ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student));
             string jsCore = st.ToJS();
 
             var aa = typeof(ModelInfo);
 
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\Scripts\_JavaScript1.js", jsCore);
 
-            //string fileName = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
-
-            //AspMvcInfo Singleton = new AspMvcInfo(Assembly.LoadFrom(fileName));
-            //var ss = Singleton.ToJS();
-            //string setUrl = Singleton.UrlInfo.ToJS_SetUrl();
         }
 
         [TestMethod]
