@@ -49,7 +49,7 @@
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
     <Compile Include="Common\JS\TypeSorter.cs" />
     <Compile Include="Common\JS\SerializeEnum.cs" />
-    <Compile Include="Common\JS\SerializeType.cs" />
+    <Compile Include="Common\JS\RecursiveTypeSorter.cs" />
     <Compile Include="Common\JS\JSArrayFactory.cs" />
     <Compile Include="Data\ModelInfo.cs" />
     <Compile Include="Data\Enum\EnumInfo.cs" />

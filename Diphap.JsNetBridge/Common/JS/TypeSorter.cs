@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Common.JS
 {
+    /// <summary>
+    /// Indicates if the type has members with complex or somple type.
+    /// </summary>
     public class TypeSorter
     {
         public readonly Type TObj;

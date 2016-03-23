@@ -35,10 +35,13 @@ namespace Diphap.JsNetBridge.Data
             this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
         public void Execute()
         {
             this.Classes.Clear();
-            List<SerializeType> serializeTypes = new List<SerializeType>();
+            List<RecursiveTypeSorter> serializeTypes = new List<RecursiveTypeSorter>();
             List<Type> unresolvedTypes;
 
             #region "First Pass"
@@ -51,7 +54,7 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
-        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<SerializeType> serializeTypes)
+        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> serializeTypes)
         {
             do
             {
@@ -71,9 +74,9 @@ namespace Diphap.JsNetBridge.Data
             return unresolvedTypes;
         }
 
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> classes, ref List<SerializeType> serializeTypes)
+        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> serializeTypes)
         {
-            SerializeType st = new SerializeType();
+            RecursiveTypeSorter st = new RecursiveTypeSorter();
             serializeTypes.Add(st);
 
             st.TypesToIgnore.AddRange(classes.SelectMany(kv => kv.Keys));
@@ -85,7 +88,7 @@ namespace Diphap.JsNetBridge.Data
                 st.Execute(t, true);
             }
 
-            var cl = st.SimpleTypes.ToDictionary(kv => kv.Key, kv => kv.Value);
+            var cl = st.ResolvedTypes.ToDictionary(kv => kv.Key, kv => kv.Value);
 
             if (cl.Count > 0)
             {
@@ -103,10 +106,12 @@ namespace Diphap.JsNetBridge.Data
         /// <returns></returns>
         public string ToJSCore()
         {
+            //-- sort types of classes.
             this.Execute();
 
-            List<string> funcDecl_Array = new List<string>();
+
             List<string> nsDecl_Array = new List<string>();
+            List<string> funcDecl_Array = new List<string>();
 
             foreach (var dic in Classes)
             {

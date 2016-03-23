@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 namespace Diphap.JsNetBridge
 {
     /// <summary>
-    /// Serialize type.
+    /// Sorts all types of type recursively 
     /// </summary>
-    public class SerializeType
+    public class RecursiveTypeSorter
     {
         public class GlobalRecursiveContext
         {
@@ -58,13 +58,13 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// allTypes who containe only primitive type.
         /// </summary>
-        public Dictionary<Type, TypeSorter> SimpleTypes = new Dictionary<Type, TypeSorter>();
+        public Dictionary<Type, TypeSorter> ResolvedTypes = new Dictionary<Type, TypeSorter>();
 
 
         public List<Type> TypesToIgnore = new List<Type>();
 
         public int idx_max = 1;
-        public Diphap.JsNetBridge.SerializeType.GlobalRecursiveContext Context_global { get; private set; }
+        public Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext Context_global { get; private set; }
 
         /// <summary>
         /// Serialalize type.
@@ -79,6 +79,10 @@ namespace Diphap.JsNetBridge
             this.Execute(tobj, this.idx_max, noReturn, exclude);
         }
 
+        /// <summary>
+        /// ???
+        /// </summary>
+        [Obsolete("unused")]
         public bool? HasRecursive
         {
             get
@@ -114,14 +118,14 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Serialalize type.
+        /// Serialalize type. Recursive function.
         /// </summary>
         /// <param name="tobj">type of object</param>
         /// <param name="_idx_max"></param>
         /// <param name="noReturn"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        internal /*string*/ void Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
+        internal void Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
         {
             TypeSorter tSorter = new TypeSorter(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
@@ -152,9 +156,11 @@ namespace Diphap.JsNetBridge
                     {
                         if (this.Context_global.TestOverFlow(telem_work) == false)
                         {
-                            Context_global.Add(telem_work);
+                            //-- memorize executions.
+                            this.Context_global.Add(telem_work);
 
-                            Execute(telem_work, _idx_max, noReturn, exclude);
+                            //-- recursive
+                            this.Execute(telem_work, _idx_max, noReturn, exclude);
 
                         }
                         else
@@ -171,9 +177,9 @@ namespace Diphap.JsNetBridge
                 }
             }
 
-            if (tSorter.IsSimpleType && (SimpleTypes.ContainsKey(tobj) == false))
+            if (tSorter.IsSimpleType && (ResolvedTypes.ContainsKey(tobj) == false))
             {
-                SimpleTypes.Add(tobj, tSorter);
+                this.ResolvedTypes.Add(tobj, tSorter);
             }
         }
 
