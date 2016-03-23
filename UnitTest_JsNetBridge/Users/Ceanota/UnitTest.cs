@@ -16,6 +16,7 @@ using Diphap.JsNetBridge.Data.Enum;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc;
 using Test;
+using System.Text;
 
 namespace UnitTest_JsNetBridge.Users.Ceanota
 {
@@ -29,12 +30,16 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         public void TestMethod1()
         {
 
+            //ModelInfo st = new ModelInfo(typeof(TestModels.MyModel)); //ContosoUniversity.Models.Student));
             ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student));
             string jsCore = st.ToJS();
 
-            var aa = typeof(ModelInfo);
-
-            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\Scripts\_JavaScript1.js", jsCore);
+            StringBuilder sb = new StringBuilder();
+            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
+            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
+            sb.AppendLine(jsCore);
+            
+            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());
 
         }
 
@@ -73,29 +78,22 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         public void Test_()
         {
             List<AssemblySet> typeSetList = new List<Diphap.JsNetBridge.AssemblySet>();
-            //{
-            //    #region ""
-            //    string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
-            //    string assemblyPath = rootPath + @"\QuadraEdenTransverse.dll";
-            //    #endregion
-
-            //    typeSetList.Add(new AssemblySet(assemblyPath));
-            //}
-
-            //{
-            //    #region ""
-            //    string rootPath = @"D:\DEV\NouvelleGamme\Eden\WS\QuadraEdenWebService\Lib\QuadraEdenReferentiel";
-            //    string assemblyPath = rootPath + @"\QuadraEdenDomain.dll";
-            //    #endregion
-
-            //    typeSetList.Add(new AssemblySet(assemblyPath));
-            //}
 
             {
-                string rootPath = @"D:\Utilisateurs\diphap\Downloads\Getting Started with ASP.NET MVC 5\C#\MvcMovie";//@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample";//@"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity";
-                string assemblyPath = rootPath + @"\bin\MvcMovie.dll";//@"\bin\SingleAppExample.dll";//@"\bin\ContosoUniversity.dll";
+
+                string assemblyPath = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll"; //@"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
 
                 AspMvcInfo api = new AspMvcInfo(assemblyPath, typeSetList);
+
+                string jsCore = api.ToJS();
+
+                StringBuilder sb = new StringBuilder();
+                sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
+                sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
+                sb.AppendLine(jsCore);
+
+                File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());
+
 
             }
 

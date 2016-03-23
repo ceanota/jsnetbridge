@@ -25,17 +25,17 @@ namespace Diphap.JsNetBridge.Mvc
 
         #region "Internal"
         /// <summary>
-        /// Types of models
+        /// allTypes of models
         /// </summary>
         internal List<Type> Types_Model { get; private set; }
 
         /// <summary>
-        /// Types of Enum.
+        /// allTypes of Enum.
         /// </summary>
         internal List<Type> Types_Enum { get; private set; }
 
         /// <summary>
-        /// Types of controller.
+        /// allTypes of controller.
         /// </summary>
         internal List<Type> Types_Controller { get; private set; }
         #endregion

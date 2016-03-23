@@ -45,53 +45,14 @@ namespace Diphap.JsNetBridge
         /// Serialize type.
         /// </summary>
         /// <param name="tobj"></param>
-        /// 
         /// <param name="exclude"></param>
         /// <returns></returns>
-        private static string TrySerializeType(Type tobj, bool noReturn, string exclude = "System.")
+        public static void TrySerializeType(Type tobj, bool noReturn, string exclude = "System.")
         {
-            //int _idx = 0;
-            //Diphap.JsNetBridge.SerializeType.PrevisousRecursiveContext context_old = null;
-            //return SerializeType.Execute(tobj, _idx_max, ref _idx, context_old, exclude);
-
             SerializeType st = new SerializeType();
-            return st.Execute(tobj, noReturn, exclude);
+            st.Execute(tobj, noReturn, exclude);
         }
 
-        /// <summary>
-        /// Serialize type or object.
-        /// </summary>
-        /// <param name="enumTrySerialize"></param>
-        /// <param name="tobj"></param>
-        /// <param name="isCollection"></param>
-        /// <returns></returns>
-        public static string TrySerialize(EnumTrySerialize enumTrySerialize, Type tobj)
-        {
-            string jsValue;
-            switch (enumTrySerialize)
-            {
-                case EnumTrySerialize.TrySerializeObject:
-                    jsValue = TrySerializeObject(tobj);
-                    break;
-                case EnumTrySerialize.TrySerializeType:
-                    jsValue = TrySerializeType(tobj, false);
-                    break;
-                default:
-                    throw new NotImplementedException("TrySerialize");
-            }
-
-            return jsValue;
-        }
-
-        /// <summary>
-        /// Serialize type or object(it depends on 'SerializeNet.EnumTrySerializeValue').
-        /// </summary>
-        /// <param name="tobj"></param>
-        /// <param name="isCollection"></param>
-        /// <returns></returns>
-        public static string TrySerialize(Type tobj)
-        {
-            return TrySerialize(EnumTrySerializeValue, tobj);
-        }
+        
     }
 }

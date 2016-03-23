@@ -1,4 +1,5 @@
 ﻿using Diphap.JsNetBridge.Common.JS;
+using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
@@ -76,7 +77,7 @@ namespace Diphap.JsNetBridge.Mvc
 
 
         /// <summary>
-        /// Types of class.
+        /// allTypes of class.
         /// </summary>
         /// <returns></returns>
         public Type[] ParameterClassType()
@@ -113,7 +114,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.MethodInfo.ReturnType;
-            string jsonValue = GetJS_EmptyValue(type_return);
+            string jsonValue = GetJS_EmptyValue_WithFactory(type_return);// GetJS_EmptyValue(type_return);
             return jsonValue;
         }
 
@@ -315,11 +316,6 @@ namespace Diphap.JsNetBridge.Mvc
             return jsParams;
         }
 
-        /// <summary>
-        /// Get empty jsvalue of type in js.
-        /// </summary> 
-        /// <param name="t"></param>
-        /// <returns></returns>
         internal static string GetJS_EmptyValue_WithFactory(Type t)
         {
             string jsValue = "null";
@@ -332,71 +328,33 @@ namespace Diphap.JsNetBridge.Mvc
                 if (isCollection == false)
                 {
                     telem_work = t;
+
+                    if (t.IsInterface)
+                    {
+                        jsValue = "{}";
+                    }
+
+                    if (t.IsClass)
+                    {
+                        jsValue = "{}";
+
+                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(t) == false &&
+                            AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(t) == false)
+                        {
+                            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
+                        }
+                    }
+
                 }
-
-                jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
-
+                else 
+                {
+                    jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
+                }
             }
 
             return jsValue;
         }
 
-        /// <summary>
-        /// Get empty jsvalue of type in js.
-        /// </summary> 
-        /// <param name="t"></param>
-        /// <returns></returns>
-        internal static string GetJS_EmptyValue(Type t)
-        {
-            string jsonValue = "null";
-            if (!JSHelper.GetPrimitiveEmptyValue(t, out jsonValue))
-            {
-                jsonValue = "null";
-
-                if (TypeHelper.IsCollection(t))
-                {
-                    jsonValue = "[]";
-
-                    Type telem;
-                    if (TypeHelper.GetElementTypeOfCollection(t, out telem))
-                    {
-                        if (!JSHelper.GetPrimitiveEmptyValue(telem, out jsonValue))
-                        {
-                            jsonValue = SerializeNet.TrySerialize(telem);
-                        }
-
-                        if (string.IsNullOrWhiteSpace(jsonValue))
-                        {
-                            jsonValue = "[]";
-                        }
-                        else
-                        {
-                            jsonValue = JSArrayFactory.FunctionDefinitionCall(jsonValue);
-                        }
-                    }
-                }
-                else
-                {
-                    if (t.IsInterface)
-                    {
-                        jsonValue = "{}";
-                    }
-
-                    if (t.IsClass)
-                    {
-                        jsonValue = "{}";
-
-                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(t) == false &&
-                            AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(t) == false)
-                        {
-                            jsonValue = SerializeNet.TrySerialize(t);
-                        }
-                    }
-                }
-            }
-
-            return jsonValue;
-        }
         #endregion
 
     }

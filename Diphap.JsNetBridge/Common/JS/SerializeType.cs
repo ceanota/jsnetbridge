@@ -16,6 +16,9 @@ namespace Diphap.JsNetBridge
     {
         public class GlobalRecursiveContext
         {
+            /// <summary>
+            /// complex types.
+            /// </summary>
             readonly public Dictionary<Type, int> Occurences = new Dictionary<Type, int>();
             readonly int _IdxMax;
             readonly Type TObj;
@@ -53,7 +56,7 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Types who containe only primitive type.
+        /// allTypes who containe only primitive type.
         /// </summary>
         public Dictionary<Type, TypeSorter> SimpleTypes = new Dictionary<Type, TypeSorter>();
 
@@ -61,7 +64,7 @@ namespace Diphap.JsNetBridge
         public List<Type> TypesToIgnore = new List<Type>();
 
         public int idx_max = 1;
-        private Diphap.JsNetBridge.SerializeType.GlobalRecursiveContext Context_global;
+        public Diphap.JsNetBridge.SerializeType.GlobalRecursiveContext Context_global { get; private set; }
 
         /// <summary>
         /// Serialalize type.
@@ -70,13 +73,10 @@ namespace Diphap.JsNetBridge
         /// <param name="exclude"></param>
         /// <param name="noReturn"></param>
         /// <returns></returns>
-        public string Execute(Type tobj, bool noReturn, string exclude = "System.")
+        public void Execute(Type tobj, bool noReturn, string exclude = "System.")
         {
             Context_global = new GlobalRecursiveContext(idx_max, tobj);
-
-            string result = this.Execute(tobj, this.idx_max, noReturn, exclude);
-
-            return result;
+            this.Execute(tobj, this.idx_max, noReturn, exclude);
         }
 
         public bool? HasRecursive
@@ -103,7 +103,7 @@ namespace Diphap.JsNetBridge
                         }
                     }
                 }
-                else 
+                else
                 {
                     value = null;
                 }
@@ -121,19 +121,16 @@ namespace Diphap.JsNetBridge
         /// <param name="noReturn"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        internal string Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
+        internal /*string*/ void Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
         {
             TypeSorter tSorter = new TypeSorter(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
 
-            List<string> js_key_value_list = tSorter.Js_key_value_list;
-
             IList<MemberInfo> complexMembersTemp = tSorter.ComplexMembers.ToArray();
 
             foreach (MemberInfo mi in complexMembersTemp)
             {
-                string value = "{}";
 
                 Type tmem = TypeHelper.GetMemberType(mi);
 
@@ -144,15 +141,10 @@ namespace Diphap.JsNetBridge
                 {
                     telem_work = tmem;
                 }
-                else
-                {
-                    value = "[]";
-                }
 
                 if (typeof(System.Object) == telem_work)
                 {
-                    value = "{}";
-                    tSorter.ResolveComplexMember(mi, value);
+                    tSorter.ResolveComplexMember(mi, "{}");
                 }
                 else
                 {
@@ -161,55 +153,30 @@ namespace Diphap.JsNetBridge
                         if (this.Context_global.TestOverFlow(telem_work) == false)
                         {
                             Context_global.Add(telem_work);
-                            value = Execute(telem_work, _idx_max, noReturn, exclude);
+
+                            Execute(telem_work, _idx_max, noReturn, exclude);
 
                         }
                         else
                         {
                             //-- it's recursive member.
-                            tSorter.ResolveComplexMember(mi/*, value*/);
+                            tSorter.ResolveComplexMember(mi);
                         }
 
-                        if (string.IsNullOrWhiteSpace(value))
-                        {
-                            value = "{}";
-                        }
-
-                        if (isCollection)
-                        {
-                            value = JSArrayFactory.FunctionDefinitionCall(value);
-                        }
                     }
                     else
                     {
-                        value = "{}";
-                        tSorter.ResolveComplexMember(mi, value);
+                        tSorter.ResolveComplexMember(mi, "{}");
                     }
                 }
-
-                js_key_value_list.Add(string.Format("\"{0}\":{1}", mi.Name, value));
             }
-
-            string jsonValue;
-
-            if (noReturn == true)
-            {
-                jsonValue = "";
-            }
-            else
-            {
-                jsonValue = "{" + string.Join(",", js_key_value_list) + "}";
-            }
-
 
             if (tSorter.IsSimpleType && (SimpleTypes.ContainsKey(tobj) == false))
             {
                 SimpleTypes.Add(tobj, tSorter);
             }
-
-            return jsonValue;
         }
 
-        
+
     }
 }

@@ -185,7 +185,7 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Get Types
+        /// Get allTypes
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="whiteNamespaces"></param>
@@ -198,7 +198,7 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Get Types of class.
+        /// Get allTypes of class.
         /// </summary>
         /// <param name="ass"></param>
         /// <param name="whiteNamespaces"></param>
@@ -305,7 +305,7 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// Get Types of enum.
+        /// Get allTypes of enum.
         /// </summary>
         /// <param name="fileName"></param>
         /// <param name="whiteNamespaces"></param>

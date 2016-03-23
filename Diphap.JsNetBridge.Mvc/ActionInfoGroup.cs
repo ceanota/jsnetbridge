@@ -132,7 +132,7 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
-        /// Types of class.
+        /// allTypes of class.
         /// </summary>
         /// <returns></returns>
         public Type[] ParameterClassType() { return this._signatures.SelectMany(x => x.ParameterClassType()).ToArray(); }

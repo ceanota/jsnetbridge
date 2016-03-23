@@ -37,18 +37,45 @@ namespace Diphap.JsNetBridge.Data
 
         public void Execute()
         {
-            Classes.Clear();
+            this.Classes.Clear();
+            List<SerializeType> serializeTypes = new List<SerializeType>();
+            List<Type> unresolvedTypes;
 
+            #region "First Pass"
+            unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, ref serializeTypes);
+            #endregion
+
+            #region "2nd Pass: For recursive issues"
+            unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, ref serializeTypes);
+            #endregion
+
+        }
+
+        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<SerializeType> serializeTypes)
+        {
             do
             {
 
             }
-            while (AddClass(this.Types, this.Classes));
+            while (AddClass(tobjArray, classes, ref serializeTypes));
+
+            #region "unresolvedTypes"
+            List<Type> unresolvedTypes;
+            {
+                Type[] resolvedTypes = classes.SelectMany(x => x.Keys).ToArray();
+                Type[] allTypes = serializeTypes.Where(x => x.Context_global != null).SelectMany(x => x.Context_global.Occurences.Keys).ToArray();
+                unresolvedTypes = allTypes.Except(resolvedTypes).ToList();
+            }
+            #endregion
+
+            return unresolvedTypes;
         }
 
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> classes)
+        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> classes, ref List<SerializeType> serializeTypes)
         {
             SerializeType st = new SerializeType();
+            serializeTypes.Add(st);
+
             st.TypesToIgnore.AddRange(classes.SelectMany(kv => kv.Keys));
 
             IList<Type> allTypesTemp = allTypes.Where(t => st.TypesToIgnore.Contains(t) == false).ToArray();

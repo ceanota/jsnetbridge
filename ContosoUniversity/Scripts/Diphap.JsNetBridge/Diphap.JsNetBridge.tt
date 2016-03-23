@@ -7,7 +7,22 @@
 <#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.dll" #>
 <#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.Proxy.dll" #>
 <#@ assembly name="$(ProjectDir)bin\ContosoUniversity.dll" #>
+<#@ assembly name="$(ProjectDir)bin\TestModels.dll" #>
 <#@ output extension=".js" #>
 
-<#= new Diphap.JsNetBridge.Data.ModelInfo(typeof(ContosoUniversity.Models.Student)).ToJS() #>
+<# 
+	string sortie = "";
+	if(false)
+	{
+		sortie = new Diphap.JsNetBridge.Data.ModelInfo(typeof(ContosoUniversity.Models.Student)).ToJS();
+	}
+	else
+	{
+		string appName = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
+		sortie = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.LoadFrom(appName)).ToJS();
+	}
+
+#>
+
+<#= sortie #>
 
