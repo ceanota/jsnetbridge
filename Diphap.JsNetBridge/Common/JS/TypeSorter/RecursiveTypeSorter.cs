@@ -14,7 +14,9 @@ namespace Diphap.JsNetBridge
     /// </summary>
     public class RecursiveTypeSorter
     {
-        public class GlobalRecursiveContext
+        public RecursiveTypeSorter() { }
+
+        internal class GlobalRecursiveContext
         {
             /// <summary>
             /// complex types.
@@ -58,13 +60,13 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// allTypes who containe only primitive type.
         /// </summary>
-        public Dictionary<Type, TypeSorter> ResolvedTypes = new Dictionary<Type, TypeSorter>();
+        internal readonly Dictionary<Type, TypeSorter> ResolvedTypes = new Dictionary<Type, TypeSorter>();
 
 
         public List<Type> TypesToIgnore = new List<Type>();
 
         public int idx_max = 1;
-        public Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext Context_global { get; private set; }
+        internal Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext Context_global { get; private set; }
 
         /// <summary>
         /// Serialalize type.

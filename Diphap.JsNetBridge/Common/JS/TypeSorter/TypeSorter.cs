@@ -10,7 +10,7 @@ namespace Diphap.JsNetBridge.Common.JS
     /// <summary>
     /// Indicates if the type has members with complex or somple type.
     /// </summary>
-    public class TypeSorter
+    internal class TypeSorter
     {
         public readonly Type TObj;
         public IList<Type> TypesToIgnore = new Type[] { };

@@ -47,7 +47,7 @@
     <Compile Include="Common\JsNetIgnore.cs" />
     <Compile Include="Common\JS\JSHelper.cs" />
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
-    <Compile Include="Common\JS\TypeSorter.cs" />
+    <Compile Include="Common\JS\TypeSorter\TypeSorter.cs" />
     <Compile Include="Common\JS\SerializeEnum.cs" />
     <Compile Include="Common\JS\TypeSorter\RecursiveTypeSorter.cs" />
     <Compile Include="Common\JS\JSArrayFactory.cs" />
@@ -59,7 +59,6 @@
     <Compile Include="Data\Enum\EnumColInfo.cs" />
     <Compile Include="Data\Enum\DataInfoCol.cs" />
     <Compile Include="Common\TypeHelper.cs" />
-    <Compile Include="Common\JS\TypeSorter\SerializeNet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AssemblySet.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

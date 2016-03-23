@@ -8,9 +8,15 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Data
 {
+    /// <summary>
+    /// Convert several types to JS.
+    /// </summary>
     public class ModelInfo
     {
-        public readonly List<Dictionary<Type, TypeSorter>> Classes = new List<Dictionary<Type, TypeSorter>>(20);
+        /// <summary>
+        /// Classes of dependencies. In a class, all types together no dependencies.
+        /// </summary>
+        private readonly List<Dictionary<Type, TypeSorter>> Classes = new List<Dictionary<Type, TypeSorter>>(20);
         public readonly List<Type> Types;
 
         public ModelInfo(List<Type> allTypes)
@@ -36,7 +42,7 @@ namespace Diphap.JsNetBridge.Data
         }
 
         /// <summary>
-        /// 
+        /// Sort types.
         /// </summary>
         public void Execute()
         {
@@ -54,19 +60,26 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
-        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> serializeTypes)
+        /// <summary>
+        /// Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
+        /// </summary>
+        /// <param name="tobjArray"></param>
+        /// <param name="oldClasses"></param>
+        /// <param name="rTypeSorters"></param>
+        /// <returns></returns>
+        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> rTypeSorters)
         {
             do
             {
-
+                //-- create each class.
             }
-            while (AddClass(tobjArray, classes, ref serializeTypes));
+            while (AddClass(tobjArray, classes, ref rTypeSorters));
 
             #region "unresolvedTypes"
             List<Type> unresolvedTypes;
             {
                 Type[] resolvedTypes = classes.SelectMany(x => x.Keys).ToArray();
-                Type[] allTypes = serializeTypes.Where(x => x.Context_global != null).SelectMany(x => x.Context_global.Occurences.Keys).ToArray();
+                Type[] allTypes = rTypeSorters.Where(x => x.Context_global != null).SelectMany(x => x.Context_global.Occurences.Keys).ToArray();
                 unresolvedTypes = allTypes.Except(resolvedTypes).ToList();
             }
             #endregion
@@ -74,12 +87,19 @@ namespace Diphap.JsNetBridge.Data
             return unresolvedTypes;
         }
 
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> serializeTypes)
+        /// <summary>
+        /// Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
+        /// </summary>
+        /// <param name="allTypes"></param>
+        /// <param name="oldClasses"></param>
+        /// <param name="serializeTypes"></param>
+        /// <returns></returns>
+        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ref List<RecursiveTypeSorter> serializeTypes)
         {
             RecursiveTypeSorter st = new RecursiveTypeSorter();
             serializeTypes.Add(st);
 
-            st.TypesToIgnore.AddRange(classes.SelectMany(kv => kv.Keys));
+            st.TypesToIgnore.AddRange(oldClasses.SelectMany(kv => kv.Keys));
 
             IList<Type> allTypesTemp = allTypes.Where(t => st.TypesToIgnore.Contains(t) == false).ToArray();
 
@@ -92,7 +112,7 @@ namespace Diphap.JsNetBridge.Data
 
             if (cl.Count > 0)
             {
-                classes.Add(cl);
+                oldClasses.Add(cl);
             }
 
             return cl.Count > 0;
@@ -100,13 +120,13 @@ namespace Diphap.JsNetBridge.Data
         }
 
         /// <summary>
-        /// Code JS of factories of c# classes.
+        /// Code JS of factories of c# oldClasses.
         /// There is not 'JSArrayFactory'
         /// </summary>
         /// <returns></returns>
         public string ToJSCore()
         {
-            //-- sort types of classes.
+            //-- sort types of oldClasses.
             this.Execute();
 
 
