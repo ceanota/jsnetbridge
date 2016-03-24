@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 namespace Diphap.JsNetBridge.Mvc
 {
     public interface IActionInfo
@@ -12,6 +13,7 @@ namespace Diphap.JsNetBridge.Mvc
         string JsValue { get; }
         string Url { get; set; }
         bool IsApiController { get; }
-        Type[] ParameterClassType();
+        IList<Type> ParameterClassTypes();
+        IList<Type> AllInOutClassTypes();
     }
 }

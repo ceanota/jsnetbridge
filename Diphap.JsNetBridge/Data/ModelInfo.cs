@@ -13,12 +13,8 @@ namespace Diphap.JsNetBridge.Data
     /// </summary>
     public class ModelInfo
     {
-        /// <summary>
-        /// Classes of dependencies. In a class, all types together no dependencies.
-        /// </summary>
-        private readonly List<Dictionary<Type, TypeSorter>> Classes = new List<Dictionary<Type, TypeSorter>>(20);
-        public readonly List<Type> Types;
 
+        #region "Constructors"
         public ModelInfo(List<Type> allTypes)
         {
             this.Types = allTypes;
@@ -40,6 +36,14 @@ namespace Diphap.JsNetBridge.Data
         {
             this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
         }
+        #endregion
+
+        /// <summary>
+        /// Classes of dependencies. In a class, all types together no dependencies.
+        /// </summary>
+        private readonly List<Dictionary<Type, TypeSorter>> Classes = new List<Dictionary<Type, TypeSorter>>(20);
+        public readonly List<Type> Types;
+
 
         /// <summary>
         /// Sort types.

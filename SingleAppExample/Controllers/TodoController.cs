@@ -126,17 +126,22 @@ namespace SingleAppExample.Controllers
             base.Dispose(disposing);
         }
 
-        [AcceptVerbsAttribute("PUT","TEST","get")]
+        [AcceptVerbsAttribute("PUT", "TEST", "get")]
         public HttpResponseMessage testPut()
         {
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
         [System.Web.Http.HttpPut()]
-        public HttpResponseMessage test1Put()
+        public Personnage[] test1Put()
         {
-            return Request.CreateResponse(HttpStatusCode.NotFound);
+            return new Personnage[0];
         }
 
+    }
+
+    public class Personnage
+    {
+        string Nom;
     }
 }

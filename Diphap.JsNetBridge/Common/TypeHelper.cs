@@ -217,11 +217,11 @@ namespace Diphap.JsNetBridge
         /// <param name="whiteNamespaces"></param>
         /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfClass(Type[] types, IList<string> whiteNamespaces = null, IList<string> blackNamespaces = null)
+        public static List<Type> GetTypesOfClass(IList<Type> types, IList<string> whiteNamespaces = null, IList<string> blackNamespaces = null)
         {
-            List<Type> types_selected = new List<Type>(types.Length);
+            List<Type> types_selected = new List<Type>(types.Count);
 
-            for (int idx = 0; idx < types.Length; idx++)
+            for (int idx = 0; idx < types.Count; idx++)
             {
                 Type t = types[idx];
 

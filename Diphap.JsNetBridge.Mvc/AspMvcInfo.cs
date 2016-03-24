@@ -56,7 +56,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             this.Types_Controller = types.Where(t => t.Name.Contains("Controller")).ToList();
 
-            foreach (Type t in this.Types_ActionClassParameter())
+            foreach (Type t in this.AllInOutClassTypes())
             {
                 Type t_work = TypeHelper.GetElementTypeOfCollectionOrDefault(t);
 
@@ -81,7 +81,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             InitiliazeForAspNetObjects(asp_net);
 
-            
+
 
             foreach (var f in typeSetList)
             {
@@ -248,21 +248,24 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
+        Type[] _AllInOutClassTypes;
         /// <summary>
         /// All types of class parameters of action methods.
         /// </summary>
         /// <returns></returns>
-        public Type[] Types_ActionClassParameter()
+        public Type[] AllInOutClassTypes()
         {
-            Type[] types = this.UrlInfo.AreaInfoList
-                .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
-                .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
-                .SelectMany<IActionInfo, Type>(ai => ai.ParameterClassType())
-                .Where(t => t.FullName.Contains("System.") == false)
-                .Distinct()
-                .ToArray();
-
-            return types;
+            if (this._AllInOutClassTypes == null)
+            {
+                this._AllInOutClassTypes = this.UrlInfo.AreaInfoList
+                    .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
+                    .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
+                    .SelectMany<IActionInfo, Type>(ai => ai.AllInOutClassTypes())
+                    .Where(t => t.FullName.Contains("System.") == false)
+                    .Distinct()
+                    .ToArray();
+            }
+            return this._AllInOutClassTypes;
         }
 
         #endregion

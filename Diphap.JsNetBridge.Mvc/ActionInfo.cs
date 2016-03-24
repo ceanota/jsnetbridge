@@ -32,7 +32,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// MethodInfoGroup on action.
         /// </summary>
-        public MethodInfo MethodInfo { get; set; }
+        public MethodInfo MethodInfo { get; private set; }
 
         /// <summary>
         /// Url.
@@ -75,15 +75,41 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
 
+        IList<Type> _ParameterClassTypes;
 
         /// <summary>
-        /// allTypes of class.
+        /// Parameter Class Types
         /// </summary>
         /// <returns></returns>
-        public Type[] ParameterClassType()
+        public IList<Type> ParameterClassTypes()
         {
-            Type[] types = this.MethodInfo.GetParameters().Where(p => p.ParameterType.IsClass).Select(p => p.ParameterType).ToArray();
-            return types;
+            if (this._ParameterClassTypes == null)
+            {
+                this._ParameterClassTypes = TypeHelper.GetTypesOfClass(this.MethodInfo.GetParameters().Select(p => p.ParameterType).ToArray()).Distinct().ToArray();
+            }
+            return this._ParameterClassTypes;
+        }
+
+        IList<Type> _AllInOutClassTypes;
+        /// <summary>
+        /// Parameter Class Types and Return class type.
+        /// </summary>
+        /// <returns></return>
+        public IList<Type> AllInOutClassTypes()
+        {
+            if (this._AllInOutClassTypes == null)
+            {
+                this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
+                IList<Type> returnTypes = TypeHelper.GetTypesOfClass(new Type[] { this.MethodInfo.ReturnType });
+
+                foreach (var t in returnTypes)
+                {
+                    this._AllInOutClassTypes.Add(t);
+                }
+                this._AllInOutClassTypes = this._AllInOutClassTypes.Distinct().ToArray();
+            }
+
+            return this._AllInOutClassTypes;
         }
 
         /// <summary>
@@ -114,7 +140,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.MethodInfo.ReturnType;
-            string jsonValue = GetJS_EmptyValue_WithFactory(type_return);// GetJS_EmptyValue(type_return);
+            string jsonValue = GetJS_EmptyValue_WithFactory(type_return);
             return jsonValue;
         }
 
@@ -346,7 +372,7 @@ namespace Diphap.JsNetBridge.Mvc
                     }
 
                 }
-                else 
+                else
                 {
                     jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
                 }

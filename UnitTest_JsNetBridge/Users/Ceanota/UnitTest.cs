@@ -59,18 +59,9 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestExe()
         {
-            string rootPath = @"D:\utilisateurs\diphap\documents\visual studio 2012\Projects\MvcApplication5\MvcApplication5";
-            string appAspNetPath = rootPath + @"\bin\MvcApplication5.dll";
-
-            #region "QuadraEdenMVC_UI"
-            rootPath = @"D:\DEV\NouvelleGamme\Eden\MVC\QuadraEdenMVC_UI";
-            appAspNetPath = rootPath + @"\bin\QuadraEdenMVC_UI.dll";
-            #endregion
-
-            string jsFilePath = rootPath + @"\Scripts\Test.js";
-
+            string appAspNetPath = @"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; //@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-            api.WriteAllText(jsFilePath);
+            api.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js");
         }
 
 

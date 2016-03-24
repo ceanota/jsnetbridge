@@ -131,11 +131,35 @@ namespace Diphap.JsNetBridge.Mvc
             }
         }
 
+        IList<Type> _ParameterClassTypes;
+
         /// <summary>
         /// allTypes of class.
         /// </summary>
         /// <returns></returns>
-        public Type[] ParameterClassType() { return this._signatures.SelectMany(x => x.ParameterClassType()).ToArray(); }
+        public IList<Type> ParameterClassTypes()
+        {
+            if (this._ParameterClassTypes == null)
+            {
+                this._ParameterClassTypes = this._signatures.SelectMany(x => x.ParameterClassTypes()).Distinct().ToArray();
+            }
+
+            return this._ParameterClassTypes;
+        }
+
+        IList<Type> _AllInOutClassTypes;
+        /// <summary>
+        /// Parameter Class Types and Return class type.
+        /// </summary>
+        /// <returns></return>
+        public IList<Type> AllInOutClassTypes()
+        {
+            if (this._AllInOutClassTypes == null)
+            {
+                this._AllInOutClassTypes = this._signatures.SelectMany(x => x.AllInOutClassTypes()).Distinct().ToArray();
+            }
+            return this._AllInOutClassTypes;
+        }
 
         /// <summary>
         /// Text representing instance.
