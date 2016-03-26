@@ -73,13 +73,51 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Common\JS\Scripts\JSRaw.cs" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <None Include="Common\JS\Scripts\CheckingDependencies.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>CheckingDependencies.js</LastGenOutput>
+    </None>
+    <None Include="Common\JS\Scripts\arrayFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>arrayFactory.js</LastGenOutput>
+    </None>
+    <None Include="Common\JS\Scripts\circularReferenceManagerFactory.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>circularReferenceManagerFactory.js</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Common\JS\Scripts\CheckingDependencies.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>CheckingDependencies.tt</DependentUpon>
+    </Content>
+    <dpContent Include="Common\JS\Scripts\arrayFactory.js">
+      <DependentUpon>arrayFactory.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </dpContent>
+    <dpContent Include="Common\JS\Scripts\circularReferenceManagerFactory.js">
+      <DependentUpon>circularReferenceManagerFactory.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </dpContent>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
+  <Target Name="BeforeBuild"> </Target>-->
+  
     <Target Name="AfterBuild">
-    <Copy SourceFiles="@(dpContent)" DestinationFolder="$(ProjectDir)..\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\" />
-  </Target>
-  -->
+		<Copy SourceFiles="@(dpContent)" DestinationFolder="$(ProjectDir)..\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\" />
+	</Target>
+  
 </Project>

@@ -162,6 +162,8 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
+
+
         /// <summary>
         /// All code js.
         /// </summary>
@@ -169,8 +171,26 @@ namespace Diphap.JsNetBridge.Data
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine();
-            sb.AppendLine(this.ToJSCore());
+            sb.AppendLine(JSRaw.AnynomousModule.Begin);
+            {
+                #region "depedencies"
+                sb.AppendLine(JSRaw.arrayFactory);
+                sb.AppendLine(JSRaw.circularReferenceManagerFactory);
+                #endregion
+
+                sb.AppendLine(JSRaw.AnynomousModule.Begin);
+                {
+                    sb.AppendLine(JSRaw.CheckingDependencies);
+                    sb.AppendLine(ConfigJS.stampFuncInstruction);
+
+                    #region "Core"
+                    sb.AppendLine(this.ToJSCore());
+                    #endregion
+                }
+
+                sb.AppendLine(JSRaw.AnynomousModule.End);
+            }
+            sb.AppendLine(JSRaw.AnynomousModule.End);
             return sb.ToString();
         }
 

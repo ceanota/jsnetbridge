@@ -215,7 +215,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs)
         {
-            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t), true));
+            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t), false));
         }
 
         /// <summary>

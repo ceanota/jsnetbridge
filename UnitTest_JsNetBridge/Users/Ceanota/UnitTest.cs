@@ -35,8 +35,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string jsCore = st.ToJS();
 
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
-            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
+            //sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
+            //sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
             sb.AppendLine(jsCore);
             
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());

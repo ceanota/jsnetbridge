@@ -166,11 +166,11 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine("(function () {");
+            sb.AppendLine(JSRaw.AnynomousModule.Begin);
             {
-                sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
 
-                sb.AppendLine(LiteralText.GetStarted());
+                #region "optional"
+                sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
 
                 sb.AppendLine("//#region [references]");
                 sb.AppendLine("/*");
@@ -181,22 +181,29 @@ namespace Diphap.JsNetBridge.Mvc
                 }
                 sb.AppendLine("*/");
                 sb.AppendLine("//#endregion");
+                #endregion
+
+                #region "depedencies"
+                sb.AppendLine(JSRaw.arrayFactory);
+                sb.AppendLine(JSRaw.circularReferenceManagerFactory);
+                #endregion
+
+                sb.AppendLine(JSRaw.AnynomousModule.Begin);
+                {
+                    sb.AppendLine(JSRaw.CheckingDependencies);
+                    sb.AppendLine(ConfigJS.stampFuncInstruction);
+
+                    #region "Core"
+                    sb.AppendLine(this.ModelInfo.ToJSCore());
+                    sb.AppendLine(this.EnumInfo.ToJSCore());
+                    sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
+                    sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
+                    #endregion
+                }
+                sb.AppendLine(JSRaw.AnynomousModule.End);
             }
+            sb.AppendLine(JSRaw.AnynomousModule.End);
 
-            {
-                sb.AppendLine("(function () {");
-                sb.AppendLine(ConfigJS.stampFuncInstruction);
-                sb.AppendLine(this.ModelInfo.ToJSCore());
-
-                sb.AppendLine(this.EnumInfo.ToJSCore());
-
-
-                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
-                sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
-
-                sb.AppendLine("})();");
-            }
-            sb.AppendLine("})();");
             return sb.ToString();
         }
 
