@@ -85,7 +85,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._ParameterClassTypes == null)
             {
-                this._ParameterClassTypes = TypeHelper.GetTypesOfClass(this.MethodInfo.GetParameters().Select(p => p.ParameterType).ToArray()).Distinct().ToArray();
+                this._ParameterClassTypes = TypeHelper.GetCustomTypes(this.MethodInfo.GetParameters().Select(p => p.ParameterType).ToArray()).Distinct().ToArray();
             }
             return this._ParameterClassTypes;
         }
@@ -100,7 +100,7 @@ namespace Diphap.JsNetBridge.Mvc
             if (this._AllInOutClassTypes == null)
             {
                 this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
-                IList<Type> returnTypes = TypeHelper.GetTypesOfClass(new Type[] { this.MethodInfo.ReturnType });
+                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { this.MethodInfo.ReturnType });
 
                 foreach (var t in returnTypes)
                 {
@@ -347,35 +347,50 @@ namespace Diphap.JsNetBridge.Mvc
             string jsValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsValue))
             {
+                bool isCollection;
+
                 //-- it's class so, we use functionReference.
-                Type telem_work;
-                bool isCollection = TypeHelper.GetElementTypeOfCollection(t, out telem_work);
+                Type telem_work = TypeHelper.FindCustomTypeOrDefault(t, out isCollection);
 
-                if (isCollection == false)
+                if (telem_work != null)
                 {
-                    telem_work = t;
-
-                    if (t.IsInterface)
+                    if (isCollection)
                     {
-                        jsValue = "{}";
+                        //-- telem_work  is collection.
+                        jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
                     }
-
-                    if (t.IsClass)
+                    else
                     {
-                        jsValue = "{}";
-
-                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(t) == false &&
-                            AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(t) == false)
+                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
+                                AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
+                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)
                         {
-                            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
-                        }
-                    }
+                            if (telem_work.IsGenericType)
+                            {
+                                //-- get type of arg.
+                                Type targ = telem_work.GetGenericArguments().FirstOrDefault();
+                                if (targ != null)
+                                {
+                                    Type telem_of_targ;
+                                    isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
+                                    if (isCollection)
+                                    {
+                                        jsValue = JSHelper.GetObjectFactoryName(telem_of_targ, isCollection, false);
+                                    }
+                                    else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false); }
+                                }
+                                else { /* it's generic type. */ jsValue = "{}"; }
 
+                            }
+                            else { jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false); }
+
+                        }
+                        else { jsValue = "{}"; }
+
+                    }
                 }
-                else
-                {
-                    jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
-                }
+                else { jsValue = "{}"; }
+
             }
 
             return jsValue;

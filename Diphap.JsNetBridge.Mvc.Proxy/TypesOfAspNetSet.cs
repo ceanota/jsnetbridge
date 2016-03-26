@@ -19,6 +19,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         #region "_Ass_WebMvc"
         readonly Assembly _Ass_WebMvc;
         internal Type Type_JsonResult;
+        internal Type Type_IHttpActionResult;
         internal Type Type_ActionResult;
         internal Type Type_ViewResult;
         #endregion
@@ -133,12 +134,17 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                     this.Type_AcceptVerbsAttribute = t;
                 }
 
+                if (this.Type_IHttpActionResult == null && t.FullName == "System.Web.Http.IHttpActionResult")
+                {
+                    this.Type_IHttpActionResult = t;
+                }
+
                 if (this.THttpAttributes.ContainsKey(t.FullName) && this.THttpAttributes[t.FullName] == null)
                 {
                     this.THttpAttributes[t.FullName] = t;
                 }
 
-                if (this.Type_ApiController != null && this.Type_AcceptVerbsAttribute != null && this.THttpAttributes.All(x => x.Value != null))
+                if (this.Type_ApiController != null && this.Type_AcceptVerbsAttribute != null && this.THttpAttributes.All(x => x.Value != null) && this.Type_IHttpActionResult != null)
                 {
                     break;
                 }

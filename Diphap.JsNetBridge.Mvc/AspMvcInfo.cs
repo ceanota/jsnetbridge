@@ -47,7 +47,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             Type[] types = asp_net.GetTypes();
 
-            this.Types_Model = TypeHelper.GetTypesOfClass(types
+            this.Types_Model = TypeHelper.GetCustomTypes(types
                 .Where(t => t.FullName.Contains(".Models")
                     && (t.BaseType == type_obj || t.BaseType == null || (t.BaseType.FullName != null && t.BaseType.FullName.Contains("System.") == false))).ToArray(),
                 new string[] { }, new string[] { }).ToList();
@@ -56,14 +56,13 @@ namespace Diphap.JsNetBridge.Mvc
 
             this.Types_Controller = types.Where(t => t.Name.Contains("Controller")).ToList();
 
+            //-- Parameter and return types of action method.
             foreach (Type t in this.AllInOutClassTypes())
             {
-                Type t_work = TypeHelper.GetElementTypeOfCollectionOrDefault(t);
-
-                if (this.Types_Model.Contains(t_work) == false)
+                if (this.Types_Model.Contains(t) == false)
                 {
                     //-- add Type which is not Collection.
-                    this.Types_Model.Add(t_work);
+                    this.Types_Model.Add(t);
                 }
             }
         }
@@ -80,8 +79,6 @@ namespace Diphap.JsNetBridge.Mvc
             AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);
 
             InitiliazeForAspNetObjects(asp_net);
-
-
 
             foreach (var f in typeSetList)
             {
@@ -261,7 +258,7 @@ namespace Diphap.JsNetBridge.Mvc
                     .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
                     .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
                     .SelectMany<IActionInfo, Type>(ai => ai.AllInOutClassTypes())
-                    .Where(t => t.FullName.Contains("System.") == false)
+                    .Where(t => t.FullName.IndexOf("System.") != 0)
                     .Distinct()
                     .ToArray();
             }

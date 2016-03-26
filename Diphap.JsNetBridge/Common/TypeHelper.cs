@@ -15,18 +15,75 @@ namespace Diphap.JsNetBridge
         static public readonly Type Type_IEnumerable = typeof(IEnumerable);
 
         /// <summary>
-        /// Get element type of collection if tmem is collection other else return null.
+        /// Get element type of collection if tmem is collection other else tmember.
         /// </summary>
         /// <param name="tmember"></param>
         /// <param name="tElement"></param>
         /// <returns></returns>
         public static bool GetElementTypeOfCollection(Type tmember, out Type tElement)
         {
+            return GetGenericArgumentType(tmember, IsCollection, out tElement);
+        }
+
+        /// <summary>
+        /// Indicate if it's generic type and not Collection
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <returns></returns>
+        public static bool IsGenericTypeAndNotCollection(Type tmember)
+        {
+            return IsCollection(tmember) == false && tmember.IsGenericType;
+        }
+
+        /// <summary>
+        /// Get element type of generic type if tmem is generic type other else return tmember.
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <param name="tElement"></param>
+        /// <returns></returns>
+        public static Type GetGenericArgumentTypeAndNotCollection(Type t)
+        {
+            Type t_work;
+            //-- If it's collection, we use type of element.
+            if (!GetGenericArgumentType(t, IsGenericTypeAndNotCollection, out t_work))
+            {
+                t_work = t;
+            }
+
+            return t_work;
+        }
+
+        /// <summary>
+        /// Get element type of generic type if tmem is generic type other else return tmember.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="funcCondition"></param>
+        /// <returns></returns>
+        public static Type GetGenericArgumentTypeOrDefault(Type t, Func<Type, bool> funcCondition)
+        {
+            Type t_work;
+            //-- If it's collection, we use type of element.
+            if (!TypeHelper.GetGenericArgumentType(t, funcCondition, out t_work))
+            {
+                t_work = t;
+            }
+
+            return t_work;
+        }
+
+        /// <summary>
+        ///  Get element type of generic type if tmem is generic type other else return tmember.
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <param name="funcCondition"></param>
+        /// <param name="tElement"></param>
+        /// <returns></returns>
+        public static bool GetGenericArgumentType(Type tmember, Func<Type, bool> funcCondition, out Type tElement)
+        {
             tElement = null;
 
-            if (IsCollection(tmember))
+            if (funcCondition(tmember))
             {
-                //-- member is collection
                 Type[] _types_generic = tmember.GetGenericArguments();
                 if (_types_generic.Length > 0)
                 {
@@ -39,6 +96,7 @@ namespace Diphap.JsNetBridge
             }
             return tElement != null;
         }
+
 
         /// <summary>
         /// Get element type of collection if 't' is collection other else return 't'.
@@ -206,18 +264,20 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public static List<Type> GetTypesOfClass(Assembly ass, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
-            List<Type> types_selected = GetTypesOfClass(ass.GetTypes(), whiteNamespaces);
+            List<Type> types_selected = GetCustomTypes(ass.GetTypes(), whiteNamespaces);
             return types_selected;
         }
 
+
+
         /// <summary>
-        /// filter types of class.
+        /// filter custom types.
         /// </summary>
         /// <param name="types"></param>
         /// <param name="whiteNamespaces"></param>
         /// <param name="blackNamespaces"></param>
         /// <returns></returns>
-        public static List<Type> GetTypesOfClass(IList<Type> types, IList<string> whiteNamespaces = null, IList<string> blackNamespaces = null)
+        public static List<Type> GetCustomTypes(IList<Type> types, IList<string> whiteNamespaces = null, IList<string> blackNamespaces = null)
         {
             List<Type> types_selected = new List<Type>(types.Count);
 
@@ -225,18 +285,64 @@ namespace Diphap.JsNetBridge
             {
                 Type t = types[idx];
 
-                bool goFlag = AurthorizeTypeOfObject(whiteNamespaces, blackNamespaces, t, types_selected);
+                bool goFlag = TypeHelper.AurthorizeTypeOfObject(whiteNamespaces, blackNamespaces, t, types_selected);
 
                 if (goFlag)
                 {
-                    if (t.IsPublic && (t.IsClass || t.IsInterface) && t.IsNested == false && !t.Name.Contains("<") && t.IsGenericType == false)
-                    {
-                        t = TypeHelper.GetElementTypeOfCollectionOrDefault(t);
-                        types_selected.Add(t);
-                    }
+                    Type tfound = FindCustomTypeOrDefault(t);
+
+                    if (tfound != null) { types_selected.Add(tfound); };
                 }
             }
             return types_selected;
+        }
+
+
+        /// <summary>
+        /// Find custom type
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Type FindCustomTypeOrDefault(Type t)
+        {
+            bool isCollection;
+            return FindCustomTypeOrDefault(t, out isCollection);
+        }
+
+        /// <summary>
+        /// Find custom type
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Type FindCustomTypeOrDefault(Type t, out bool isCollection)
+        {
+            Type tfound = null;
+            isCollection = false;
+            if (t.IsPublic && (t.IsClass || t.IsInterface) && t.IsNested == false && !t.Name.Contains("<"))
+            {
+                if (TypeHelper.GetElementTypeOfCollection(t, out tfound))
+                {
+                    /*-- t is collection. */
+                    isCollection = true;
+                }
+                else
+                {
+                    Type t_temp = TypeHelper.GetGenericArgumentTypeOrDefault(t, temp => { return temp.IsGenericType; });
+                    if (TypeHelper.GetElementTypeOfCollection(t_temp, out tfound))
+                    {
+                        isCollection = true;
+                    }
+                    else
+                    {
+                        if (t_temp.IsGenericType == false)
+                        {
+                            tfound = t_temp;
+                        }
+                    }
+
+                }
+            }
+            return tfound;
         }
 
         /// <summary>
