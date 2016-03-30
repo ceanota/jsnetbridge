@@ -2,11 +2,9 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Diphap.JsNetBridge;
 using System.Reflection;
-using SingleAppExample.Areas.HelpPage.Models;
 using System.Web.Http.Controllers;
 using System.Linq;
 using System.Web.Http.Description;
-using SingleAppExample.Models;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -29,16 +27,10 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestMethod1()
         {
-
-            //ModelInfo st = new ModelInfo(typeof(TestModels.MyModel)); //ContosoUniversity.Models.Student));
             ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student));
             string jsCore = st.ToJS();
-
             StringBuilder sb = new StringBuilder();
-            //sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
-            //sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
             sb.AppendLine(jsCore);
-            
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());
 
         }
@@ -62,13 +54,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string appAspNetPath = @"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; //@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             string jsCore = api.ToJS();
-
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\arrayFactory.js"));
-            sb.AppendLine(File.ReadAllText(@"C:\Users\diphap\Source\Repos\jsnet\NuGet.Packager\content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js"));
-            sb.AppendLine(jsCore);
-
-            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());
+            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", jsCore);
         }
 
 

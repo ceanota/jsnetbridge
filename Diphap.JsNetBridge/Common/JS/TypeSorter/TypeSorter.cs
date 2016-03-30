@@ -139,6 +139,18 @@ namespace Diphap.JsNetBridge.Common.JS
         }
 
         /// <summary>
+        /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+        /// </summary>
+        /// <param name="mi"></param>
+        /// <param name="factoryName"></param>
+        /// <param name="isCollection"></param>
+        /// <returns></returns>
+        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, string factoryName, bool isCollection)
+        {
+            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(factoryName, isCollection));
+        }
+
+        /// <summary>
         /// Force.
         /// </summary>
         /// <param name="mi"></param>
@@ -170,9 +182,6 @@ namespace Diphap.JsNetBridge.Common.JS
                     }
                     js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
                 }
-
-
-
 
                 js_key_value_list.Add(js_key_value);
                 this.ComplexMembers.Remove(mi);

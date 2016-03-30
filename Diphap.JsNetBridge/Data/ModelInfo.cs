@@ -137,6 +137,18 @@ namespace Diphap.JsNetBridge.Data
             List<string> nsDecl_Array = new List<string>();
             List<string> funcDecl_Array = new List<string>();
 
+            Dictionary<string, string> all_alias_ns;
+            {
+                int ii = 0;
+                string alias_ns = "_mi";
+                all_alias_ns =
+                    this.Classes.
+                    SelectMany(dic => dic.Keys)
+                    .Select(x => x.Namespace)
+                    .Distinct()
+                    .ToDictionary(k => k, v => { string ret = alias_ns + ii.ToString(); ii++; return ret; });
+            }
+
             foreach (var dic in Classes)
             {
                 foreach (var kv in dic)
@@ -151,9 +163,15 @@ namespace Diphap.JsNetBridge.Data
                         }
                     }
 
-                    string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true);
+                    string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, all_alias_ns[kv.Key.Namespace]);
+
                     funcDecl_Array.Add(funcDecl);
                 }
+            }
+
+            foreach (var kv in all_alias_ns)
+            {
+                nsDecl_Array.Add(string.Format("var {0} = {1};", kv.Value, ConfigJS.prefix_ns_jsnet + "." + kv.Key));
             }
 
             nsDecl_Array.AddRange(funcDecl_Array);
@@ -162,18 +180,12 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
-
-
-        /// <summary>
-        /// All code js.
-        /// </summary>
-        /// <returns></returns>
-        public string ToJS()
+        public static string ToJSTemplate(Func<StringBuilder, object> ToJSCore)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(JSRaw.AnynomousModule.Begin);
             {
-                #region "depedencies"
+                #region "js files depedencies"
                 sb.AppendLine(JSRaw.arrayFactory);
                 sb.AppendLine(JSRaw.circularReferenceManagerFactory);
                 #endregion
@@ -184,14 +196,25 @@ namespace Diphap.JsNetBridge.Data
                     sb.AppendLine(ConfigJS.stampFuncInstruction);
 
                     #region "Core"
-                    sb.AppendLine(this.ToJSCore());
+                    ToJSCore(sb);
                     #endregion
                 }
 
                 sb.AppendLine(JSRaw.AnynomousModule.End);
             }
             sb.AppendLine(JSRaw.AnynomousModule.End);
+
             return sb.ToString();
+        }
+
+        /// <summary>
+        /// All code js.
+        /// </summary>
+        /// <returns></returns>
+        public string ToJS()
+        {
+            Func<StringBuilder, object> f = (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
+            return ToJSTemplate(f);
         }
 
         public void WriteAllText(string jsFilePath)

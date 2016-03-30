@@ -106,10 +106,6 @@
       <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
       <Name>Diphap.JsNetBridge</Name>
     </ProjectReference>
-    <ProjectReference Include="..\SingleAppExample\SingleAppExample.csproj">
-      <Project>{c366c3f5-11bf-486d-90de-ded2e47485cb}</Project>
-      <Name>SingleAppExample</Name>
-    </ProjectReference>
     <ProjectReference Include="..\TestModels\TestModels.csproj">
       <Project>{0a8036b1-aee5-4046-9906-a016bfa857a7}</Project>
       <Name>TestModels</Name>

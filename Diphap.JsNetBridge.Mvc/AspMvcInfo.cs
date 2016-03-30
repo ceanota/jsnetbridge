@@ -165,46 +165,15 @@ namespace Diphap.JsNetBridge.Mvc
 
         public string ToJS()
         {
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(JSRaw.AnynomousModule.Begin);
+            Func<StringBuilder, object> f = (sb) => 
             {
-
-                #region "optional"
-                sb.AppendLine(LiteralText.FileInfo(new AssemblyInfo(Assembly.GetExecutingAssembly())));
-
-                sb.AppendLine("//#region [references]");
-                sb.AppendLine("/*");
-                Type[] types = new Type[] { AspMvcInfo.TypesOfAspNetSet.Type_ActionResult, AspMvcInfo.TypesOfAspNetSet.Type_ApiController, AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage, AspMvcInfo.TypesOfAspNetSet.Type_JsonResult, AspMvcInfo.TypesOfAspNetSet.Type_ViewResult };
-                foreach (var t in types)
-                {
-                    sb.AppendLine(t.AssemblyQualifiedName.ToString() + " - " + t.Assembly.Location);
-                }
-                sb.AppendLine("*/");
-                sb.AppendLine("//#endregion");
-                #endregion
-
-                #region "depedencies"
-                sb.AppendLine(JSRaw.arrayFactory);
-                sb.AppendLine(JSRaw.circularReferenceManagerFactory);
-                #endregion
-
-                sb.AppendLine(JSRaw.AnynomousModule.Begin);
-                {
-                    sb.AppendLine(JSRaw.CheckingDependencies);
-                    sb.AppendLine(ConfigJS.stampFuncInstruction);
-
-                    #region "Core"
-                    sb.AppendLine(this.ModelInfo.ToJSCore());
-                    sb.AppendLine(this.EnumInfo.ToJSCore());
-                    sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
-                    sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
-                    #endregion
-                }
-                sb.AppendLine(JSRaw.AnynomousModule.End);
-            }
-            sb.AppendLine(JSRaw.AnynomousModule.End);
-
-            return sb.ToString();
+                sb.AppendLine(this.ModelInfo.ToJSCore());
+                sb.AppendLine(this.EnumInfo.ToJSCore());
+                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
+                sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
+                return null; 
+            };
+            return ModelInfo.ToJSTemplate(f);
         }
 
         private ModelInfo _ModelInfo;

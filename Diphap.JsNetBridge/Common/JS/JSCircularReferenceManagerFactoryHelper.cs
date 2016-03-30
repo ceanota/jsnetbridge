@@ -28,8 +28,20 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
         {
-            string jsvalue = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
-            jsvalue = string.Format("{0}.apply(null, args)({1})", JSCircularReferenceManagerFactoryHelper.FunctionName, jsvalue);
+            string factoryName = JSHelper.GetObjectFactoryName(telem_work, isCollection, true);
+            return FunctionDefinitionCall(factoryName, isCollection);
+        }
+
+        /// <summary>
+        ///  ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+        ///  or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+        /// </summary>
+        /// <param name="factoryName"></param>
+        /// <param name="isCollection"></param>
+        /// <returns></returns>
+        public static string FunctionDefinitionCall(string factoryName, bool isCollection)
+        {
+            string jsvalue = string.Format("{0}.apply(null, args)({1})", JSCircularReferenceManagerFactoryHelper.FunctionName, factoryName);
             if (isCollection)
             {
                 jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);

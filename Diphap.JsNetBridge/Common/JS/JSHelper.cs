@@ -45,14 +45,6 @@ namespace Diphap.JsNetBridge
 
                 obj_full_array = new List<string>(ns_parts.Count);
 
-
-                if ((ns_parts[0] == "window") == false)
-                {
-                    //-- insert 'window'
-                    ns_parts.Insert(0, "window");
-                    js_obj_fullName = "window." + js_obj_fullName;
-                }
-
                 string ns_remain = js_obj_fullName;
                 for (int ii = ns_parts.Count - 1; ii > 0; ii--)
                 {
@@ -65,7 +57,8 @@ namespace Diphap.JsNetBridge
 
                 obj_full_array.Reverse();
 
-                obj_full_array.Remove("window");
+                if (obj_full_array.Count > 0)
+                { obj_full_array[0] = "window." + obj_full_array[0]; }
             }
 
 
@@ -213,9 +206,19 @@ namespace Diphap.JsNetBridge
         /// <param name="jsObj"></param>
         /// <param name="withArgs"></param>
         /// <returns></returns>
-        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs)
+        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string alias_ns = null)
         {
-            return GetObjectDeclaration(t, GetFactory(jsObj, withArgs, GetObjectFullName(t), false));
+            string objFullName = GetObjectFullName(t);
+
+            if (alias_ns != null)
+            {
+                var ns = JSHelper.GetNamespace(t);
+                if (objFullName.IndexOf(ns) == 0)
+                {
+                    objFullName = alias_ns + objFullName.Remove(0, ns.Length);
+                }
+            }
+            return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
 
         /// <summary>
@@ -227,6 +230,17 @@ namespace Diphap.JsNetBridge
         {
             string objFullname = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, t.FullName.Replace("+", "."));
             return objFullname;
+        }
+
+        /// <summary>
+        /// namespace.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        static public string GetNamespace(Type t)
+        {
+            string ns = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, t.Namespace.Replace("+", "."));
+            return ns;
         }
 
         /// <summary>

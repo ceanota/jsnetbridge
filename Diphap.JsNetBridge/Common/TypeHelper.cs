@@ -338,6 +338,11 @@ namespace Diphap.JsNetBridge
                         {
                             tfound = t_temp;
                         }
+                        else 
+                        {
+                            //-- Autoriser les génériques.
+                            //-- si c'est un task générique, on explore son argument générique.
+                        }
                     }
 
                 }

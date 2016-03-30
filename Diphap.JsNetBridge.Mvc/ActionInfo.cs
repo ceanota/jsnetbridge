@@ -342,6 +342,8 @@ namespace Diphap.JsNetBridge.Mvc
             return jsParams;
         }
 
+        static Type TTasks = typeof(System.Threading.Tasks.Task);
+
         internal static string GetJS_EmptyValue_WithFactory(Type t)
         {
             string jsValue = "null";
@@ -379,7 +381,10 @@ namespace Diphap.JsNetBridge.Mvc
                                     }
                                     else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false); }
                                 }
-                                else { /* it's generic type. */ jsValue = "{}"; }
+                                else 
+                                { /* it's generic type. */ 
+                                    jsValue = "{}";
+                                }
 
                             }
                             else { jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false); }
