@@ -17,11 +17,11 @@ namespace Diphap.JsNetBridge.Data.Enum
         public string ToJSCore()
         {
             IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration);
-
+            
             List<string> nsDecl_Array = new List<string>();
             foreach (var jsObj in this.JsObjCol)
             {
-                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(ConfigJS.prefix_ns_jsnet + "." + jsObj.TObj.FullName.Replace("+", "."));
+                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(JSHelper.GetObjectFullName(jsObj.TObj, false));
                 foreach (var objDecl in objDecl_Array_Temp)
                 {
                     if (nsDecl_Array.Contains(objDecl) == false)

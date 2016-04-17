@@ -28,7 +28,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
             get
             {
-                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false) : JSHelper.GetObjectDeclaration(TObj, this.JsObj);
+                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, false) : JSHelper.GetObjectDeclaration(TObj, this.JsObj);
             }
         }
 

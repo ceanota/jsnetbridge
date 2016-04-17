@@ -140,7 +140,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.MethodInfo.ReturnType;
-            string jsonValue = GetJS_EmptyValue_WithFactory(type_return);
+            string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true);
             return jsonValue;
         }
 
@@ -180,7 +180,10 @@ namespace Diphap.JsNetBridge.Mvc
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
-                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
+                    if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
+                    {
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
+                    }
                 }
                 else
                 {
@@ -335,16 +338,14 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string jsValue;
 
-                jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType);
+                jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType, true);
 
                 jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
             }
             return jsParams;
         }
 
-        static Type TTasks = typeof(System.Threading.Tasks.Task);
-
-        internal static string GetJS_EmptyValue_WithFactory(Type t)
+        internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias)
         {
             string jsValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsValue))
@@ -359,7 +360,7 @@ namespace Diphap.JsNetBridge.Mvc
                     if (isCollection)
                     {
                         //-- telem_work  is collection.
-                        jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false);
+                        jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
                     }
                     else
                     {
@@ -377,9 +378,9 @@ namespace Diphap.JsNetBridge.Mvc
                                     isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
                                     if (isCollection)
                                     {
-                                        jsValue = JSHelper.GetObjectFactoryName(telem_of_targ, isCollection, false);
+                                        jsValue = JSHelper.GetObjectFactoryName(telem_of_targ, isCollection, false, nsAlias);
                                     }
-                                    else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false); }
+                                    else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false, nsAlias); }
                                 }
                                 else 
                                 { /* it's generic type. */ 
@@ -387,7 +388,7 @@ namespace Diphap.JsNetBridge.Mvc
                                 }
 
                             }
-                            else { jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false); }
+                            else { jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias); }
 
                         }
                         else { jsValue = "{}"; }

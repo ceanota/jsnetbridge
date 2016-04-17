@@ -16,9 +16,9 @@ namespace Diphap.JsNetBridge
         /// <param name="isCollection"></param>
         /// <param name="functionReference"></param>
         /// <returns></returns>
-        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference = true)
+        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, bool nsAlias)
         {
-            string jsvalue = string.Format("{0}.{1}()", ConfigJS.prefix_ns_jsnet, telem_work.FullName.Replace("+", "."));
+            string jsvalue = string.Format("{0}()", JSHelper.GetObjectFullName(telem_work, nsAlias));
             if (isCollection)
             {
                 jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
@@ -206,18 +206,9 @@ namespace Diphap.JsNetBridge
         /// <param name="jsObj"></param>
         /// <param name="withArgs"></param>
         /// <returns></returns>
-        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string alias_ns = null)
+        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, bool nsAlias)
         {
-            string objFullName = GetObjectFullName(t);
-
-            if (alias_ns != null)
-            {
-                var ns = JSHelper.GetNamespace(t);
-                if (objFullName.IndexOf(ns) == 0)
-                {
-                    objFullName = alias_ns + objFullName.Remove(0, ns.Length);
-                }
-            }
+            string objFullName = GetObjectFullName(t, nsAlias);
             return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
 
@@ -226,11 +217,12 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        static public string GetObjectFullName(Type t)
+        static public string GetObjectFullName(Type t, bool alias)
         {
-            string objFullname = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, t.FullName.Replace("+", "."));
+            string objFullname = ConfigJS.JSNamespace.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
             return objFullname;
         }
+
 
         /// <summary>
         /// namespace.
@@ -251,7 +243,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetObjectDeclaration(Type t, string jsObj)
         {
-            return GetObjectDeclaration(GetObjectFullName(t), jsObj);
+            return GetObjectDeclaration(GetObjectFullName(t, false), jsObj);
         }
 
         /// <summary>

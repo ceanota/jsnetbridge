@@ -13,6 +13,7 @@ namespace Diphap.JsNetBridge
     public class TypeHelper
     {
         static public readonly Type Type_IEnumerable = typeof(IEnumerable);
+        static public readonly Type Type_Task = typeof(System.Threading.Tasks.Task);
 
         /// <summary>
         /// Get element type of collection if tmem is collection other else tmember.
@@ -23,6 +24,17 @@ namespace Diphap.JsNetBridge
         public static bool GetElementTypeOfCollection(Type tmember, out Type tElement)
         {
             return GetGenericArgumentType(tmember, IsCollection, out tElement);
+        }
+
+        /// <summary>
+        /// Get element type of task if tmem is collection other else tmember.
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <param name="tElement"></param>
+        /// <returns></returns>
+        public static bool GetElementTypeOfTask(Type tmember, out Type tElement)
+        {
+            return GetGenericArgumentType(tmember, IsTask, out tElement);
         }
 
         /// <summary>
@@ -123,6 +135,16 @@ namespace Diphap.JsNetBridge
         public static bool IsCollection(Type tmember)
         {
             return Type_IEnumerable.IsAssignableFrom(tmember) && tmember != typeof(string);
+        }
+
+        /// <summary>
+        /// Is it task.
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <returns></returns>
+        public static bool IsTask(Type tmember)
+        {
+            return Type_Task.IsAssignableFrom(tmember);
         }
 
         /// <summary>
@@ -327,24 +349,23 @@ namespace Diphap.JsNetBridge
                 }
                 else
                 {
-                    Type t_temp = TypeHelper.GetGenericArgumentTypeOrDefault(t, temp => { return temp.IsGenericType; });
-                    if (TypeHelper.GetElementTypeOfCollection(t_temp, out tfound))
+                    //TypeHelper.GetGenericArgumentTypeOrDefault(t, temp => { return temp.IsGenericType; });
+                    Type t_temp;
+                    if (TypeHelper.GetElementTypeOfTask(t, out t_temp))
                     {
-                        isCollection = true;
-                    }
-                    else
-                    {
-                        if (t_temp.IsGenericType == false)
+                        if (TypeHelper.GetElementTypeOfCollection(t_temp, out tfound))
+                        {
+                            isCollection = true;
+                        }
+                        else
                         {
                             tfound = t_temp;
                         }
-                        else 
-                        {
-                            //-- Autoriser les génériques.
-                            //-- si c'est un task générique, on explore son argument générique.
-                        }
                     }
-
+                    else
+                    {
+                        tfound = t;
+                    }
                 }
             }
             return tfound;
@@ -426,6 +447,34 @@ namespace Diphap.JsNetBridge
         {
             Assembly ass = Assembly.LoadFrom(fileName);
             return GetTypesOfEnum(ass, whiteNamespaces, blackNamespaces);
+        }
+
+        /// <summary>
+        /// Name of t.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static string GetName(Type t)
+        {
+            string name;
+            if (t.IsGenericType)
+            {
+                Type tgenArg = t.GetGenericArguments().FirstOrDefault();
+                if (tgenArg != null)
+                {
+                    name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + tgenArg.FullName.Replace(".", null);
+                }
+                else
+                {
+                    name = t.Name; 
+                }
+            }
+            else
+            {
+                name = t.Name;
+            }
+
+            return name.Replace("+", ".");
         }
 
 

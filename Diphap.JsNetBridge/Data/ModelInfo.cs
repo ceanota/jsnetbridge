@@ -137,42 +137,30 @@ namespace Diphap.JsNetBridge.Data
             List<string> nsDecl_Array = new List<string>();
             List<string> funcDecl_Array = new List<string>();
 
-            Dictionary<string, string> all_alias_ns;
-            {
-                int ii = 0;
-                string alias_ns = "_mi";
-                all_alias_ns =
-                    this.Classes.
-                    SelectMany(dic => dic.Keys)
-                    .Select(x => x.Namespace)
-                    .Distinct()
-                    .ToDictionary(k => k, v => { string ret = alias_ns + ii.ToString(); ii++; return ret; });
-            }
+            ConfigJS.JSNamespace.AddRangeAlias(this.Classes.SelectMany(dic => dic.Keys));
 
             foreach (var dic in Classes)
             {
                 foreach (var kv in dic)
                 {
-                    List<string> objDecl_Array_Temp = JSHelper.CreateNamespace(ConfigJS.prefix_ns_jsnet + "." + kv.Key.FullName.Replace("+", "."));
-
-                    foreach (var objDecl in objDecl_Array_Temp)
                     {
-                        if (nsDecl_Array.Contains(objDecl) == false)
+                        List<string> createdNamespaces = JSHelper.CreateNamespace(JSHelper.GetObjectFullName(kv.Key, false));
+                        foreach (var ns in createdNamespaces)
                         {
-                            nsDecl_Array.Add(objDecl);
+                            if (nsDecl_Array.Contains(ns) == false)
+                            {
+                                nsDecl_Array.Add(ns);
+                            }
                         }
                     }
-
-                    string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, all_alias_ns[kv.Key.Namespace]);
-
-                    funcDecl_Array.Add(funcDecl);
+                    {
+                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, true);
+                        funcDecl_Array.Add(funcDecl);
+                    }
                 }
             }
 
-            foreach (var kv in all_alias_ns)
-            {
-                nsDecl_Array.Add(string.Format("var {0} = {1};", kv.Value, ConfigJS.prefix_ns_jsnet + "." + kv.Key));
-            }
+            ConfigJS.JSNamespace.AddRangeJSInstructions(nsDecl_Array);
 
             nsDecl_Array.AddRange(funcDecl_Array);
 

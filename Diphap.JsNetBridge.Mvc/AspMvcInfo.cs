@@ -65,6 +65,13 @@ namespace Diphap.JsNetBridge.Mvc
                     this.Types_Model.Add(t);
                 }
             }
+
+            {
+                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Model);
+                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Enum);
+                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Controller);
+            }
+
         }
 
         /// <summary>
@@ -165,13 +172,13 @@ namespace Diphap.JsNetBridge.Mvc
 
         public string ToJS()
         {
-            Func<StringBuilder, object> f = (sb) => 
+            Func<StringBuilder, object> f = (sb) =>
             {
                 sb.AppendLine(this.ModelInfo.ToJSCore());
                 sb.AppendLine(this.EnumInfo.ToJSCore());
                 sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
-                return null; 
+                return null;
             };
             return ModelInfo.ToJSTemplate(f);
         }
