@@ -178,6 +178,10 @@ namespace Diphap.JsNetBridge.Data
                 sb.AppendLine(JSRaw.circularReferenceManagerFactory);
                 #endregion
 
+                #region "helper"
+                sb.AppendLine(JSRaw.getStaticDefaultUrl);
+                #endregion
+
                 sb.AppendLine(JSRaw.AnynomousModule.Begin);
                 {
                     sb.AppendLine(JSRaw.CheckingDependencies);

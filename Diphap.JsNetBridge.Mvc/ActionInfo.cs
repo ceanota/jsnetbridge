@@ -172,7 +172,7 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.Append("var action = {};");
                 sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
-                if (hasUrl) { sb.Append("action.Url = null;"); }
+                if (hasUrl) { sb.Append("action." + ConfigJS.brandLetter + "Url = null;"); }
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
@@ -382,8 +382,8 @@ namespace Diphap.JsNetBridge.Mvc
                                     }
                                     else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false, nsAlias); }
                                 }
-                                else 
-                                { /* it's generic type. */ 
+                                else
+                                { /* it's generic type. */
                                     jsValue = "{}";
                                 }
 

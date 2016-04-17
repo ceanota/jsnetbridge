@@ -67,6 +67,38 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
+        //private string GetMvcDefaultUrl()
+        //{
+        //    string url;
+
+        //    if (string.IsNullOrWhiteSpace(this.Area))
+        //    {
+        //        url = string.Format("\"/{0}/{1}\"", this.Controller, this.Action);
+        //    }
+        //    else
+        //    {
+        //        url = string.Format("\"/{0}/{1}/{2}\"", this.Area, this.Controller, this.Action);
+        //    }
+
+        //    return url;
+        //}
+
+        //private string GetApiDefaultUrl()
+        //{
+        //    string url;
+
+        //    if (string.IsNullOrWhiteSpace(this.Area))
+        //    {
+        //        url = string.Format("\"/api/{0}/{1}\"", this.Controller, this.Action);
+        //    }
+        //    else
+        //    {
+        //        url = string.Format("\"/{0}/api/{1}/{2}\"", this.Area, this.Controller, this.Action);
+        //    }
+
+        //    return url;
+        //}
+
         /// <summary>
         /// Value.
         /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
@@ -80,7 +112,12 @@ namespace Diphap.JsNetBridge.Mvc
                     string objName = "action";
                     sb.Append("var action = {};");
                     sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
+
                     sb.Append(objName + "." + ConfigJS.brandLetter + "Url = null;");
+
+                    //-- names.
+                    sb.AppendFormat("action.{0}Names = {{ {0}Action : \"{1}\", {0}Controller : \"{2}\", {0}Area : \"{3}\" }};",
+    ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
 
                     for (int ii = 0; ii < this._signatures.Length; ii++)
                     {

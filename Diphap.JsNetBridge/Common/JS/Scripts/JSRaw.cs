@@ -101,6 +101,32 @@ namespace Diphap.JsNetBridge.Common.JS
 
 })();";
 
+        public const string getStaticDefaultUrl =
+@"(function () {
+    window.$dp = window.$dp || {};
+    $dp.$JsNet = $dp.$JsNet || {};
+    $dp.$JsNet.Helpers = $dp.$JsNet.Helpers || {};
+    $dp.$JsNet.Helpers.Action = $dp.$JsNet.Helpers.Action || {};
+
+    $dp.$JsNet.Helpers.Action.getHardCodedUrl = function getHardCodedUrl(action) {
+        /// <summary>Get Url.</summary>
+        var url;
+        if (action.$sig0.$IsApiController) {
+            url = '/api/' + action.$Names.$Controller + '/' + action.$sig0.$IsApiController.$httpMethodArray.$items[0];
+            if (action.$Names.$Area) {
+                url = '/' + action.$Names.$Area + url;
+            }
+        }
+        else {
+            url = '/' + action.$Names.$Controller + '/' + action.$Names.$Action;
+            if (action.$Names.$Area) {
+                url = '/' + action.$Names.$Area + url;
+            }
+        }
+        return url;
+    }
+})();";
+        
         public class AnynomousModule
         {
             public const string Begin = "(function () {";
