@@ -34,9 +34,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         internal Type Type_ApiController;
         internal Type Type_AcceptVerbsAttribute;
         internal Type Type_HttpMethod;
+        internal Type Type_RespsonseTypeAttribute;
         internal Dictionary<string, Type> THttpAttributes = new Dictionary<string, Type>(){ 
                 {"System.Web.Http.HttpGetAttribute",null}, {"System.Web.Http.HttpPostAttribute",null}, 
-                {"System.Web.Http.HttpPutAttribute",null}, {"System.Web.Http.HttpDeleteAttribute",null}, {"System.Web.Http.HttpHeadAttribute",null} };
+                {"System.Web.Http.HttpPutAttribute",null}, {"System.Web.Http.HttpDeleteAttribute",null}, 
+                {"System.Web.Http.HttpHeadAttribute",null} };
 
         #endregion
 
@@ -139,12 +141,21 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                     this.Type_IHttpActionResult = t;
                 }
 
+                if (this.Type_RespsonseTypeAttribute == null && t.FullName == "System.Web.Http.Description.ResponseTypeAttribute")
+                {
+                    this.Type_RespsonseTypeAttribute = t;
+                }
+
                 if (this.THttpAttributes.ContainsKey(t.FullName) && this.THttpAttributes[t.FullName] == null)
                 {
                     this.THttpAttributes[t.FullName] = t;
                 }
 
-                if (this.Type_ApiController != null && this.Type_AcceptVerbsAttribute != null && this.THttpAttributes.All(x => x.Value != null) && this.Type_IHttpActionResult != null)
+                if (this.Type_ApiController != null && 
+                    this.Type_AcceptVerbsAttribute != null && 
+                    this.Type_IHttpActionResult != null &&
+                    this.Type_RespsonseTypeAttribute != null &&
+                    this.THttpAttributes.All(x => x.Value != null))
                 {
                     break;
                 }

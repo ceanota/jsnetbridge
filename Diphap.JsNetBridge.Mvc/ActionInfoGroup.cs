@@ -123,7 +123,7 @@ namespace Diphap.JsNetBridge.Mvc
                     {
                         sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "sig{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
                     }
-
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrlFromTemplate = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
                     sb.Append("return action;");
                 }
 

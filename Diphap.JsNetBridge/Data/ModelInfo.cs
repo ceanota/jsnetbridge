@@ -179,7 +179,7 @@ namespace Diphap.JsNetBridge.Data
                 #endregion
 
                 #region "helper"
-                sb.AppendLine(JSRaw.getStaticDefaultUrl);
+                sb.AppendLine(JSRaw.getUrlFromTemplate);
                 #endregion
 
                 sb.AppendLine(JSRaw.AnynomousModule.Begin);

@@ -141,8 +141,17 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public Type GetEffectiveReturnType() 
         {
-            JsNetResponseTypeAttribute att = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
-            return att != null ? att.ResponseType : this.MethodInfo.ReturnType;
+            Attribute att0 = this.MethodInfo.GetCustomAttribute(AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute);
+            if (att0 != null) 
+            {
+                return AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute.GetProperty("ResponseType").GetValue(att0) as Type;
+            }
+            JsNetResponseTypeAttribute att1 = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
+            if (att1 != null) 
+            {
+                return att1.ResponseType;
+            }
+            return this.MethodInfo.ReturnType;
         }
 
         /// <summary>
@@ -213,7 +222,7 @@ namespace Diphap.JsNetBridge.Mvc
                 }
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
-
+                
                 sb.Append("return action;");
             }
 

@@ -91,6 +91,10 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>circularReferenceManagerFactory.js</LastGenOutput>
     </None>
+    <None Include="Common\JS\Scripts\getUrlFromTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>getUrlFromTemplate.js</LastGenOutput>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
@@ -100,6 +104,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CheckingDependencies.tt</DependentUpon>
+    </Content>
+    <Content Include="Common\JS\Scripts\getUrlFromTemplate.js">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>getUrlFromTemplate.tt</DependentUpon>
     </Content>
     <dpContent Include="Common\JS\Scripts\arrayFactory.js">
       <DependentUpon>arrayFactory.tt</DependentUpon>

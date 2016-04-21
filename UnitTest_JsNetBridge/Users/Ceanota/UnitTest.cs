@@ -19,7 +19,7 @@ using System.Text;
 namespace UnitTest_JsNetBridge.Users.Ceanota
 {
 
-    
+    /* NE PAS SUPPRIMER: IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }" */
 
     [TestClass]
     public class UnitTest
