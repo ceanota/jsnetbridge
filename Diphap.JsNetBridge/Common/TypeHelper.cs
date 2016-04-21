@@ -286,7 +286,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public static List<Type> GetTypesOfClass(Assembly ass, IList<string> whiteNamespaces, IList<string> blackNamespaces)
         {
-            List<Type> types_selected = GetCustomTypes(ass.GetTypes(), whiteNamespaces);
+            List<Type> types_selected = GetCustomTypes(ass.GetTypes(), whiteNamespaces, blackNamespaces);
             return types_selected;
         }
 

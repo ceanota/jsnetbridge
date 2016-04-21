@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
@@ -100,12 +101,13 @@ namespace Diphap.JsNetBridge.Mvc
             if (this._AllInOutClassTypes == null)
             {
                 this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
-                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { this.MethodInfo.ReturnType });
-
-                foreach (var t in returnTypes)
-                {
-                    this._AllInOutClassTypes.Add(t);
+                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { this.GetEffectiveReturnType() });
+                
+                if (returnTypes.Count > 0)
+                { 
+                    this._AllInOutClassTypes.Add(returnTypes[0]); 
                 }
+
                 this._AllInOutClassTypes = this._AllInOutClassTypes.Distinct().ToArray();
             }
 
@@ -134,12 +136,22 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
+        /// Get the effective return type.
+        /// </summary>
+        /// <returns></returns>
+        public Type GetEffectiveReturnType() 
+        {
+            JsNetResponseTypeAttribute att = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
+            return att != null ? att.ResponseType : this.MethodInfo.ReturnType;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public string ToJS_Return()
         {
-            Type type_return = this.MethodInfo.ReturnType;
+            Type type_return = this.GetEffectiveReturnType();
             string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true);
             return jsonValue;
         }
