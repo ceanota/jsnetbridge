@@ -198,6 +198,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Areas\MyArea\MyAreaAreaRegistration.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -264,6 +265,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Areas\MyArea\Views\Web.config" />
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\Diphap.JsNetBridge.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
@@ -325,6 +327,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\MyArea\Controllers\" />
+    <Folder Include="Areas\MyArea\Models\" />
+    <Folder Include="Areas\MyArea\Views\Shared\" />
     <Folder Include="bin\" />
   </ItemGroup>
   <ItemGroup>

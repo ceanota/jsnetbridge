@@ -77,29 +77,70 @@
 
 })();
 (function () {
-    window.$dp = window.$dp || {};
-    $dp.$JsNet = $dp.$JsNet || {};
-    $dp.$JsNet.Helpers = $dp.$JsNet.Helpers || {};
-    $dp.$JsNet.Helpers.Action = $dp.$JsNet.Helpers.Action || {};
+        window.$dp = window.$dp || {};
+        $dp.$JsNet = $dp.$JsNet || {};
+        $dp.$JsNet.$Helpers = $dp.$JsNet.$Helpers || {};
+        $dp.$JsNet.$Helpers.$Shared = $dp.$JsNet.$Helpers.$Shared || {};
+        $dp.$JsNet.$Helpers.$Shared.$Action = $dp.$JsNet.$Helpers.$Shared.$Action || {};
 
-    $dp.$JsNet.Helpers.Action.getHardCodedUrl = function getHardCodedUrl(action) {
-        /// <summary>Get Url.</summary>
-        var url;
-        if (action.$sig0.$IsApiController) {
-            url = '/api/' + action.$Names.$Controller + '/' + action.$sig0.$IsApiController.$httpMethodArray.$items[0];
-            if (action.$Names.$Area) {
-                url = '/' + action.$Names.$Area + url;
+        $dp.$JsNet.$Helpers.$Api = $dp.$JsNet.$Helpers.$Api || {};
+        $dp.$JsNet.$Helpers.$Mvc = $dp.$JsNet.$Helpers.$Mvc || {};
+        $dp.$JsNet.$Helpers.$Api.$Routes = $dp.$JsNet.$Helpers.$Api.$Routes || {};
+        $dp.$JsNet.$Helpers.$Mvc.$Routes = $dp.$JsNet.$Helpers.$Mvc.$Routes || {};
+
+        var _defaultApiRoute = { $routeTemplate: 'api/{controller}/{id}' };
+        var _defaultMvcRoute = { $routeTemplate: '{controller}/{action}/{id}' };
+
+        $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute = _defaultApiRoute;
+        $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute = _defaultMvcRoute;
+
+        function _cleanRouteTemplate(routeTemplateTemp, predicate) {
+            /// <summary></summary>
+            /// <param name='routeTemplateTemp' type='String'></param>
+            /// <param name='predicate' type='Function'></param>
+
+            var partsTemp = routeTemplateTemp.split('/');
+
+            var parts = [];
+            for (var ii = 0; ii < partsTemp.length; ii++) {
+
+                var partTemp = partsTemp[ii];
+
+                if (predicate(partsTemp) ||
+                    (partsTemp.indexOf('{') < 0 && partsTemp.indexOf('}') < 0)) {
+                    parts.push(partTemp);
+                }
             }
+            var routeTemplate = parts.join('/');
         }
-        else {
-            url = '/' + action.$Names.$Controller + '/' + action.$Names.$Action;
-            if (action.$Names.$Area) {
-                url = '/' + action.$Names.$Area + url;
+
+        function _getHardCodedUrl(action) {
+            /// <summary>Get Url</summary>
+            /// <param name='action' type='Object'></param>
+            
+            var url = '';
+            if (action.$sig0.$IsApiController) {
+                var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
+                var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function () { return partTemp === '{controller}'; });
+                url = routeTemplate.replace('{controller}', action.$Names.$Controller);
+                if (url.indexOf('/') !== 0) { url = '/' + url; }
             }
+            else {
+                var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
+                var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function () { return partTemp === '{controller}' || partTemp === '{action}'; });
+                url = routeTemplate.replace('{controller}', action.$Names.$Controller);
+                url = url.replace('{action}', action.$Names.$Action);
+                if (url.indexOf('/') !== 0) { url = '/' + url; }
+                if (action.$Names.$Area) {
+                    url = '/' + action.$Names.$Area + url;
+                }
+            };
+
         }
-        return url;
-    }
-})();
+
+        $dp.$JsNet.$Helpers.$Shared.$Action.getHardCodedUrl = _getHardCodedUrl;
+        
+    })();
 (function () {
 (function () {
     var message = '[circularReferenceManagerFactory.js] or [arrayFactory.js] is missing';
@@ -134,10 +175,10 @@ _alias1.BookDetailDTO = _alias1.BookDetailDTO || function(){ var args = Array.pr
 _alias1.BookDTO = _alias1.BookDTO || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Id":0,"Title":"","AuthorName":""};obj.constructor=_alias1.BookDTO; return obj; };
 _alias2.Personnage = _alias2.Personnage || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Nom":""};obj.constructor=_alias2.Personnage; return obj; };
 _alias2.Personnage2 = _alias2.Personnage2 || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Nom":""};obj.constructor=_alias2.Personnage2; return obj; };
-_alias5.ParameterDescription = _alias5.ParameterDescription || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Annotations":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory(_alias5.ParameterAnnotation))),"Documentation":"","Name":"","TypeDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)(_alias5.ModelDescription)};obj.constructor=_alias5.ParameterDescription; return obj; };
+_alias5.ParameterDescription = _alias5.ParameterDescription || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Annotations":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ParameterAnnotation))),"Documentation":"","Name":"","TypeDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ModelDescription)};obj.constructor=_alias5.ParameterDescription; return obj; };
 _alias1.Book = _alias1.Book || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Id":0,"Title":"","Year":0,"Price":0,"Genre":"","AuthorId":0,"Author":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)(_alias1.Author)};obj.constructor=_alias1.Book; return obj; };
 _alias2.Theatre_$gen$_BookServiceControllersPersonnage = _alias2.Theatre_$gen$_BookServiceControllersPersonnage || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Lieu":"","personnage":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)(_alias2.Personnage)};obj.constructor=_alias2.Theatre_$gen$_BookServiceControllersPersonnage; return obj; };
-_alias0.HelpPageApiModel = _alias0.HelpPageApiModel || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"UriParameters":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory(_alias5.ParameterDescription))),"RequestDocumentation":"","RequestModelDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)(_alias5.ModelDescription),"RequestBodyParameters":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory(_alias5.ParameterDescription))),"ResourceDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)(_alias5.ModelDescription),"ResourceProperties":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory(_alias5.ParameterDescription))),"ErrorMessages":$dp.$shared.$arrayFactory(""),"ApiDescription":{},"SampleRequests":$dp.$shared.$arrayFactory({}),"SampleResponses":$dp.$shared.$arrayFactory({})};obj.constructor=_alias0.HelpPageApiModel; return obj; };
+_alias0.HelpPageApiModel = _alias0.HelpPageApiModel || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"UriParameters":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ParameterDescription))),"RequestDocumentation":"","RequestModelDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ModelDescription),"RequestBodyParameters":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ParameterDescription))),"ResourceDescription":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ModelDescription),"ResourceProperties":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$shared.$arrayFactory($dp.$JsNet.BookService.Areas.HelpPage.ModelDescriptions.ParameterDescription))),"ErrorMessages":$dp.$shared.$arrayFactory(""),"ApiDescription":{},"SampleRequests":$dp.$shared.$arrayFactory({}),"SampleResponses":$dp.$shared.$arrayFactory({})};obj.constructor=_alias0.HelpPageApiModel; return obj; };
 window.$dp = window.$dp || {};
 $dp.$JsNet = $dp.$JsNet || {};
 $dp.$JsNet.BookService = $dp.$JsNet.BookService || {};
