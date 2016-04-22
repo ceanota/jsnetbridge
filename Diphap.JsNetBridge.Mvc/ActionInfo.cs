@@ -102,10 +102,10 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
                 IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { this.GetEffectiveReturnType() });
-                
+
                 if (returnTypes.Count > 0)
-                { 
-                    this._AllInOutClassTypes.Add(returnTypes[0]); 
+                {
+                    this._AllInOutClassTypes.Add(returnTypes[0]);
                 }
 
                 this._AllInOutClassTypes = this._AllInOutClassTypes.Distinct().ToArray();
@@ -139,15 +139,15 @@ namespace Diphap.JsNetBridge.Mvc
         /// Get the effective return type.
         /// </summary>
         /// <returns></returns>
-        public Type GetEffectiveReturnType() 
+        public Type GetEffectiveReturnType()
         {
             Attribute att0 = this.MethodInfo.GetCustomAttribute(AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute);
-            if (att0 != null) 
+            if (att0 != null)
             {
                 return AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute.GetProperty("ResponseType").GetValue(att0) as Type;
             }
             JsNetResponseTypeAttribute att1 = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
-            if (att1 != null) 
+            if (att1 != null)
             {
                 return att1.ResponseType;
             }
@@ -161,7 +161,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.GetEffectiveReturnType();
-            string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true);
+            string jsonValue = GetJS_EmptyValue_WithFactory_(type_return, true);
             return jsonValue;
         }
 
@@ -222,7 +222,7 @@ namespace Diphap.JsNetBridge.Mvc
                 }
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
-                
+
                 sb.Append("return action;");
             }
 
@@ -366,6 +366,11 @@ namespace Diphap.JsNetBridge.Mvc
             return jsParams;
         }
 
+        internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias)
+        {
+            return GetJS_EmptyValue_WithFactory(t, nsAlias);
+        }
+
         internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias)
         {
             string jsValue = "null";
@@ -385,32 +390,11 @@ namespace Diphap.JsNetBridge.Mvc
                     }
                     else
                     {
-                        if (AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
+                        if ((AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
                                 AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
-                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)
+                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false))
                         {
-                            if (telem_work.IsGenericType)
-                            {
-                                //-- get type of arg.
-                                Type targ = telem_work.GetGenericArguments().FirstOrDefault();
-                                if (targ != null)
-                                {
-                                    Type telem_of_targ;
-                                    isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
-                                    if (isCollection)
-                                    {
-                                        jsValue = JSHelper.GetObjectFactoryName(telem_of_targ, isCollection, false, nsAlias);
-                                    }
-                                    else { jsValue = JSHelper.GetObjectFactoryName(targ, isCollection, false, nsAlias); }
-                                }
-                                else
-                                { /* it's generic type. */
-                                    jsValue = "{}";
-                                }
-
-                            }
-                            else { jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias); }
-
+                            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
                         }
                         else { jsValue = "{}"; }
 

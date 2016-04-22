@@ -24,8 +24,8 @@ namespace Diphap.JsNetBridge
             foreach (var kv in dic)
             {
 
-                string prop_key = string.Format("\"{0}\":\"{1}\"", "Key", kv.Key);
-                string prop_value = string.Format("\"{0}\":{1}", "Value", kv.Value);
+                string prop_key = string.Format("\"{0}\":\"{1}\"", ConfigJS.brandLetter + "Key", kv.Key);
+                string prop_value = string.Format("\"{0}\":{1}", ConfigJS.brandLetter + "Value", kv.Value);
                 string obj = string.Format("{{ {0},{1} }}", prop_key, prop_value);
                 string prop = string.Format("\"{0}\":{1}", kv.Key, obj);
                 props.Add(prop);

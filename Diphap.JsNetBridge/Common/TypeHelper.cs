@@ -349,7 +349,6 @@ namespace Diphap.JsNetBridge
                 }
                 else
                 {
-                    //TypeHelper.GetGenericArgumentTypeOrDefault(t, temp => { return temp.IsGenericType; });
                     Type t_temp;
                     if (TypeHelper.GetElementTypeOfTask(t, out t_temp))
                     {
@@ -459,14 +458,25 @@ namespace Diphap.JsNetBridge
             string name;
             if (t.IsGenericType)
             {
-                Type tgenArg = t.GetGenericArguments().FirstOrDefault();
-                if (tgenArg != null)
+                Type targ = t.GetGenericArguments().FirstOrDefault();
+                if (targ != null)
                 {
-                    name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + tgenArg.FullName.Replace(".", null);
+                    Type telem_of_targ;
+                    bool isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
+                    if (isCollection)
+                    {
+                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + telem_of_targ.FullName.Replace(".", null);
+                    }
+                    else 
+                    {
+                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + targ.FullName.Replace(".", null);
+                    }
+
+                    
                 }
                 else
                 {
-                    name = t.Name; 
+                    name = t.Name;
                 }
             }
             else

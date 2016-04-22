@@ -28,7 +28,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
         {
-            string factoryName = JSHelper.GetObjectFactoryName(telem_work, isCollection, true, true);
+            string factoryName = JSHelper.GetObjectFactoryName(telem_work, false, true, true);
             return FunctionDefinitionCall(factoryName, isCollection);
         }
 
