@@ -465,7 +465,7 @@ namespace Diphap.JsNetBridge
                     bool isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
                     if (isCollection)
                     {
-                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + telem_of_targ.FullName.Replace(".", null);
+                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + "ICollection" +"_$gen$_" + telem_of_targ.FullName.Replace(".", null);
                     }
                     else 
                     {
