@@ -52,7 +52,7 @@ namespace Diphap.JsNetBridge.Mvc
                     && (t.BaseType == type_obj || t.BaseType == null || (t.BaseType.FullName != null && t.BaseType.FullName.Contains("System.") == false))).ToArray(),
                 new string[] { }, new string[] { }).ToList();
 
-            this.Types_Enum = TypeHelper.GetTypesOfEnum(asp_net, new string[] { }, new string[] { });
+            this.Types_Enum = TypeHelper.GetTypesOfEnum(types, new string[] { }, new string[] { });
 
             this.Types_Controller = types.Where(t => t.Name.Contains("Controller")).ToList();
 
@@ -67,6 +67,8 @@ namespace Diphap.JsNetBridge.Mvc
             }
 
             {
+                Diphap.JsNetBridge.ConfigJS.JSNamespace.ClearAlias();
+
                 ConfigJS.JSNamespace.AddRangeAlias(this.Types_Model);
                 ConfigJS.JSNamespace.AddRangeAlias(this.Types_Enum);
                 ConfigJS.JSNamespace.AddRangeAlias(this.Types_Controller);
@@ -82,7 +84,6 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
         {
-            Diphap.JsNetBridge.ConfigJS.JSNamespace.ClearAlias();
 
             string binFolderPath = Path.GetDirectoryName(asp_net.Location);
             AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);

@@ -138,8 +138,10 @@ namespace Diphap.JsNetBridge.Data
             List<string> nsDecl_Array = new List<string>();
             List<string> funcDecl_Array = new List<string>();
 
-
-            if (clearNsAliases) { ConfigJS.JSNamespace.ClearAlias(); }
+            if (clearNsAliases) 
+            { 
+                ConfigJS.JSNamespace.ClearAlias(); 
+            }
 
             ConfigJS.JSNamespace.AddRangeAlias(this.Classes.SelectMany(dic => dic.Keys));
 

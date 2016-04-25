@@ -231,7 +231,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetNamespace(Type t)
         {
-            string ns = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, t.Namespace.Replace("+", "."));
+            string ns = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, ConfigJS.JSNamespace.GetPseudoNamespace(t).Replace("+", "."));
             return ns;
         }
 

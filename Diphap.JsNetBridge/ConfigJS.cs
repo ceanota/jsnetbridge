@@ -51,16 +51,33 @@ namespace Diphap.JsNetBridge
 
             public static string GetNamespaceAliasOrDefault(Type t, bool alias)
             {
-                return alias && NamespaceAliasDic.ContainsKey(t.Namespace) ? NamespaceAliasDic[t.Namespace] : ConfigJS.prefix_ns_jsnet + "." + t.Namespace;
+                return alias && NamespaceAliasDic.ContainsKey(ConfigJS.JSNamespace.GetPseudoNamespace(t)) ? NamespaceAliasDic[ConfigJS.JSNamespace.GetPseudoNamespace(t)] : ConfigJS.prefix_ns_jsnet + "." + ConfigJS.JSNamespace.GetPseudoNamespace(t);
+            }
+
+            /// <summary>
+            /// [For JS]If t.IsNested, so t.Namespace + "." + t.DeclaringType.Name.
+            /// </summary>
+            /// <param name="t"></param>
+            /// <returns></returns>
+            public static string GetPseudoNamespace(Type t)
+            {
+                string ns = t.Namespace;
+
+                if (t.IsNested)
+                {
+                    ns = ns + "." + ConfigJS.brandLetter + "JsNs" + ConfigJS.brandLetter + "_" + t.DeclaringType.Name;
+                }
+
+                return ns;
             }
 
             public static void AddRangeAlias(IEnumerable<Type> types)
             {
                 foreach (var t in types)
                 {
-                    if (NamespaceAliasDic.ContainsKey(t.Namespace) == false)
+                    if (NamespaceAliasDic.ContainsKey(GetPseudoNamespace(t)) == false)
                     {
-                        NamespaceAliasDic.Add(t.Namespace, prefixAliax + NamespaceAliasDic.Count.ToString());
+                        NamespaceAliasDic.Add(GetPseudoNamespace(t), prefixAliax + NamespaceAliasDic.Count.ToString());
                     }
                 }
             }

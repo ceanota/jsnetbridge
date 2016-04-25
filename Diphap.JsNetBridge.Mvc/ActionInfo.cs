@@ -396,7 +396,9 @@ namespace Diphap.JsNetBridge.Mvc
                     {
                         if ((AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
                                 AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
-                            (AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult == null || AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult != null && AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
+                            (AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult == null ||
+                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult != null &&
+                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
                         {
                             jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
                         }

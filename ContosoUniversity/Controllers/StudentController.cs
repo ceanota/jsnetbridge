@@ -182,5 +182,16 @@ namespace ContosoUniversity.Controllers
             studentRepository.Dispose();
             base.Dispose(disposing);
         }
+
+        public class TestClass
+        {
+            public string HelloWorld;
+        }
+
+        public ActionResult Ajouter(TestClass aaa) 
+        {
+            return new JsonResult();
+        }
+
     }
 }
