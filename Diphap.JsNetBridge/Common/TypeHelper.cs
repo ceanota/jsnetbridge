@@ -456,23 +456,33 @@ namespace Diphap.JsNetBridge
         public static string GetName(Type t)
         {
             string name;
+
+            string separator = "_$gen$_";
             if (t.IsGenericType)
             {
-                Type targ = t.GetGenericArguments().FirstOrDefault();
-                if (targ != null)
+                Type[] targs = t.GetGenericArguments();
+                List<string> tnamesArray = new List<string>();
+                for (int idx = 0; idx < targs.Length; idx++)
                 {
-                    Type telem_of_targ;
-                    bool isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
-                    if (isCollection)
+                    Type targ = targs[idx];
+                    if (targ != null)
                     {
-                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + "ICollection" +"_$gen$_" + telem_of_targ.FullName.Replace(".", null);
+                        Type telem_of_targ;
+                        bool isCollection = TypeHelper.GetElementTypeOfCollection(targ, out telem_of_targ);
+                        if (isCollection)
+                        {
+                            tnamesArray.Add("ICollection" + separator + telem_of_targ.FullName.Replace(".", null));
+                        }
+                        else
+                        {
+                            tnamesArray.Add(targ.FullName.Replace(".", null));
+                        }
                     }
-                    else 
-                    {
-                        name = t.Name.Split(new string[] { "`1" }, StringSplitOptions.None)[0] + "_$gen$_" + targ.FullName.Replace(".", null);
-                    }
+                }
 
-                    
+                if (tnamesArray.Count > 0)
+                {
+                    name = t.Name.Split(new string[] { "`" + tnamesArray.Count }, StringSplitOptions.None)[0] + separator + string.Join(separator, tnamesArray);
                 }
                 else
                 {
