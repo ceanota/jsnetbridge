@@ -55,7 +55,6 @@
     <Compile Include="Data\ModelInfo.cs" />
     <Compile Include="Data\Enum\EnumInfo.cs" />
     <Compile Include="Data\Enum\DataInfo.cs" />
-    <Compile Include="Data\EntityInfo.cs" />
     <Compile Include="ConfigJS.cs" />
     <Compile Include="Data\Enum\EnumColInfo.cs" />
     <Compile Include="Data\Enum\DataInfoCol.cs" />

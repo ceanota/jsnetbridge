@@ -82,6 +82,8 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
         {
+            Diphap.JsNetBridge.ConfigJS.JSNamespace.ClearAlias();
+
             string binFolderPath = Path.GetDirectoryName(asp_net.Location);
             AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);
 
@@ -162,25 +164,25 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="jsFilePath"></param>
         public void WriteAllText(string jsFilePath)
         {
-            File.WriteAllText(jsFilePath, this.ToJS(), Encoding.UTF8);
+            File.WriteAllText(jsFilePath, this.ToJS(false), Encoding.UTF8);
         }
 
         public void AppendAllText(string jsFilePath)
         {
-            File.AppendAllText(jsFilePath, this.ToJS());
+            File.AppendAllText(jsFilePath, this.ToJS(false));
         }
 
-        public string ToJS()
+        public string ToJS(bool withJsFileDependencies = true)
         {
             Func<StringBuilder, object> f = (sb) =>
             {
-                sb.AppendLine(this.ModelInfo.ToJSCore());
+                sb.AppendLine(this.ModelInfo.ToJSCore(false));
                 sb.AppendLine(this.EnumInfo.ToJSCore());
                 sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
                 return null;
             };
-            return ModelInfo.ToJSTemplate(f);
+            return ModelInfo.ToJSTemplate(f, withJsFileDependencies);
         }
 
         private ModelInfo _ModelInfo;

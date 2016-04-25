@@ -24,7 +24,7 @@ namespace MvcAppExample
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/JsNetBridge").Include(
-                        "~/Scripts/Diphap.JsNetBridge.js"));
+                        "~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 

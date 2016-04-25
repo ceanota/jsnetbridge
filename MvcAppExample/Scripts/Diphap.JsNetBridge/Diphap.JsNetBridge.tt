@@ -6,19 +6,19 @@
 <#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.dll" #>
 <#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.dll" #>
 <#@ assembly name="$(ProjectDir)bin\Diphap.JsNetBridge.Mvc.Proxy.dll" #>
-<#@ assembly name="$(ProjectDir)bin\ContosoUniversity.dll" #>
-<#@ assembly name="$(ProjectDir)bin\TestModels.dll" #>
+<#@ assembly name="$(ProjectDir)bin\MvcAppExample.dll" #>
+
 <#@ output extension=".js" #>
 
 <# 
 	string sortie = "";
-	if(true)
+	if(false)
 	{
-		sortie = new Diphap.JsNetBridge.Data.ModelInfo(typeof(ContosoUniversity.Models.Student)).ToJS();
+		
 	}
 	else
 	{
-		string appName = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
+		string appName = @"C:\Users\diphap\Source\Repos\jsnet\MvcAppExample\bin\MvcAppExample.dll";
 		sortie = new Diphap.JsNetBridge.Mvc.AspMvcInfo(appName).ToJS();
 	}
 

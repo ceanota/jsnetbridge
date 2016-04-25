@@ -113,7 +113,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb.Append("var action = {};");
                     sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "Url = null;");
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
 
                     //-- names.
                     sb.AppendFormat("action.{0}Names = {{ {0}Action : \"{1}\", {0}Controller : \"{2}\", {0}Area : \"{3}\" }};",
@@ -123,7 +123,7 @@ namespace Diphap.JsNetBridge.Mvc
                     {
                         sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "sig{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
                     }
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrlFromTemplate = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function () { return action.$_Url || $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
                     sb.Append("return action;");
                 }
 

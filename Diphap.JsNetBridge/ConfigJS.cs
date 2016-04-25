@@ -40,9 +40,14 @@ namespace Diphap.JsNetBridge
 
         public static class JSNamespace
         {
-            static string prefixAliax = "_alias";
+            private static string prefixAliax = "_alias";
 
-            static readonly Dictionary<string, string> NamespaceAliasDic = new Dictionary<string, string>();
+            private static readonly Dictionary<string, string> NamespaceAliasDic = new Dictionary<string, string>();
+
+            public static void ClearAlias()
+            {
+                NamespaceAliasDic.Clear();
+            }
 
             public static string GetNamespaceAliasOrDefault(Type t, bool alias)
             {

@@ -58,6 +58,7 @@ namespace SingleAppExample.Controllers
         }
 
         // POST api/Todo
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(TodoItemDto))]
         public HttpResponseMessage PostTodoItem(TodoItemDto todoItemDto)
         {
             if (!ModelState.IsValid)

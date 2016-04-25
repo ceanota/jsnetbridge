@@ -127,8 +127,9 @@ namespace Diphap.JsNetBridge.Data
         /// Code JS of factories of c# oldClasses.
         /// There is not 'JSArrayFactory'
         /// </summary>
+        /// <param name="clearNsAliases"></param>
         /// <returns></returns>
-        public string ToJSCore()
+        public string ToJSCore(bool clearNsAliases)
         {
             //-- sort types of oldClasses.
             this.Execute();
@@ -136,6 +137,9 @@ namespace Diphap.JsNetBridge.Data
 
             List<string> nsDecl_Array = new List<string>();
             List<string> funcDecl_Array = new List<string>();
+
+
+            if (clearNsAliases) { ConfigJS.JSNamespace.ClearAlias(); }
 
             ConfigJS.JSNamespace.AddRangeAlias(this.Classes.SelectMany(dic => dic.Keys));
 
@@ -168,19 +172,19 @@ namespace Diphap.JsNetBridge.Data
 
         }
 
-        public static string ToJSTemplate(Func<StringBuilder, object> ToJSCore)
+        public static string ToJSTemplate(Func<StringBuilder, object> ToJSCore, bool withJsFileDependencies = true)
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(JSRaw.AnynomousModule.Begin);
             {
-                #region "js files depedencies"
-                sb.AppendLine(JSRaw.arrayFactory);
-                sb.AppendLine(JSRaw.circularReferenceManagerFactory);
-                #endregion
-
-                #region "helper"
-                sb.AppendLine(JSRaw.getUrlFromTemplate);
-                #endregion
+                if (withJsFileDependencies) 
+                {
+                    #region "js files depedencies"
+                    sb.AppendLine(JSRaw.arrayFactory);
+                    sb.AppendLine(JSRaw.circularReferenceManagerFactory);
+                    sb.AppendLine(JSRaw.getUrlFromTemplate);
+                    #endregion
+                }
 
                 sb.AppendLine(JSRaw.AnynomousModule.Begin);
                 {
@@ -202,21 +206,33 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// All code js.
         /// </summary>
+        /// <param name="clearNsAliases"></param>
+        /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
-        public string ToJS()
+        public string ToJS(bool clearNsAliases, bool withJsFileDependencies = true)
         {
-            Func<StringBuilder, object> f = (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
-            return ToJSTemplate(f);
+            Func<StringBuilder, object> f = (sb) => { sb.AppendLine(this.ToJSCore(clearNsAliases)); return null; };
+            return ToJSTemplate(f, withJsFileDependencies);
         }
 
-        public void WriteAllText(string jsFilePath)
+        /// <summary>
+        /// All code js.
+        /// </summary>
+        /// <param name="withJsFileDependencies"></param>
+        /// <returns></returns>
+        public string ToJS(bool withJsFileDependencies = true)
         {
-            File.WriteAllText(jsFilePath, this.ToJS());
+            return this.ToJS(true, withJsFileDependencies);
         }
 
-        public void AppendAllText(string jsFilePath)
+        public void WriteAllText(bool clearNsAliases, string jsFilePath)
         {
-            File.AppendAllText(jsFilePath, this.ToJS());
+            File.WriteAllText(jsFilePath, this.ToJS(clearNsAliases));
+        }
+
+        public void AppendAllText(bool clearNsAliases, string jsFilePath)
+        {
+            File.AppendAllText(jsFilePath, this.ToJS(clearNsAliases));
         }
 
     }

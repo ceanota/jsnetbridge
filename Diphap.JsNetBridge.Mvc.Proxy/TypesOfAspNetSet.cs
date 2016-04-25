@@ -19,7 +19,6 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         #region "_Ass_WebMvc"
         readonly Assembly _Ass_WebMvc;
         internal Type Type_JsonResult;
-        internal Type Type_IHttpActionResult;
         internal Type Type_ActionResult;
         internal Type Type_ViewResult;
         #endregion
@@ -34,6 +33,13 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         internal Type Type_ApiController;
         internal Type Type_AcceptVerbsAttribute;
         internal Type Type_HttpMethod;
+        /// <summary>
+        /// Warning, Since Web API 2
+        /// </summary>
+        internal Type Type_IHttpActionResult;
+        /// <summary>
+        /// Warning, Since Web API 2
+        /// </summary>
         internal Type Type_RespsonseTypeAttribute;
         internal Dictionary<string, Type> THttpAttributes = new Dictionary<string, Type>(){ 
                 {"System.Web.Http.HttpGetAttribute",null}, {"System.Web.Http.HttpPostAttribute",null}, 

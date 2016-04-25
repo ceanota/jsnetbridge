@@ -133,12 +133,13 @@ namespace Diphap.JsNetBridge.Common.JS
 
             var partTemp = partsTemp[ii];
 
-            if (predicate(partsTemp) ||
-                (partsTemp.indexOf('{') < 0 && partsTemp.indexOf('}') < 0)) {
+            if (predicate(partTemp) ||
+                (partTemp.indexOf('{') < 0 && partTemp.indexOf('}') < 0)) {
                 parts.push(partTemp);
             }
         }
         var routeTemplate = parts.join('/');
+        return routeTemplate;
     }
 
     function _getUrlFromTemplate(action) {
@@ -148,13 +149,13 @@ namespace Diphap.JsNetBridge.Common.JS
         var url = '';
         if (action.$sig0.$IsApiController) {
             var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
-            var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function () { return partTemp === '{controller}'; });
+            var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function (partTemp) { return partTemp === '{controller}'; });
             url = routeTemplate.replace('{controller}', action.$Names.$Controller);
             if (url.indexOf('/') !== 0) { url = '/' + url; }
         }
         else {
             var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
-            var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function () { return partTemp === '{controller}' || partTemp === '{action}'; });
+            var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function (partTemp) { return partTemp === '{controller}' || partTemp === '{action}'; });
             url = routeTemplate.replace('{controller}', action.$Names.$Controller);
             url = url.replace('{action}', action.$Names.$Action);
             if (url.indexOf('/') !== 0) { url = '/' + url; }

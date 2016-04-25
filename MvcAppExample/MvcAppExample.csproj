@@ -266,11 +266,18 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Areas\MyArea\Views\Web.config" />
+    <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js">
+      <DependentUpon>Diphap.JsNetBridge.tt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Content>
+    <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>Diphap.JsNetBridge.js</LastGenOutput>
+    </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -334,6 +341,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

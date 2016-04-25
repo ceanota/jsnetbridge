@@ -46,11 +46,7 @@
     @RenderSection("scripts", required: false)
     @Scripts.Render("~/bundles/JsNetBridge")
     <script>
-        @{
-            MvcHtmlString url = new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(this));
-        }
-
-        @url;
+        @*@(new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))*@
 
     </script>
 </body>

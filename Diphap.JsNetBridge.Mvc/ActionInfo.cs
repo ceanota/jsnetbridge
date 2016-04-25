@@ -141,11 +141,15 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public Type GetEffectiveReturnType()
         {
-            Attribute att0 = this.MethodInfo.GetCustomAttribute(AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute);
-            if (att0 != null)
+            if (AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute != null)
             {
-                return AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute.GetProperty("ResponseType").GetValue(att0) as Type;
+                Attribute att0 = this.MethodInfo.GetCustomAttribute(AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute);
+                if (att0 != null)
+                {
+                    return AspMvcInfo.TypesOfAspNetSet.Type_RespsonseTypeAttribute.GetProperty("ResponseType").GetValue(att0) as Type;
+                }
             }
+
             JsNetResponseTypeAttribute att1 = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
             if (att1 != null)
             {
@@ -319,7 +323,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string GetJsSetUrl(string url_)
         {
             string url = string.IsNullOrWhiteSpace(url_) ? "null" : "\"" + url_ + "\"";
-            string json = this.JsLongName + "." + ConfigJS.brandLetter + "Url=" + url;
+            string json = this.JsLongName + "." + ConfigJS.brandLetter + "_Url = " + url;
             return json;
         }
 
@@ -392,7 +396,7 @@ namespace Diphap.JsNetBridge.Mvc
                     {
                         if ((AspMvcInfo.TypesOfAspNetSet.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
                                 AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
-                            AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false))
+                            (AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult == null || AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult != null && AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
                         {
                             jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
                         }
