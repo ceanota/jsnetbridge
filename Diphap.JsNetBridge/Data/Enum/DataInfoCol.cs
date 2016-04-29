@@ -21,7 +21,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             List<string> nsDecl_Array = new List<string>();
             foreach (var jsObj in this.JsObjCol)
             {
-                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(JSHelper.GetObjectFullName(jsObj.TObj, false));
+                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(jsObj.TObj, false));
                 foreach (var objDecl in objDecl_Array_Temp)
                 {
                     if (nsDecl_Array.Contains(objDecl) == false)

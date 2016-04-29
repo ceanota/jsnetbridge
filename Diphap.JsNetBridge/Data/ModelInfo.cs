@@ -137,27 +137,14 @@ namespace Diphap.JsNetBridge.Data
 
             List<string> nsDecl_Array = new List<string>();
             List<string> funcDecl_Array = new List<string>();
-
-            if (clearNsAliases) 
-            { 
-                ConfigJS.JSNamespace.ClearAlias(); 
-            }
-
-            ConfigJS.JSNamespace.AddRangeAlias(this.Classes.SelectMany(dic => dic.Keys));
+            List<string> createdNamespaces = new List<string>();
 
             foreach (var dic in Classes)
             {
                 foreach (var kv in dic)
                 {
                     {
-                        List<string> createdNamespaces = JSHelper.CreateNamespace(JSHelper.GetObjectFullName(kv.Key, false));
-                        foreach (var ns in createdNamespaces)
-                        {
-                            if (nsDecl_Array.Contains(ns) == false)
-                            {
-                                nsDecl_Array.Add(ns);
-                            }
-                        }
+                        createdNamespaces.AddRange(JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key, false)));
                     }
                     {
                         string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, true);
@@ -166,8 +153,31 @@ namespace Diphap.JsNetBridge.Data
                 }
             }
 
-            ConfigJS.JSNamespace.AddRangeJSInstructions(nsDecl_Array);
+            //-- namespace
+            //-- ex: $dp.$JsNet.ContosoUniversity = $dp.$JsNet.ContosoUniversity || {};
+            foreach (var ns in createdNamespaces)
+            {
+                if (nsDecl_Array.Contains(ns) == false)
+                {
+                    nsDecl_Array.Add(ns);
+                }
+            }
 
+            {
+                IEnumerable<Type> types_temp = this.Classes.SelectMany(dic => dic.Keys);
+
+                //-- add alias in global variable 'NamespaceAliasDic'
+                if (clearNsAliases) { ConfigJS.JSNamespace.ClearAlias(); }
+                ConfigJS.JSNamespace.AddRangeAlias(types_temp);
+
+                //-- alias of namespace
+                //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+                nsDecl_Array.AddRange(ConfigJS.JSNamespace.ToJSInstructions(types_temp));
+            }
+ 
+
+            //-- function declaration
+            //-- ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
             nsDecl_Array.AddRange(funcDecl_Array);
 
             return string.Join("\r\n", nsDecl_Array);
@@ -179,7 +189,7 @@ namespace Diphap.JsNetBridge.Data
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(JSRaw.AnynomousModule.Begin);
             {
-                if (withJsFileDependencies) 
+                if (withJsFileDependencies)
                 {
                     #region "js files depedencies"
                     sb.AppendLine(JSRaw.arrayFactory);

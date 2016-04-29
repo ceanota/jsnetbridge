@@ -44,6 +44,17 @@ namespace Diphap.JsNetBridge
 
             private static readonly Dictionary<string, string> NamespaceAliasDic = new Dictionary<string, string>();
 
+            /// <summary>
+            /// full name of object.
+            /// </summary>
+            /// <param name="t"></param>
+            /// <returns></returns>
+            static public string GetObjectFullName(Type t, bool alias)
+            {
+                string objFullname = ConfigJS.JSNamespace.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
+                return objFullname;
+            }
+
             public static void ClearAlias()
             {
                 NamespaceAliasDic.Clear();
@@ -73,6 +84,7 @@ namespace Diphap.JsNetBridge
 
             public static void AddRangeAlias(IEnumerable<Type> types)
             {
+
                 foreach (var t in types)
                 {
                     if (NamespaceAliasDic.ContainsKey(GetPseudoNamespace(t)) == false)
@@ -82,22 +94,69 @@ namespace Diphap.JsNetBridge
                 }
             }
 
-            public static void AddRangeJSInstructions(IList<string> nsDecl_Array)
+            public static Dictionary<string, string> GetNamespaceAliasDic(IEnumerable<Type> types)
             {
-                foreach (var kv in NamespaceAliasDic)
+                Dictionary<string, string> nsAliasDic = new Dictionary<string, string>();
+                foreach (var t in types)
                 {
-                    nsDecl_Array.Add(string.Format("var {0} = {1};", kv.Value, ConfigJS.prefix_ns_jsnet + "." + kv.Key));
+                    if (nsAliasDic.ContainsKey(GetPseudoNamespace(t)) == false)
+                    {
+                        if (NamespaceAliasDic.ContainsKey(GetPseudoNamespace(t)) == true)
+                        {
+                            nsAliasDic.Add(GetPseudoNamespace(t), NamespaceAliasDic[GetPseudoNamespace(t)]);
+                        }
+                    }
                 }
-
+                return nsAliasDic;
             }
 
+            /// <summary>
+            /// ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            /// </summary>
+            /// <param name="kv"></param>
+            /// <returns></returns>
+            private static string ToJSInstruction(KeyValuePair<string, string> kv)
+            {
+                return string.Format("var {0} = {1};", kv.Value, ConfigJS.prefix_ns_jsnet + "." + kv.Key);
+            }
+
+            /// <summary>
+            /// ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            /// </summary>
+            /// <param name="nsAliasDic"></param>
+            public static IList<string> ToJSInstructions(Dictionary<string, string> nsAliasDic)
+            {
+                IList<string> nsDecl_Array = new List<string>();
+                foreach (var kv in nsAliasDic)
+                {
+                    nsDecl_Array.Add(ToJSInstruction(kv));
+                }
+                return nsDecl_Array;
+            }
+
+            /// <summary>
+            /// ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            /// </summary>
+            /// <param name="types"></param>
+            /// <returns></returns>
+            public static IList<string> ToJSInstructions(IEnumerable<Type> types)
+            {
+                Dictionary<string, string> nsAliasDic = ConfigJS.JSNamespace.GetNamespaceAliasDic(types);
+                return ToJSInstructions(nsAliasDic);
+            }
+
+            /// <summary>
+            /// ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            /// </summary>
+            /// <param name="sb"></param>
+            /// <returns></returns>
             public static StringBuilder ToJSInstructions(StringBuilder sb = null)
             {
                 if (sb == null) { sb = new StringBuilder(); }
 
                 foreach (var kv in NamespaceAliasDic)
                 {
-                    sb.AppendLine(string.Format("var {0} = {1};", kv.Value, ConfigJS.prefix_ns_jsnet + "." + kv.Key));
+                    sb.AppendLine(ToJSInstruction(kv));
                 }
                 return sb;
             }

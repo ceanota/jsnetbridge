@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, bool nsAlias)
         {
-            string jsvalue = string.Format("{0}()", JSHelper.GetObjectFullName(telem_work, nsAlias));
+            string jsvalue = string.Format("{0}()", ConfigJS.JSNamespace.GetObjectFullName(telem_work, nsAlias));
             if (isCollection)
             {
                 jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
@@ -208,21 +208,9 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, bool nsAlias)
         {
-            string objFullName = GetObjectFullName(t, nsAlias);
+            string objFullName = ConfigJS.JSNamespace.GetObjectFullName(t, nsAlias);
             return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
-
-        /// <summary>
-        /// full name of object.
-        /// </summary>
-        /// <param name="t"></param>
-        /// <returns></returns>
-        static public string GetObjectFullName(Type t, bool alias)
-        {
-            string objFullname = ConfigJS.JSNamespace.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
-            return objFullname;
-        }
-
 
         /// <summary>
         /// namespace.
@@ -243,7 +231,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         static public string GetObjectDeclaration(Type t, string jsObj)
         {
-            return GetObjectDeclaration(GetObjectFullName(t, false), jsObj);
+            return GetObjectDeclaration(ConfigJS.JSNamespace.GetObjectFullName(t, false), jsObj);
         }
 
         /// <summary>
