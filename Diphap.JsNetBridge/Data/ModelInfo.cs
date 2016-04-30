@@ -13,28 +13,36 @@ namespace Diphap.JsNetBridge.Data
     /// </summary>
     public class ModelInfo
     {
-
+        private readonly ConfigJS.JSNamespace _JSNamespace;
         #region "Constructors"
-        public ModelInfo(List<Type> allTypes)
+        public ModelInfo(List<Type> allTypes, ConfigJS.JSNamespace JSNamespace)
         {
             this.Types = allTypes;
+            this._JSNamespace = JSNamespace;
+        }
+
+        public ModelInfo(ConfigJS.JSNamespace JSNamespace, params Type[] allTypes)
+            : this(allTypes.ToList(), JSNamespace)
+        {
+
         }
 
         public ModelInfo(params Type[] allTypes)
-            : this(allTypes.ToList())
+            : this(allTypes.ToList(), new ConfigJS.JSNamespace())
         {
 
         }
 
-        public ModelInfo(string appAspNetPath, IList<string> whiteNamespaces, IList<string> blackNamespaces)
-            : this(TypeHelper.GetTypesOfClass(appAspNetPath, whiteNamespaces, blackNamespaces))
+        public ModelInfo(string appAspNetPath, IList<string> whiteNamespaces, IList<string> blackNamespaces, ConfigJS.JSNamespace JSNamespace)
+            : this(TypeHelper.GetTypesOfClass(appAspNetPath, whiteNamespaces, blackNamespaces), JSNamespace)
         {
 
         }
 
-        public ModelInfo(string appAspNetPath)
+        public ModelInfo(string appAspNetPath, ConfigJS.JSNamespace JSNamespace)
         {
             this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
+            this._JSNamespace = JSNamespace;
         }
         #endregion
 
@@ -55,11 +63,11 @@ namespace Diphap.JsNetBridge.Data
             List<Type> unresolvedTypes;
 
             #region "First Pass"
-            unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, ref serializeTypes);
+            unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, _JSNamespace, ref serializeTypes);
             #endregion
 
             #region "2nd Pass: For recursive issues"
-            unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, ref serializeTypes);
+            unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
             #endregion
 
         }
@@ -69,15 +77,17 @@ namespace Diphap.JsNetBridge.Data
         /// </summary>
         /// <param name="tobjArray"></param>
         /// <param name="oldClasses"></param>
+        /// <param name="JSNamespace"></param>
         /// <param name="rTypeSorters"></param>
+        /// <param name="classes"></param>
         /// <returns></returns>
-        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ref List<RecursiveTypeSorter> rTypeSorters)
+        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
         {
             do
             {
                 //-- create each class.
             }
-            while (AddClass(tobjArray, classes, ref rTypeSorters));
+            while (AddClass(tobjArray, classes, JSNamespace, ref rTypeSorters));
 
             #region "unresolvedTypes"
             List<Type> unresolvedTypes;
@@ -96,9 +106,10 @@ namespace Diphap.JsNetBridge.Data
         /// </summary>
         /// <param name="allTypes"></param>
         /// <param name="oldClasses"></param>
+        /// <param name="JSNamespace"></param>
         /// <param name="serializeTypes"></param>
         /// <returns></returns>
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ref List<RecursiveTypeSorter> serializeTypes)
+        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
         {
             RecursiveTypeSorter st = new RecursiveTypeSorter();
             serializeTypes.Add(st);
@@ -109,7 +120,7 @@ namespace Diphap.JsNetBridge.Data
 
             foreach (Type t in allTypesTemp)
             {
-                st.Execute(t, true);
+                st.Execute(t, true, JSNamespace);
             }
 
             var cl = st.ResolvedTypes.ToDictionary(kv => kv.Key, kv => kv.Value);
@@ -127,9 +138,8 @@ namespace Diphap.JsNetBridge.Data
         /// Code JS of factories of c# oldClasses.
         /// There is not 'JSArrayFactory'
         /// </summary>
-        /// <param name="clearNsAliases"></param>
         /// <returns></returns>
-        public string ToJSCore(bool clearNsAliases)
+        public string ToJSCore()
         {
             //-- sort types of oldClasses.
             this.Execute();
@@ -144,10 +154,10 @@ namespace Diphap.JsNetBridge.Data
                 foreach (var kv in dic)
                 {
                     {
-                        createdNamespaces.AddRange(JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key, false)));
+                        createdNamespaces.AddRange(JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(kv.Key, false)));
                     }
                     {
-                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, true);
+                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, _JSNamespace.GetObjectFullName(kv.Key, true));
                         funcDecl_Array.Add(funcDecl);
                     }
                 }
@@ -167,14 +177,13 @@ namespace Diphap.JsNetBridge.Data
                 IEnumerable<Type> types_temp = this.Classes.SelectMany(dic => dic.Keys);
 
                 //-- add alias in global variable 'NamespaceAliasDic'
-                if (clearNsAliases) { ConfigJS.JSNamespace.ClearAlias(); }
-                ConfigJS.JSNamespace.AddRangeAlias(types_temp);
+                _JSNamespace.AddRangeAlias(types_temp);
 
                 //-- alias of namespace
                 //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
-                nsDecl_Array.AddRange(ConfigJS.JSNamespace.ToJSInstructions(types_temp));
+                nsDecl_Array.AddRange(_JSNamespace.ToJSInstructions(types_temp));
             }
- 
+
 
             //-- function declaration
             //-- ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
@@ -218,33 +227,23 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// All code js.
         /// </summary>
-        /// <param name="clearNsAliases"></param>
-        /// <param name="withJsFileDependencies"></param>
-        /// <returns></returns>
-        public string ToJS(bool clearNsAliases, bool withJsFileDependencies = true)
-        {
-            Func<StringBuilder, object> f = (sb) => { sb.AppendLine(this.ToJSCore(clearNsAliases)); return null; };
-            return ToJSTemplate(f, withJsFileDependencies);
-        }
-
-        /// <summary>
-        /// All code js.
-        /// </summary>
         /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
         public string ToJS(bool withJsFileDependencies = true)
         {
-            return this.ToJS(true, withJsFileDependencies);
+            Func<StringBuilder, object> f = 
+                (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
+            return ToJSTemplate(f, withJsFileDependencies);
         }
 
-        public void WriteAllText(bool clearNsAliases, string jsFilePath)
+        public void WriteAllText(string jsFilePath)
         {
-            File.WriteAllText(jsFilePath, this.ToJS(clearNsAliases));
+            File.WriteAllText(jsFilePath, this.ToJS());
         }
 
-        public void AppendAllText(bool clearNsAliases, string jsFilePath)
+        public void AppendAllText(string jsFilePath)
         {
-            File.AppendAllText(jsFilePath, this.ToJS(clearNsAliases));
+            File.AppendAllText(jsFilePath, this.ToJS());
         }
 
     }

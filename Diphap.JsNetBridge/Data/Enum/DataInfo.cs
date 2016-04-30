@@ -13,6 +13,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         public string JsObj { get; set; }
         public Type TObj { get; set; }
         public IList<DataInfo> ObjInfoCol { get; set; }
+        readonly private ConfigJS.JSNamespace _JSNamespace;
 
         public string JsKeyValue
         {
@@ -28,17 +29,23 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
             get
             {
-                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, false) : JSHelper.GetObjectDeclaration(TObj, this.JsObj);
+                string objFullName = this._JSNamespace.GetObjectFullName(TObj, false);
+                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : JSHelper.GetObjectDeclaration(objFullName, this.JsObj);
             }
         }
 
 
-        protected DataInfo(string jsValue_, Type tobj_, IList<DataInfo> objInfoCol_, bool flagGetFactory_ = true)
+        protected DataInfo(string jsValue_, Type tobj_, IList<DataInfo> objInfoCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
         {
+
+            if ((JSNamespace != null) == false) 
+            { throw new ArgumentNullException("JSNamespace"); }
+
             this.JsObj = jsValue_;
             this.TObj = tobj_;
             this.ObjInfoCol = objInfoCol_;
             this.flagGetFactory = flagGetFactory_;
+            this._JSNamespace = JSNamespace;
         }
 
         public override string ToString()

@@ -29,10 +29,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         {
             ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student));
             string jsCore = st.ToJS(true);
-            StringBuilder sb = new StringBuilder();
-            sb.AppendLine(jsCore);
-            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", sb.ToString());
-
+            st.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js");
         }
 
         [TestMethod]
@@ -45,7 +42,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             Assembly ass = Assembly.LoadFrom(fileName);
 
             EnumColInfo ei = new EnumColInfo(ass);
-
+            string text = ei.ToJS();
+            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", text);
         }
 
         [TestMethod]
@@ -53,8 +51,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         {
             string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";//@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; //@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-            string jsCore = api.ToJS(true);
-            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", jsCore);
+            string text = api.ToJS(true);
+            File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", text);
         }
 
 

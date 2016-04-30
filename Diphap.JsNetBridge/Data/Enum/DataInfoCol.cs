@@ -10,18 +10,20 @@ namespace Diphap.JsNetBridge.Data.Enum
 {
     abstract public class DataInfoCol
     {
-        abstract protected DataInfo Factory(Type tobj);
+        abstract protected DataInfo Factory(Type tobj, ConfigJS.JSNamespace JSNamespace);
+
+
 
         public List<DataInfo> JsObjCol { get; protected set; }
 
         public string ToJSCore()
         {
             IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration);
-            
+
             List<string> nsDecl_Array = new List<string>();
             foreach (var jsObj in this.JsObjCol)
             {
-                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(jsObj.TObj, false));
+                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(jsObj.TObj, false));
                 foreach (var objDecl in objDecl_Array_Temp)
                 {
                     if (nsDecl_Array.Contains(objDecl) == false)
@@ -52,7 +54,7 @@ namespace Diphap.JsNetBridge.Data.Enum
 
             foreach (Type tobj in Types_Net)
             {
-                DataInfo objInfo = this.Factory(tobj);
+                DataInfo objInfo = this.Factory(tobj, _JSNamespace);
                 if (string.IsNullOrWhiteSpace(objInfo.JsKeyValue) == false)
                 {
                     JsObjCol.Add(objInfo);
@@ -60,9 +62,13 @@ namespace Diphap.JsNetBridge.Data.Enum
             }
         }
 
-        public DataInfoCol(IList<Type> Types_Net)
+        protected ConfigJS.JSNamespace _JSNamespace { get; private set; }
+
+        public DataInfoCol(IList<Type> Types_Net, ConfigJS.JSNamespace JSNamespace)
         {
+            _JSNamespace = JSNamespace;
             this.Init(Types_Net);
+
         }
 
     }

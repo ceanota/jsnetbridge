@@ -38,29 +38,29 @@ namespace Diphap.JsNetBridge
         public static readonly string stampFuncInstruction = string.Format("var {0} = function() {{ return {1}; }};", stampFunc, ConfigJS.prefix_ns_jsnet);
 
 
-        public static class JSNamespace
+        public class JSNamespace
         {
             private static string prefixAliax = "_alias";
 
-            private static readonly Dictionary<string, string> NamespaceAliasDic = new Dictionary<string, string>();
+            private readonly Dictionary<string, string> NamespaceAliasDic = new Dictionary<string, string>();
 
             /// <summary>
             /// full name of object.
             /// </summary>
             /// <param name="t"></param>
             /// <returns></returns>
-            static public string GetObjectFullName(Type t, bool alias)
+            public string GetObjectFullName(Type t, bool alias)
             {
-                string objFullname = ConfigJS.JSNamespace.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
+                string objFullname = this.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
                 return objFullname;
             }
 
-            public static void ClearAlias()
+            public void ClearAlias()
             {
                 NamespaceAliasDic.Clear();
             }
 
-            public static string GetNamespaceAliasOrDefault(Type t, bool alias)
+            public string GetNamespaceAliasOrDefault(Type t, bool alias)
             {
                 return alias && NamespaceAliasDic.ContainsKey(ConfigJS.JSNamespace.GetPseudoNamespace(t)) ? NamespaceAliasDic[ConfigJS.JSNamespace.GetPseudoNamespace(t)] : ConfigJS.prefix_ns_jsnet + "." + ConfigJS.JSNamespace.GetPseudoNamespace(t);
             }
@@ -82,7 +82,7 @@ namespace Diphap.JsNetBridge
                 return ns;
             }
 
-            public static void AddRangeAlias(IEnumerable<Type> types)
+            public void AddRangeAlias(IEnumerable<Type> types)
             {
 
                 foreach (var t in types)
@@ -94,7 +94,7 @@ namespace Diphap.JsNetBridge
                 }
             }
 
-            public static Dictionary<string, string> GetNamespaceAliasDic(IEnumerable<Type> types)
+            public Dictionary<string, string> GetNamespaceAliasDic(IEnumerable<Type> types)
             {
                 Dictionary<string, string> nsAliasDic = new Dictionary<string, string>();
                 foreach (var t in types)
@@ -139,9 +139,9 @@ namespace Diphap.JsNetBridge
             /// </summary>
             /// <param name="types"></param>
             /// <returns></returns>
-            public static IList<string> ToJSInstructions(IEnumerable<Type> types)
+            public IList<string> ToJSInstructions(IEnumerable<Type> types)
             {
-                Dictionary<string, string> nsAliasDic = ConfigJS.JSNamespace.GetNamespaceAliasDic(types);
+                Dictionary<string, string> nsAliasDic = this.GetNamespaceAliasDic(types);
                 return ToJSInstructions(nsAliasDic);
             }
 
@@ -150,7 +150,7 @@ namespace Diphap.JsNetBridge
             /// </summary>
             /// <param name="sb"></param>
             /// <returns></returns>
-            public static StringBuilder ToJSInstructions(StringBuilder sb = null)
+            public StringBuilder ToJSInstructions(StringBuilder sb = null)
             {
                 if (sb == null) { sb = new StringBuilder(); }
 

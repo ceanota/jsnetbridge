@@ -50,15 +50,18 @@ namespace Diphap.JsNetBridge.Mvc
         public bool IsViewResult { get; private set; }
         public bool IsIEnumerable { get; private set; }
 
+        private readonly ConfigJS.JSNamespace _JSNamespace;
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
         /// <param name="action"></param>
-        /// <param name="controller"></param>
-        /// <param name="area"></param>
-        /// <param name="miGroup">differents signatures of one method</param>
-        public ActionInfo(string action, Type type_controller, string areaName, MethodInfo methodInfo)
+        /// <param name="type_controller"></param>
+        /// <param name="areaName"></param>
+        /// <param name="methodInfo">differents signatures of one method</param>
+        /// <param name="JSNamespace"></param>
+        public ActionInfo(string action, Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
         {
+            _JSNamespace = JSNamespace;
             this.Action = action;
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
@@ -123,7 +126,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             ParameterInfo[] piArray = this.MethodInfo.GetParameters();
 
-            List<string> jsonParams = GetJS_Params(piArray);
+            List<string> jsonParams = GetJS_Params(piArray, _JSNamespace);
 
             string jsonParams_string = "null";
 
@@ -165,7 +168,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.GetEffectiveReturnType();
-            string jsonValue = GetJS_EmptyValue_WithFactory_(type_return, true);
+            string jsonValue = GetJS_EmptyValue_WithFactory_(type_return, true, _JSNamespace);
             return jsonValue;
         }
 
@@ -354,7 +357,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         /// <param name="piArray"></param>
         /// <returns></returns>
-        static internal List<string> GetJS_Params(ParameterInfo[] piArray)
+        static internal List<string> GetJS_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace)
         {
             List<string> jsParams = new List<string>();
             foreach (var pi in piArray)
@@ -363,19 +366,19 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string jsValue;
 
-                jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType, true);
+                jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType, true, _JSNamespace);
 
                 jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
             }
             return jsParams;
         }
 
-        internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias)
+        internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
         {
-            return GetJS_EmptyValue_WithFactory(t, nsAlias);
+            return GetJS_EmptyValue_WithFactory(t, nsAlias, _JSNamespace);
         }
 
-        internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias)
+        internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
         {
             string jsValue = "null";
             if (!JSHelper.GetPrimitiveEmptyValue(t, out jsValue))
@@ -390,7 +393,7 @@ namespace Diphap.JsNetBridge.Mvc
                     if (isCollection)
                     {
                         //-- telem_work  is collection.
-                        jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
+                        jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                     }
                     else
                     {
@@ -400,7 +403,7 @@ namespace Diphap.JsNetBridge.Mvc
                             AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult != null &&
                             AspMvcInfo.TypesOfAspNetSet.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
                         {
-                            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, nsAlias);
+                            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                         }
                         else { jsValue = "{}"; }
 

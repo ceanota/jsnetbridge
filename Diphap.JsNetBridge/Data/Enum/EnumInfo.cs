@@ -8,8 +8,8 @@ namespace Diphap.JsNetBridge.Data.Enum
 {
     public class EnumInfo : DataInfo
     {
-        public EnumInfo(Type tobj_, IList<DataInfo> jsObjCol_, bool flagGetFactory_ = true)
-            : base(SerializeEnum.ExecuteAdvanced(tobj_), tobj_, jsObjCol_, flagGetFactory_)
+        public EnumInfo(Type tobj_, IList<DataInfo> jsObjCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
+            : base(SerializeEnum.ExecuteAdvanced(tobj_), tobj_, jsObjCol_, JSNamespace, flagGetFactory_)
         {
             if (tobj_.IsEnum == false) 
             {

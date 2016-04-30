@@ -75,10 +75,10 @@ namespace Diphap.JsNetBridge
         /// <param name="exclude"></param>
         /// <param name="noReturn"></param>
         /// <returns></returns>
-        public void Execute(Type tobj, bool noReturn, string exclude = "System.")
+        public void Execute(Type tobj, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
             Context_global = new GlobalRecursiveContext(idx_max, tobj);
-            this.Execute(tobj, this.idx_max, noReturn, exclude);
+            this.Execute(tobj, this.idx_max, noReturn, JSNamespace, exclude);
         }
 
         /// <summary>
@@ -127,9 +127,9 @@ namespace Diphap.JsNetBridge
         /// <param name="noReturn"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        internal void Execute(Type tobj, int _idx_max, bool noReturn, string exclude = "System.")
+        internal void Execute(Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
-            TypeSorter tSorter = new TypeSorter(tobj);
+            TypeSorter tSorter = new TypeSorter(tobj, JSNamespace);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
 
@@ -162,7 +162,7 @@ namespace Diphap.JsNetBridge
                             this.Context_global.Add(telem_work);
 
                             //-- recursive
-                            this.Execute(telem_work, _idx_max, noReturn, exclude);
+                            this.Execute(telem_work, _idx_max, noReturn, JSNamespace, exclude);
 
                         }
                         else

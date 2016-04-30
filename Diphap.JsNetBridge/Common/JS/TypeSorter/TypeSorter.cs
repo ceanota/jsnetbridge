@@ -66,9 +66,12 @@ namespace Diphap.JsNetBridge.Common.JS
 
         }
 
-        public TypeSorter(Type tobj)
+        readonly ConfigJS.JSNamespace _JSNamespace;
+
+        public TypeSorter(Type tobj, ConfigJS.JSNamespace JSNamespace)
         {
             this.TObj = tobj;
+            _JSNamespace = JSNamespace;
 
             //-- all fields and properties of object.
             this.miArray = this.TObj.GetMembers(BindingFlags.Public | BindingFlags.Instance)
@@ -117,7 +120,7 @@ namespace Diphap.JsNetBridge.Common.JS
                         {
                             TypesIgnored.Add(tmem);
 
-                            string js_key_value =  GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
+                            string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work, true));
                             js_key_value_list.Add(js_key_value);
                         }
                     }
@@ -133,9 +136,9 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name="isCollection"></param>
         /// <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
         /// <returns></returns>
-        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
+        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, string objectFullName) //ConfigJS.JSNamespace JSNamespace)
         {
-            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection));
+            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection, objectFullName));//JSNamespace));
         }
 
         /// <summary>
@@ -171,9 +174,9 @@ namespace Diphap.JsNetBridge.Common.JS
                         telem_work = tmem;
                     }
 
-                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
+                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work,true));
                 }
-                else 
+                else
                 {
                     string valueTemp = jsvalue;
                     if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))

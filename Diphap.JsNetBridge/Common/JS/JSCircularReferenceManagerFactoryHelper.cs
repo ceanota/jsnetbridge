@@ -26,9 +26,9 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
         /// <returns></returns>
-        public static string FunctionDefinitionCall(Type telem_work, bool isCollection)
+        public static string FunctionDefinitionCall(Type telem_work, bool isCollection, string objectFullname) //ConfigJS.JSNamespace JSNamespace)
         {
-            string factoryName = JSHelper.GetObjectFactoryName(telem_work, false, true, true);
+            string factoryName = JSHelper.GetObjectFactoryName(telem_work, false, true, objectFullname);//true, JSNamespace);
             return FunctionDefinitionCall(factoryName, isCollection);
         }
 

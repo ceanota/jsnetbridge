@@ -40,6 +40,8 @@ namespace Diphap.JsNetBridge.Mvc
         internal List<Type> Types_Controller { get; private set; }
         #endregion
 
+        readonly private ConfigJS.JSNamespace _JSNamespace;
+
         private void InitiliazeForAspNetObjects(Assembly asp_net)
         {
             Type type_obj = typeof(System.Object);
@@ -67,11 +69,11 @@ namespace Diphap.JsNetBridge.Mvc
             }
 
             {
-                Diphap.JsNetBridge.ConfigJS.JSNamespace.ClearAlias();
+                _JSNamespace.ClearAlias();
 
-                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Model);
-                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Enum);
-                ConfigJS.JSNamespace.AddRangeAlias(this.Types_Controller);
+                _JSNamespace.AddRangeAlias(this.Types_Model);
+                _JSNamespace.AddRangeAlias(this.Types_Enum);
+                _JSNamespace.AddRangeAlias(this.Types_Controller);
             }
 
         }
@@ -84,7 +86,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
         {
-
+            _JSNamespace = new ConfigJS.JSNamespace();
             string binFolderPath = Path.GetDirectoryName(asp_net.Location);
             AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);
 
@@ -177,7 +179,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             Func<StringBuilder, object> f = (sb) =>
             {
-                sb.AppendLine(this.ModelInfo.ToJSCore(false));
+                sb.AppendLine(this.ModelInfo.ToJSCore());
                 sb.AppendLine(this.EnumInfo.ToJSCore());
                 sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
@@ -198,7 +200,7 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 if (this._ModelInfo == null)
                 {
-                    this._ModelInfo = new ModelInfo(this.Types_Model);
+                    this._ModelInfo = new ModelInfo(this.Types_Model, _JSNamespace);
                 }
                 return this._ModelInfo;
             }
@@ -211,7 +213,7 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 if (this._EnumInfo == null)
                 {
-                    this._EnumInfo = new EnumColInfo(this.Types_Enum);
+                    this._EnumInfo = new EnumColInfo(this.Types_Enum, _JSNamespace);
                 }
                 return this._EnumInfo;
             }
@@ -224,7 +226,7 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 if (this._UrlInfo == null)
                 {
-                    this._UrlInfo = new UrlInfo(this.Types_Controller);
+                    this._UrlInfo = new UrlInfo(this.Types_Controller, _JSNamespace);
                 }
                 return this._UrlInfo;
             }

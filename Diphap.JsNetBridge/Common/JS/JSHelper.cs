@@ -15,10 +15,12 @@ namespace Diphap.JsNetBridge
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
         /// <param name="functionReference"></param>
+        /// <param name="nsAlias"></param>
+        /// <param name="JSNamespace"></param>
         /// <returns></returns>
-        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, bool nsAlias)
+        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
         {
-            string jsvalue = string.Format("{0}()", ConfigJS.JSNamespace.GetObjectFullName(telem_work, nsAlias));
+            string jsvalue = string.Format("{0}()", objectFullName);
             if (isCollection)
             {
                 jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
@@ -206,9 +208,8 @@ namespace Diphap.JsNetBridge
         /// <param name="jsObj"></param>
         /// <param name="withArgs"></param>
         /// <returns></returns>
-        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, bool nsAlias)
+        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName)//, bool nsAlias, ConfigJS.JSNamespace JSNamespace)
         {
-            string objFullName = ConfigJS.JSNamespace.GetObjectFullName(t, nsAlias);
             return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
 
@@ -221,17 +222,6 @@ namespace Diphap.JsNetBridge
         {
             string ns = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, ConfigJS.JSNamespace.GetPseudoNamespace(t).Replace("+", "."));
             return ns;
-        }
-
-        /// <summary>
-        /// $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="jsObj"></param>
-        /// <returns></returns>
-        static public string GetObjectDeclaration(Type t, string jsObj)
-        {
-            return GetObjectDeclaration(ConfigJS.JSNamespace.GetObjectFullName(t, false), jsObj);
         }
 
         /// <summary>

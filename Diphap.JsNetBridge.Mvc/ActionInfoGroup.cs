@@ -45,15 +45,18 @@ namespace Diphap.JsNetBridge.Mvc
 
         private readonly ActionInfo[] _signatures;
 
+        private readonly ConfigJS.JSNamespace _JSNamespace;
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
         /// <param name="action"></param>
-        /// <param name="controller"></param>
-        /// <param name="area"></param>
-        /// <param name="methodInfo">differents signatures of one method</param>
-        public ActionInfoGroup(string action, Type type_controller, string areaName, IGrouping<string, MethodInfo> miGroup)
+        /// <param name="type_controller"></param>
+        /// <param name="areaName"></param>
+        /// <param name="miGroup">differents signatures of one method</param>
+        /// <param name="JSNamespace"></param>
+        public ActionInfoGroup(string action, Type type_controller, string areaName, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace)
         {
+            _JSNamespace = JSNamespace;
             this.Action = action;
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
@@ -63,41 +66,9 @@ namespace Diphap.JsNetBridge.Mvc
 
             this._IsApiController = AspMvcInfo.TypesOfAspNetSet.Type_ApiController.IsAssignableFrom(this._type_controller);
 
-            this._signatures = miGroup.Select(x => new ActionInfo(this.Action, this._type_controller, this.Area, x)).ToArray();
+            this._signatures = miGroup.Select(x => new ActionInfo(this.Action, this._type_controller, this.Area, x, JSNamespace)).ToArray();
 
         }
-
-        //private string GetMvcDefaultUrl()
-        //{
-        //    string url;
-
-        //    if (string.IsNullOrWhiteSpace(this.Area))
-        //    {
-        //        url = string.Format("\"/{0}/{1}\"", this.Controller, this.Action);
-        //    }
-        //    else
-        //    {
-        //        url = string.Format("\"/{0}/{1}/{2}\"", this.Area, this.Controller, this.Action);
-        //    }
-
-        //    return url;
-        //}
-
-        //private string GetApiDefaultUrl()
-        //{
-        //    string url;
-
-        //    if (string.IsNullOrWhiteSpace(this.Area))
-        //    {
-        //        url = string.Format("\"/api/{0}/{1}\"", this.Controller, this.Action);
-        //    }
-        //    else
-        //    {
-        //        url = string.Format("\"/{0}/api/{1}/{2}\"", this.Area, this.Controller, this.Action);
-        //    }
-
-        //    return url;
-        //}
 
         /// <summary>
         /// Value.

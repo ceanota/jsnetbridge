@@ -11,9 +11,9 @@ namespace Diphap.JsNetBridge.Mvc
 
         public readonly List<AreaInfo> AreaInfoList;
 
-        public UrlInfo(IList<Type> types_contoller)
+        public UrlInfo(IList<Type> types_contoller, ConfigJS.JSNamespace JSNamespace)
         {
-            this.AreaInfoList = GetAreaInfoList(types_contoller);
+            this.AreaInfoList = GetAreaInfoList(types_contoller, JSNamespace);
         }
 
         /// <summary>
@@ -195,13 +195,13 @@ namespace Diphap.JsNetBridge.Mvc
             return js;
         }
 
-        private static List<AreaInfo> GetAreaInfoList(IList<Type> types_contoller/*Assembly asp_net*/)
+        private static List<AreaInfo> GetAreaInfoList(IList<Type> types_contoller/*Assembly asp_net*/, ConfigJS.JSNamespace JSNamespace)
         {
             List<AreaInfo> aiList = new List<AreaInfo>();
 
             IList<IActionInfo> urlList;
             {
-                List<ActionInfoGroup> urlListTemp = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/);
+                List<ActionInfoGroup> urlListTemp = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/, JSNamespace);
                 urlList = urlListTemp.Cast<IActionInfo>().ToArray();
             }
 
@@ -235,13 +235,13 @@ namespace Diphap.JsNetBridge.Mvc
             return ai;
         }
 
-        private static List<ActionInfoGroup> ExtractUrlFromAspNetMvcApplication(IList<Type> types_contoller)
+        private static List<ActionInfoGroup> ExtractUrlFromAspNetMvcApplication(IList<Type> types_contoller, ConfigJS.JSNamespace JSNamespace)
         {
             List<ActionInfoGroup> urlList = new List<ActionInfoGroup>();
 
             for (int ii = 0; ii < types_contoller.Count; ii++)
             {
-                List<ActionInfoGroup> urlListTemp = ExtractUrlFromController(types_contoller[ii]);
+                List<ActionInfoGroup> urlListTemp = ExtractUrlFromController(types_contoller[ii], JSNamespace);
 
                 urlList.AddRange(urlListTemp);
             }
@@ -249,7 +249,7 @@ namespace Diphap.JsNetBridge.Mvc
             return urlList;
         }
 
-        private static List<ActionInfoGroup> ExtractUrlFromController(Type type_controller_current)
+        private static List<ActionInfoGroup> ExtractUrlFromController(Type type_controller_current, ConfigJS.JSNamespace JSNamespace)
         {
             List<ActionInfoGroup> urlListTemp = new List<ActionInfoGroup>();
 
@@ -269,7 +269,7 @@ namespace Diphap.JsNetBridge.Mvc
                 IGrouping<string, MethodInfo> mig_current = miGroups[jj];
 
                 //-- TODO: passer à ActionInfo, plusieurs signatures d'une méthode.
-                ActionInfoGroup url = CreateUrl(type_controller_current, mig_current);
+                ActionInfoGroup url = CreateUrl(type_controller_current, mig_current, JSNamespace);
                 if (url != null)
                 {
                     urlListTemp.Add(url);
@@ -285,7 +285,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="type_controller_current"></param>
         /// <param name="mig_current">differents signatures of one method</param>
         /// <returns></returns>
-        private static ActionInfoGroup CreateUrl(Type type_controller_current, IGrouping<string, MethodInfo> miGroup)
+        private static ActionInfoGroup CreateUrl(Type type_controller_current, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace)
         {
             ActionInfoGroup url = null;
 
@@ -294,7 +294,7 @@ namespace Diphap.JsNetBridge.Mvc
             url = new ActionInfoGroup(miGroup.Key,
                 type_controller_current,
                 area,
-                miGroup);
+                miGroup, JSNamespace);
 
 
             return url;
