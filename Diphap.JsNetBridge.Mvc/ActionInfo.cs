@@ -94,7 +94,23 @@ namespace Diphap.JsNetBridge.Mvc
             return this._ParameterClassTypes;
         }
 
+        IList<Type> _ParameterEnumTypes;
+
+        /// <summary>
+        /// Parameter Enum Types
+        /// </summary>
+        /// <returns></returns>
+        public IList<Type> ParameterEnumTypes()
+        {
+            if (this._ParameterEnumTypes == null)
+            {
+                this._ParameterEnumTypes = this.MethodInfo.GetParameters().Select(p => p.ParameterType).Where(t => t.IsEnum).ToArray().Distinct().ToArray();
+            }
+            return this._ParameterEnumTypes;
+        }
+
         IList<Type> _AllInOutClassTypes;
+
         /// <summary>
         /// Parameter Class Types and Return class type.
         /// </summary>

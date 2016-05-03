@@ -18,12 +18,14 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         public string ToJSCore()
         {
-            IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration);
+
 
             List<string> nsDecl_Array = new List<string>();
             foreach (var jsObj in this.JsObjCol)
             {
-                IEnumerable<string> objDecl_Array_Temp = JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(jsObj.TObj, false));
+                IEnumerable<string> objDecl_Array_Temp =
+                    JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(jsObj.TObj, false));
+
                 foreach (var objDecl in objDecl_Array_Temp)
                 {
                     if (nsDecl_Array.Contains(objDecl) == false)
@@ -33,7 +35,24 @@ namespace Diphap.JsNetBridge.Data.Enum
                 }
             }
 
+            {
+
+                IEnumerable<Type> types_temp = this.JsObjCol.Select(x => x.TObj);
+
+                //-- add alias in global variable 'NamespaceAliasDic'
+                _JSNamespace.AddRangeAlias(types_temp);
+
+                //-- alias of namespace
+                //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+                nsDecl_Array.AddRange(_JSNamespace.ToJSInstructions(types_temp));
+            }
+
+            IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration(true));
+
             nsDecl_Array.AddRange(objDecl_Array);
+
+            nsDecl_Array.Insert(0, JSRaw.Region.Begin());
+            nsDecl_Array.Add(JSRaw.Region.End());
 
             return string.Join("\r\n", nsDecl_Array);
         }

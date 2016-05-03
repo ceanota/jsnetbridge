@@ -167,11 +167,24 @@ namespace Diphap.JsNetBridge.Common.JS
     }
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
 })();";
-        
+
         public class AnynomousModule
         {
             public const string Begin = "(function () {";
             public const string End = "})();";
+        }
+
+        public class Region
+        {
+            static public string Begin(string name = "")
+            {
+                return string.Format("//#region '{0}'", name);
+            }
+
+            static public string End()
+            {
+                return "//#endregion";
+            }
         }
 
 

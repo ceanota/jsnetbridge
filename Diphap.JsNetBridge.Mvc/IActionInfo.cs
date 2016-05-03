@@ -14,6 +14,7 @@ namespace Diphap.JsNetBridge.Mvc
         string Url { get; set; }
         bool IsApiController { get; }
         IList<Type> ParameterClassTypes();
+        IList<Type> ParameterEnumTypes();
         IList<Type> AllInOutClassTypes();
     }
 }

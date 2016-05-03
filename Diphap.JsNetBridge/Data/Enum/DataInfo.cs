@@ -25,20 +25,19 @@ namespace Diphap.JsNetBridge.Data.Enum
             }
         }
 
-        public string JsObjDeclaration
+        public string JsObjDeclaration(bool withAlias)
         {
-            get
-            {
-                string objFullName = this._JSNamespace.GetObjectFullName(TObj, false);
-                return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : JSHelper.GetObjectDeclaration(objFullName, this.JsObj);
-            }
+
+            string objFullName = this._JSNamespace.GetObjectFullName(TObj, withAlias);
+            return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : JSHelper.GetObjectDeclaration(objFullName, this.JsObj);
+
         }
 
 
         protected DataInfo(string jsValue_, Type tobj_, IList<DataInfo> objInfoCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
         {
 
-            if ((JSNamespace != null) == false) 
+            if ((JSNamespace != null) == false)
             { throw new ArgumentNullException("JSNamespace"); }
 
             this.JsObj = jsValue_;

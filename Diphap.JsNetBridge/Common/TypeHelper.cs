@@ -426,7 +426,7 @@ namespace Diphap.JsNetBridge
 
                 if (goFlag)
                 {
-                    if (t.IsEnum /*&& t.IsNested == false*/)
+                    if (t.IsEnum)
                     {
                         types_selected.Add(t);
                     }

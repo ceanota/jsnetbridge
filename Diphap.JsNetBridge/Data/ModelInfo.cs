@@ -157,7 +157,8 @@ namespace Diphap.JsNetBridge.Data
                         createdNamespaces.AddRange(JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(kv.Key, false)));
                     }
                     {
-                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, _JSNamespace.GetObjectFullName(kv.Key, true));
+                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, 
+                            _JSNamespace.GetObjectFullName(kv.Key, true));
                         funcDecl_Array.Add(funcDecl);
                     }
                 }
@@ -189,6 +190,9 @@ namespace Diphap.JsNetBridge.Data
             //-- ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
             nsDecl_Array.AddRange(funcDecl_Array);
 
+            nsDecl_Array.Insert(0, JSRaw.Region.Begin("Model"));
+            nsDecl_Array.Add(JSRaw.Region.End());
+
             return string.Join("\r\n", nsDecl_Array);
 
         }
@@ -213,7 +217,9 @@ namespace Diphap.JsNetBridge.Data
                     sb.AppendLine(ConfigJS.stampFuncInstruction);
 
                     #region "Core"
+                    sb.AppendLine(JSRaw.AnynomousModule.Begin);
                     ToJSCore(sb);
+                    sb.AppendLine(JSRaw.AnynomousModule.End);
                     #endregion
                 }
 

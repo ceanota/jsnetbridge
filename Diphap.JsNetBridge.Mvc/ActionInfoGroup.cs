@@ -142,7 +142,7 @@ namespace Diphap.JsNetBridge.Mvc
         IList<Type> _ParameterClassTypes;
 
         /// <summary>
-        /// allTypes of class.
+        /// all Types of class.
         /// </summary>
         /// <returns></returns>
         public IList<Type> ParameterClassTypes()
@@ -155,7 +155,24 @@ namespace Diphap.JsNetBridge.Mvc
             return this._ParameterClassTypes;
         }
 
+        IList<Type> _ParameterEnumTypes;
+
+        /// <summary>
+        /// all Types of Enum.
+        /// </summary>
+        /// <returns></returns>
+        public IList<Type> ParameterEnumTypes()
+        {
+            if (this._ParameterEnumTypes == null)
+            {
+                this._ParameterEnumTypes = this._signatures.SelectMany(x => x.ParameterEnumTypes()).Distinct().ToArray();
+            }
+
+            return this._ParameterEnumTypes;
+        }
+
         IList<Type> _AllInOutClassTypes;
+
         /// <summary>
         /// Parameter Class Types and Return class type.
         /// </summary>

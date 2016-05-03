@@ -5,9 +5,12 @@ using System.Web.Mvc;
 using ContosoUniversity.Models;
 using ContosoUniversity.DAL;
 using PagedList;
+using TestModels;
 
 namespace ContosoUniversity.Controllers
 {
+    
+
     public class StudentController : Controller
     {
         private IStudentRepository studentRepository;
@@ -188,7 +191,7 @@ namespace ContosoUniversity.Controllers
             public string HelloWorld;
         }
 
-        public ActionResult Ajouter(TestClass aaa) 
+        public ActionResult Ajouter(TestClass aaa, EnumTest e) 
         {
             return new JsonResult();
         }

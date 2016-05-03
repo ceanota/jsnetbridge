@@ -68,6 +68,17 @@ namespace Diphap.JsNetBridge.Mvc
                 }
             }
 
+            //-- Parameter and return types of action method.
+            foreach (Type t in this.ParameterEnumTypes())
+            {
+                if (this.Types_Enum.Contains(t) == false)
+                {
+                    //-- add Type which is not Collection.
+                    this.Types_Enum.Add(t);
+                }
+            }
+
+
             {
                 _JSNamespace.ClearAlias();
 
@@ -251,6 +262,26 @@ namespace Diphap.JsNetBridge.Mvc
                     .ToArray();
             }
             return this._AllInOutClassTypes;
+        }
+
+        Type[] _ParameterEnumTypes;
+
+        /// <summary>
+        /// All types of enum parameters of action methods.
+        /// </summary>
+        /// <returns></returns>
+        public Type[] ParameterEnumTypes()
+        {
+            if (this._ParameterEnumTypes == null)
+            {
+                this._ParameterEnumTypes = this.UrlInfo.AreaInfoList
+                    .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
+                    .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
+                    .SelectMany<IActionInfo, Type>(ai => ai.ParameterEnumTypes())
+                    .Distinct()
+                    .ToArray();
+            }
+            return this._ParameterEnumTypes;
         }
 
         #endregion
