@@ -340,7 +340,7 @@ namespace Diphap.JsNetBridge
         {
             Type tfound = null;
             isCollection = false;
-            if ((t.IsPublic || t.IsNestedPublic) && (t.IsClass || t.IsInterface) && /*t.IsNested == false &&*/ !t.Name.Contains("<"))
+            if ((t.IsPublic || t.IsNestedPublic) && (t.IsClass || t.IsInterface) && !t.Name.Contains("<"))
             {
                 if (TypeHelper.GetElementTypeOfCollection(t, out tfound))
                 {

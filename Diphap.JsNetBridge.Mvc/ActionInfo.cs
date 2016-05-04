@@ -51,6 +51,7 @@ namespace Diphap.JsNetBridge.Mvc
         public bool IsIEnumerable { get; private set; }
 
         private readonly ConfigJS.JSNamespace _JSNamespace;
+
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
@@ -104,9 +105,24 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._ParameterEnumTypes == null)
             {
-                this._ParameterEnumTypes = this.MethodInfo.GetParameters().Select(p => p.ParameterType).Where(t => t.IsEnum).ToArray().Distinct().ToArray();
+                this._ParameterEnumTypes = this.EnumParameters().Select(p => p.ParameterType).Distinct().ToArray();
             }
             return this._ParameterEnumTypes;
+        }
+
+        IList<ParameterInfo> _EnumParameters;
+
+        /// <summary>
+        /// Enum ParameterInfo 
+        /// </summary>
+        /// <returns></returns>
+        public IList<ParameterInfo> EnumParameters()
+        {
+            if (this._EnumParameters == null)
+            {
+                this._EnumParameters = this.MethodInfo.GetParameters().Where(p => p.ParameterType.IsEnum).ToArray();
+            }
+            return this._EnumParameters;
         }
 
         IList<Type> _AllInOutClassTypes;
@@ -131,6 +147,27 @@ namespace Diphap.JsNetBridge.Mvc
             }
 
             return this._AllInOutClassTypes;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public string ToJS_Enums()
+        {
+            ParameterInfo[] piArray = this.MethodInfo.GetParameters();
+
+            List<string> jsonParams = GetJS_Enums(this.EnumParameters(), _JSNamespace);
+
+            string jsonParams_string = "null";
+
+            if (jsonParams.Count > 0)
+            {
+                jsonParams_string = "{" + string.Join(",", jsonParams) + "}";
+            }
+
+            return jsonParams_string;
+
         }
 
         /// <summary>
@@ -184,7 +221,7 @@ namespace Diphap.JsNetBridge.Mvc
         public string ToJS_Return()
         {
             Type type_return = this.GetEffectiveReturnType();
-            string jsonValue = GetJS_EmptyValue_WithFactory_(type_return, true, _JSNamespace);
+            string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true, _JSNamespace);
             return jsonValue;
         }
 
@@ -220,6 +257,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", JSHelper.GetFactory(this.ToJS_Enums(), false));
 
                 if (this.IsApiController)
                 {
@@ -389,10 +427,10 @@ namespace Diphap.JsNetBridge.Mvc
             return jsParams;
         }
 
-        internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
-        {
-            return GetJS_EmptyValue_WithFactory(t, nsAlias, _JSNamespace);
-        }
+        //internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
+        //{
+        //    return GetJS_EmptyValue_WithFactory(t, nsAlias, _JSNamespace);
+        //}
 
         internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
         {
@@ -428,6 +466,41 @@ namespace Diphap.JsNetBridge.Mvc
                 else { jsValue = "{}"; }
 
             }
+
+            return jsValue;
+        }
+
+        static internal List<string> GetJS_Enums(IList<ParameterInfo> piArray, ConfigJS.JSNamespace _JSNamespace)
+        {
+            List<string> jsParams = new List<string>();
+            foreach (var pi in piArray)
+            {
+                string paramName = pi.Name;
+
+                string jsValue;
+
+                jsValue = GetJS_EmptyValue_WithFactory_forEnum(pi.ParameterType, true, _JSNamespace);
+
+                jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
+            }
+            return jsParams;
+        }
+
+        internal static string GetJS_EmptyValue_WithFactory_forEnum(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
+        {
+            if (t.IsEnum == false) { throw new Exception("t must be Enum"); }
+
+            string jsValue;
+            Type telem_work;
+            bool isCollection = TypeHelper.GetElementTypeOfCollection(t, out telem_work);
+
+            if (isCollection == false)
+            {
+                telem_work = t;
+            }
+
+            //-- telem_work  is collection.
+            jsValue = JSHelper.GetObjectFactoryName(telem_work, isCollection, true, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
 
             return jsValue;
         }
