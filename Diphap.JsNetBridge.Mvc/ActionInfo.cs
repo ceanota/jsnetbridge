@@ -121,7 +121,7 @@ namespace Diphap.JsNetBridge.Mvc
             if (this._EnumParameters == null)
             {
                 this._EnumParameters = this.MethodInfo.GetParameters()
-                    .Where(p =>  TypeHelper.IsEnum(p.ParameterType) ).ToArray();
+                    .Where(p => TypeHelper.IsEnum(p.ParameterType)).ToArray();
             }
             return this._EnumParameters;
         }
@@ -319,14 +319,12 @@ namespace Diphap.JsNetBridge.Mvc
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
 
-            if (this.IsJsonResult)
-            {
-                sb_ajax_options.AppendFormat("dataType:\"{0}\"", "json");
-                sb_ajax_options.Append(",");
-                sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
-                sb_ajax_options.Append(",");
-                sb_ajax_options.AppendFormat("cache:{0}", "false");
-            }
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", "json");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("cache:{0}", "false");
+
             sb_ajax_options.Append("}");
             return sb_ajax_options;
         }

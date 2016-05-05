@@ -192,8 +192,10 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 sb.AppendLine(this.ModelInfo.ToJSCore());
                 sb.AppendLine(this.EnumInfo.ToJSCore());
-                sb.AppendLine(string.Join("", JSHelper.CreateNamespace(ConfigJS.url_set)));
+                sb.AppendLine(JSRaw.Region.Begin("UrlSet"));
+                sb.AppendLine(string.Join("\r\n", JSHelper.CreateNamespace(ConfigJS.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
+                sb.AppendLine(JSRaw.Region.End());
                 return null;
             };
             return ModelInfo.ToJSTemplate(f, withJsFileDependencies);

@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using ContosoUniversity.Models;
 using ContosoUniversity.DAL;
 using System.Data.Entity.Infrastructure;
+using Diphap.JsNetBridge.Common;
 
 namespace ContosoUniversity.Controllers
 {
@@ -48,7 +49,7 @@ namespace ContosoUniversity.Controllers
 
         //
         // GET: /Department/Details/5
-
+        [JsNetResponseType(typeof(Department))]
         public ActionResult Details(int id = 0)
         {
             Department department = db.Departments.Find(id);
