@@ -228,7 +228,7 @@ namespace Diphap.JsNetBridge
         {
             try
             {
-                t = Nullable.GetUnderlyingType(t) ?? t;
+                t = GetUnderlyingTypeOrDefault(t);
                 if (t == typeof(bool))
                 {
                     return true;
@@ -240,6 +240,17 @@ namespace Diphap.JsNetBridge
             {
                 throw ex;
             }
+        }
+
+        /// <summary>
+        /// Returns the underlying type argument of the specified nullable type.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        public static Type GetUnderlyingTypeOrDefault(Type t)
+        {
+            t = Nullable.GetUnderlyingType(t) ?? t;
+            return t;
         }
 
         /// <summary>
@@ -475,7 +486,15 @@ namespace Diphap.JsNetBridge
                         }
                         else
                         {
-                            tnamesArray.Add(targ.FullName.Replace(".", null));
+                            if (targ.FullName == null)
+                            {
+                                tnamesArray.Add(targ.Name.Replace(".", null));
+                            }
+                            else 
+                            {
+                                tnamesArray.Add(targ.FullName.Replace(".", null));
+                            }
+                            
                         }
                     }
                 }

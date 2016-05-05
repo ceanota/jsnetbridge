@@ -61,12 +61,14 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="tenum"></param>
         /// <returns></returns>
-        private static Dictionary<string, int> ToDictionnary(Type tenum)
+        private static Dictionary<string, int> ToDictionnary(Type t)
         {
-            if (tenum.IsEnum == false)
+            if (TypeHelper.IsEnum(t) == false) 
             {
                 throw new ArgumentException("It is not 'Enum'");
             }
+
+            Type tenum = TypeHelper.GetUnderlyingTypeOrDefault(t);
 
             string[] names = Enum.GetNames(tenum);
             Dictionary<string, int> dic = new System.Collections.Generic.Dictionary<string, int>(names.Length);

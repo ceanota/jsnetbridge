@@ -46,6 +46,11 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", text);
         }
 
+        enum EnumTest
+        {
+            test1, test2
+        }
+
         [TestMethod]
         public void TestExe()
         {

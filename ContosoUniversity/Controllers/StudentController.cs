@@ -191,7 +191,7 @@ namespace ContosoUniversity.Controllers
             public string HelloWorld;
         }
 
-        public ActionResult Ajouter(TestClass aaa, EnumTest e) 
+        public ActionResult Ajouter(TestClass aaa, EnumTest? e, EnumTest e1) 
         {
             return new JsonResult();
         }

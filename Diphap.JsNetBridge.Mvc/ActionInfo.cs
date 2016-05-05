@@ -105,7 +105,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._ParameterEnumTypes == null)
             {
-                this._ParameterEnumTypes = this.EnumParameters().Select(p => p.ParameterType).Distinct().ToArray();
+                this._ParameterEnumTypes = this.EnumParameters().Select(p => TypeHelper.GetUnderlyingTypeOrDefault(p.ParameterType)).Distinct().ToArray();
             }
             return this._ParameterEnumTypes;
         }
@@ -120,7 +120,8 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._EnumParameters == null)
             {
-                this._EnumParameters = this.MethodInfo.GetParameters().Where(p => p.ParameterType.IsEnum).ToArray();
+                this._EnumParameters = this.MethodInfo.GetParameters()
+                    .Where(p =>  TypeHelper.IsEnum(p.ParameterType) ).ToArray();
             }
             return this._EnumParameters;
         }
@@ -427,11 +428,6 @@ namespace Diphap.JsNetBridge.Mvc
             return jsParams;
         }
 
-        //internal static string GetJS_EmptyValue_WithFactory_(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
-        //{
-        //    return GetJS_EmptyValue_WithFactory(t, nsAlias, _JSNamespace);
-        //}
-
         internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
         {
             string jsValue = "null";
@@ -479,7 +475,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string jsValue;
 
-                jsValue = GetJS_EmptyValue_WithFactory_forEnum(pi.ParameterType, true, _JSNamespace);
+                jsValue = GetJS_EmptyValue_WithFactory_forEnum(TypeHelper.GetUnderlyingTypeOrDefault(pi.ParameterType), true, _JSNamespace);
 
                 jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
             }
