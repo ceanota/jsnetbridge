@@ -16,45 +16,93 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         public List<DataInfo> JsObjCol { get; protected set; }
 
-        public string ToJSCore()
+        IEnumerable<Type> _GetJsObjColType;
+        public IEnumerable<Type> GetJsObjColTypes()
         {
-
-
-            List<string> nsDecl_Array = new List<string>();
-            foreach (var jsObj in this.JsObjCol)
+            if (this._GetJsObjColType == null)
             {
-                IEnumerable<string> objDecl_Array_Temp =
-                    JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(jsObj.TObj, false));
+                //-- distinct types.
+                this._GetJsObjColType = this.JsObjCol.Select(o => o.TObj).Distinct();
+            }
+            return this._GetJsObjColType;
+        }
 
-                foreach (var objDecl in objDecl_Array_Temp)
+        /// <summary>
+        /// Create namespaces.
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> CreateNamespaces()
+        {
+            return CreateNamespaces(this.GetJsObjColTypes());
+        }
+
+        /// <summary>
+        /// alias of namespace
+        /// ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+        /// </summary>
+        /// <returns></returns>
+        public IList<string> CreateAliases()
+        {
+            //-- add alias in global variable 'NamespaceAliasDic'
+            _JSNamespace.AddRangeAlias(this.GetJsObjColTypes());
+
+            //-- alias of namespace
+            //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            return _JSNamespace.ToJSInstructions(this.GetJsObjColTypes());
+        }
+
+        /// <summary>
+        ///  Declaration of objects.
+        /// </summary>
+        /// <param name="withAlias"></param>
+        /// <returns></returns>
+        public IEnumerable<string> CreateJsObjectDeclaration(bool withAlias)
+        {
+            IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration(withAlias));
+            return objDecl_Array;
+        }
+
+        virtual public string ToJSCore(string regionName = "")
+        {
+            List<string> jsInstructions = new List<string>();
+
+            jsInstructions.Add(JSRaw.Region.Begin(regionName));
+
+            //-- Create Namespaces.
+            jsInstructions.AddRange(this.CreateNamespaces());
+
+            //-- Create Aliases
+            jsInstructions.AddRange(this.CreateAliases());
+
+            //-- Declaration of objects.
+            jsInstructions.AddRange(this.CreateJsObjectDeclaration(true));
+
+            jsInstructions.Add(JSRaw.Region.End());
+
+            return string.Join("\r\n", jsInstructions);
+        }
+
+        /// <summary>
+        /// Create namespaces.
+        /// </summary>
+        /// <param name="tobjArray"></param>
+        /// <returns></returns>
+        static public List<string> CreateNamespaces(IEnumerable<Type> tobjArray)
+        {
+            List<string> jsInstructions = new List<string>();
+
+            foreach (var t in tobjArray)
+            {
+                IEnumerable<string> nsArray = JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
+                foreach (var ns in nsArray)
                 {
-                    if (nsDecl_Array.Contains(objDecl) == false)
+                    if (jsInstructions.Contains(ns) == false)
                     {
-                        nsDecl_Array.Add(objDecl);
+                        jsInstructions.Add(ns);
                     }
                 }
             }
-
-            {
-
-                IEnumerable<Type> types_temp = this.JsObjCol.Select(x => x.TObj);
-
-                //-- add alias in global variable 'NamespaceAliasDic'
-                _JSNamespace.AddRangeAlias(types_temp);
-
-                //-- alias of namespace
-                //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
-                nsDecl_Array.AddRange(_JSNamespace.ToJSInstructions(types_temp));
-            }
-
-            IEnumerable<string> objDecl_Array = this.JsObjCol.Select(x => x.JsObjDeclaration(true));
-
-            nsDecl_Array.AddRange(objDecl_Array);
-
-            nsDecl_Array.Insert(0, JSRaw.Region.Begin());
-            nsDecl_Array.Add(JSRaw.Region.End());
-
-            return string.Join("\r\n", nsDecl_Array);
+            return jsInstructions;
         }
 
         public string ToJS()

@@ -139,62 +139,103 @@ namespace Diphap.JsNetBridge.Data
         /// There is not 'JSArrayFactory'
         /// </summary>
         /// <returns></returns>
-        public string ToJSCore()
+        public string ToJSCore(string regionName = "Model")
         {
             //-- sort types of oldClasses.
             this.Execute();
 
+            List<string> jsInstructions = new List<string>();
 
-            List<string> nsDecl_Array = new List<string>();
+            jsInstructions.Add(JSRaw.Region.Begin(regionName));
+
+            //-- Create Namespaces
+            jsInstructions.AddRange(CreateNamespaces());
+
+            //-- Create Aliases of ns.
+            jsInstructions.AddRange(CreateAliases());
+
+            //-- Declaration of objects.
+            //-- ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
+            jsInstructions.AddRange(this.CreateJsObjectDeclaration(true));
+
+            jsInstructions.Add(JSRaw.Region.End());
+
+            return string.Join("\r\n", jsInstructions);
+
+        }
+
+        /// <summary>
+        /// function declaration
+        /// ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
+        /// </summary>
+        /// <param name="withAlias"></param>
+        /// <returns></returns>
+        private List<string> CreateJsObjectDeclaration(bool withAlias)
+        {
             List<string> funcDecl_Array = new List<string>();
-            List<string> createdNamespaces = new List<string>();
-
             foreach (var dic in Classes)
             {
                 foreach (var kv in dic)
                 {
                     {
-                        createdNamespaces.AddRange(JSHelper.CreateNamespace(_JSNamespace.GetObjectFullName(kv.Key, false)));
-                    }
-                    {
-                        string funcDecl = JSHelper.GetFactoryDeclaration(kv.Key, kv.Value.JSValue, true, 
-                            _JSNamespace.GetObjectFullName(kv.Key, true));
+                        string funcDecl = JSHelper.GetFactoryDeclaration(
+                            kv.Key, 
+                            kv.Value.JSValue, 
+                            true, 
+                            _JSNamespace.GetObjectFullName(kv.Key, withAlias));
                         funcDecl_Array.Add(funcDecl);
                     }
                 }
             }
+            return funcDecl_Array;
+        }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public List<string> CreateNamespaces()
+        {
+            List<string> createdNamespaces = new List<string>();
+            foreach (var dic in Classes)
+            {
+                foreach (var kv in dic)
+                {
+                    createdNamespaces.AddRange(JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key)));
+                }
+            }
+            List<string> jsInstructions = new List<string>();
             //-- namespace
             //-- ex: $dp.$JsNet.ContosoUniversity = $dp.$JsNet.ContosoUniversity || {};
             foreach (var ns in createdNamespaces)
             {
-                if (nsDecl_Array.Contains(ns) == false)
+                if (jsInstructions.Contains(ns) == false)
                 {
-                    nsDecl_Array.Add(ns);
+                    jsInstructions.Add(ns);
                 }
             }
 
-            {
-                IEnumerable<Type> types_temp = this.Classes.SelectMany(dic => dic.Keys);
+            return jsInstructions;
+        }
 
-                //-- add alias in global variable 'NamespaceAliasDic'
-                _JSNamespace.AddRangeAlias(types_temp);
+        /// <summary>
+        /// Create aliases.
+        /// </summary>
+        /// <returns></returns>
+        public List<string> CreateAliases()
+        {
+            List<string> jsInstructions_ = new List<string>();
 
-                //-- alias of namespace
-                //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
-                nsDecl_Array.AddRange(_JSNamespace.ToJSInstructions(types_temp));
-            }
+            IEnumerable<Type> types_temp = this.Classes.SelectMany(dic => dic.Keys);
 
+            //-- add alias in global variable 'NamespaceAliasDic'
+            _JSNamespace.AddRangeAlias(types_temp);
 
-            //-- function declaration
-            //-- ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
-            nsDecl_Array.AddRange(funcDecl_Array);
+            //-- alias of namespace
+            //-- ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            jsInstructions_.AddRange(_JSNamespace.ToJSInstructions(types_temp));
 
-            nsDecl_Array.Insert(0, JSRaw.Region.Begin("Model"));
-            nsDecl_Array.Add(JSRaw.Region.End());
-
-            return string.Join("\r\n", nsDecl_Array);
-
+            return jsInstructions_;
         }
 
         public static string ToJSTemplate(Func<StringBuilder, object> ToJSCore, bool withJsFileDependencies = true)
@@ -237,7 +278,7 @@ namespace Diphap.JsNetBridge.Data
         /// <returns></returns>
         public string ToJS(bool withJsFileDependencies = true)
         {
-            Func<StringBuilder, object> f = 
+            Func<StringBuilder, object> f =
                 (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
             return ToJSTemplate(f, withJsFileDependencies);
         }

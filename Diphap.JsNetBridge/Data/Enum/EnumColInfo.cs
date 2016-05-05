@@ -50,6 +50,11 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         #endregion
 
+        public override string ToJSCore(string regionName = "Enum")
+        {
+            return base.ToJSCore(regionName);
+        }
+
         public void WriteAllText(string jsFilePath)
         {
             File.WriteAllText(jsFilePath, this.ToJS());
