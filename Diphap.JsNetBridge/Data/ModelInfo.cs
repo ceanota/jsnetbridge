@@ -283,14 +283,14 @@ namespace Diphap.JsNetBridge.Data
             return ToJSTemplate(f, withJsFileDependencies);
         }
 
-        public void WriteAllText(string jsFilePath)
+        public void WriteAllText(string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.WriteAllText(jsFilePath, this.ToJS());
+            File.WriteAllText(jsFilePath, this.ToJS(withJsFileDependencies));
         }
 
-        public void AppendAllText(string jsFilePath)
+        public void AppendAllText(string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.AppendAllText(jsFilePath, this.ToJS());
+            File.AppendAllText(jsFilePath, this.ToJS(withJsFileDependencies));
         }
 
     }

@@ -71,6 +71,7 @@
     <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\getUrlFromTemplate.js" />
     <Content Include="Icon.png" />
     <Content Include="_bin\Diphap.JsNetBridge.dll" />
     <Content Include="_bin\Diphap.JsNetBridge.Generator.exe" />

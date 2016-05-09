@@ -28,8 +28,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         public void TestMethod1()
         {
             ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student));
-            string jsCore = st.ToJS(true);
-            st.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js");
+            st.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", false);
         }
 
         [TestMethod]
