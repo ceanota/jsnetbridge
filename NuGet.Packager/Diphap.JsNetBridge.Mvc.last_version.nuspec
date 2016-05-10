@@ -29,6 +29,7 @@
         <file src="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" target="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
         <file src="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" target="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
         <file src="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" target="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+        <file src="content\Scripts\Diphap.JsNetBridge\getUrlFromTemplate.js" target="content\Scripts\Diphap.JsNetBridge\getUrlFromTemplate.js" />
         <file src="lib\net45\Diphap.JsNetBridge.dll" target="lib\net45\Diphap.JsNetBridge.dll" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" />

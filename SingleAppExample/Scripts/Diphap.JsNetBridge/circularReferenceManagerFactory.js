@@ -1,4 +1,5 @@
-﻿(function () {
+﻿
+(function () {
     window.$dp = window.$dp || {};
     window.$dp.$shared = window.$dp.$shared || {};
 
@@ -7,8 +8,8 @@
     window.$dp.$shared.$circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
         /// <signature>
         ///   <summary>Factory gives un new instance of Function that handles the circular reference objects.</summary>
-        ///   <param name="sameIntance" type="bool">If sameInstance === undefined: new instance of function. Otherwise, we use the same instance.</param>
-        ///   <returns type="Function" />
+        ///   <param name='sameIntance' type='bool'>If sameInstance === undefined: new instance of function. Otherwise, we use the same instance.</param>
+        ///   <returns type='Function' />
         /// </signature>
         if (sameIntance === undefined) {
             var newFunc = window.$dp.$shared.$circularReferenceManagerFactory._managerFunc.bind();
@@ -21,8 +22,8 @@
     window.$dp.$shared.$circularReferenceManagerFactory._managerFunc = function _managerFunc(func) {
         /// <signature>
         ///   <summary>it is the function that handles the circular reference objects</summary>
-        ///   <param name="func" type="Function">Factory of instances.</param>
-        ///   <returns type="Object" />
+        ///   <param name='func' type='Function'>Factory of instances.</param>
+        ///   <returns type='Object' />
         /// </signature>
 
         var internalFunc = window.$dp.$shared.$circularReferenceManagerFactory.instance;
@@ -35,7 +36,7 @@
         }
 
         if (foundedIdx === -1) {
-            internalFunc.factories.push({ "item": func, "number": 0 });
+            internalFunc.factories.push({ 'item': func, 'number': 0 });
             foundedIdx = internalFunc.factories.length - 1;
         } else {
             internalFunc.factories[foundedIdx].number++;
@@ -50,5 +51,3 @@
     }
 
 })();
-
-

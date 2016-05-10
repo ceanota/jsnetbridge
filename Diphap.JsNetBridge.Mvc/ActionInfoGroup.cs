@@ -66,7 +66,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             this._IsApiController = AspMvcInfo.TypesOfAspNetSet.Type_ApiController.IsAssignableFrom(this._type_controller);
 
-            this._signatures = miGroup.Select(x => new ActionInfo(this.Action, this._type_controller, this.Area, x, JSNamespace)).ToArray();
+            this._signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
 
         }
 

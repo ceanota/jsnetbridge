@@ -83,7 +83,6 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var u in ci.ActionInfoCol)
                     {
-
                         object dic;
 
                         if (u.IsApiController)

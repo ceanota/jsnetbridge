@@ -191,9 +191,13 @@ namespace ContosoUniversity.Controllers
             public string HelloWorld;
         }
 
+        [ActionName("aj")]
+        [HttpGet]
         public ActionResult Ajouter(TestClass aaa, EnumTest? e, EnumTest e1) 
         {
-            return new JsonResult();
+            var aa = new JsonResult();
+            aa.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return aa;
         }
 
     }

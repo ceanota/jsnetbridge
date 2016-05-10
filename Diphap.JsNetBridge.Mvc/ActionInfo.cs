@@ -55,15 +55,14 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
-        /// <param name="action"></param>
         /// <param name="type_controller"></param>
         /// <param name="areaName"></param>
         /// <param name="methodInfo">differents signatures of one method</param>
         /// <param name="JSNamespace"></param>
-        public ActionInfo(string action, Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
+        public ActionInfo(Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
         {
             _JSNamespace = JSNamespace;
-            this.Action = action;
+            this.Action = AspMvcInfo.TypesOfAspNetSet.GetActionName(methodInfo);
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
             this.Area = areaName;

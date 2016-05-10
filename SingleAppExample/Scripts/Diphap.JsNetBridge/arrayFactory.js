@@ -1,4 +1,5 @@
-﻿(function () {
+﻿
+(function () {
 
     window.$dp = window.$dp || {};
     window.$dp.$shared = window.$dp.$shared || {};
@@ -8,8 +9,8 @@
     $dp.$shared.$arrayFactory = function arrayFactory(ref) {
         /// <signature>
         ///   <summary>this function returns a array with added function '$dpItemFactory' who creates instance of item of array.</summary>
-        ///   <param name="ref" type="Function">ref is factory who creates instance of item of array</param>
-        ///   <returns type="Function" />
+        ///   <param name='ref' type='Function'>ref is factory who creates instance of item of array</param>
+        ///   <returns type='Function' />
         /// </signature>
 
         var aa = [];

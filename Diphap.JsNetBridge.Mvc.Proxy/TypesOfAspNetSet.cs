@@ -21,6 +21,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         internal Type Type_JsonResult;
         internal Type Type_ActionResult;
         internal Type Type_ViewResult;
+        internal Type Type_ActionNameAttribute;
         #endregion
 
         #region "_Ass_NetHttp"
@@ -87,7 +88,12 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                     this.Type_ViewResult = t;
                 }
 
-                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null)
+                if (this.Type_ActionNameAttribute == null && t.FullName == "System.Web.Mvc.ActionNameAttribute")
+                {
+                    this.Type_ActionNameAttribute = t;
+                }
+
+                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null && this.Type_ActionNameAttribute != null)
                 {
                     break;
                 }
@@ -157,8 +163,8 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                     this.THttpAttributes[t.FullName] = t;
                 }
 
-                if (this.Type_ApiController != null && 
-                    this.Type_AcceptVerbsAttribute != null && 
+                if (this.Type_ApiController != null &&
+                    this.Type_AcceptVerbsAttribute != null &&
                     this.Type_IHttpActionResult != null &&
                     this.Type_RespsonseTypeAttribute != null &&
                     this.THttpAttributes.All(x => x.Value != null))
@@ -170,6 +176,40 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             #endregion
 
         }
+
+        #region "ActionName"
+        PropertyInfo _PropInfo_ActionName;
+        private PropertyInfo PropInfo_ActionName
+        {
+            get
+            {
+                if (_PropInfo_ActionName == null)
+                {
+                    if ((Type_ActionNameAttribute != null) == false) { throw new ArgumentNullException("Type_ActionNameAttribute"); }
+                    _PropInfo_ActionName = Type_ActionNameAttribute.GetProperty("Name");
+                    if ((_PropInfo_ActionName != null) == false) { throw new ArgumentNullException("_PropInfo_ActionName"); }
+                }
+                return _PropInfo_ActionName;
+            }
+        }
+
+        /// <summary>
+        /// Get Action Name.
+        /// </summary>
+        /// <param name="MethodInfo"></param>
+        /// <returns></returns>
+        internal string GetActionName(MethodInfo MethodInfo)
+        {
+            Attribute att = MethodInfo.GetCustomAttribute(this.Type_ActionNameAttribute, true);
+
+            if (att != null)
+            {
+                string name = this.PropInfo_ActionName.GetValue(att) as string;
+                return name;
+            }
+            else { return MethodInfo.Name; }
+        }
+        #endregion
 
         #region "AcceptVerbsAttribute"
 
@@ -210,7 +250,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         internal string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo)
         {
-            Attribute att = MethodInfo.GetCustomAttribute(Type_AcceptVerbsAttribute);
+            Attribute att = MethodInfo.GetCustomAttribute(Type_AcceptVerbsAttribute, true);
 
             if (att != null)
             {
