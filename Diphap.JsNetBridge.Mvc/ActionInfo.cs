@@ -2,6 +2,7 @@
 using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc.Helpers;
+using Diphap.JsNetBridge.Mvc.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -52,6 +53,22 @@ namespace Diphap.JsNetBridge.Mvc
 
         private readonly ConfigJS.JSNamespace _JSNamespace;
 
+        private TypesOfAspNetSet _TypesOfAspNetSet
+        {
+            get
+            {
+                if (this._IsApiController)
+                {
+                    return AspMvcInfo.TypesOfAspNetSetWebApi;
+                }
+                else
+                {
+                    return AspMvcInfo.TypesOfAspNetSetMvc;
+                }
+ 
+            }
+        }
+
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
@@ -62,7 +79,7 @@ namespace Diphap.JsNetBridge.Mvc
         public ActionInfo(Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
         {
             _JSNamespace = JSNamespace;
-            this.Action = AspMvcInfo.TypesOfAspNetSetMvc.GetActionName(methodInfo);
+            
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
             this.Area = areaName;
@@ -76,6 +93,9 @@ namespace Diphap.JsNetBridge.Mvc
             this.IsActionResult = AspMvcInfo.TypesOfAspNetSetMvc.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsViewResult = AspMvcInfo.TypesOfAspNetSetMvc.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
+
+            this.Action = this._TypesOfAspNetSet.GetActionName(methodInfo);
+
         }
 
 
