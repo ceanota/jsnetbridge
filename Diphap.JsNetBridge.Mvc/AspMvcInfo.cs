@@ -19,7 +19,8 @@ namespace Diphap.JsNetBridge.Mvc
     public class AspMvcInfo
     {
         #region "Constants"
-        public static TypesOfAspNetSet TypesOfAspNetSet { get; private set; }
+        public static TypesOfAspNetSetMvc TypesOfAspNetSetMvc { get; private set; }
+        public static TypesOfAspNetSetWebApi TypesOfAspNetSetWebApi { get; private set; }
         public static ConfigDynamicAssembly ConfigReferences { get; private set; }
         #endregion
 
@@ -99,7 +100,8 @@ namespace Diphap.JsNetBridge.Mvc
         {
             _JSNamespace = new ConfigJS.JSNamespace();
             string binFolderPath = Path.GetDirectoryName(asp_net.Location);
-            AspMvcInfo.TypesOfAspNetSet = new TypesOfAspNetSet(binFolderPath);
+            AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(binFolderPath);
+            AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetWebApi(binFolderPath);
 
             InitiliazeForAspNetObjects(asp_net);
 

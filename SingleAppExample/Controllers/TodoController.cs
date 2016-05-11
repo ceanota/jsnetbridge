@@ -126,7 +126,7 @@ namespace SingleAppExample.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-
+        [ActionName("testPutt")]
         [AcceptVerbsAttribute("PUT", "TEST", "get")]
         public HttpResponseMessage testPut()
         {

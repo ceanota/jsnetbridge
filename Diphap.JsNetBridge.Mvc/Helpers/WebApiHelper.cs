@@ -63,7 +63,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
 
             {
-                string[] methods = AspMvcInfo.TypesOfAspNetSet.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
+                string[] methods = AspMvcInfo.TypesOfAspNetSetWebApi.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
                 if (methods.Length > 0)
                 {
                     return methods;
@@ -84,7 +84,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         static public string GetAjaxDataType(MethodInfo MethodInfo)
         {
             bool isText = typeof(void) == MethodInfo.ReturnType ||
-                AspMvcInfo.TypesOfAspNetSet.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
+                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
 
             if (isText)
             {
@@ -100,7 +100,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         static private string GetHttpMethod_FromHttpAttribute(MethodInfo MethodInfo)
         {
 
-            foreach (var t in AspMvcInfo.TypesOfAspNetSet.THttpAttributes.Values)
+            foreach (var t in AspMvcInfo.TypesOfAspNetSetWebApi.THttpAttributes.Values)
             {
                 var att = MethodInfo.GetCustomAttribute(t);
                 if (att != null)

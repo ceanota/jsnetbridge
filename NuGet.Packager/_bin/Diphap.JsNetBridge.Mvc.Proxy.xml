@@ -14,22 +14,22 @@
             For loading dynamically Assemblies.
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_IHttpActionResult">
-            <summary>
-            Warning, Since Web API 2
-            </summary>
-        </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_RespsonseTypeAttribute">
-            <summary>
-            Warning, Since Web API 2
-            </summary>
-        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.GetActionName(System.Reflection.MethodInfo)">
             <summary>
             Get Action Name.
             </summary>
             <param name="MethodInfo"></param>
             <returns></returns>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi.Type_IHttpActionResult">
+            <summary>
+            Warning, Since Web API 2
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute">
+            <summary>
+            Warning, Since Web API 2
+            </summary>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.Proxy.UrlManager">
             <summary>
