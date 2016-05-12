@@ -28,12 +28,15 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         internal Type Type_HttpMethod;
         /// <summary>
         /// Warning, Since Web API 2
+        /// [Optionnal]
         /// </summary>
         internal Type Type_IHttpActionResult;
         /// <summary>
         /// Warning, Since Web API 2
+        /// [Optionnal]
         /// </summary>
         internal Type Type_RespsonseTypeAttribute;
+
         internal Dictionary<string, Type> THttpAttributes = new Dictionary<string, Type>(){ 
                 {"System.Web.Http.HttpGetAttribute",null}, {"System.Web.Http.HttpPostAttribute",null}, 
                 {"System.Web.Http.HttpPutAttribute",null}, {"System.Web.Http.HttpDeleteAttribute",null}, 
@@ -106,6 +109,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                 if (this.Type_ActionNameAttribute == null && t.FullName == "System.Web.Http.ActionNameAttribute")
                 {
                     this.Type_ActionNameAttribute = t;
+                }
+
+                if (this.Type_RouteAttribute == null && t.FullName == "System.Web.Http.RouteAttribute")
+                {
+                    this.Type_RouteAttribute = t;
                 }
 
                 if (this.THttpAttributes.ContainsKey(t.FullName) && this.THttpAttributes[t.FullName] == null)

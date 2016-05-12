@@ -25,6 +25,7 @@ namespace ContosoUniversity
 
             bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
                 .Include("~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
+                .Include("~/Scripts/Diphap.JsNetBridge/getUrlFromTemplate.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 

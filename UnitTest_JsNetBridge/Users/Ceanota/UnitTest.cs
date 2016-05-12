@@ -53,7 +53,9 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestExe()
         {
-            string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";//@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; //@"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
+            //string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
+            //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
+            string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             string text = api.ToJS(true);
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", text);

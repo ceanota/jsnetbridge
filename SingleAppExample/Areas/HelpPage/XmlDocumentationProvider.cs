@@ -108,5 +108,36 @@ namespace SingleAppExample.Areas.HelpPage
 
             return type.FullName;
         }
+
+
+        public string GetDocumentation(HttpControllerDescriptor controllerDescriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IDocumentationProvider.GetDocumentation(HttpParameterDescriptor parameterDescriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IDocumentationProvider.GetDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IDocumentationProvider.GetDocumentation(HttpControllerDescriptor controllerDescriptor)
+        {
+            throw new NotImplementedException();
+        }
+
+        string IDocumentationProvider.GetResponseDocumentation(HttpActionDescriptor actionDescriptor)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

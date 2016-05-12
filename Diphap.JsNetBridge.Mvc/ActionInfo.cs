@@ -32,6 +32,11 @@ namespace Diphap.JsNetBridge.Mvc
         public string Area { get; set; }
 
         /// <summary>
+        /// Route template
+        /// </summary>
+        public string RouteTemplate { get; private set; }
+
+        /// <summary>
         /// MethodInfoGroup on action.
         /// </summary>
         public MethodInfo MethodInfo { get; private set; }
@@ -65,7 +70,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     return AspMvcInfo.TypesOfAspNetSetMvc;
                 }
- 
+
             }
         }
 
@@ -79,7 +84,7 @@ namespace Diphap.JsNetBridge.Mvc
         public ActionInfo(Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
         {
             _JSNamespace = JSNamespace;
-            
+
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
             this.Area = areaName;
@@ -95,7 +100,7 @@ namespace Diphap.JsNetBridge.Mvc
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
 
             this.Action = this._TypesOfAspNetSet.GetActionName(methodInfo);
-
+            this.RouteTemplate = this._TypesOfAspNetSet.GetRouteTemplate(methodInfo);
         }
 
 
@@ -313,6 +318,9 @@ namespace Diphap.JsNetBridge.Mvc
                 }
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+
+                //-- Route Template
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "RouteTemplate = '{0}';", this.RouteTemplate);
 
                 //-- Return.
                 sb.Append("return action;");
