@@ -147,7 +147,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name='action' type='Object'></param>
 
         var url = '';
-        if (action.$sig0.$IsApiController) {
+        if (action.$IsApiController) {
             var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
             var routeTemplate = _cleanRouteTemplate(selectedRoute.$routeTemplate, function (partTemp) { return partTemp === '{controller}'; });
             url = routeTemplate.replace('{controller}', action.$Names.$Controller);

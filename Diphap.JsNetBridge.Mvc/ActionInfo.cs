@@ -273,12 +273,21 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.Append("var action = {};");
                 sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
+                //-- Url
                 if (hasUrl) { sb.Append("action." + ConfigJS.brandLetter + "Url = null;"); }
+                sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
+                sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function () { return action.$_Url || $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
 
+                //-- names.
+                sb.AppendFormat("action.{0}Names = {{ {0}Action : \"{1}\", {0}Controller : \"{2}\", {0}Area : \"{3}\" }};",
+                    ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
+
+                //-- IN/OUT parameters.
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", JSHelper.GetFactory(this.ToJS_Enums(), false));
 
+                //-- httpMethod
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
@@ -292,6 +301,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb.Append(objName + "." + ConfigJS.brandLetter + "IsApiController = null;");
                 }
 
+                //-- AJAX Options.
                 string sb_ajax_options;
                 if (this.IsApiController)
                 {
@@ -304,6 +314,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
 
+                //-- Return.
                 sb.Append("return action;");
             }
 

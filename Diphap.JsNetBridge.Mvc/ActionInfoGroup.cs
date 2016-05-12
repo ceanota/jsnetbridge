@@ -80,22 +80,16 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 StringBuilder sb = new StringBuilder();
                 {
-                    string objName = "action";
-                    sb.Append("var action = {};");
+                    string objName = "obj";
+                    sb.Append("var " + objName + " = {};");
                     sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
-
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
-
-                    //-- names.
-                    sb.AppendFormat("action.{0}Names = {{ {0}Action : \"{1}\", {0}Controller : \"{2}\", {0}Area : \"{3}\" }};",
-    ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
 
                     for (int ii = 0; ii < this._signatures.Length; ii++)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "sig{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "action{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
                     }
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function () { return action.$_Url || $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
-                    sb.Append("return action;");
+
+                    sb.Append("return " + objName + ";");
                 }
 
                 string json = JSHelper.GetFunction(sb.ToString(), true, "actionFactory");
