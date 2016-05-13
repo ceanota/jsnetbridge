@@ -121,7 +121,7 @@ namespace Diphap.JsNetBridge.Common.JS
     $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute = _defaultApiRoute;
     $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute = _defaultMvcRoute;
     
-    function _formatString() {
+    String.prototype.$dpFormat = function _formatString() {
         var str = this.toString();
         if (!arguments.length)
             return str;
@@ -131,7 +131,6 @@ namespace Diphap.JsNetBridge.Common.JS
             str = str.replace(RegExp('\\{' + arg + '\\}', 'gi'), args[arg]);
         return str;
     }
-    $dp.$JsNet.$Helpers.$Shared.formatString = _formatString;
 
     function _cleanRouteTemplate(routeTemplateTemp, predicate) {
         /// <summary></summary>
