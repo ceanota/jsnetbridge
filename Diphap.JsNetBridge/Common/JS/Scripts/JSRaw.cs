@@ -122,6 +122,9 @@ namespace Diphap.JsNetBridge.Common.JS
     $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute = _defaultMvcRoute;
     
     String.prototype.$dpFormat = function _formatString() {
+        /// <summary>format string</summary>
+        /// <param name='obj' type='Object'></param>
+
         var str = this.toString();
         if (!arguments.length)
             return str;
