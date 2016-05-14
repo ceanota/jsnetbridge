@@ -11,12 +11,12 @@ namespace Diphap.JsNetBridge.Mvc
     /// <summary>
     /// Informations on action method.
     /// </summary>
-    public class ActionInfoGroup : IActionInfo
+    public class ActionInfoGroup
     {
         /// <summary>
         /// Action name.
         /// </summary>
-        public string Action { get; set; }
+        public string MethodName { get; set; }
 
         /// <summary>
         /// Controller name.
@@ -43,7 +43,7 @@ namespace Diphap.JsNetBridge.Mvc
         readonly bool _IsApiController = false;
         public bool IsApiController { get { return this._IsApiController; } }
 
-        private readonly ActionInfo[] _signatures;
+        public ActionInfo[] Signatures { get; private set; }
 
         private readonly ConfigJS.JSNamespace _JSNamespace;
         /// <summary>
@@ -57,7 +57,7 @@ namespace Diphap.JsNetBridge.Mvc
         public ActionInfoGroup(string action, Type type_controller, string areaName, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace)
         {
             _JSNamespace = JSNamespace;
-            this.Action = action;
+            this.MethodName = action;
             this._type_controller = type_controller;
             this.Controller = this._type_controller.Name.Replace("Controller", "");
             this.Area = areaName;
@@ -66,8 +66,13 @@ namespace Diphap.JsNetBridge.Mvc
 
             this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.Type_ApiController.IsAssignableFrom(this._type_controller);
 
-            this._signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
-
+            this.Signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
+            
+            //-- set idx.
+            for (int ii = 0; ii < this.Signatures.Length; ii++)
+            {
+                this.Signatures[ii].Idx = ii;
+            }
         }
 
         /// <summary>
@@ -84,9 +89,9 @@ namespace Diphap.JsNetBridge.Mvc
                     sb.Append("var " + objName + " = {};");
                     sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
-                    for (int ii = 0; ii < this._signatures.Length; ii++)
+                    for (int ii = 0; ii < this.Signatures.Length; ii++)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "action{0} = {1};", ii, this._signatures[ii].GetJsValue(false));
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "action{0} = {1};", this.Signatures[ii].Idx.Value, this.Signatures[ii].GetJsValue(false));
                     }
 
                     sb.Append("return " + objName + ";");
@@ -106,32 +111,40 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                string json = string.Format("\"{0}\": {1}", this.Action, this.JsValue);
+                string json = string.Format("\"{0}\": {1}", this.MethodName, this.JsValue);
                 return json;
             }
         }
 
-        /// <summary>
-        /// ex: 'AreaName.ControllerName.ActionName'
-        /// </summary>
-        public string JsLongName
-        {
-            get
-            {
-                return this._signatures[0].JsLongName;
-            }
-        }
+        ///// <summary>
+        ///// ex: 'AreaName.ControllerName.ActionName'
+        ///// </summary>
+        //public string JsLongName
+        //{
+        //    get
+        //    {
+        //        return this._signatures[0].JsLongName;
+        //    }
+        //}
 
-        /// <summary>
-        /// ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
-        /// </summary>
-        public string JsSetUrl
-        {
-            get
-            {
-                return this._signatures[0].GetJsSetUrl(this.Url);
-            }
-        }
+        ///// <summary>
+        ///// ex: 'AreaName.ControllerName.MethodName.action0.$_Url="url_value"'
+        ///// </summary>
+        //public IList<string> JsSetUrl
+        //{
+        //    get
+        //    {
+        //        List<string> urlArray = new List<string>();
+
+        //        foreach (var sig in this._signatures)
+        //        {
+        //            urlArray.Add(sig.GetJsSetUrl());
+        //        }
+
+
+        //        return urlArray;
+        //    }
+        //}
 
         IList<Type> _ParameterClassTypes;
 
@@ -143,7 +156,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._ParameterClassTypes == null)
             {
-                this._ParameterClassTypes = this._signatures.SelectMany(x => x.ParameterClassTypes()).Distinct().ToArray();
+                this._ParameterClassTypes = this.Signatures.SelectMany(x => x.ParameterClassTypes()).Distinct().ToArray();
             }
 
             return this._ParameterClassTypes;
@@ -159,7 +172,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._ParameterEnumTypes == null)
             {
-                this._ParameterEnumTypes = this._signatures.SelectMany(x => x.ParameterEnumTypes()).Distinct().ToArray();
+                this._ParameterEnumTypes = this.Signatures.SelectMany(x => x.ParameterEnumTypes()).Distinct().ToArray();
             }
 
             return this._ParameterEnumTypes;
@@ -175,7 +188,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             if (this._AllInOutClassTypes == null)
             {
-                this._AllInOutClassTypes = this._signatures.SelectMany(x => x.AllInOutClassTypes()).Distinct().ToArray();
+                this._AllInOutClassTypes = this.Signatures.SelectMany(x => x.AllInOutClassTypes()).Distinct().ToArray();
             }
             return this._AllInOutClassTypes;
         }
@@ -186,7 +199,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public override string ToString()
         {
-            return this._signatures[0].ToString();
+            return this.Signatures[0].ToString();
         }
     }
 }

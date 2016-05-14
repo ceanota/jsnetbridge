@@ -48,7 +48,25 @@ namespace Diphap.JsNetBridge.Mvc
             Type type_obj = typeof(System.Object);
             Type type_type = typeof(System.Type);
 
-            Type[] types = asp_net.GetTypes();
+            Type[] types;
+            try
+            {
+                types = asp_net.GetTypes();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                foreach (var excep in ex.LoaderExceptions)
+                {
+                    System.Console.WriteLine(excep.Message);
+                }
+                throw ex;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
 
             this.Types_Model = TypeHelper.GetCustomTypes(types
                 .Where(t => t.FullName.Contains(".Models")
@@ -259,8 +277,9 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 this._AllInOutClassTypes = this.UrlInfo.AreaInfoList
                     .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
-                    .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
-                    .SelectMany<IActionInfo, Type>(ai => ai.AllInOutClassTypes())
+                    .SelectMany<ControllerInfo, ActionInfoGroup>(ci => ci.ActionInfoCol)
+                    .SelectMany<ActionInfoGroup, ActionInfo>(aig => aig.Signatures)
+                    .SelectMany<ActionInfo, Type>(ai => ai.AllInOutClassTypes())
                     .Where(t => t.FullName.IndexOf("System.") != 0)
                     .Distinct()
                     .ToArray();
@@ -280,8 +299,9 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 this._ParameterEnumTypes = this.UrlInfo.AreaInfoList
                     .SelectMany<AreaInfo, ControllerInfo>(ai => ai.ControllerInfoCol)
-                    .SelectMany<ControllerInfo, IActionInfo>(ci => ci.ActionInfoCol)
-                    .SelectMany<IActionInfo, Type>(ai => ai.ParameterEnumTypes())
+                    .SelectMany<ControllerInfo, ActionInfoGroup>(ci => ci.ActionInfoCol)
+                    .SelectMany<ActionInfoGroup, ActionInfo>(aig => aig.Signatures)
+                    .SelectMany<ActionInfo, Type>(ai => ai.ParameterEnumTypes())
                     .Distinct()
                     .ToArray();
             }

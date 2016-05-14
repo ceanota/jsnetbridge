@@ -144,6 +144,6 @@ namespace SingleAppExample.Controllers
 
     public class Personnage
     {
-        string Nom;
+        public string Nom;
     }
 }

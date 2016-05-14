@@ -22,7 +22,7 @@
 	else
 	{
 		string appName = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
-		sortie = new Diphap.JsNetBridge.Mvc.AspMvcInfo(appName).ToJS();
+		sortie = new Diphap.JsNetBridge.Mvc.AspMvcInfo(appName).ToJS(false);
 	}
 
 #>

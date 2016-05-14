@@ -81,38 +81,39 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 foreach (var ci in ai.ControllerInfoCol)
                 {
-                    foreach (var u in ci.ActionInfoCol)
+                    foreach (var aig in ci.ActionInfoCol)
                     {
-                        object dic;
-
-                        if (u.IsApiController)
+                        foreach (var sig in aig.Signatures)
                         {
-                            if (string.IsNullOrWhiteSpace(u.Area) == false)
+                            object dic;
+
+                            if (sig.IsApiController)
                             {
-                                dic = new { area = u.Area, httproute = "",  controller = u.Controller };
+                                if (string.IsNullOrWhiteSpace(sig.Area) == false)
+                                {
+                                    dic = new { area = sig.Area, httproute = "", controller = sig.Controller };
+                                }
+                                else
+                                {
+                                    dic = new { httproute = "", controller = sig.Controller };
+                                }
+
+                                sig.Url = urlHelper.RouteUrl(apiRouteName, dic);
                             }
                             else
                             {
-                                dic = new { httproute = "", controller = u.Controller };
-                            }
+                                if (string.IsNullOrWhiteSpace(sig.Area) == false)
+                                {
+                                    dic = new { area = sig.Area };
+                                }
+                                else
+                                {
+                                    dic = new { };
+                                }
 
-                            u.Url = urlHelper.RouteUrl(apiRouteName, dic);
+                                sig.Url = urlHelper.Action(sig.Action, sig.Controller, dic);
+                            }
                         }
-                        else
-                        {
-                            if (string.IsNullOrWhiteSpace(u.Area) == false)
-                            {
-                                dic = new { area = u.Area };
-                            }
-                            else
-                            {
-                                dic = new { };
-                            }
-
-                            u.Url = urlHelper.Action(u.Action, u.Controller, dic);
-                        }
-
-
                     }
                 }
             }
@@ -186,6 +187,7 @@ namespace Diphap.JsNetBridge.Mvc
             IEnumerable<string> properties = aiList
                 .SelectMany(x => x.ControllerInfoCol)
                 .SelectMany(x => x.ActionInfoCol)
+                .SelectMany(x => x.Signatures)
                 .Select(x => js_rootTemp + x.JsSetUrl);
 
             string js = string.Join(";", properties);
@@ -198,11 +200,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             List<AreaInfo> aiList = new List<AreaInfo>();
 
-            IList<IActionInfo> urlList;
-            {
-                List<ActionInfoGroup> urlListTemp = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/, JSNamespace);
-                urlList = urlListTemp.Cast<IActionInfo>().ToArray();
-            }
+            IList<ActionInfoGroup> urlList = ExtractUrlFromAspNetMvcApplication(types_contoller/*asp_net*/, JSNamespace);
 
             List<string> areas = urlList.Where(x => string.IsNullOrWhiteSpace(x.Area) == false).Select(x => x.Area).Distinct().ToList();
             foreach (var a in areas)
@@ -218,7 +216,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
-        private static AreaInfo GetAreaInfo(IList<IActionInfo> urlList, string a)
+        private static AreaInfo GetAreaInfo(IList<ActionInfoGroup> urlList, string a)
         {
             var url_list_byArea = urlList.Where(x => x.Area == a);
             var groupByController = url_list_byArea.GroupBy(x => x.Controller);
@@ -244,6 +242,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 urlList.AddRange(urlListTemp);
             }
+
 
             return urlList;
         }

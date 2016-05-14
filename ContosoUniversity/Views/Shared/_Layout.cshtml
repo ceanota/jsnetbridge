@@ -49,10 +49,10 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/JsNetBridge")
     <script src="/Scripts/Diphap.JsNetBridge/getUrlFromTemplate.js"></script>
-    <div>hello</div>
     <script>
-        @(new MvcHtmlString(ContosoUniversity.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
-    </script>
+        /*  @(new MvcHtmlString(ContosoUniversity.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))    */
+        
+        </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

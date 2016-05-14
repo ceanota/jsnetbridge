@@ -14,7 +14,7 @@ namespace Diphap.JsNetBridge.Mvc
     /// <summary>
     /// Informations on action method.
     /// </summary>
-    public class ActionInfo : Diphap.JsNetBridge.Mvc.IActionInfo
+    public class ActionInfo //: Diphap.JsNetBridge.Mvc.IActionInfo
     {
         /// <summary>
         /// Action name.
@@ -45,6 +45,11 @@ namespace Diphap.JsNetBridge.Mvc
         /// Url.
         /// </summary>
         public string Url { get; set; }
+
+        /// <summary>
+        /// index of signatures.
+        /// </summary>
+        internal int? Idx { get; set; }
 
         private readonly Type _type_controller;
 
@@ -281,10 +286,10 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- Url
                 if (hasUrl) { sb.Append("action." + ConfigJS.brandLetter + "Url = null;"); }
                 sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
-                sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function () { return action.$_Url || $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action); };");
+                sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function (routeData) { var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate; if(!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); } };");
 
                 //-- names.
-                sb.AppendFormat("action.{0}Names = {{ {0}Action : \"{1}\", {0}Controller : \"{2}\", {0}Area : \"{3}\" }};",
+                sb.AppendFormat("action.{0}Names = {{ action : \"{1}\", controller : \"{2}\", area : \"{3}\" }};",
                     ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
 
                 //-- IN/OUT parameters.
@@ -338,11 +343,14 @@ namespace Diphap.JsNetBridge.Mvc
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
+
             sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("method:{0}", "null");
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;
@@ -362,6 +370,8 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("method:{0}", "POST");
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;
@@ -387,7 +397,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                string json = string.Format("{0}.{1}", this.Controller, this.Action);
+                string json = string.Format("{0}.{1}.{2}action{3}", this.Controller, this.MethodInfo.Name, ConfigJS.brandLetter, this.Idx.Value);
 
                 if (string.IsNullOrWhiteSpace(this.Area) == false)
                 {
@@ -399,7 +409,7 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
-        /// ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+        /// ex: 'AreaName.ControllerName.MethodName.action0.$_Url="url_value"'
         /// </summary>
         public string JsSetUrl
         {
