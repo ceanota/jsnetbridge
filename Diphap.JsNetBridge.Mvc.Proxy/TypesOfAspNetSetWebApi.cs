@@ -47,13 +47,10 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         public TypesOfAspNetSetWebApi(string binFolderPath)
             : base(binFolderPath)
         {
-            AppDomain.CurrentDomain.AssemblyResolve += AssemblyResolver.GetHandler(binFolderPath);
-
             #region "_Ass_NetHttp"
             {
                 string assName = "System.Net.Http";
-                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
-                this._Ass_NetHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
+                this._Ass_NetHttp = _LoadAssembly(assName, binFolderPath);
             }
             foreach (var t in this._Ass_NetHttp.ExportedTypes)
             {
@@ -80,8 +77,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             #region "_Ass_WebHttp"
             {
                 string assName = "System.Web.Http";
-                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
-                this._Ass_WebHttp = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
+                this._Ass_WebHttp = _LoadAssembly(assName, binFolderPath);
             }
 
             foreach (var t in this._Ass_WebHttp.ExportedTypes)
@@ -139,20 +135,20 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         #region "AcceptVerbsAttribute"
 
 
-        PropertyInfo _PropInfo_HttpMethodArray;
-        private PropertyInfo PropInfo_HttpMethodArray
-        {
-            get
-            {
-                if (_PropInfo_HttpMethodArray == null)
-                {
-                    if ((Type_AcceptVerbsAttribute != null) == false) { throw new ArgumentNullException("Type_AcceptVerbsAttribute"); }
-                    _PropInfo_HttpMethodArray = Type_AcceptVerbsAttribute.GetProperty("HttpMethods");
-                    if ((_PropInfo_HttpMethodArray != null) == false) { throw new ArgumentNullException("_PropInfo_HttpMethodArray"); }
-                }
-                return _PropInfo_HttpMethodArray;
-            }
-        }
+        //PropertyInfo _PropInfo_HttpMethodArray;
+        //private PropertyInfo PropInfo_HttpMethodArray
+        //{
+        //    get
+        //    {
+        //        if (_PropInfo_HttpMethodArray == null)
+        //        {
+        //            if ((Type_AcceptVerbsAttribute != null) == false) { throw new ArgumentNullException("Type_AcceptVerbsAttribute"); }
+        //            _PropInfo_HttpMethodArray = Type_AcceptVerbsAttribute.GetProperty("HttpMethods");
+        //            if ((_PropInfo_HttpMethodArray != null) == false) { throw new ArgumentNullException("_PropInfo_HttpMethodArray"); }
+        //        }
+        //        return _PropInfo_HttpMethodArray;
+        //    }
+        //}
         #endregion
 
         #region "HttpMethod"
@@ -175,13 +171,13 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         internal string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo)
         {
-            Attribute att = MethodInfo.GetCustomAttribute(Type_AcceptVerbsAttribute, true);
+            object value = TypeHelper.GetAttributePropertyValue(MethodInfo, Type_AcceptVerbsAttribute, "HttpMethods");
 
-            if (att != null)
+            if (value != null)
             {
                 List<string> methods_str = new List<string>();
 
-                IEnumerable httpMethodArray = this.PropInfo_HttpMethodArray.GetValue(att) as IEnumerable;
+                IEnumerable httpMethodArray = value as IEnumerable;
 
                 if ((httpMethodArray != null) == false) { throw new ArgumentNullException("httpMethodArray"); }
 

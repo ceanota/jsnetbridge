@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Diphap.JsNetBridge.Common
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Enum, AllowMultiple = false, Inherited = true)]
-    public class JsNetIgnoreAttribute : Attribute
+    public sealed class JsNetIgnoreAttribute : Attribute
     {
     }
 }

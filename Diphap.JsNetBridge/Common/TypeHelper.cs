@@ -392,7 +392,7 @@ namespace Diphap.JsNetBridge
         private static bool AurthorizeTypeOfObject(IList<string> whiteNamespaces, IList<string> blackNamespaces, Type t, IList<Type> types_selected)
         {
             Func<bool> noSelectedFlag = () => types_selected.IndexOf(t) < 0;
-            Func<bool> noAttFlag = () => t.GetCustomAttribute(typeof(JsNetIgnoreAttribute), true) == null;
+            Func<bool> noAttFlag = () => CustomAttributeData.GetCustomAttributes(t).FirstOrDefault(x => x.AttributeType == typeof(JsNetIgnoreAttribute)) == null;
             Func<bool> nothingFlag = () => ((whiteNamespaces == null || whiteNamespaces.Count == 0) && (blackNamespaces == null || blackNamespaces.Count == 0));
             Func<bool> whiteFlag = () => (whiteNamespaces != null && whiteNamespaces.Count > 0 && whiteNamespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0));
             Func<bool> blackFlag = () => (blackNamespaces != null && blackNamespaces.Count > 0 && blackNamespaces.Any(ns => !string.IsNullOrWhiteSpace(ns) && t.FullName.IndexOf(ns) == 0));
@@ -490,11 +490,11 @@ namespace Diphap.JsNetBridge
                             {
                                 tnamesArray.Add(targ.Name.Replace(".", null));
                             }
-                            else 
+                            else
                             {
                                 tnamesArray.Add(targ.FullName.Replace(".", null));
                             }
-                            
+
                         }
                     }
                 }
@@ -516,6 +516,149 @@ namespace Diphap.JsNetBridge
             return name.Replace("+", ".");
         }
 
+        #region "Attribute - reflection context"
+
+        private static object GetAttributeDataPropertyValue(CustomAttributeData att, string propertyName)
+        {
+            object value = null;
+            CustomAttributeNamedArgument arg = att.NamedArguments.SingleOrDefault(x => x.MemberName == propertyName);
+            if (arg != null && arg.TypedValue != null)
+            {
+                value = arg.TypedValue.Value;
+            }
+
+            if (value == null)
+            {
+                CustomAttributeTypedArgument targ = att.ConstructorArguments.FirstOrDefault();
+                if (targ != null)
+                {
+                    value = targ.Value;
+                }
+            }
+            return value;
+        }
+
+        public static object GetCustomAttribute(MemberInfo target, Type tatt)
+        {
+            object att = null;
+            if (target.DeclaringType.Assembly.ReflectionOnly == true)
+            {
+                att = CustomAttributeData.GetCustomAttributes(target).FirstOrDefault(x => x.AttributeType == tatt);
+            }
+            else
+            {
+                att = target.GetCustomAttribute(tatt);
+            }
+
+            return att;
+        }
+
+        /// <summary>
+        /// Get value of property of attribute.
+        /// </summary>
+        /// <param name="target"></param>
+        /// <param name="tatt"></param>
+        /// <param name="propertyName"></param>
+        /// <returns></returns>
+        public static object GetAttributePropertyValue(MemberInfo target, Type tatt, string propertyName)
+        {
+            object value = null;
+            if (target.DeclaringType.Assembly.ReflectionOnly == true)
+            {
+                CustomAttributeData att = CustomAttributeData.GetCustomAttributes(target).FirstOrDefault(x => x.AttributeType == tatt);
+                if (att != null)
+                {
+                    value = GetAttributeDataPropertyValue(att, propertyName);
+                }
+            }
+            else
+            {
+                Attribute att = target.GetCustomAttribute(tatt);
+                if (att != null)
+                {
+                    value = tatt.GetProperty(propertyName).GetValue(att);
+                }
+            }
+
+            return value;
+        }
+
+        public static object GetAttributePropertyValue(Type target, Type tatt, string propertyName)
+        {
+            object value = null;
+            if (target.Assembly.ReflectionOnly == true)
+            {
+                CustomAttributeData att = CustomAttributeData.GetCustomAttributes(target).FirstOrDefault(x => x.AttributeType == tatt);
+                if (att != null)
+                {
+                    value = GetAttributeDataPropertyValue(att, propertyName);
+                }
+            }
+            else
+            {
+                Attribute att = target.GetCustomAttribute(tatt);
+                if (att != null)
+                {
+                    value = tatt.GetProperty(propertyName).GetValue(att);
+                }
+            }
+
+            return value;
+        }
+
+        public static object GetAttributePropertyValue(Module target, Type tatt, string propertyName)
+        {
+            object value = null;
+            if (target.Assembly.ReflectionOnly == true)
+            {
+                CustomAttributeData att = CustomAttributeData.GetCustomAttributes(target).FirstOrDefault(x => x.AttributeType == tatt);
+                if (att != null)
+                {
+                    value = GetAttributeDataPropertyValue(att, propertyName);
+                }
+            }
+            else
+            {
+                Attribute att = CustomAttributeExtensions.GetCustomAttribute(target, tatt);
+                if (att != null)
+                {
+                    value = tatt.GetProperty(propertyName).GetValue(att);
+                }
+            }
+
+            return value;
+        }
+
+
+        public static object GetAttributePropertyValue(ParameterInfo target, Type tatt, string propertyName)
+        {
+            object value = null;
+            if (target.ParameterType.Assembly.ReflectionOnly == true)
+            {
+                CustomAttributeData att = CustomAttributeData.GetCustomAttributes(target).FirstOrDefault(x => x.AttributeType == tatt);
+                if (att != null)
+                {
+                    value = GetAttributeDataPropertyValue(att, propertyName);
+                }
+            }
+            else
+            {
+                Attribute att = CustomAttributeExtensions.GetCustomAttribute(target, tatt);
+                if (att != null)
+                {
+                    value = tatt.GetProperty(propertyName).GetValue(att);
+                }
+            }
+
+            return value;
+        }
+
+        #endregion
+
+        public static string GetAssemblyNameFromFullname(string fullname)
+        {
+            return fullname.Split(new char[] { ',' })[0].Trim();
+        }
 
     }
 }

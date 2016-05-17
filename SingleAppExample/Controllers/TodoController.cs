@@ -133,6 +133,11 @@ namespace SingleAppExample.Controllers
             return Request.CreateResponse(HttpStatusCode.NotFound);
         }
 
+        public HttpResponseMessage PutTest(string test)
+        {
+            return Request.CreateResponse(HttpStatusCode.NotFound);
+        }
+
         [Route("customers/{customerId}/orders")]
         [System.Web.Http.HttpPut()]
         public Personnage[] test1Put()

@@ -30,8 +30,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             #region "_Ass_WebMvc"
             {
                 string assName = "System.Web.Mvc";
-                string dllPath = Path.Combine(binFolderPath, assName + ".dll");
-                this._Ass_WebMvc = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(ConfigDynamicAssembly.References[assName]);
+                this._Ass_WebMvc = _LoadAssembly(assName, binFolderPath);
             }
 
             foreach (var t in this._Ass_WebMvc.ExportedTypes)

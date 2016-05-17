@@ -102,7 +102,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
             foreach (var t in AspMvcInfo.TypesOfAspNetSetWebApi.THttpAttributes.Values)
             {
-                var att = MethodInfo.GetCustomAttribute(t);
+                var att = TypeHelper.GetCustomAttribute(MethodInfo, t);
                 if (att != null)
                 {
                     return t.Name.ToLower().Replace("http", null).Replace("attribute", null);

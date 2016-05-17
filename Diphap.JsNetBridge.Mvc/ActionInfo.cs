@@ -221,27 +221,31 @@ namespace Diphap.JsNetBridge.Mvc
             return jsonParams_string;
         }
 
+
         /// <summary>
         /// Get the effective return type.
         /// </summary>
         /// <returns></returns>
         public Type GetEffectiveReturnType()
         {
+            Type value = null;
+
             if (AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute != null)
             {
-                Attribute att0 = this.MethodInfo.GetCustomAttribute(AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute);
-                if (att0 != null)
-                {
-                    return AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute.GetProperty("ResponseType").GetValue(att0) as Type;
-                }
+                value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute, "ResponseType") as Type;
             }
 
-            JsNetResponseTypeAttribute att1 = this.MethodInfo.GetCustomAttribute<JsNetResponseTypeAttribute>();
-            if (att1 != null)
+            if (value == null) 
             {
-                return att1.ResponseType;
+                value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, typeof(JsNetResponseTypeAttribute), "ResponseType") as Type;
             }
-            return this.MethodInfo.ReturnType;
+
+            if (value == null)
+            {
+                value = this.MethodInfo.ReturnType;
+            }
+
+            return value;
         }
 
         /// <summary>
@@ -303,12 +307,12 @@ namespace Diphap.JsNetBridge.Mvc
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
                     if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApiController = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApi = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
                     }
                 }
                 else
                 {
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "IsApiController = null;");
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "IsApi = null;");
                 }
 
                 //-- AJAX Options.

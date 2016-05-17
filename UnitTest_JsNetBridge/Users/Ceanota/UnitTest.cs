@@ -15,6 +15,7 @@ using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc;
 using Test;
 using System.Text;
+using Diphap.JsNetBridge.Common;
 
 namespace UnitTest_JsNetBridge.Users.Ceanota
 {
@@ -56,6 +57,9 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             //string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
             //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
             string appAspNetPath = @"C:\Users\diphap\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
+
+            var types = ReflectionLoader.LoadFrom(appAspNetPath).GetExportedTypes();
+            
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             string text = api.ToJS(true);
             File.WriteAllText(@"C:\Users\diphap\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", text);

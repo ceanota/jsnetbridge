@@ -51,7 +51,7 @@ namespace Diphap.JsNetBridge.Mvc
             Type[] types;
             try
             {
-                types = asp_net.GetTypes();
+                types = asp_net.GetExportedTypes();
             }
             catch (ReflectionTypeLoadException ex)
             {
@@ -163,7 +163,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="typeSetList"></param>
         /// <returns></returns>
         public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
-            : this(Assembly.LoadFrom(appAspNetPath), typeSetList)
+            : this(ReflectionLoader.LoadFrom(appAspNetPath), typeSetList)
         {
 
         }
