@@ -291,6 +291,7 @@ namespace Diphap.JsNetBridge.Mvc
                 if (hasUrl) { sb.Append("action." + ConfigJS.brandLetter + "Url = null;"); }
                 sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
                 sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function (routeData) { var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate; if(!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); } };");
+                sb.Append(objName + "." + ConfigJS.brandLetter + "GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };");
 
                 //-- names.
                 sb.AppendFormat("action.{0}Names = {{ action : \"{1}\", controller : \"{2}\", area : \"{3}\" }};",

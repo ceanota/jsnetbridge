@@ -91,17 +91,18 @@
         }
         return text;
     }
-
+    
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
         /// <param name='action' type='Object'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
         var url = '';
-        var selectedRoute;
-        if (action.$IsApiController) {
-            selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
 
-            url = (action.$RouteTemplate || selectedRoute.$RouteTemplate).$dpFormat(action.$Names);
+        var selectedRouteTemplate;
+        if (action.$IsApi) {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+            url = selectedRouteTemplate.$dpFormat(action.$Names);
             if (routeData) { url = url.$dpFormat(routeData); }
             url = _cleanRouteTemplate(url);
             if (url.indexOf('/') !== 0) { url = '/' + url; }
@@ -109,9 +110,9 @@
 
         }
         else {
-            selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
-
-            url = (action.$RouteTemplate || selectedRoute.$RouteTemplate).$dpFormat(action.$Names);
+            var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+            url = selectedRouteTemplate.$dpFormat(action.$Names);
             if (routeData) { url = url.$dpFormat(routeData); }
             url = _cleanRouteTemplate(url);
             if (url.indexOf('/') !== 0) { url = '/' + url; }
@@ -123,7 +124,7 @@
         };
 
         //-- querystring
-        var unusedRouteData = _noMatch(selectedRoute.$RouteTemplate, routeData);
+        var unusedRouteData = _noMatch(selectedRouteTemplate, routeData);
         var queryString = _toQueryString(unusedRouteData);
         if (queryString) {
             url = url + '?' + queryString;
@@ -131,5 +132,41 @@
 
         return url;
     }
+    function _getRouteDataCore(routeTemplate) {
+        var parts = routeTemplate.split('/');
+        var obj = {};
+        for (var idx = 0; idx < parts.length; idx++) {
+            var rg = RegExp('\\{' + '.*' + '\\}', 'gi');
+            var rgArray = rg.exec(parts[idx]);
+            if (rgArray && rgArray.length > 0) {
+                if (rgArray[0]) {
+                    obj[rgArray[0].replace('{', '').replace('}', '')] = null;
+                }
+            }
+        }
+        return obj;
+    }
+
+    function _getRouteData(action) {
+        /// <summary>ex: { action: null, controller: null, id: null }</summary>
+        /// <param name='action' type='Object'></param>
+
+        var selectedRouteTemplate;
+        if (action.$IsApi) {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+        }
+        else {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+        }
+
+        var routeData = _getRouteDataCore(selectedRouteTemplate);
+
+        return routeData;
+    }
+
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
+    $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
+    
 })();

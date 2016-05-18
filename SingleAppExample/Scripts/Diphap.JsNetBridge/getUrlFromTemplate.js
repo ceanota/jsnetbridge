@@ -133,5 +133,40 @@
         return url;
     }
 
+    function _getRouteDataCore(routeTemplate) {
+        var parts = routeTemplate.split('/');
+        var obj = {};
+        for (var idx = 0; idx < parts.length; idx++) {
+            var rg = RegExp('\\{' + ".*" + '\\}', 'gi');
+            var rgArray = rg.exec(parts[idx]);
+            if (rgArray && rgArray.length > 0) {
+                if (rgArray[0]) {
+                    obj[rgArray[0].replace('{', '').replace('}', '')] = null;
+                }
+            }
+        }
+        return obj;
+    }
+
+    function _getRouteData(action) {
+        /// <summary>ex: { action: null, controller: null, id: null }</summary>
+        /// <param name='action' type='Object'></param>
+
+        var selectedRouteTemplate;
+        if (action.$IsApi) {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+        }
+        else {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+        }
+
+        var routeData = _getRouteDataCore(selectedRouteTemplate);
+
+        return routeData;
+    }
+
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
+    $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
 })();
