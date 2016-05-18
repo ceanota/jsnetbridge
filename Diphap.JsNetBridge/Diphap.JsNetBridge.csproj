@@ -43,7 +43,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\AssemblyInfo.cs" />
-    <Compile Include="Common\AssemblyResolver.cs" />
     <Compile Include="Common\JsNetResponseTypeAttribute.cs" />
     <Compile Include="Common\JsNetIgnoreAttribute.cs" />
     <Compile Include="Common\JS\JSHelper.cs" />

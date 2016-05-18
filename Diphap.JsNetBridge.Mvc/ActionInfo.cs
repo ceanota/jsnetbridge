@@ -14,7 +14,7 @@ namespace Diphap.JsNetBridge.Mvc
     /// <summary>
     /// Informations on action method.
     /// </summary>
-    public class ActionInfo //: Diphap.JsNetBridge.Mvc.IActionInfo
+    public class ActionInfo
     {
         /// <summary>
         /// Action name.

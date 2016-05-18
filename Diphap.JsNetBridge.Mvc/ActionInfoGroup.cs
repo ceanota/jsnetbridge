@@ -116,36 +116,6 @@ namespace Diphap.JsNetBridge.Mvc
             }
         }
 
-        ///// <summary>
-        ///// ex: 'AreaName.ControllerName.ActionName'
-        ///// </summary>
-        //public string JsLongName
-        //{
-        //    get
-        //    {
-        //        return this._signatures[0].JsLongName;
-        //    }
-        //}
-
-        ///// <summary>
-        ///// ex: 'AreaName.ControllerName.MethodName.action0.$_Url="url_value"'
-        ///// </summary>
-        //public IList<string> JsSetUrl
-        //{
-        //    get
-        //    {
-        //        List<string> urlArray = new List<string>();
-
-        //        foreach (var sig in this._signatures)
-        //        {
-        //            urlArray.Add(sig.GetJsSetUrl());
-        //        }
-
-
-        //        return urlArray;
-        //    }
-        //}
-
         IList<Type> _ParameterClassTypes;
 
         /// <summary>

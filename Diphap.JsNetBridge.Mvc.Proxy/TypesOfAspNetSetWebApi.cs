@@ -133,22 +133,6 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         }
 
         #region "AcceptVerbsAttribute"
-
-
-        //PropertyInfo _PropInfo_HttpMethodArray;
-        //private PropertyInfo PropInfo_HttpMethodArray
-        //{
-        //    get
-        //    {
-        //        if (_PropInfo_HttpMethodArray == null)
-        //        {
-        //            if ((Type_AcceptVerbsAttribute != null) == false) { throw new ArgumentNullException("Type_AcceptVerbsAttribute"); }
-        //            _PropInfo_HttpMethodArray = Type_AcceptVerbsAttribute.GetProperty("HttpMethods");
-        //            if ((_PropInfo_HttpMethodArray != null) == false) { throw new ArgumentNullException("_PropInfo_HttpMethodArray"); }
-        //        }
-        //        return _PropInfo_HttpMethodArray;
-        //    }
-        //}
         #endregion
 
         #region "HttpMethod"

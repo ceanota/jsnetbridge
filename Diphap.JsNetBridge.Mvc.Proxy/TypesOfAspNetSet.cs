@@ -40,33 +40,15 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         static protected Assembly _LoadAssembly(string assName, string binFolderPath)
         {
-            //string dllPath = Path.Combine(binFolderPath, assName + ".dll");
-            //Assembly ass = File.Exists(dllPath) ? Assembly.ReflectionOnlyLoadFrom(dllPath) : Assembly.ReflectionOnlyLoad(ConfigDynamicAssembly.References[assName]);
             Assembly ass = ReflectionLoader.Load(ConfigDynamicAssembly.References[assName], binFolderPath);
             return ass;
         }
 
         public TypesOfAspNetSet(string binFolderPath)
         {
-            //AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += AssemblyResolver.GetHandler(binFolderPath);
         }
 
         #region "ActionName"
-        //PropertyInfo _PropInfo_ActionName;
-        //private PropertyInfo PropInfo_ActionName
-        //{
-        //    get
-        //    {
-        //        if (_PropInfo_ActionName == null)
-        //        {
-        //            if ((Type_ActionNameAttribute != null) == false) { throw new ArgumentNullException("Type_ActionNameAttribute"); }
-        //            _PropInfo_ActionName = this.Type_ActionNameAttribute.GetProperty("Name");
-        //            if ((_PropInfo_ActionName != null) == false) { throw new ArgumentNullException("_PropInfo_ActionName"); }
-        //        }
-        //        return _PropInfo_ActionName;
-        //    }
-        //}
-
         /// <summary>
         /// Get Action Name.
         /// </summary>
@@ -85,25 +67,6 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         #endregion
 
         #region "TemplateName"
-        //PropertyInfo _PropInfo_RouteTemplate;
-        ///// <summary>
-        ///// Optionnal
-        ///// </summary>
-        //private PropertyInfo PropInfo_RouteTemplate
-        //{
-        //    get
-        //    {
-        //        if (_PropInfo_RouteTemplate == null)
-        //        {
-        //            if (Type_RouteAttribute != null)
-        //            {
-        //                _PropInfo_RouteTemplate = this.Type_RouteAttribute.GetProperty("Template");
-        //            }
-        //        }
-        //        return _PropInfo_RouteTemplate;
-        //    }
-        //}
-
         /// <summary>
         /// Get Action Name.
         /// </summary>
