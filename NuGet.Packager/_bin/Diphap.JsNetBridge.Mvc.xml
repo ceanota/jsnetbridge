@@ -9,18 +9,37 @@
             Informations on action method.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.#ctor(System.String,System.Type,System.String,System.Reflection.MethodInfo)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.#ctor(System.Type,System.String,System.Reflection.MethodInfo,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Intanciate an instance of informations on action method.
             </summary>
-            <param name="action"></param>
-            <param name="controller"></param>
-            <param name="area"></param>
-            <param name="miGroup">differents signatures of one method</param>
+            <param name="type_controller"></param>
+            <param name="areaName"></param>
+            <param name="methodInfo">differents signatures of one method</param>
+            <param name="JSNamespace"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ParameterClassType">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ParameterClassTypes">
             <summary>
-            Types of class.
+            Parameter Class Types
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ParameterEnumTypes">
+            <summary>
+            Parameter Enum Types
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.EnumParameters">
+            <summary>
+            Enum ParameterInfo 
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Enums">
+            <summary>
+            
             </summary>
             <returns></returns>
         </member>
@@ -28,6 +47,12 @@
             <summary>
             Serialise parameters of action.
             {param1:obj1, param2:2, param3:"" }
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetEffectiveReturnType">
+            <summary>
+            Get the effective return type.
             </summary>
             <returns></returns>
         </member>
@@ -70,25 +95,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_Params(System.Reflection.ParameterInfo[])">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_Params(System.Reflection.ParameterInfo[],Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Get parameters of action in JS.
             </summary>
             <param name="piArray"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_EmptyValue_WithFactory(System.Type)">
-            <summary>
-            Get empty jsvalue of type in js.
-            </summary> 
-            <param name="t"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_EmptyValue(System.Type)">
-            <summary>
-            Get empty jsvalue of type in js.
-            </summary> 
-            <param name="t"></param>
             <returns></returns>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.Action">
@@ -106,6 +117,11 @@
             Area name.
             </summary>
         </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.RouteTemplate">
+            <summary>
+            Route template
+            </summary>
+        </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.MethodInfo">
             <summary>
             MethodInfoGroup on action.
@@ -114,6 +130,11 @@
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.Url">
             <summary>
             Url.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.Idx">
+            <summary>
+            index of signatures.
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsValue">
@@ -135,7 +156,7 @@
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsSetUrl">
             <summary>
-            ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+            ex: 'AreaName.ControllerName.MethodName.action0.$_Url="url_value"'
             </summary>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.ActionInfoGroup">
@@ -143,28 +164,36 @@
             Informations on action method.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.#ctor(System.String,System.Type,System.String,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo})">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.#ctor(System.String,System.Type,System.String,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Intanciate an instance of informations on action method.
             </summary>
             <param name="action"></param>
-            <param name="controller"></param>
-            <param name="area"></param>
-            <param name="methodInfo">differents signatures of one method</param>
+            <param name="type_controller"></param>
+            <param name="areaName"></param>
+            <param name="miGroup">differents signatures of one method</param>
+            <param name="JSNamespace"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ParameterClassType">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ParameterClassTypes">
             <summary>
-            Types of class.
+            all Types of class.
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ParameterEnumTypes">
+            <summary>
+            all Types of Enum.
+            </summary>
+            <returns></returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ToString">
             <summary>
             Text representing instance.
             </summary>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.Action">
+        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.MethodName">
             <summary>
             Action name.
             </summary>
@@ -201,14 +230,19 @@
             [action_name: {url:null, param:null, return:null }]
             </summary>
         </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsLongName">
+        <member name="T:Diphap.JsNetBridge.Mvc.ControllerInfo">
             <summary>
-            ex: 'AreaName.ControllerName.ActionName'
+            Informations on controller.
             </summary>
         </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsSetUrl">
+        <member name="P:Diphap.JsNetBridge.Mvc.ControllerInfo.ActionInfoCol">
             <summary>
-            ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
+            List of ActionInfoGroup.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ControllerInfo.Name">
+            <summary>
+            Controller name.
             </summary>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.AspMvcInfo">
@@ -260,40 +294,31 @@
             </summary>
             <param name="jsFilePath"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.Types_ActionClassParameter">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.AllInOutClassTypes">
             <summary>
             All types of class parameters of action methods.
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.ParameterEnumTypes">
+            <summary>
+            All types of enum parameters of action methods.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.Types_Model">
             <summary>
-            Types of models
+            allTypes of models
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.Types_Enum">
             <summary>
-            Types of Enum.
+            allTypes of Enum.
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.Types_Controller">
             <summary>
-            Types of controller.
-            </summary>
-        </member>
-        <member name="T:Diphap.JsNetBridge.Mvc.ControllerInfo">
-            <summary>
-            Informations on controller.
-            </summary>
-        </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.ControllerInfo.ActionInfoCol">
-            <summary>
-            List of ActionInfo.
-            </summary>
-        </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.ControllerInfo.Name">
-            <summary>
-            Controller name.
+            allTypes of controller.
             </summary>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.LiteralText">
@@ -314,11 +339,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(System.Web.Mvc.WebViewPage,System.String)">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(Diphap.JsNetBridge.Mvc.Proxy.UrlManager,System.String)">
             <summary>
             Set url jsvalue.
             </summary>
-            <param name="webViewPage"></param>
+            <param name="urlHelper"></param>
             <param name="apiRouteName"></param>
             <returns></returns>
         </member>
@@ -328,11 +353,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.ToJS_SetUrl(System.Web.Mvc.WebViewPage)">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.ToJS_SetUrl(Diphap.JsNetBridge.Mvc.Proxy.UrlManager)">
             <summary>
             Get instructions set for url.
             </summary>
-            <param name="js_root"></param>
+            <param name="urlHelper"></param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.ToJS(System.Collections.Generic.List{Diphap.JsNetBridge.Mvc.AreaInfo})">
@@ -342,11 +367,11 @@
             <param name="areaInfoList"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(System.Web.Mvc.WebViewPage,System.Collections.Generic.List{Diphap.JsNetBridge.Mvc.AreaInfo},System.String)">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(Diphap.JsNetBridge.Mvc.Proxy.UrlManager,System.Collections.Generic.List{Diphap.JsNetBridge.Mvc.AreaInfo},System.String)">
             <summary>
             Set action url.
             </summary>
-            <param name="webViewPage"></param>
+            <param name="urlHelper"></param>
             <param name="areaInfoList"></param>
             <param name="apiRouteName"></param>
             <returns></returns>
@@ -377,7 +402,7 @@
             ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
              </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.CreateUrl(System.Type,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo})">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.CreateUrl(System.Type,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Creates instance of ActionInfo.
             </summary>
