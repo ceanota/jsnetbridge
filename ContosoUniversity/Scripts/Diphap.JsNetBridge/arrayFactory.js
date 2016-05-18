@@ -1,7 +1,6 @@
 ﻿
 (function () {
 
-
     window.$dp = window.$dp || {};
     window.$dp.$shared = window.$dp.$shared || {};
 

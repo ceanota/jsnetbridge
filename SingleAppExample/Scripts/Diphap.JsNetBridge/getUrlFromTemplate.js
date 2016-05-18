@@ -91,7 +91,7 @@
         }
         return text;
     }
-
+    
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
         /// <param name='action' type='Object'></param>
@@ -132,12 +132,11 @@
 
         return url;
     }
-
     function _getRouteDataCore(routeTemplate) {
         var parts = routeTemplate.split('/');
         var obj = {};
         for (var idx = 0; idx < parts.length; idx++) {
-            var rg = RegExp('\\{' + ".*" + '\\}', 'gi');
+            var rg = RegExp('\\{' + '.*' + '\\}', 'gi');
             var rgArray = rg.exec(parts[idx]);
             if (rgArray && rgArray.length > 0) {
                 if (rgArray[0]) {
@@ -169,4 +168,5 @@
 
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
     $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
+    
 })();
