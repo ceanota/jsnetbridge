@@ -375,7 +375,7 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("method:{0}", "POST");
+            sb_ajax_options.AppendFormat("method:'{0}'", "POST");
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;

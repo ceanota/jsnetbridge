@@ -53,10 +53,12 @@ namespace Diphap.JsNetBridge.Common
         /// <summary>
         /// Load only assembly (and its referenced assemblies)
         /// </summary>
-        /// <param name="assName"></param>
+        /// <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
         /// <param name="binFolderPath"></param>
-        public ReflectionLoader(string assName, string binFolderPath)
+        public ReflectionLoader(string assNameOrFullname, string binFolderPath)
         {
+            string assName = TypeHelper.GetAssemblyNameFromFullname(assNameOrFullname);
+
             this._Folder = binFolderPath;
             string dllPath = Path.Combine(this._Folder, assName + ".dll");
 
@@ -72,7 +74,7 @@ namespace Diphap.JsNetBridge.Common
 
             if (reflectedAssembly == null)
             {
-                reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assName);
+                reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
             }
 
             if (_Redirects.ContainsKey(reflectedAssembly.FullName) == false)

@@ -201,11 +201,12 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name='action' type='Object'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
         var url = '';
-        var selectedRoute;
-        if (action.$IsApiController) {
-            selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
 
-            url = (action.$RouteTemplate || selectedRoute.$RouteTemplate).$dpFormat(action.$Names);
+        var selectedRouteTemplate;
+        if (action.$IsApi) {
+            var selectedRoute = $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute || _defaultApiRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+            url = selectedRouteTemplate.$dpFormat(action.$Names);
             if (routeData) { url = url.$dpFormat(routeData); }
             url = _cleanRouteTemplate(url);
             if (url.indexOf('/') !== 0) { url = '/' + url; }
@@ -213,9 +214,9 @@ namespace Diphap.JsNetBridge.Common.JS
 
         }
         else {
-            selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
-
-            url = (action.$RouteTemplate || selectedRoute.$RouteTemplate).$dpFormat(action.$Names);
+            var selectedRoute = $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute || _defaultMvcRoute;
+            selectedRouteTemplate = action.$RouteTemplate || selectedRoute.$RouteTemplate;
+            url = selectedRouteTemplate.$dpFormat(action.$Names);
             if (routeData) { url = url.$dpFormat(routeData); }
             url = _cleanRouteTemplate(url);
             if (url.indexOf('/') !== 0) { url = '/' + url; }
@@ -227,7 +228,7 @@ namespace Diphap.JsNetBridge.Common.JS
         };
 
         //-- querystring
-        var unusedRouteData = _noMatch(selectedRoute.$RouteTemplate, routeData);
+        var unusedRouteData = _noMatch(selectedRouteTemplate, routeData);
         var queryString = _toQueryString(unusedRouteData);
         if (queryString) {
             url = url + '?' + queryString;

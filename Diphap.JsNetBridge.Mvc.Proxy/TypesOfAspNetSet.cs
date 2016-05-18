@@ -42,7 +42,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             //string dllPath = Path.Combine(binFolderPath, assName + ".dll");
             //Assembly ass = File.Exists(dllPath) ? Assembly.ReflectionOnlyLoadFrom(dllPath) : Assembly.ReflectionOnlyLoad(ConfigDynamicAssembly.References[assName]);
-            Assembly ass = ReflectionLoader.Load(assName, binFolderPath);
+            Assembly ass = ReflectionLoader.Load(ConfigDynamicAssembly.References[assName], binFolderPath);
             return ass;
         }
 
