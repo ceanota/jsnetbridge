@@ -16,10 +16,12 @@ window.todoApp.datacontext = (function () {
 
     return datacontext;
 
+    var $urlSet = $dp.$JsNet.$UrlSet;
+    
     function getTodoLists(todoListsObservable, errorObservable) {
-        return ajaxRequest("get", todoListUrl())
+        return ajaxRequest("get", todoListUrl()) 
             .done(getSucceeded)
-            .fail(getFailed);
+            .fail(getFailed); 
 
         function getSucceeded(data) {
             var mappedTodoLists = $.map(data, function (list) { return new createTodoList(list); });
