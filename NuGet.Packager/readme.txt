@@ -7,6 +7,7 @@
             //bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
             //    .Include( "~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
+			//    .Include("~/Scripts/Diphap.JsNetBridge/getUrlFromTemplate.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 
 2- Paste this code into the file 'Global.asax.cs' in class 'MvcApplication':
@@ -20,7 +21,6 @@
             //        {
             //            _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
             //        }
-
             //        return _AspMvcInfo;
             //    }
             //}
@@ -32,7 +32,7 @@
 				@(new MvcHtmlString({MyWebApp}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
 			</script>
 
- 4- Replace the word '{MyApplicationWeb}' with the name of your web application.
+ 4- Replace the word '{MyWebApp}' with the name of your web application.
 
  5- Properties of your csproj, then Build Events, and then  Post-build event command line:
 	
