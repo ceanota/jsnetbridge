@@ -35,7 +35,7 @@ namespace SingleAppExample
             bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
                 .Include("~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
-                .Include("~/Scripts/Diphap.JsNetBridge/getUrlFromTemplate.js")
+                .Include("~/Scripts/Diphap.JsNetBridge/actionHelper.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're

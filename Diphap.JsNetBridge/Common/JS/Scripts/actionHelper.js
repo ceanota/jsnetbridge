@@ -94,7 +94,7 @@
     
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
-        /// <param name='action' type='Object'></param>
+        /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
         var url = '';
 
@@ -149,7 +149,7 @@
 
     function _getRouteData(action) {
         /// <summary>ex: { action: null, controller: null, id: null }</summary>
-        /// <param name='action' type='Object'></param>
+        /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
 
         var selectedRouteTemplate;
         if (action.$IsApi) {
@@ -165,8 +165,29 @@
 
         return routeData;
     }
-
+    $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory = function _actionFactory() {
+        try {
+            var action = {};
+            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
+            action.$_Url = null;
+            action.$GetUrl = function (routeData) {
+                var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
+                if (!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); }
+            };
+            action.$GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };
+            action.$Names = { action: '', controller: '', area: '' };
+            action.$Params = function () { var obj = {}; return obj; };
+            action.$Return = function () { var obj = {}; return obj; };
+            action.$Enums = function () { var obj = null; return obj; };
+            action.$IsApi = { $httpMethodArray: {$items:[''],$single:''} };
+            action.$AjaxOptions = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
+            action.$RouteTemplate = '';
+            return action;
+        }
+        catch (ex) {
+            throw ex;
+        }
+    }
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
     $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
-    
 })();

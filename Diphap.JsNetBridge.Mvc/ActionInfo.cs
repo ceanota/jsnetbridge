@@ -235,7 +235,7 @@ namespace Diphap.JsNetBridge.Mvc
                 value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute, "ResponseType") as Type;
             }
 
-            if (value == null) 
+            if (value == null)
             {
                 value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, typeof(JsNetResponseTypeAttribute), "ResponseType") as Type;
             }
@@ -267,7 +267,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             get
             {
-                string json = GetJsValue(true);
+                string json = GetJsValue();
 
                 return json;
             }
@@ -277,25 +277,19 @@ namespace Diphap.JsNetBridge.Mvc
         /// Value.
         /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
         /// </summary>
-        /// <param name="hasUrl"></param>
+        /// 
         /// <returns></returns>
-        public string GetJsValue(bool hasUrl)
+        public string GetJsValue()
         {
             StringBuilder sb = new StringBuilder();
             {
                 string objName = "action";
-                sb.Append("var action = {};");
+                sb.AppendFormat("var {0} = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory();", objName);
                 sb.Append(ConfigJS.VS_JsEnumKeyValue_instruction(objName));
 
-                //-- Url
-                if (hasUrl) { sb.Append("action." + ConfigJS.brandLetter + "Url = null;"); }
-                sb.Append(objName + "." + ConfigJS.brandLetter + "_Url = null;");
-                sb.Append(objName + "." + ConfigJS.brandLetter + "GetUrl = function (routeData) { var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate; if(!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); } };");
-                sb.Append(objName + "." + ConfigJS.brandLetter + "GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };");
-
                 //-- names.
-                sb.AppendFormat("action.{0}Names = {{ action : \"{1}\", controller : \"{2}\", area : \"{3}\" }};",
-                    ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
+                sb.AppendFormat("{0}.{1}Names.action = '{2}'; {0}.{1}Names.controller = '{3}'; {0}.{1}Names.area  = '{4}';",
+                    objName, ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
 
                 //-- IN/OUT parameters.
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", JSHelper.GetFactory(this.ToJS_Params(), false));

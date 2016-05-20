@@ -327,7 +327,7 @@
       <LastGenOutput>Diphap.JsNetBridge.js</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge\getUrlFromTemplate.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\actionHelper.js" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />

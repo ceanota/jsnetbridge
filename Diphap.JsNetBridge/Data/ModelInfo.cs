@@ -248,7 +248,7 @@ namespace Diphap.JsNetBridge.Data
                     #region "js files depedencies"
                     sb.AppendLine(JSRaw.arrayFactory);
                     sb.AppendLine(JSRaw.circularReferenceManagerFactory);
-                    sb.AppendLine(JSRaw.getUrlFromTemplate);
+                    sb.AppendLine(JSRaw.actionHelper);
                     #endregion
                 }
 

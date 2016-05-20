@@ -1,109 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Diphap.JsNetBridge.Common.JS
-{
-
-    public class JSRaw
-    {
-        public const string CheckingDependencies =
-@"(function () {
-    var message = '[circularReferenceManagerFactory.js] or [arrayFactory.js] or [actionHelper.js] is missing';
-    try {
-        if (!window.$dp.$shared.$arrayFactory) { throw message; };
-        if (!window.$dp.$shared.$circularReferenceManagerFactory) { throw message };
-        if (!window.$dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate) { throw message };
-    } catch (e) {
-        message = message + '\r\n' + e.toString();
-        throw message;
-    }
-})();";
-
-        public const string arrayFactory =
-@"(function () {
-
-    window.$dp = window.$dp || {};
-    window.$dp.$shared = window.$dp.$shared || {};
-
-    if (window.$dp.$shared.$arrayFactory !== undefined) { return; }
-
-    $dp.$shared.$arrayFactory = function arrayFactory(ref) {
-        /// <signature>
-        ///   <summary>this function returns a array with added function '$dpItemFactory' who creates instance of item of array.</summary>
-        ///   <param name='ref' type='Function'>ref is factory who creates instance of item of array</param>
-        ///   <returns type='Function' />
-        /// </signature>
-
-        var aa = [];
-        aa.$dpItemFactory = function () {
-            var result;
-            if (typeof ref === 'function') { result = ref(); }
-            else { result = ref; }
-            return result;
-        };
-        return aa;
-    };
-
-})();";
-        public const string circularReferenceManagerFactory =
-@"(function () {
-    window.$dp = window.$dp || {};
-    window.$dp.$shared = window.$dp.$shared || {};
-
-    if (window.$dp.$shared.$circularReferenceManagerFactory !== undefined) { return; }
-
-    window.$dp.$shared.$circularReferenceManagerFactory = function circularReferenceManagerFactory(sameIntance) {
-        /// <signature>
-        ///   <summary>Factory gives un new instance of Function that handles the circular reference objects.</summary>
-        ///   <param name='sameIntance' type='bool'>If sameInstance === undefined: new instance of function. Otherwise, we use the same instance.</param>
-        ///   <returns type='Function' />
-        /// </signature>
-        if (sameIntance === undefined) {
-            var newFunc = window.$dp.$shared.$circularReferenceManagerFactory._managerFunc.bind();
-            newFunc.factories = [];
-            window.$dp.$shared.$circularReferenceManagerFactory.instance = newFunc;
-        }
-        return window.$dp.$shared.$circularReferenceManagerFactory.instance;
-    }
-
-    window.$dp.$shared.$circularReferenceManagerFactory._managerFunc = function _managerFunc(func) {
-        /// <signature>
-        ///   <summary>it is the function that handles the circular reference objects</summary>
-        ///   <param name='func' type='Function'>Factory of instances.</param>
-        ///   <returns type='Object' />
-        /// </signature>
-
-        var internalFunc = window.$dp.$shared.$circularReferenceManagerFactory.instance;
-
-        var foundedIdx = -1;
-        for (var idx = 0; idx < internalFunc.factories.length; idx++) {
-            if (internalFunc.factories[idx].item === func) {
-                foundedIdx = idx;
-            }
-        }
-
-        if (foundedIdx === -1) {
-            internalFunc.factories.push({ 'item': func, 'number': 0 });
-            foundedIdx = internalFunc.factories.length - 1;
-        } else {
-            internalFunc.factories[foundedIdx].number++;
-        }
-
-        if (internalFunc.factories[foundedIdx].number < 1) {
-            return internalFunc.factories[foundedIdx].item(true);
-        } else {
-            internalFunc.factories[foundedIdx].number = null;
-            return internalFunc.factories[foundedIdx].item;
-        }
-    }
-
-})();";
-
-        public const string actionHelper =
-@"(function () {
+﻿
+(function () {
     window.$dp = window.$dp || {};
     $dp.$JsNet = $dp.$JsNet || {};
     $dp.$JsNet.$Helpers = $dp.$JsNet.$Helpers || {};
@@ -195,7 +91,7 @@ namespace Diphap.JsNetBridge.Common.JS
         }
         return text;
     }
-    
+
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
         /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
@@ -236,6 +132,7 @@ namespace Diphap.JsNetBridge.Common.JS
 
         return url;
     }
+
     function _getRouteDataCore(routeTemplate) {
         var parts = routeTemplate.split('/');
         var obj = {};
@@ -269,10 +166,11 @@ namespace Diphap.JsNetBridge.Common.JS
 
         return routeData;
     }
+
     $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory = function _actionFactory() {
         try {
             var action = {};
-            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
+            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory;
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
                 var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
@@ -283,7 +181,7 @@ namespace Diphap.JsNetBridge.Common.JS
             action.$Params = function () { var obj = {}; return obj; };
             action.$Return = function () { var obj = {}; return obj; };
             action.$Enums = function () { var obj = null; return obj; };
-            action.$IsApi = { $httpMethodArray: {$items:[''],$single:''} };
+            action.$IsApi = { $httpMethodArray: { $items: [''], $single: '' } };
             action.$AjaxOptions = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
             action.$RouteTemplate = '';
             return action;
@@ -292,29 +190,8 @@ namespace Diphap.JsNetBridge.Common.JS
             throw ex;
         }
     }
+
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
     $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
-})();";
 
-        public class AnynomousModule
-        {
-            public const string Begin = "(function () {";
-            public const string End = "})();";
-        }
-
-        public class Region
-        {
-            static public string Begin(string name = "")
-            {
-                return string.Format("//#region '{0}'", name);
-            }
-
-            static public string End()
-            {
-                return "//#endregion";
-            }
-        }
-
-
-    }
-}
+})();

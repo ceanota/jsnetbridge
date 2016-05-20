@@ -7,12 +7,12 @@
             //bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
             //    .Include( "~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
-			//    .Include("~/Scripts/Diphap.JsNetBridge/getUrlFromTemplate.js")
+			//    .Include("~/Scripts/Diphap.JsNetBridge/actionHelper.js")
             //    .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
 2- Paste this code into the file /Script/_references.js:
 			/// <reference path="Diphap.JsNetBridge/arrayFactory.js" />
 			/// <reference path="Diphap.JsNetBridge/circularReferenceManagerFactory.js" />
-			/// <reference path="Diphap.JsNetBridge/getUrlFromTemplate.js" />
+			/// <reference path="Diphap.JsNetBridge/actionHelper.js" />
 			/// <reference path="Diphap.JsNetBridge/Diphap.JsNetBridge.js" />
 
 3- Paste this code into the file 'Global.asax.cs' in class 'MvcApplication':

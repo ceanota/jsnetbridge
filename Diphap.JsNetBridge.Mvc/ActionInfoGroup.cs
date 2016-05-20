@@ -91,7 +91,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                     for (int ii = 0; ii < this.Signatures.Length; ii++)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "action{0} = {1};", this.Signatures[ii].Idx.Value, this.Signatures[ii].GetJsValue(false));
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "action{0} = {1};", this.Signatures[ii].Idx.Value, this.Signatures[ii].GetJsValue());
                     }
 
                     sb.Append("return " + objName + ";");

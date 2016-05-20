@@ -6,4 +6,4 @@
 <#@ import namespace="System.Collections.Generic" #>
 <#@ output extension=".js" #>
 
-<#= Diphap.JsNetBridge.Common.JS.JSRaw.getUrlFromTemplate #>
+<#= Diphap.JsNetBridge.Common.JS.JSRaw.actionHelper #>

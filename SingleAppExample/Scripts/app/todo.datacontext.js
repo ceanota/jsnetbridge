@@ -1,4 +1,5 @@
-﻿window.todoApp = window.todoApp || {};
+﻿
+window.todoApp = window.todoApp || {};
 
 window.todoApp.datacontext = (function () {
 
@@ -17,11 +18,11 @@ window.todoApp.datacontext = (function () {
     return datacontext;
 
     var $urlSet = $dp.$JsNet.$UrlSet;
-    
+
     function getTodoLists(todoListsObservable, errorObservable) {
-        return ajaxRequest("get", todoListUrl()) 
+        return ajaxRequest("get", todoListUrl())
             .done(getSucceeded)
-            .fail(getFailed); 
+            .fail(getFailed);
 
         function getSucceeded(data) {
             var mappedTodoLists = $.map(data, function (list) { return new createTodoList(list); });
@@ -32,6 +33,7 @@ window.todoApp.datacontext = (function () {
             errorObservable("Error retrieving todo lists.");
         }
     }
+
     function createTodoItem(data) {
         return new datacontext.todoItem(data); // todoItem is injected by todo.model.js
     }
@@ -75,10 +77,10 @@ window.todoApp.datacontext = (function () {
         clearErrorMessage(todoItem);
 
         debugger;
-        
-        var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem;
-        var options = getAjaxOptions(action.IsApiController.methods.single, todoItem, action, todoItem.todoItemId);
-        
+
+        var action = $dp.$JsNet.$UrlSet.Todo.PutTodoItem.$action0;
+        var options = getAjaxOptions(todoItem, action, todoItem.todoItemId);
+
         return $.ajax(options)
             .fail(function () {
                 todoItem.errorMessage("Error updating todo item.");
@@ -117,16 +119,23 @@ window.todoApp.datacontext = (function () {
         return $.ajax(url, options);
     }
 
-    function getAjaxOptions(type, data, action, id) {
+    function getAjaxOptions(data, action, id) {
+        /// <summary></summary>
+        /// <param name="data" type="String">Description</param>
+        /// <param name="action" type="$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory">Description</param>
+        /// <param name="id" type="String">Description</param>
 
         var options = action.AjaxOptions();
-        options.url = action.Url;
+       
         if (id) {
-            options.url = options.url + "/" + id;
+            options.url = action.$GetUrl({ id: id });
+        } else {
+            options.url = action.$GetUrl();
         }
-        
+
+        options.type = action.$IsApi.$httpMethodArray.$single;
+
         options.data = data ? data.toJson() : null;
-        options.type = type;
 
         var antiForgeryToken = $("#antiForgeryToken").val();
         if (antiForgeryToken) {

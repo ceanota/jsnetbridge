@@ -62,12 +62,12 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsValue(System.Boolean)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsValue">
             <summary>
             Value.
             [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
             </summary>
-            <param name="hasUrl"></param>
+            
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForWebApi">
