@@ -11,7 +11,7 @@
 <#@ output extension=".js" #>
 
 
-// <#= Host.ResolvePath("") #>
+// <#= Host.ResolvePath("") + @"\..\..\bin\ContosoUniversity.dll" #>
 // <#=this.Host.ResolveParameterValue("-", "-", "projects") #>
 <# 
 	string sortie = "";
@@ -21,10 +21,9 @@
 	}
 	else
 	{
-		string appName = @"C:\Users\diphap\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
+		string appName = Host.ResolvePath("") + @"\..\..\bin\ContosoUniversity.dll"  ;
 		sortie = new Diphap.JsNetBridge.Mvc.AspMvcInfo(appName).ToJS(false);
 	}
-
 #>
 
 <#= sortie #>
