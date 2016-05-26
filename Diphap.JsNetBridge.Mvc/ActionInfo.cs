@@ -398,6 +398,11 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 string json = string.Format("{0}.{1}.{2}action{3}", this.Controller, this.MethodInfo.Name, ConfigJS.brandLetter, this.Idx.Value);
 
+                if (this._IsApiController)
+                {
+                    json = "$api_" + json;
+                }
+
                 if (string.IsNullOrWhiteSpace(this.Area) == false)
                 {
                     json = this.Area + "." + json;

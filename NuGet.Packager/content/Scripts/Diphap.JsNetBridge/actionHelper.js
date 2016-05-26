@@ -91,7 +91,7 @@
         }
         return text;
     }
-    
+
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
         /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
@@ -168,7 +168,7 @@
     $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory = function _actionFactory() {
         try {
             var action = {};
-            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
+            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory;
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
                 var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
@@ -179,7 +179,7 @@
             action.$Params = function () { var obj = {}; return obj; };
             action.$Return = function () { var obj = {}; return obj; };
             action.$Enums = function () { var obj = null; return obj; };
-            action.$IsApi = { $httpMethodArray: {$items:[''],$single:''} };
+            action.$IsApi = { $httpMethodArray: { $items: [''], $single: '' } };
             action.$AjaxOptions = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
             action.$RouteTemplate = '';
             return action;
