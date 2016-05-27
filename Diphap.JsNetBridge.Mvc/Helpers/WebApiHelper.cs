@@ -40,6 +40,17 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
                     sb_principal.AppendFormat(ConfigJS.brandLetter + "single:{0}", "null");
                 }
 
+                sb_principal.Append(",");
+
+                if (httpMethods.Length > 0)
+                {
+                    sb_principal.AppendFormat(ConfigJS.brandLetter + "first:\"{0}\"", httpMethods[0]);
+                }
+                else
+                {
+                    sb_principal.AppendFormat(ConfigJS.brandLetter + "first:{0}", "null");
+                }
+
                 sb_principal.Append("}");
 
                 return sb_principal.ToString();
