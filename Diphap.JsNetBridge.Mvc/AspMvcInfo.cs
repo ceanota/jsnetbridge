@@ -215,6 +215,10 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.AppendLine(JSRaw.Region.Begin("UrlSet"));
                 sb.AppendLine(string.Join("\r\n", JSHelper.CreateNamespace(ConfigJS.url_set)));
                 sb.AppendLine(string.Format("{0} = {1};", ConfigJS.url_set, this.UrlInfo.ToJS()));
+
+                //-- alias
+                sb.AppendLine("//-- alias");
+                sb.AppendLine(string.Format("{0} = {1};", "window.$dpUrlSet" , ConfigJS.url_set));
                 sb.AppendLine(JSRaw.Region.End());
                 return null;
             };

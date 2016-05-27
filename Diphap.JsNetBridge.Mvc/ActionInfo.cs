@@ -302,26 +302,24 @@ namespace Diphap.JsNetBridge.Mvc
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
                     if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "IsApi = {{ {0}httpMethodArray:{1} }};", ConfigJS.brandLetter, httpMethod_jsObj);
+                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "httpMethodArray = {1};", ConfigJS.brandLetter, httpMethod_jsObj);
                     }
-                }
-                else
-                {
-                    sb.Append(objName + "." + ConfigJS.brandLetter + "IsApi = null;");
                 }
 
                 //-- AJAX Options.
-                string sb_ajax_options;
-                if (this.IsApiController)
                 {
-                    sb_ajax_options = GetAjaxOptions_ForWebApi().ToString();
-                }
-                else
-                {
-                    sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
-                }
+                    string sb_ajax_options;
+                    if (this.IsApiController)
+                    {
+                        sb_ajax_options = GetAjaxOptions_ForWebApi().ToString();
+                    }
+                    else
+                    {
+                        sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
+                    }
 
-                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+                }
 
                 //-- Route Template
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "RouteTemplate = '{0}';", this.RouteTemplate);
