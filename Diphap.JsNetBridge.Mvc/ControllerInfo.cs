@@ -36,7 +36,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string keys_string = string.Join(",", keys);
                 string json = "{" + ConfigJS.VS_JsEnumKeyValue + keys_string + "}";
-                json = string.Format("\"{0}{1}\":{2}", this.IsApiController ? "$api_" : null, this.Name, json);
+                json = string.Format("\"{0}{1}\":{2}", this.IsApiController ? ConfigJS.prefix_apiController : null, this.Name, json);
 
                 return json;
             }

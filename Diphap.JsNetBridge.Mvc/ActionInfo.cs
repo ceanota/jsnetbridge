@@ -400,7 +400,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 if (this._IsApiController)
                 {
-                    json = "$api_" + json;
+                    json = ConfigJS.prefix_apiController + json;
                 }
 
                 if (string.IsNullOrWhiteSpace(this.Area) == false)
