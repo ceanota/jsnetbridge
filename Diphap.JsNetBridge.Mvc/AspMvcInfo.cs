@@ -219,6 +219,7 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- alias
                 sb.AppendLine("//-- alias");
                 sb.AppendLine(string.Format("{0} = {1};", "window.$dpUrlSet" , ConfigJS.url_set));
+                sb.AppendLine(string.Format("{0} = {1};", "window.$dpLib", ConfigJS.prefix_ns_jsnet));
                 sb.AppendLine(JSRaw.Region.End());
                 return null;
             };
