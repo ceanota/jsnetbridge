@@ -77,7 +77,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         /// <summary>
         /// Value.
-        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
         /// </summary>
         public string JsValue
         {

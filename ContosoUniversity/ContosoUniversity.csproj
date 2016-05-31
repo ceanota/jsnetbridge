@@ -52,15 +52,15 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Diphap.JsNetBridge, Version=1.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.10\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.16\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.3.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.10\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.16\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.10\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.16\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -316,6 +316,7 @@
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\Diphap.JsNetBridge\actionHelper.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js">
@@ -328,7 +329,6 @@
       <LastGenOutput>Diphap.JsNetBridge.js</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
-    <Content Include="Scripts\Diphap.JsNetBridge\actionHelper.js" />
     <Content Include="Scripts\JavaScript1.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
@@ -480,6 +480,9 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Clarius.TransformOnBuild.1.1.12\build\Clarius.TransformOnBuild.targets'))" />
   </Target>
+  <PropertyGroup>
+    <PostBuildEvent>IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

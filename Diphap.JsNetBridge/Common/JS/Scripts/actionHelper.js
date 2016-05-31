@@ -179,8 +179,9 @@
             action.$Params = function () { var obj = {}; return obj; };
             action.$Return = function () { var obj = {}; return obj; };
             action.$Enums = function () { var obj = null; return obj; };
-            action.$IsApi = { $httpMethodArray: {$items:[''],$single:''} };
-            action.$AjaxOptions = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
+            action.$IsApi = false;
+            action.$httpMethodArray = { $items:['post','get'], $single:'post', $first:'post' };
+            action.$AjaxSettings = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
             action.$RouteTemplate = '';
             return action;
         }

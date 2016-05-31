@@ -132,7 +132,6 @@
 
         return url;
     }
-
     function _getRouteDataCore(routeTemplate) {
         var parts = routeTemplate.split('/');
         var obj = {};
@@ -166,7 +165,6 @@
 
         return routeData;
     }
-
     $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory = function _actionFactory() {
         try {
             var action = {};
@@ -181,8 +179,9 @@
             action.$Params = function () { var obj = {}; return obj; };
             action.$Return = function () { var obj = {}; return obj; };
             action.$Enums = function () { var obj = null; return obj; };
-            action.$IsApi = { $httpMethodArray: { $items: [''], $single: '' } };
-            action.$AjaxOptions = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
+            action.$IsApi = false;
+            action.$httpMethodArray = { $items: ['post', 'get'], $single: 'post', $first: 'post' };
+            action.$AjaxSettings = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
             action.$RouteTemplate = '';
             return action;
         }
@@ -190,8 +189,6 @@
             throw ex;
         }
     }
-
     $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate = _getUrlFromTemplate;
     $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
-
 })();

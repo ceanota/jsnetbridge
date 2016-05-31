@@ -547,7 +547,7 @@ namespace Diphap.JsNetBridge
             }
             else
             {
-                att = target.GetCustomAttribute(tatt);
+                att = target.GetCustomAttributes().FirstOrDefault(x => x.GetType().AssemblyQualifiedName == tatt.AssemblyQualifiedName);
             }
 
             return att;
@@ -573,10 +573,10 @@ namespace Diphap.JsNetBridge
             }
             else
             {
-                Attribute att = target.GetCustomAttribute(tatt);
+                Attribute att = target.GetCustomAttributes().FirstOrDefault(x => x.GetType().AssemblyQualifiedName == tatt.AssemblyQualifiedName);
                 if (att != null)
                 {
-                    value = tatt.GetProperty(propertyName).GetValue(att);
+                    value = att.GetType().GetProperty(propertyName).GetValue(att);
                 }
             }
 
@@ -596,10 +596,10 @@ namespace Diphap.JsNetBridge
             }
             else
             {
-                Attribute att = target.GetCustomAttribute(tatt);
+                Attribute att = target.GetCustomAttributes().FirstOrDefault(x => x.GetType().AssemblyQualifiedName == tatt.AssemblyQualifiedName);
                 if (att != null)
                 {
-                    value = tatt.GetProperty(propertyName).GetValue(att);
+                    value = att.GetType().GetProperty(propertyName).GetValue(att);
                 }
             }
 
@@ -619,10 +619,10 @@ namespace Diphap.JsNetBridge
             }
             else
             {
-                Attribute att = CustomAttributeExtensions.GetCustomAttribute(target, tatt);
+                Attribute att = target.GetCustomAttributes().FirstOrDefault(x => x.GetType().AssemblyQualifiedName == tatt.AssemblyQualifiedName);
                 if (att != null)
                 {
-                    value = tatt.GetProperty(propertyName).GetValue(att);
+                    value = att.GetType().GetProperty(propertyName).GetValue(att);
                 }
             }
 
@@ -643,10 +643,10 @@ namespace Diphap.JsNetBridge
             }
             else
             {
-                Attribute att = CustomAttributeExtensions.GetCustomAttribute(target, tatt);
+                Attribute att = target.GetCustomAttributes().FirstOrDefault(x => x.GetType().AssemblyQualifiedName == tatt.AssemblyQualifiedName);
                 if (att != null)
                 {
-                    value = tatt.GetProperty(propertyName).GetValue(att);
+                    value = att.GetType().GetProperty(propertyName).GetValue(att);
                 }
             }
 

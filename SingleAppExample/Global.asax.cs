@@ -34,7 +34,7 @@ namespace SingleAppExample
                 {
                     _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
                 }
-
+                
                 return _AspMvcInfo;
             }
         }

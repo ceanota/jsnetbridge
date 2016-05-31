@@ -261,7 +261,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         /// <summary>
         /// Value.
-        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
         /// </summary>
         public string JsValue
         {
@@ -275,7 +275,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         /// <summary>
         /// Value.
-        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+        /// [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
         /// </summary>
         /// 
         /// <returns></returns>
@@ -296,29 +296,33 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", JSHelper.GetFactory(this.ToJS_Return(), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", JSHelper.GetFactory(this.ToJS_Enums(), false));
 
+                string prop_httpMethodArray = objName + "." + ConfigJS.brandLetter + "httpMethodArray";
                 //-- httpMethod
                 if (this.IsApiController)
                 {
                     string httpMethod_jsObj = WebApiHelper.GetHttpMethod_ToJS(this.MethodInfo);
                     if (string.IsNullOrWhiteSpace(httpMethod_jsObj) == false)
                     {
-                        sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "httpMethodArray = {1};", ConfigJS.brandLetter, httpMethod_jsObj);
+                        sb.AppendFormat(prop_httpMethodArray + " = {0};", httpMethod_jsObj);
                     }
+
+                    sb.Append(objName + "." + ConfigJS.brandLetter + "IsApi = true;");
                 }
 
                 //-- AJAX Options.
                 {
                     string sb_ajax_options;
+                    string getUrl = objName + "." + ConfigJS.brandLetter + "GetUrl()";
                     if (this.IsApiController)
                     {
-                        sb_ajax_options = GetAjaxOptions_ForWebApi().ToString();
+                        sb_ajax_options = GetAjaxOptions_ForWebApi(getUrl, objName + "." + ConfigJS.brandLetter + "Params()", prop_httpMethodArray + "." + ConfigJS.brandLetter + "first").ToString();
                     }
                     else
                     {
-                        sb_ajax_options = GetAjaxOptions_ForMvc().ToString();
+                        sb_ajax_options = GetAjaxOptions_ForMvc(getUrl, objName + "." + ConfigJS.brandLetter + "Params()").ToString();
                     }
 
-                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxOptions = {0};", JSHelper.GetFactory(sb_ajax_options, false));
+                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxSettings = {0};", JSHelper.GetFactory(sb_ajax_options, false));
                 }
 
                 //-- Route Template
@@ -335,19 +339,25 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Get ajax options for js.
         /// </summary>
+        /// <param name="getUrl"></param>
+        /// <param name="dataFactory"></param>
+        /// <param name="method"></param>
         /// <returns></returns>
-        private StringBuilder GetAjaxOptions_ForWebApi()
+        private StringBuilder GetAjaxOptions_ForWebApi(string getUrl, string dataFactory, string method)
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
-
+            sb_ajax_options.AppendFormat("url:{0}", getUrl);
+            sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("method:{0}", "null");
+            sb_ajax_options.AppendFormat("method:{0}", method);
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("data:{0}", dataFactory);
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;
@@ -356,12 +366,15 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Get ajax options for js.
         /// </summary>
+        /// <param name="getUrl"></param>
+        /// <param name="dataFactory"></param>
         /// <returns></returns>
-        private StringBuilder GetAjaxOptions_ForMvc()
+        private StringBuilder GetAjaxOptions_ForMvc(string getUrl, string dataFactory)
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
-
+            sb_ajax_options.AppendFormat("url:{0}", getUrl);
+            sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("dataType:\"{0}\"", "json");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
@@ -369,6 +382,8 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.AppendFormat("cache:{0}", "false");
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("method:'{0}'", "POST");
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("data:{0}", dataFactory);
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;

@@ -145,6 +145,11 @@ namespace SingleAppExample.Controllers
             return new Personnage[0];
         }
 
+        public Personnage[] GetPersonnages()
+        {
+            return new Personnage[] { new Personnage() { Nom = "test" } };
+        }
+
     }
 
     public class Personnage

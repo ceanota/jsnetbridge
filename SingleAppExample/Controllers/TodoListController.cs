@@ -9,6 +9,7 @@ using System.Web.Http;
 using SingleAppExample.Filters;
 using SingleAppExample.Models;
 using System.Threading.Tasks;
+using System.Web.Http.Description;
 
 namespace SingleAppExample.Controllers
 {
@@ -28,6 +29,7 @@ namespace SingleAppExample.Controllers
         }
 
         // GET api/TodoList/5
+        
         public TodoListDto GetTodoList(int id)
         {
             TodoList todoList = db.TodoLists.Find(id);
@@ -47,6 +49,7 @@ namespace SingleAppExample.Controllers
 
         // PUT api/TodoList/5
         [ValidateHttpAntiForgeryToken]
+        [ResponseType(typeof(TodoListDto))]
         public HttpResponseMessage PutTodoList(int id, TodoListDto todoListDto)
         {
             if (!ModelState.IsValid)
