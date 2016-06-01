@@ -43,16 +43,16 @@
     <CodeAnalysisRuleSet>BasicCorrectnessRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diphap.JsNetBridge, Version=1.3.0.1, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.17\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge, Version=1.3.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.19\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.3.0.6, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.17\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.3.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.19\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.17\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.3.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.19\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />

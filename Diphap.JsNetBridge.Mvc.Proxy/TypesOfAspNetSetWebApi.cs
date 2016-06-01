@@ -44,13 +44,13 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         #endregion
 
-        public TypesOfAspNetSetWebApi(string binFolderPath)
-            : base(binFolderPath)
+        public TypesOfAspNetSetWebApi(AssemblyResolver assemblyResolver)
+            : base(assemblyResolver)
         {
             #region "_Ass_NetHttp"
             {
                 string assName = "System.Net.Http";
-                this._Ass_NetHttp = _LoadAssembly(assName, binFolderPath);
+                this._Ass_NetHttp = _LoadAssembly(assName, assemblyResolver);
             }
             foreach (var t in this._Ass_NetHttp.ExportedTypes)
             {
@@ -77,7 +77,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             #region "_Ass_WebHttp"
             {
                 string assName = "System.Web.Http";
-                this._Ass_WebHttp = _LoadAssembly(assName, binFolderPath);
+                this._Ass_WebHttp = _LoadAssembly(assName, assemblyResolver);
             }
 
             foreach (var t in this._Ass_WebHttp.ExportedTypes)

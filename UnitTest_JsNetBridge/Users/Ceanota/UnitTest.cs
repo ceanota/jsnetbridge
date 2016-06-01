@@ -72,6 +72,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", api.ToJS(true));
+            
+            api.AssemblyResolver.SubscribeAssemblyResolveEvent(false);
         }
 
 

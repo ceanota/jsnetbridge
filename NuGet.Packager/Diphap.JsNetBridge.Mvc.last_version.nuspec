@@ -2,19 +2,24 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.0.17</version>
+        <version>1.0.19</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
         <licenseUrl>http://jsnet.codeplex.com/license</licenseUrl>
         <projectUrl>http://jsnet.codeplex.com/</projectUrl>
+        <iconUrl>https://download-codeplex.sec.s-msft.com/Download?ProjectName=jsnet&amp;DownloadId=1533502&amp;Build=21031</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A project to auto-generate JavaScript proxies for MVC and WebApi controllers</description>
-        <summary>A project to auto-generate JavaScript proxies for MVC and WebApi controllers</summary>
+        <description>A project to auto-generate JavaScript proxies for MVC and WebApi controllers
+Build javascript Proxy Objects.
+With Intellisense.</description>
+        <summary>A project to auto-generate JavaScript proxies for MVC and WebApi controllers
+Build javascript Proxy Objects.
+With Intellisense.</summary>
         <releaseNotes />
         <copyright>Copyright (c) 2015</copyright>
         <language>en-US</language>
-        <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES Generate</tags>
+        <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5">
                 <dependency id="Microsoft.AspNet.Mvc" version="4.0.20710.0" />

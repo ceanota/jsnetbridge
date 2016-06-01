@@ -38,13 +38,13 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
-        static protected Assembly _LoadAssembly(string assName, string binFolderPath)
+        static protected Assembly _LoadAssembly(string assName, AssemblyResolver assemblyResolver)
         {
-            Assembly ass = ReflectionLoader.Load(ConfigDynamicAssembly.References[assName], binFolderPath);
+            Assembly ass = ReflectionLoader.Load(ConfigDynamicAssembly.References[assName], assemblyResolver);
             return ass;
         }
 
-        public TypesOfAspNetSet(string binFolderPath)
+        public TypesOfAspNetSet(AssemblyResolver assemblyResolver)
         {
         }
 

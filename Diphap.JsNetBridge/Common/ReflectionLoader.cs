@@ -8,24 +8,56 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Common
 {
-    /// <summary>
-    /// Load assemblies
-    /// </summary>
-    public class ReflectionLoader
+    public class AssemblyLoadError
     {
+        public string RootAssemblyPath { get; internal set; }
+        public AssemblyName AssemblyName { get; internal set; }
+        public Exception Exception { get; internal set; }
+        public AssemblyName RootAssemblyName { get; internal set; }
+        public IEnumerable<AssemblyName> ReferencedAssemblies { get; internal set; }
 
+        public override string ToString()
+        {
+            string text = string.Format("{0}, Root: ", this.AssemblyName, this.RootAssemblyName);
+            return text;
+        }
 
-        public readonly Assembly Assembly;
-        private readonly string _Folder;
+    }
+
+    public class AssemblyResolver
+    {
+        public readonly string Folder;
         static private readonly Dictionary<string, Assembly> _Redirects = new Dictionary<string, Assembly>();
         static private readonly List<AssemblyLoadError> _AssemblyLoadErrors = new List<AssemblyLoadError>();
+
+        public AssemblyResolver(string binFolderPath)
+        {
+            this.Folder = binFolderPath;
+            this.SubscribeAssemblyResolveEvent(true);
+        }
+
+        public Dictionary<string, Assembly> Redirects
+        {
+            get
+            {
+                return _Redirects;
+            }
+        }
+
+        public List<AssemblyLoadError> AssemblyLoadErrors
+        {
+            get
+            {
+                return _AssemblyLoadErrors;
+            }
+        }
 
         Assembly _ResolveEventHandler(object sender, ResolveEventArgs argss)
         {
             if (_Redirects.ContainsKey(argss.Name) == false)
             {
                 string fullName = TypeHelper.GetAssemblyNameFromFullname(argss.Name) + ".dll";
-                var path = Path.Combine(this._Folder, fullName);
+                var path = Path.Combine(this.Folder, fullName);
                 if (File.Exists(path))
                 {
                     Assembly ass = Assembly.LoadFrom(path);
@@ -38,8 +70,7 @@ namespace Diphap.JsNetBridge.Common
                 else
                 {
                     Console.WriteLine(string.Format("AssemblyResolve => Fails {0} => return {1}", argss.Name, null));
-                    Assembly a = Assembly.ReflectionOnlyLoad(argss.Name);
-                    return a;
+                    return null;
                 }
 
             }
@@ -50,21 +81,52 @@ namespace Diphap.JsNetBridge.Common
             }
         }
 
+        private bool _subscribed;
+        public void SubscribeAssemblyResolveEvent(bool flag)
+        {
+            if (flag)
+            {
+                if (this._subscribed == false)
+                {
+                    this._subscribed = true;
+                    AppDomain.CurrentDomain.AssemblyResolve += _ResolveEventHandler;
+                }
+
+            }
+            else
+            {
+                if (this._subscribed == true)
+                {
+                    this._subscribed = false;
+                    AppDomain.CurrentDomain.AssemblyResolve -= _ResolveEventHandler;
+                }
+
+            }
+        }
+    }
+
+    /// <summary>
+    /// Load assemblies
+    /// </summary>
+    public class ReflectionLoader
+    {
+
+        public readonly Assembly Assembly;
+        public readonly AssemblyResolver AssemblyResolver;
+
         /// <summary>
         /// Load only assembly (and its referenced assemblies)
         /// </summary>
         /// <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
-        /// <param name="binFolderPath"></param>
-        public ReflectionLoader(string assNameOrFullname, string binFolderPath)
+        /// <param name="assemblyResolver_"></param>
+        public ReflectionLoader(string assNameOrFullname, AssemblyResolver assemblyResolver_)
         {
             string assName = TypeHelper.GetAssemblyNameFromFullname(assNameOrFullname);
 
-            this._Folder = binFolderPath;
-            string dllPath = Path.Combine(this._Folder, assName + ".dll");
+            this.AssemblyResolver = assemblyResolver_;
+            string dllPath = Path.Combine(this.AssemblyResolver.Folder, assName + ".dll");
 
-            AppDomain.CurrentDomain.AssemblyResolve += _ResolveEventHandler;
-
-            var foundAssembly = _Redirects.Where(x => TypeHelper.GetAssemblyNameFromFullname(x.Key) == assName).ToArray();
+            var foundAssembly = this.AssemblyResolver.Redirects.Where(x => TypeHelper.GetAssemblyNameFromFullname(x.Key) == assName).ToArray();
             Assembly reflectedAssembly = null;
 
             if (foundAssembly.Length > 0)
@@ -77,9 +139,9 @@ namespace Diphap.JsNetBridge.Common
                 reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
             }
 
-            if (_Redirects.ContainsKey(reflectedAssembly.FullName) == false)
+            if (this.AssemblyResolver.Redirects.ContainsKey(reflectedAssembly.FullName) == false)
             {
-                _Redirects.Add(reflectedAssembly.FullName, reflectedAssembly);
+                this.AssemblyResolver.Redirects.Add(reflectedAssembly.FullName, reflectedAssembly);
             }
 
             this.Assembly = reflectedAssembly;
@@ -95,7 +157,7 @@ namespace Diphap.JsNetBridge.Common
                 catch (System.IO.FileNotFoundException ex)
                 {
                     //if an exception occurs it means that a referenced assembly could not be found    
-                    _AssemblyLoadErrors.Add(new AssemblyLoadError() { RootAssemblyPath = reflectedAssembly.CodeBase, RootAssemblyName = reflectedAssembly.GetName(), AssemblyName = assemblyName, Exception = ex, ReferencedAssemblies = referencedAssemblies });
+                    this.AssemblyResolver.AssemblyLoadErrors.Add(new AssemblyLoadError() { RootAssemblyPath = reflectedAssembly.CodeBase, RootAssemblyName = reflectedAssembly.GetName(), AssemblyName = assemblyName, Exception = ex, ReferencedAssemblies = referencedAssemblies });
                 }
             }
 
@@ -105,17 +167,17 @@ namespace Diphap.JsNetBridge.Common
         /// Load also all assemblies (and their referenced assemblies) in the folder. 
         /// </summary>
         /// <param name="file"></param>
-        public ReflectionLoader(string file)
+        /// <param name="assemblyResolver_"></param>
+        public ReflectionLoader(AssemblyResolver assemblyResolver_, string file)
         {
-            this._Folder = System.IO.Path.GetDirectoryName(file);
-            string[] files = Directory.GetFiles(this._Folder, "*.dll");
-
-            AppDomain.CurrentDomain.AssemblyResolve += _ResolveEventHandler;
+            
+            this.AssemblyResolver = assemblyResolver_;
+            string[] files = Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll");
 
             //Then load each referenced assembly into the context
             foreach (var f in files)
             {
-                var foundAssembly = _Redirects.Where(x => TypeHelper.GetAssemblyNameFromFullname(x.Key) == Path.GetFileNameWithoutExtension(f)).ToArray();
+                var foundAssembly = this.AssemblyResolver.Redirects.Where(x => TypeHelper.GetAssemblyNameFromFullname(x.Key) == Path.GetFileNameWithoutExtension(f)).ToArray();
                 Assembly reflectedAssembly = null;
 
                 if (foundAssembly.Length > 0)
@@ -128,9 +190,9 @@ namespace Diphap.JsNetBridge.Common
                     reflectedAssembly = Assembly.LoadFrom(f);
                 }
 
-                if (_Redirects.ContainsKey(reflectedAssembly.FullName) == false)
+                if (this.AssemblyResolver.Redirects.ContainsKey(reflectedAssembly.FullName) == false)
                 {
-                    _Redirects.Add(reflectedAssembly.FullName, reflectedAssembly);
+                    this.AssemblyResolver.Redirects.Add(reflectedAssembly.FullName, reflectedAssembly);
                 }
                 if (file == f) { this.Assembly = reflectedAssembly; }
 
@@ -144,7 +206,7 @@ namespace Diphap.JsNetBridge.Common
                     catch (System.IO.FileNotFoundException ex)
                     {
                         //if an exception occurs it means that a referenced assembly could not be found    
-                        _AssemblyLoadErrors.Add(new AssemblyLoadError() { AssemblyName = assemblyName, RootAssemblyPath = f, RootAssemblyName = AssemblyName.GetAssemblyName(f), Exception = ex, ReferencedAssemblies = referencedAssemblies });
+                        this.AssemblyResolver.AssemblyLoadErrors.Add(new AssemblyLoadError() { AssemblyName = assemblyName, RootAssemblyPath = f, RootAssemblyName = AssemblyName.GetAssemblyName(f), Exception = ex, ReferencedAssemblies = referencedAssemblies });
                     }
                 }
             }
@@ -152,10 +214,10 @@ namespace Diphap.JsNetBridge.Common
 
         private void LoadReferencedAssembly(AssemblyName assemblyName)
         {
-            if (_Redirects.ContainsKey(assemblyName.FullName) == false && (_AssemblyLoadErrors.All(x => x.AssemblyName.FullName != assemblyName.FullName)))
+            if (this.AssemblyResolver.Redirects.ContainsKey(assemblyName.FullName) == false && (this.AssemblyResolver.AssemblyLoadErrors.All(x => x.AssemblyName.FullName != assemblyName.FullName)))
             {
                 Assembly ass;
-                string assfile = Path.Combine(_Folder, assemblyName.Name + ".dll");
+                string assfile = Path.Combine(this.AssemblyResolver.Folder, assemblyName.Name + ".dll");
                 if (System.IO.File.Exists(assfile))
                 {
                     ass = Assembly.LoadFrom(assfile);
@@ -164,9 +226,9 @@ namespace Diphap.JsNetBridge.Common
                 {
                     ass = Assembly.Load(assemblyName.FullName);
                 }
-                if (_Redirects.ContainsKey(ass.FullName) == false)
+                if (this.AssemblyResolver.Redirects.ContainsKey(ass.FullName) == false)
                 {
-                    _Redirects.Add(ass.FullName, ass);
+                    this.AssemblyResolver.Redirects.Add(ass.FullName, ass);
                 }
             }
         }
@@ -175,10 +237,11 @@ namespace Diphap.JsNetBridge.Common
         /// Load also all assemblies (and their referenced assemblies) in the folder.
         /// </summary>
         /// <param name="file"></param>
+        /// <param name="assemblyResolver_"></param>
         /// <returns></returns>
-        public static Assembly LoadFrom(string file)
+        public static Assembly LoadFrom(string file, AssemblyResolver assemblyResolver_)
         {
-            ReflectionLoader loader = new ReflectionLoader(file);
+            ReflectionLoader loader = new ReflectionLoader(assemblyResolver_, file);
             return loader.Assembly;
         }
 
@@ -186,28 +249,12 @@ namespace Diphap.JsNetBridge.Common
         /// Load only assembly (and its referenced assemblies)
         /// </summary>
         /// <param name="assName"></param>
-        /// <param name="binFolderPath"></param>
+        /// <param name="AssemblyResolver_"></param>
         /// <returns></returns>
-        public static Assembly Load(string assName, string binFolderPath)
+        public static Assembly Load(string assName, AssemblyResolver AssemblyResolver_)
         {
-            ReflectionLoader loader = new ReflectionLoader(assName, binFolderPath);
+            ReflectionLoader loader = new ReflectionLoader(assName, AssemblyResolver_);
             return loader.Assembly;
-        }
-
-        public class AssemblyLoadError
-        {
-            public string RootAssemblyPath { get; internal set; }
-            public AssemblyName AssemblyName { get; internal set; }
-            public Exception Exception { get; internal set; }
-            public AssemblyName RootAssemblyName { get; internal set; }
-            public IEnumerable<AssemblyName> ReferencedAssemblies { get; internal set; }
-
-            public override string ToString()
-            {
-                string text = string.Format("{0}, Root: ", this.AssemblyName, this.RootAssemblyName);
-                return text;
-            }
-
         }
     }
 }

@@ -23,14 +23,14 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         internal Type Type_ViewResult;
         #endregion
 
-        public TypesOfAspNetSetMvc(string binFolderPath)
-            : base(binFolderPath)
+        public TypesOfAspNetSetMvc(AssemblyResolver assemblyResolver)
+            : base(assemblyResolver)
         {
 
             #region "_Ass_WebMvc"
             {
                 string assName = "System.Web.Mvc";
-                this._Ass_WebMvc = _LoadAssembly(assName, binFolderPath);
+                this._Ass_WebMvc = _LoadAssembly(assName, assemblyResolver);
             }
 
             foreach (var t in this._Ass_WebMvc.ExportedTypes)

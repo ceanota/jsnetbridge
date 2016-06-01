@@ -65,21 +65,26 @@
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsValue">
             <summary>
             Value.
-            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
             </summary>
             
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForWebApi">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForWebApi(System.String,System.String,System.String)">
             <summary>
             Get ajax options for js.
             </summary>
+            <param name="getUrl"></param>
+            <param name="dataFactory"></param>
+            <param name="method"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForMvc">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxOptions_ForMvc(System.String,System.String)">
             <summary>
             Get ajax options for js.
             </summary>
+            <param name="getUrl"></param>
+            <param name="dataFactory"></param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJsSetUrl(System.String)">
@@ -140,7 +145,7 @@
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsValue">
             <summary>
             Value.
-            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfo.JsKeyValue">
@@ -221,7 +226,7 @@
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsValue">
             <summary>
             Value.
-            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxOptions:{}}]
+            [{Url:null, Params:null, Return:null, IsApiController:true, AjaxSettings:{}}]
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsKeyValue">
@@ -258,7 +263,7 @@
             <param name="typeSetList"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly)">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet})">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
@@ -266,7 +271,7 @@
             <param name="typeSetList"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet})">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>

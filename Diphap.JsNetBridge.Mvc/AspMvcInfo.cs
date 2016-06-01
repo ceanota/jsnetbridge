@@ -108,6 +108,8 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
+        readonly public AssemblyResolver AssemblyResolver; 
+
         /// <summary>
         /// Instanciate information about AspMvc Application.
         /// </summary>
@@ -117,9 +119,47 @@ namespace Diphap.JsNetBridge.Mvc
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
         {
             _JSNamespace = new ConfigJS.JSNamespace();
-            string binFolderPath = Path.GetDirectoryName(asp_net.Location);
-            AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(binFolderPath);
-            AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetWebApi(binFolderPath);
+            this.AssemblyResolver = new AssemblyResolver(Path.GetDirectoryName(asp_net.Location));
+            AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(this.AssemblyResolver);
+            AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetWebApi(this.AssemblyResolver);
+
+            InitiliazeForAspNetObjects(asp_net);
+
+            foreach (var f in typeSetList)
+            {
+                foreach (var t in f.Types_Model)
+                {
+                    if (this.Types_Model.Contains(t) == false)
+                    {
+                        this.Types_Model.Add(t);
+                    }
+                }
+
+                foreach (var t in f.Types_Enum)
+                {
+                    if (this.Types_Enum.Contains(t) == false)
+                    {
+                        this.Types_Enum.Add(t);
+                    }
+                }
+
+            }
+        }
+
+        /// <summary>
+        /// Instanciate information about AspMvc Application.
+        /// </summary>
+        /// <param name="appAspNetPath"></param>
+        /// <param name="typeSetList"></param>
+        /// <returns></returns>
+        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
+        {
+            this.AssemblyResolver = new AssemblyResolver(Path.GetDirectoryName(appAspNetPath));
+            Assembly asp_net = ReflectionLoader.LoadFrom(appAspNetPath, this.AssemblyResolver);
+
+            _JSNamespace = new ConfigJS.JSNamespace();
+            AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(this.AssemblyResolver);
+            AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetWebApi(this.AssemblyResolver);
 
             InitiliazeForAspNetObjects(asp_net);
 
@@ -156,17 +196,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
-        /// <summary>
-        /// Instanciate information about AspMvc Application.
-        /// </summary>
-        /// <param name="appAspNetPath"></param>
-        /// <param name="typeSetList"></param>
-        /// <returns></returns>
-        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
-            : this(ReflectionLoader.LoadFrom(appAspNetPath), typeSetList)
-        {
-
-        }
+        
 
         /// <summary>
         /// Instanciate information about AspMvc Application.
@@ -218,7 +248,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 //-- alias
                 sb.AppendLine("//-- alias");
-                sb.AppendLine(string.Format("{0} = {1};", "window.$dpUrlSet" , ConfigJS.url_set));
+                sb.AppendLine(string.Format("{0} = {1};", "window.$dpUrlSet", ConfigJS.url_set));
                 sb.AppendLine(string.Format("{0} = {1};", "window.$dpLib", ConfigJS.prefix_ns_jsnet));
                 sb.AppendLine(JSRaw.Region.End());
                 return null;

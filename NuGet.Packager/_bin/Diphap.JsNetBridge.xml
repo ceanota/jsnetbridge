@@ -289,32 +289,34 @@
             Load assemblies
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String,System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
             <summary>
             Load only assembly (and its referenced assemblies)
             </summary>
             <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
-            <param name="binFolderPath"></param>
+            <param name="assemblyResolver_"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,System.String)">
             <summary>
             Load also all assemblies (and their referenced assemblies) in the folder. 
             </summary>
             <param name="file"></param>
+            <param name="assemblyResolver_"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.LoadFrom(System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.LoadFrom(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
             <summary>
             Load also all assemblies (and their referenced assemblies) in the folder.
             </summary>
             <param name="file"></param>
+            <param name="assemblyResolver_"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.Load(System.String,System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.Load(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
             <summary>
             Load only assembly (and its referenced assemblies)
             </summary>
             <param name="assName"></param>
-            <param name="binFolderPath"></param>
+            <param name="AssemblyResolver_"></param>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.Data.ModelInfo">
