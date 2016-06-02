@@ -19,7 +19,7 @@ With Intellisense.</summary>
         <releaseNotes />
         <copyright>Copyright (c) 2015</copyright>
         <language>en-US</language>
-        <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES</tags>
+        <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES METADATA</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5">
                 <dependency id="Microsoft.AspNet.Mvc" version="4.0.20710.0" />
