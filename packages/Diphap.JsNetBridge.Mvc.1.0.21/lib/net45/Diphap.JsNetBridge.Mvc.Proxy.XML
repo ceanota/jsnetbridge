@@ -39,11 +39,6 @@
             <param name="MethodInfo"></param>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.AssemblyDirectory">
-            <summary>
-            Assembly Directory
-            </summary>
-        </member>
         <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi.Type_IHttpActionResult">
             <summary>
             Warning, Since Web API 2

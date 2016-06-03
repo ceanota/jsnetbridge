@@ -45,6 +45,18 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="Diphap.JsNetBridge, Version=1.3.0.21, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.21\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.3.0.20, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.21\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.3.0.21, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.21\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
@@ -328,20 +340,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj">
-      <Project>{5f5a4e70-5562-4c29-843e-6043e21895e0}</Project>
-      <Name>Diphap.JsNetBridge.Mvc.Proxy</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj">
-      <Project>{96c2625f-54a7-45e1-bbef-ba29aa1e4b0b}</Project>
-      <Name>Diphap.JsNetBridge.Mvc</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj">
-      <Project>{57119d8e-ced9-4e30-b88b-3c9724782760}</Project>
-      <Name>Diphap.JsNetBridge</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
