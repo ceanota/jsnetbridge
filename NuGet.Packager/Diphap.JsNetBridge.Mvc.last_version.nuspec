@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.0.19</version>
+        <version>1.0.20</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -16,7 +16,8 @@ With Intellisense.</description>
         <summary>A project to auto-generate JavaScript proxies for MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes />
+        <releaseNotes>Fixed bug for redirecting assembly version
+Fixed bug on the loading of assemblies</releaseNotes>
         <copyright>Copyright (c) 2015</copyright>
         <language>en-US</language>
         <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES METADATA</tags>

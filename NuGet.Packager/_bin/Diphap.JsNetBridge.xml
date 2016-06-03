@@ -296,6 +296,13 @@
             <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
             <param name="assemblyResolver_"></param>
         </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.GetAlreadyLoadedAssembly(System.String)">
+            <summary>
+            Get already loaded assembly with high version.
+            </summary>
+            <param name="assName"></param>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,System.String)">
             <summary>
             Load also all assemblies (and their referenced assemblies) in the folder. 
