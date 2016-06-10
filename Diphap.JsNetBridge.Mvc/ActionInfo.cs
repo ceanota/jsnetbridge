@@ -166,7 +166,7 @@ namespace Diphap.JsNetBridge.Mvc
             if (this._AllInOutClassTypes == null)
             {
                 this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
-                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { this.GetEffectiveReturnType() });
+                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { WebApiHelper.GetEffectiveReturnType(this.MethodInfo) });
 
                 if (returnTypes.Count > 0)
                 {
@@ -221,40 +221,13 @@ namespace Diphap.JsNetBridge.Mvc
             return jsonParams_string;
         }
 
-
-        /// <summary>
-        /// Get the effective return type.
-        /// </summary>
-        /// <returns></returns>
-        public Type GetEffectiveReturnType()
-        {
-            Type value = null;
-
-            if (AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute != null)
-            {
-                value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute, "ResponseType") as Type;
-            }
-
-            if (value == null)
-            {
-                value = TypeHelper.GetAttributePropertyValue(this.MethodInfo, typeof(JsNetResponseTypeAttribute), "ResponseType") as Type;
-            }
-
-            if (value == null)
-            {
-                value = this.MethodInfo.ReturnType;
-            }
-
-            return value;
-        }
-
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public string ToJS_Return()
         {
-            Type type_return = this.GetEffectiveReturnType();
+            Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
             string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true, _JSNamespace);
             return jsonValue;
         }

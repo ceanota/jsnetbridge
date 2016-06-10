@@ -75,6 +75,7 @@ namespace ContosoUniversity.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [JsNetResponseType(typeof(Department))]
         public ActionResult Create([Bind(Include = "Name, Budget, StartDate, PersonID")]Department department)
         {
             if (ModelState.IsValid)

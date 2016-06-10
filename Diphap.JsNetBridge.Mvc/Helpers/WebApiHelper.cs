@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diphap.JsNetBridge.Common;
+using System;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -92,10 +93,38 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             return new string[0];
         }
 
-        static public string GetAjaxDataType(MethodInfo MethodInfo)
+        /// <summary>
+        /// Get the effective return type.
+        /// </summary>
+        /// <returns></returns>
+        static public Type GetEffectiveReturnType(MethodInfo mi)
         {
-            bool isText = typeof(void) == MethodInfo.ReturnType ||
-                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(MethodInfo.ReturnType);
+            Type value = null;
+
+            if (AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute != null)
+            {
+                value = TypeHelper.GetAttributePropertyValue(mi, AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute, "ResponseType") as Type;
+            }
+
+            if (value == null)
+            {
+                value = TypeHelper.GetAttributePropertyValue(mi, typeof(JsNetResponseTypeAttribute), "ResponseType") as Type;
+            }
+
+            if (value == null)
+            {
+                value = mi.ReturnType;
+            }
+
+            return value;
+        }
+
+        static public string GetAjaxDataType(MethodInfo mi)
+        {
+            Type tmi = GetEffectiveReturnType(mi) ?? typeof(void);
+
+            bool isText = typeof(void) == tmi ||
+                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(tmi);
 
             if (isText)
             {
