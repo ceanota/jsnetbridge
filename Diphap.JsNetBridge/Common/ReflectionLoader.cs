@@ -136,7 +136,12 @@ namespace Diphap.JsNetBridge.Common
 
             if (reflectedAssembly == null)
             {
-                reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
+                reflectedAssembly = GetAlreadyLoadedAssembly(assName);
+
+                if (reflectedAssembly == null)
+                {
+                    reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
+                }
             }
 
             if (this.AssemblyResolver.Redirects.ContainsKey(reflectedAssembly.FullName) == false)
@@ -164,13 +169,40 @@ namespace Diphap.JsNetBridge.Common
         }
 
         /// <summary>
+        /// Get already loaded assembly with high version.
+        /// </summary>
+        /// <param name="assName"></param>
+        /// <returns></returns>
+        private Assembly GetAlreadyLoadedAssembly(string assName)
+        {
+            Assembly highVersionAssembly;
+            Assembly[] alreadyLoadedAssemblies = AppDomain.CurrentDomain.GetAssemblies();
+            Assembly[] sameVersionLoadedAssemblies = alreadyLoadedAssemblies.Where(x => x.GetName().Name == assName).ToArray();
+
+            if (sameVersionLoadedAssemblies.Length == 1)
+            {
+                highVersionAssembly = sameVersionLoadedAssemblies[0];
+            }
+            else if (sameVersionLoadedAssemblies.Length > 1)
+            {
+                Version version = sameVersionLoadedAssemblies.Max(x => x.GetName().Version);
+                highVersionAssembly = sameVersionLoadedAssemblies.FirstOrDefault(x => x.GetName().Version == version);
+            }
+            else
+            {
+                highVersionAssembly = null;
+            }
+            return highVersionAssembly;
+        }
+
+        /// <summary>
         /// Load also all assemblies (and their referenced assemblies) in the folder. 
         /// </summary>
         /// <param name="file"></param>
         /// <param name="assemblyResolver_"></param>
         public ReflectionLoader(AssemblyResolver assemblyResolver_, string file)
         {
-            
+
             this.AssemblyResolver = assemblyResolver_;
             string[] files = Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll");
 
