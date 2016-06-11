@@ -85,6 +85,7 @@ namespace SingleAppExample.Controllers
 
         // POST api/TodoList
         [ValidateHttpAntiForgeryToken]
+        [ResponseType(typeof(TodoList))]
         public HttpResponseMessage PostTodoList(TodoListDto todoListDto)
         {
             if (!ModelState.IsValid)

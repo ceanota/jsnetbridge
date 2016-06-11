@@ -35,7 +35,7 @@ window.todoApp.datacontext = (function () {
     }
     function saveNewTodoItem(todoItem) {
         clearErrorMessage(todoItem);
-        debugger;
+
         var settings = _getAjaxSettings(todoItem, $dpUrlSet.$apiTodo.PostTodoItem.$action0);
 
         var xhr = $.ajax(settings);
@@ -48,24 +48,33 @@ window.todoApp.datacontext = (function () {
 
         return xhr;
 
-        //return ajaxRequest("post", todoItemUrl(), todoItem)
-        //    .done(function (result) {
-        //        todoItem.todoItemId = result.todoItemId;
-        //    })
-        //    .fail(function () {
-        //        todoItem.errorMessage("Error adding a new todo item.");
-        //    });
     }
     function saveNewTodoList(todoList) {
         clearErrorMessage(todoList);
-        return ajaxRequest("post", todoListUrl(), todoList)
-            .done(function (result) {
-                todoList.todoListId = result.todoListId;
-                todoList.userId = result.userId;
-            })
-            .fail(function () {
-                todoList.errorMessage("Error adding a new todo list.");
-            });
+
+        debugger;
+        var settings = _getAjaxSettings(todoList, $dpUrlSet.$apiTodoList.PostTodoList.$action0);
+
+        var xhr = $.ajax(settings);
+        xhr.done(function (result) {
+            todoList.todoListId = result.todoListId;
+            todoList.userId = result.userId;
+        });
+        xhr.fail(function () {
+            todoItem.errorMessage("Error adding a new todo item.");
+        });
+
+        return xhr;
+
+
+        //return ajaxRequest("post", todoListUrl(), todoList)
+        //    .done(function (result) {
+        //        todoList.todoListId = result.todoListId;
+        //        todoList.userId = result.userId;
+        //    })
+        //    .fail(function () {
+        //        todoList.errorMessage("Error adding a new todo list.");
+        //    });
     }
     function deleteTodoItem(todoItem) {
         return ajaxRequest("delete", todoItemUrl(todoItem.todoItemId))

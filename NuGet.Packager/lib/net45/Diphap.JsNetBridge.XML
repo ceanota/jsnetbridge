@@ -45,135 +45,6 @@
             Gets the response type.
             </summary>
         </member>
-        <member name="T:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper">
-            <summary>
-            Factory gives un new instance of Function that handles the circular reference objects.
-            </summary>
-        </member>
-        <member name="F:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionName">
-            <summary>
-            Name of factory.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.Type,System.Boolean,System.String)">
-            <summary>
-             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
-             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
-            </summary>
-            <param name="telem_work"></param>
-            <param name="isCollection"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.String,System.Boolean)">
-            <summary>
-             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
-             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
-            </summary>
-            <param name="factoryName"></param>
-            <param name="isCollection"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Diphap.JsNetBridge.Common.JS.TypeSorter">
-            <summary>
-            Indicates if the type has members with complex or somple type.
-            </summary>
-        </member>
-        <member name="P:Diphap.JsNetBridge.Common.JS.TypeSorter.TComplexMembers">
-            <summary>
-            Get element type of collection if 't' is collection other else return 't'. 
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.Execute">
-            <summary>
-            Executes.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean,System.String)">
-            <summary>
-            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
-            </summary>
-            <param name="mi"></param>
-            <param name="telem_work"></param>
-            <param name="isCollection"></param>
-            <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.String,System.Boolean)">
-            <summary>
-            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
-            </summary>
-            <param name="mi"></param>
-            <param name="factoryName"></param>
-            <param name="isCollection"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.ResolveComplexMember(System.Reflection.MemberInfo,System.String)">
-            <summary>
-            Force.
-            </summary>
-            <param name="mi"></param>
-            <param name="jsvalue">force value</param>
-        </member>
-        <member name="T:Diphap.JsNetBridge.Common.JS.JSArrayFactory">
-            <summary>
-            My array factory extends a js array.
-            New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
-            </summary>
-        </member>
-        <member name="F:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionName">
-            <summary>
-            Name of factory.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionDefinitionCall(System.String)">
-            <summary>
-            JS code of call of my factory who extends instances of array.
-            </summary>
-            <param name="var"></param>
-            <returns></returns>
-        </member>
-        <member name="T:Diphap.JsNetBridge.Common.ReflectionLoader">
-            <summary>
-            Load assemblies
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
-            <summary>
-            Load only assembly (and its referenced assemblies)
-            </summary>
-            <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
-            <param name="assemblyResolver_"></param>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.GetAlreadyLoadedAssembly(System.String)">
-            <summary>
-            Get already loaded assembly with high version.
-            </summary>
-            <param name="assName"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,System.String)">
-            <summary>
-            Load also all assemblies (and their referenced assemblies) in the folder. 
-            </summary>
-            <param name="file"></param>
-            <param name="assemblyResolver_"></param>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.LoadFrom(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
-            <summary>
-            Load also all assemblies (and their referenced assemblies) in the folder.
-            </summary>
-            <param name="file"></param>
-            <param name="assemblyResolver_"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.Load(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
-            <summary>
-            Load only assembly (and its referenced assemblies)
-            </summary>
-            <param name="assName"></param>
-            <param name="AssemblyResolver_"></param>
-            <returns></returns>
-        </member>
         <member name="M:Diphap.JsNetBridge.JSHelper.GetObjectFactoryName(System.Type,System.Boolean,System.Boolean,System.String)">
             <summary>
             Get name of object factory.
@@ -261,6 +132,75 @@
             <param name="jsObj"></param>
             <returns></returns>
         </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper">
+            <summary>
+            Factory gives un new instance of Function that handles the circular reference objects.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.Type,System.Boolean,System.String)">
+            <summary>
+             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.String,System.Boolean)">
+            <summary>
+             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+            </summary>
+            <param name="factoryName"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.TypeSorter">
+            <summary>
+            Indicates if the type has members with complex or somple type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.Execute">
+            <summary>
+            Executes.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean,System.String)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.String,System.Boolean)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="factoryName"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.TypeSorter.ResolveComplexMember(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            Force.
+            </summary>
+            <param name="mi"></param>
+            <param name="jsvalue">force value</param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.JS.TypeSorter.TComplexMembers">
+            <summary>
+            Get element type of collection if 't' is collection other else return 't'. 
+            </summary>
+        </member>
         <member name="T:Diphap.JsNetBridge.SerializeEnum">
             <summary>
             Serialize Enum
@@ -292,11 +232,6 @@
             Sorts all types of type recursively 
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext.Occurences">
-            <summary>
-            complex types.
-            </summary>
-        </member>
         <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.ResolvedTypes">
             <summary>
             allTypes who containe only primitive type.
@@ -311,11 +246,6 @@
             <param name="noReturn"></param>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.RecursiveTypeSorter.HasRecursive">
-            <summary>
-            ???
-            </summary>
-        </member>
         <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.Execute(System.Type,System.Int32,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
             <summary>
             Serialalize type. Recursive function.
@@ -324,6 +254,76 @@
             <param name="_idx_max"></param>
             <param name="noReturn"></param>
             <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.RecursiveTypeSorter.HasRecursive">
+            <summary>
+            ???
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext.Occurences">
+            <summary>
+            complex types.
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSArrayFactory">
+            <summary>
+            My array factory extends a js array.
+            New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionDefinitionCall(System.String)">
+            <summary>
+            JS code of call of my factory who extends instances of array.
+            </summary>
+            <param name="var"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.ReflectionLoader">
+            <summary>
+            Load assemblies
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load only assembly (and its referenced assemblies)
+            </summary>
+            <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
+            <param name="assemblyResolver_"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.GetAlreadyLoadedAssembly(System.String)">
+            <summary>
+            Get already loaded assembly with high version.
+            </summary>
+            <param name="assName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,System.String)">
+            <summary>
+            Load also all assemblies (and their referenced assemblies) in the folder. 
+            </summary>
+            <param name="file"></param>
+            <param name="assemblyResolver_"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.LoadFrom(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load also all assemblies (and their referenced assemblies) in the folder.
+            </summary>
+            <param name="file"></param>
+            <param name="assemblyResolver_"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.Load(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load only assembly (and its referenced assemblies)
+            </summary>
+            <param name="assName"></param>
+            <param name="AssemblyResolver_"></param>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.Data.ModelInfo">
@@ -396,39 +396,12 @@
             <param name="withJsFileDependencies"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces">
-            <summary>
-            Create namespaces.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateAliases">
-            <summary>
-            alias of namespace
-            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateJsObjectDeclaration(System.Boolean)">
-            <summary>
-             Declaration of objects.
-            </summary>
-            <param name="withAlias"></param>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces(System.Collections.Generic.IEnumerable{System.Type})">
-            <summary>
-            Create namespaces.
-            </summary>
-            <param name="tobjArray"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue">
+        <member name="M:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue_instruction(System.String)">
             <summary>
             JS ENUM Intellisense.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue_instruction(System.String)">
+        <member name="P:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue">
             <summary>
             JS ENUM Intellisense.
             </summary>
@@ -479,6 +452,33 @@
             ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
             </summary>
             <param name="sb"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces">
+            <summary>
+            Create namespaces.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateAliases">
+            <summary>
+            alias of namespace
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateJsObjectDeclaration(System.Boolean)">
+            <summary>
+             Declaration of objects.
+            </summary>
+            <param name="withAlias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Create namespaces.
+            </summary>
+            <param name="tobjArray"></param>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.TypeHelper">

@@ -119,8 +119,16 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             return value;
         }
 
+        /// <summary>
+        /// Always return 'json'
+        /// </summary>
+        /// <param name="mi"></param>
+        /// <returns></returns>
         static public string GetAjaxDataType(MethodInfo mi)
         {
+            return "json";
+
+            #region "May be useless"
             Type treturn = GetEffectiveReturnType(mi) ?? typeof(void);
 
             bool isText = typeof(void) == treturn ||
@@ -134,7 +142,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             {
                 return "json";
             }
-
+            #endregion
         }
 
         static private string GetHttpMethod_FromHttpAttribute(MethodInfo MethodInfo)

@@ -288,11 +288,11 @@ namespace Diphap.JsNetBridge.Mvc
                     string getUrl = objName + "." + ConfigJS.brandLetter + "GetUrl()";
                     if (this.IsApiController)
                     {
-                        sb_ajax_options = GetAjaxOptions_ForWebApi(getUrl, objName + "." + ConfigJS.brandLetter + "Params()", prop_httpMethodArray + "." + ConfigJS.brandLetter + "first").ToString();
+                        sb_ajax_options = GetAjaxSettings_ForWebApi(getUrl, objName + "." + ConfigJS.brandLetter + "Params()", prop_httpMethodArray + "." + ConfigJS.brandLetter + "first").ToString();
                     }
                     else
                     {
-                        sb_ajax_options = GetAjaxOptions_ForMvc(getUrl, objName + "." + ConfigJS.brandLetter + "Params()").ToString();
+                        sb_ajax_options = GetAjaxSettings_ForMvc(getUrl, objName + "." + ConfigJS.brandLetter + "Params()").ToString();
                     }
 
                     sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxSettings = {0};", JSHelper.GetFactory(sb_ajax_options, false));
@@ -310,19 +310,20 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
-        /// Get ajax options for js.
+        /// Default ajax settings.
         /// </summary>
-        /// <param name="getUrl"></param>
-        /// <param name="dataFactory"></param>
+        /// <param name="url"></param>
+        /// <param name="dataType"></param>
+        /// <param name="data"></param>
         /// <param name="method"></param>
         /// <returns></returns>
-        private StringBuilder GetAjaxOptions_ForWebApi(string getUrl, string dataFactory, string method)
+        static private StringBuilder GetAjaxSettings_Default(string url, string dataType, string data, string method)
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
-            sb_ajax_options.AppendFormat("url:{0}", getUrl);
+            sb_ajax_options.AppendFormat("url:{0}", url);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));// data type of return.
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", dataType);// data type of return.
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
@@ -330,7 +331,7 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("method:{0}", method);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("data:{0}", dataFactory);
+            sb_ajax_options.AppendFormat("data:{0}", data);
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;
@@ -339,26 +340,25 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Get ajax options for js.
         /// </summary>
-        /// <param name="getUrl"></param>
-        /// <param name="dataFactory"></param>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <param name="method"></param>
         /// <returns></returns>
-        private StringBuilder GetAjaxOptions_ForMvc(string getUrl, string dataFactory)
+        private StringBuilder GetAjaxSettings_ForWebApi(string url, string data, string method)
         {
-            StringBuilder sb_ajax_options = new StringBuilder();
-            sb_ajax_options.Append("{");
-            sb_ajax_options.AppendFormat("url:{0}", getUrl);
-            sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", MvcHelper.GetAjaxDataType(this.MethodInfo));// data type of return.
-            sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
-            sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("cache:{0}", "false");
-            sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("method:'{0}'", "POST");
-            sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("data:{0}", dataFactory);
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, WebApiHelper.GetAjaxDataType(this.MethodInfo), data, method);
+            return sb_ajax_options;
+        }
 
-            sb_ajax_options.Append("}");
+        /// <summary>
+        /// Get ajax options for js.
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="data"></param>
+        /// <returns></returns>
+        private StringBuilder GetAjaxSettings_ForMvc(string url, string data)
+        {
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, MvcHelper.GetAjaxDataType(this.MethodInfo), data, "POST");
             return sb_ajax_options;
         }
 
