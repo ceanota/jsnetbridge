@@ -50,6 +50,7 @@
     <Compile Include="AreaInfo.cs" />
     <Compile Include="ControllerInfo.cs" />
     <Compile Include="AspMvcInfo.cs" />
+    <Compile Include="Helpers\MvcHelper.cs" />
     <Compile Include="Helpers\WebApiHelper.cs" />
     <Compile Include="LiteralText.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

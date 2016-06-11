@@ -322,7 +322,7 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.Append("{");
             sb_ajax_options.AppendFormat("url:{0}", getUrl);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", WebApiHelper.GetAjaxDataType(this.MethodInfo));// data type of return.
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");
@@ -348,7 +348,7 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.Append("{");
             sb_ajax_options.AppendFormat("url:{0}", getUrl);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:\"{0}\"", "json");
+            sb_ajax_options.AppendFormat("dataType:\"{0}\"", MvcHelper.GetAjaxDataType(this.MethodInfo));// data type of return.
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:\"{0}\"", "application/json");
             sb_ajax_options.Append(",");

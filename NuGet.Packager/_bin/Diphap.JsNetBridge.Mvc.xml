@@ -320,6 +320,20 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Helpers.MvcHelper.GetEffectiveReturnType(System.Reflection.MethodInfo)">
+            <summary>
+            Get the effective return type.
+            </summary>
+            <param name="mi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Helpers.MvcHelper.GetAjaxDataType(System.Reflection.MethodInfo)">
+            <summary>
+            get data type of return.
+            </summary>
+            <param name="mi"></param>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Helpers.WebApiHelper.GetEffectiveReturnType(System.Reflection.MethodInfo)">
             <summary>
             Get the effective return type.

@@ -121,10 +121,10 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
         static public string GetAjaxDataType(MethodInfo mi)
         {
-            Type tmi = GetEffectiveReturnType(mi) ?? typeof(void);
+            Type treturn = GetEffectiveReturnType(mi) ?? typeof(void);
 
-            bool isText = typeof(void) == tmi ||
-                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(tmi);
+            bool isText = typeof(void) == treturn ||
+                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(treturn);
 
             if (isText)
             {
