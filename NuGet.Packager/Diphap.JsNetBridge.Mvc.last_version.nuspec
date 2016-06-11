@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.0.24</version>
+        <version>1.0.25</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -18,7 +18,8 @@ With Intellisense.
         <summary>A project to auto-generate JavaScript proxies for MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>Fixed bug for dataType ('json' or 'text')
+        <releaseNotes>Fixed bug for dataType ('json' or 'text') for mvc action
+Fixed bug for dataType ('json' or 'text')
 Fixed bug for redirecting assembly version
 Fixed bug on the loading of assemblies</releaseNotes>
         <copyright>Copyright (c) 2015</copyright>
@@ -52,9 +53,17 @@ Fixed bug on the loading of assemblies</releaseNotes>
         <file src="_bin\Diphap.JsNetBridge.Generator.exe" target="_bin\Diphap.JsNetBridge.Generator.exe" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.config" target="_bin\Diphap.JsNetBridge.Generator.exe.config" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.json" target="_bin\Diphap.JsNetBridge.Generator.exe.json" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.XML" target="_bin\Diphap.JsNetBridge.Generator.XML" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.dll" target="_bin\Diphap.JsNetBridge.Mvc.dll" />
-        <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" />
+        <file src="_bin\Diphap.JsNetBridge.Mvc.xml" target="_bin\Diphap.JsNetBridge.Mvc.xml" />
+        <file src="_bin\Diphap.JsNetBridge.xml" target="_bin\Diphap.JsNetBridge.xml" />
         <file src="_bin\Newtonsoft.Json.dll" target="_bin\Newtonsoft.Json.dll" />
+        <file src="_bin\Newtonsoft.Json.xml" target="_bin\Newtonsoft.Json.xml" />
         <file src="Icon.png" target="Icon.png" />
         <file src="readme.txt" target="readme.txt" />
     </files>

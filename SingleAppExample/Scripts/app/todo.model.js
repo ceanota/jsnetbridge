@@ -3,6 +3,9 @@
     datacontext.todoList = todoList;
 
     function todoItem(data) {
+        /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoItemDto"></param>
+        
+
         var self = this;
         data = data || {};
 
@@ -27,9 +30,11 @@
     };
 
     function todoList(data) {
+        /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoListDto"></param>
+
         var self = this;
         data = data || {};
-
+        
         // Persisted properties
         self.todoListId = data.todoListId;
         self.userId = data.userId || "to be replaced";

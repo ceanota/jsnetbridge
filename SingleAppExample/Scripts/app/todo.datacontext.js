@@ -9,6 +9,8 @@ window.todoApp.datacontext = (function () {
 
         //#region "private"
         function getSucceeded(data) {
+            /// <summary></summary>
+            /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return().$dpItemFactory"></param>
             var mappedTodoLists = $.map(data, function (list) { return new createTodoList(list); });
             todoListsObservable(mappedTodoLists);
         }
@@ -28,12 +30,17 @@ window.todoApp.datacontext = (function () {
     }
 
     function createTodoItem(data) {
+        debugger;
         return new datacontext.todoItem(data); // todoItem is injected by todo.model.js
     }
     function createTodoList(data) {
+        /// <summary></summary>
+        /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return().$dpItemFactory"></param>
+
         return new datacontext.todoList(data); // todoList is injected by todo.model.js
     }
     function saveNewTodoItem(todoItem) {
+        debugger;
         clearErrorMessage(todoItem);
 
         var settings = _getAjaxSettings(todoItem, $dpUrlSet.$apiTodo.PostTodoItem.$action0);
@@ -52,7 +59,6 @@ window.todoApp.datacontext = (function () {
     function saveNewTodoList(todoList) {
         clearErrorMessage(todoList);
 
-        debugger;
         var settings = _getAjaxSettings(todoList, $dpUrlSet.$apiTodoList.PostTodoList.$action0);
 
         var xhr = $.ajax(settings);
@@ -61,38 +67,37 @@ window.todoApp.datacontext = (function () {
             todoList.userId = result.userId;
         });
         xhr.fail(function () {
-            todoItem.errorMessage("Error adding a new todo item.");
+            todoItem.errorMessage("Error adding a new todo list.");
         });
 
         return xhr;
-
-
-        //return ajaxRequest("post", todoListUrl(), todoList)
-        //    .done(function (result) {
-        //        todoList.todoListId = result.todoListId;
-        //        todoList.userId = result.userId;
-        //    })
-        //    .fail(function () {
-        //        todoList.errorMessage("Error adding a new todo list.");
-        //    });
     }
+
     function deleteTodoItem(todoItem) {
-        return ajaxRequest("delete", todoItemUrl(todoItem.todoItemId))
-            .fail(function () {
-                todoItem.errorMessage("Error removing todo item.");
-            });
+        debugger;
+        var settings = _getAjaxSettings(null, $dpUrlSet.$apiTodo.DeleteTodoItem.$action0, todoItem.todoItemId);
+
+        var xhr = $.ajax(settings);
+        xhr.fail(function () {
+            todoItem.errorMessage("Error removing todo item.");
+        });
+        return xhr;
     }
     function deleteTodoList(todoList) {
-        return ajaxRequest("delete", todoListUrl(todoList.todoListId))
-            .fail(function () {
-                todoList.errorMessage("Error removing todo list.");
-            });
+
+        debugger;
+        var settings = _getAjaxSettings(null, $dpUrlSet.$apiTodoList.DeleteTodoList.$action0, todoList.todoListId);
+
+        var xhr = $.ajax(settings);
+        xhr.fail(function () {
+            todoList.errorMessage("Error removing todo list.");
+        });
+        return xhr;
     }
     function saveChangedTodoItem(todoItem) {
         clearErrorMessage(todoItem);
-
-        var action = $dp.$JsNet.$UrlSet.$apiTodo.PutTodoItem.$action0;
-        var options = _getAjaxSettings(todoItem, action, todoItem.todoItemId);
+        debugger;
+        var options = _getAjaxSettings(todoItem, $dp.$JsNet.$UrlSet.$apiTodo.PutTodoItem.$action0, todoItem.todoItemId);
 
         return $.ajax(options)
             .fail(function () {
@@ -102,7 +107,11 @@ window.todoApp.datacontext = (function () {
     }
     function saveChangedTodoList(todoList) {
         clearErrorMessage(todoList);
-        return ajaxRequest("put", todoListUrl(todoList.todoListId), todoList, "text")
+
+        var options = _getAjaxSettings(todoList, $dp.$JsNet.$UrlSet.$apiTodoList.PutTodoList.$action0, todoList.todoListId);
+        options.dataType = "text";
+        debugger;
+        return $.ajax(options)
             .fail(function () {
                 todoList.errorMessage("Error updating the todo list title. Please make sure it is non-empty.");
             });
@@ -111,25 +120,6 @@ window.todoApp.datacontext = (function () {
 
     // Private
     function clearErrorMessage(entity) { entity.errorMessage(null); }
-    function ajaxRequest(type, url, data, dataType) { // Ajax helper
-        var options = {
-            dataType: dataType || "json",
-            contentType: "application/json",
-            cache: false,
-            type: type,
-            data: data ? data.toJson() : null
-        };
-        var antiForgeryToken = $("#antiForgeryToken").val();
-        if (antiForgeryToken) {
-            options.headers = {
-                'RequestVerificationToken': antiForgeryToken
-            }
-        }
-
-
-
-        return $.ajax(url, options);
-    }
 
     function _getAjaxSettings(data, action, id) {
         /// <summary></summary>
@@ -158,13 +148,6 @@ window.todoApp.datacontext = (function () {
 
         return options;
     }
-
-    // routes
-    function todoListUrl(id) {
-        return "/api/todolist/" + (id || "");
-    }
-    function todoItemUrl(id) { return "/api/todo/" + (id || ""); }
-
 
     //#region "Public"
     datacontext.getTodoLists = getTodoLists;
