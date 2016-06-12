@@ -1,4 +1,5 @@
-﻿
+﻿/// <reference path="todo.model.js" />
+
 window.todoApp = window.todoApp || {};
 
 window.todoApp.datacontext = (function () {
@@ -9,8 +10,8 @@ window.todoApp.datacontext = (function () {
 
         //#region "private"
         function getSucceeded(data) {
-            /// <summary></summary>
-            /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return().$dpItemFactory"></param>
+            /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return"></param>
+            
             var mappedTodoLists = $.map(data, function (list) { return new createTodoList(list); });
             todoListsObservable(mappedTodoLists);
         }
@@ -30,16 +31,20 @@ window.todoApp.datacontext = (function () {
     }
 
     function createTodoItem(data) {
+        /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoItemDto"></param>
         debugger;
-        return new datacontext.todoItem(data); // todoItem is injected by todo.model.js
+        return new todo_model.todoItem(data); // todoItem is injected by todo.model.js
     }
-    function createTodoList(data) {
-        /// <summary></summary>
-        /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return().$dpItemFactory"></param>
 
-        return new datacontext.todoList(data); // todoList is injected by todo.model.js
+    function createTodoList(data) {
+        /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return"></param>
+        debugger;
+        return new todo_model.todoList(data); // todoList is injected by todo.model.js
     }
+
     function saveNewTodoItem(todoItem) {
+        /// <param name="todoItem" type="todo_model.todoItem"></param>
+        
         debugger;
         clearErrorMessage(todoItem);
 
@@ -47,7 +52,8 @@ window.todoApp.datacontext = (function () {
 
         var xhr = $.ajax(settings);
         xhr.done(function (result) {
-            todoItem.todoItemId = result.todoItemId;
+            /// <param name="result" type="$dpLib.SingleAppExample.Models.TodoItem"></param>
+            todoItem.todoItemId = result.TodoItemId;
         });
         xhr.fail(function () {
             todoItem.errorMessage("Error adding a new todo item.");
@@ -56,15 +62,20 @@ window.todoApp.datacontext = (function () {
         return xhr;
 
     }
+
     function saveNewTodoList(todoList) {
+        /// <param name="todoList" type="todo_model.todoList"></param>
+        
         clearErrorMessage(todoList);
 
         var settings = _getAjaxSettings(todoList, $dpUrlSet.$apiTodoList.PostTodoList.$action0);
 
         var xhr = $.ajax(settings);
         xhr.done(function (result) {
-            todoList.todoListId = result.todoListId;
-            todoList.userId = result.userId;
+            /// <param name="result" type="$dpLib.SingleAppExample.Models.TodoListDto"></param>
+
+            todoList.todoListId = result.TodoListId;
+            todoList.userId = result.UserId;
         });
         xhr.fail(function () {
             todoItem.errorMessage("Error adding a new todo list.");
@@ -83,8 +94,9 @@ window.todoApp.datacontext = (function () {
         });
         return xhr;
     }
-    function deleteTodoList(todoList) {
 
+    function deleteTodoList(todoList) {
+        /// <param name="todoList" type="todo_model.todoList"></param>
         debugger;
         var settings = _getAjaxSettings(null, $dpUrlSet.$apiTodoList.DeleteTodoList.$action0, todoList.todoListId);
 
@@ -94,7 +106,9 @@ window.todoApp.datacontext = (function () {
         });
         return xhr;
     }
+
     function saveChangedTodoItem(todoItem) {
+        /// <param name="todoItem" type="todo_model.todoItem"></param>
         clearErrorMessage(todoItem);
         debugger;
         var options = _getAjaxSettings(todoItem, $dp.$JsNet.$UrlSet.$apiTodo.PutTodoItem.$action0, todoItem.todoItemId);
@@ -105,7 +119,9 @@ window.todoApp.datacontext = (function () {
             });
 
     }
+
     function saveChangedTodoList(todoList) {
+        /// <param name="todoList" type="todo_model.todoList"></param>
         clearErrorMessage(todoList);
 
         var options = _getAjaxSettings(todoList, $dp.$JsNet.$UrlSet.$apiTodoList.PutTodoList.$action0, todoList.todoListId);
@@ -118,7 +134,7 @@ window.todoApp.datacontext = (function () {
     }
 
 
-    // Private
+    //#region "Private"
     function clearErrorMessage(entity) { entity.errorMessage(null); }
 
     function _getAjaxSettings(data, action, id) {
@@ -148,6 +164,7 @@ window.todoApp.datacontext = (function () {
 
         return options;
     }
+    //#endregion
 
     //#region "Public"
     datacontext.getTodoLists = getTodoLists;

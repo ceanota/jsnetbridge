@@ -30,7 +30,7 @@
         };
 
     datacontext.getTodoLists(todoLists, error); // load todoLists
-
+    
     return {
         todoLists: todoLists,
         error: error,

@@ -1,19 +1,21 @@
 ﻿(function (ko, datacontext) {
-    datacontext.todoItem = todoItem;
-    datacontext.todoList = todoList;
+    debugger;
+
+    if (window.todo_model) { return; }
+    window.todo_model = window.todo_model || {};
 
     function todoItem(data) {
         /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoItemDto"></param>
-        
 
+        debugger;
         var self = this;
         data = data || {};
 
         // Persisted properties
-        self.todoItemId = data.todoItemId;
-        self.title = ko.observable(data.title);
-        self.isDone = ko.observable(data.isDone);
-        self.todoListId = data.todoListId;
+        self.todoItemId = data.TodoItemId;
+        self.title = ko.observable(data.Title);
+        self.isDone = ko.observable(data.IsDone);
+        self.todoListId = data.TodoListId;
 
         // Non-persisted properties
         self.errorMessage = ko.observable();
@@ -31,15 +33,15 @@
 
     function todoList(data) {
         /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoListDto"></param>
-
+        debugger;
         var self = this;
         data = data || {};
-        
+
         // Persisted properties
-        self.todoListId = data.todoListId;
-        self.userId = data.userId || "to be replaced";
-        self.title = ko.observable(data.title || "My todos");
-        self.todos = ko.observableArray(importTodoItems(data.todos));
+        self.todoListId = data.TodoListId;
+        self.userId = data.UserId || "to be replaced";
+        self.title = ko.observable(data.Title || "My todos");
+        self.todos = ko.observableArray(importTodoItems(data.Todos));
 
         // Non-persisted properties
         self.isEditingListTitle = ko.observable(false);
@@ -67,17 +69,27 @@
                     return datacontext.createTodoItem(todoItemData);
                 });
     }
+
     todoList.prototype.addTodo = function () {
+        /// <summary>called in cshtml.</summary>
         var self = this;
         if (self.newTodoTitle()) { // need a title to save
-            var todoItem = datacontext.createTodoItem(
-                {
-                    title: self.newTodoTitle(),
-                    todoListId: self.todoListId
-                });
+
+            var empty = $dpLib.SingleAppExample.Models.TodoItem();
+            empty.Title = self.newTodoTitle();
+            empty.TodoListId = self.todoListId;
+
+            var todoItem = datacontext.createTodoItem(empty);
             self.todos.push(todoItem);
             datacontext.saveNewTodoItem(todoItem);
             self.newTodoTitle("");
         }
     };
+
+    todo_model.todoItem = todoItem;
+    todo_model.todoList = todoList;
+
+    //datacontext.todoItem = todoItem;
+    //datacontext.todoList = todoList;
+
 })(ko, todoApp.datacontext);

@@ -126,34 +126,34 @@ namespace SingleAppExample.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-        [ActionName("testPutt")]
-        [AcceptVerbsAttribute("PUT", "TEST", "get")]
-        public HttpResponseMessage testPut()
-        {
-            return Request.CreateResponse(HttpStatusCode.NotFound);
-        }
+        //[ActionName("testPutt")]
+        //[AcceptVerbsAttribute("PUT", "TEST", "get")]
+        //public HttpResponseMessage testPut()
+        //{
+        //    return Request.CreateResponse(HttpStatusCode.NotFound);
+        //}
 
-        public HttpResponseMessage PutTest(string test)
-        {
-            return Request.CreateResponse(HttpStatusCode.NotFound);
-        }
+        //public HttpResponseMessage PutTest(string test)
+        //{
+        //    return Request.CreateResponse(HttpStatusCode.NotFound);
+        //}
 
-        [Route("customers/{customerId}/orders")]
-        [System.Web.Http.HttpPut()]
-        public Personnage[] test1Put()
-        {
-            return new Personnage[0];
-        }
+        //[Route("customers/{customerId}/orders")]
+        //[System.Web.Http.HttpPut()]
+        //public Personnage[] test1Put()
+        //{
+        //    return new Personnage[0];
+        //}
 
-        public Personnage[] GetPersonnages()
-        {
-            return new Personnage[] { new Personnage() { Nom = "test" } };
-        }
+        //public Personnage[] GetPersonnages()
+        //{
+        //    return new Personnage[] { new Personnage() { Nom = "test" } };
+        //}
 
     }
 
-    public class Personnage
-    {
-        public string Nom;
-    }
+    //public class Personnage
+    //{
+    //    public string Nom;
+    //}
 }
