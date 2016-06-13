@@ -1,5 +1,5 @@
 ﻿(function (ko, datacontext) {
-    debugger;
+    
 
     if (window.todo_model) { return; }
     window.todo_model = window.todo_model || {};
@@ -7,7 +7,7 @@
     function todoItem(data) {
         /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoItemDto"></param>
 
-        debugger;
+        
         var self = this;
         data = data || {};
 
@@ -33,7 +33,7 @@
 
     function todoList(data) {
         /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoListDto"></param>
-        debugger;
+        
         var self = this;
         data = data || {};
 

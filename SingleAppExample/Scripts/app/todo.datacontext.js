@@ -32,20 +32,20 @@ window.todoApp.datacontext = (function () {
 
     function createTodoItem(data) {
         /// <param name="data" type="$dpLib.SingleAppExample.Models.TodoItemDto"></param>
-        debugger;
+        
         return new todo_model.todoItem(data); // todoItem is injected by todo.model.js
     }
 
     function createTodoList(data) {
         /// <param name="data" type="$dpUrlSet.$apiTodoList.GetTodoLists.$action0.$Return"></param>
-        debugger;
+        
         return new todo_model.todoList(data); // todoList is injected by todo.model.js
     }
 
     function saveNewTodoItem(todoItem) {
         /// <param name="todoItem" type="todo_model.todoItem"></param>
         
-        debugger;
+        
         clearErrorMessage(todoItem);
 
         var settings = _getAjaxSettings(todoItem, $dpUrlSet.$apiTodo.PostTodoItem.$action0);
@@ -85,7 +85,7 @@ window.todoApp.datacontext = (function () {
     }
 
     function deleteTodoItem(todoItem) {
-        debugger;
+        
         var settings = _getAjaxSettings(null, $dpUrlSet.$apiTodo.DeleteTodoItem.$action0, todoItem.todoItemId);
 
         var xhr = $.ajax(settings);
@@ -97,7 +97,7 @@ window.todoApp.datacontext = (function () {
 
     function deleteTodoList(todoList) {
         /// <param name="todoList" type="todo_model.todoList"></param>
-        debugger;
+        
         var settings = _getAjaxSettings(null, $dpUrlSet.$apiTodoList.DeleteTodoList.$action0, todoList.todoListId);
 
         var xhr = $.ajax(settings);
@@ -110,7 +110,7 @@ window.todoApp.datacontext = (function () {
     function saveChangedTodoItem(todoItem) {
         /// <param name="todoItem" type="todo_model.todoItem"></param>
         clearErrorMessage(todoItem);
-        debugger;
+        
         var options = _getAjaxSettings(todoItem, $dp.$JsNet.$UrlSet.$apiTodo.PutTodoItem.$action0, todoItem.todoItemId);
 
         return $.ajax(options)
@@ -126,7 +126,7 @@ window.todoApp.datacontext = (function () {
 
         var options = _getAjaxSettings(todoList, $dp.$JsNet.$UrlSet.$apiTodoList.PutTodoList.$action0, todoList.todoListId);
         options.dataType = "text";
-        debugger;
+        
         return $.ajax(options)
             .fail(function () {
                 todoList.errorMessage("Error updating the todo list title. Please make sure it is non-empty.");
