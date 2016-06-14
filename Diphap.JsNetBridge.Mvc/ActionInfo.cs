@@ -347,7 +347,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         private StringBuilder GetAjaxSettings_ForWebApi(string url, string data, string method)
         {
-            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, WebApiHelper.GetAjaxDataType(this.MethodInfo), data, method);
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + WebApiHelper.GetAjaxDataType(this.MethodInfo) + "'", data, method);
             return sb_ajax_options;
         }
 
@@ -359,7 +359,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         private StringBuilder GetAjaxSettings_ForMvc(string url, string data)
         {
-            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, MvcHelper.GetAjaxDataType(this.MethodInfo), data, "'POST'");
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + MvcHelper.GetAjaxDataType(this.MethodInfo) + "'", data, "'POST'");
             return sb_ajax_options;
         }
 
