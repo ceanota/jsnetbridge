@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using ContosoUniversity.Models;
 using ContosoUniversity.DAL;
 using PagedList;
-using TestModels;
+//using TestModels;
 
 namespace ContosoUniversity.Controllers
 {
@@ -186,19 +186,19 @@ namespace ContosoUniversity.Controllers
             base.Dispose(disposing);
         }
 
-        public class TestClass
-        {
-            public string HelloWorld;
-        }
+        //public class TestClass
+        //{
+        //    public string HelloWorld;
+        //}
 
-        [ActionName("aj")]
-        [HttpGet]
-        public ActionResult Ajouter(TestClass aaa, EnumTest? e, EnumTest e1) 
-        {
-            var aa = new JsonResult();
-            aa.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            return aa;
-        }
+        //[ActionName("aj")]
+        //[HttpGet]
+        //public ActionResult Ajouter(TestClass aaa, EnumTest? e, EnumTest e1) 
+        //{
+        //    var aa = new JsonResult();
+        //    aa.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+        //    return aa;
+        //}
 
     }
 }
