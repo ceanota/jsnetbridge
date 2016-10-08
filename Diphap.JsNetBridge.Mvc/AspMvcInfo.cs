@@ -108,12 +108,12 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
-        readonly public AssemblyResolver AssemblyResolver; 
+        readonly public AssemblyResolver AssemblyResolver;
 
         /// <summary>
         /// Instanciate information about AspMvc Application.
         /// </summary>
-        /// <param name="appAspNetPath"></param>
+        /// <param name="asp_net"></param>
         /// <param name="typeSetList"></param>
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
@@ -187,8 +187,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Instanciate information about AspMvc Application.
         /// </summary>
-        /// <param name="appAspNetPath"></param>
-        /// <param name="typeSetList"></param>
+        /// <param name="asp_net"></param>
         /// <returns></returns>
         public AspMvcInfo(Assembly asp_net)
             : this(asp_net, new AssemblySet[] { })
