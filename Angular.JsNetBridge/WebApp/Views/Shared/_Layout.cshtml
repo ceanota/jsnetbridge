@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    @Styles.Render("~/Assets/Bootstrap/css/bootstrap.css")
+    @Styles.Render("~/styles")
+</head>
+<body>
+    @*@this.Url.RouteUrl()*@
+    @RenderBody()
+
+    
+    <br />
+    <br />
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <footer>
+                <p>Learn more about <b><a href="http://jsnet.codeplex.com/ " target="_blank">Diphap.JsNetBridge.Mvc</a></b></p>
+                <p>Learn more about <b><a target="_blank" href="https://visualstudiogallery.msdn.microsoft.com/48d928e3-9b5c-4faf-b46f-d6baa7d9886c">ng.Net</a></b></p>
+            </footer>
+        </div>
+    </div>
+
+    @Scripts.Render("~/ng")
+    @Scripts.Render("~/app")
+    @Scripts.Render("~/jquery")
+    @Scripts.Render("~/bootstrap")
+
+    @Scripts.Render("~/bundles/JsNetBridge")
+    <script>
+        @(new MvcHtmlString(WebApiApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+    </script>
+
+    @Scripts.Render("~/misc")
+</body>
+</html>

@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+﻿r<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -48,10 +48,9 @@
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/JsNetBridge")
-    @*<script>
+    <script>
         @(new MvcHtmlString(ContosoUniversity.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
-        
-    </script>*@
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>

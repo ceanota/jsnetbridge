@@ -69,7 +69,7 @@ window.todoApp.datacontext = (function () {
         clearErrorMessage(todoList);
 
         var settings = _getAjaxSettings(todoList, $dpUrlSet.$apiTodoList.PostTodoList.$action0);
-
+        debugger;
         var xhr = $.ajax(settings);
         xhr.done(function (result) {
             /// <param name="result" type="$dpLib.SingleAppExample.Models.TodoListDto"></param>

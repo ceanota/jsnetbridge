@@ -22,7 +22,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="urlHelper"></param>
         /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        public UrlInfo SetUrlValue(UrlManager urlHelper, string apiRouteName = "DefaultApi")
+        public UrlInfo SetUrlValue(UrlManager urlHelper, string apiRouteName)
         {
             SetUrlValue(urlHelper, this.AreaInfoList, apiRouteName);
             return this;
@@ -41,12 +41,13 @@ namespace Diphap.JsNetBridge.Mvc
         /// Get instructions set for url.
         /// </summary>
         /// <param name="urlHelper"></param>
+        /// <param name="apiRouteName"></param>
         /// <returns></returns>
-        public string ToJS_SetUrl(UrlManager urlHelper = null)
+        public string ToJS_SetUrl(UrlManager urlHelper = null, string apiRouteName = "DefaultApi")
         {
             if (urlHelper != null)
             {
-                this.SetUrlValue(urlHelper);
+                this.SetUrlValue(urlHelper, apiRouteName);
             }
 
             string properties = GetJsSetUrl(this.AreaInfoList, ConfigJS.url_set);
@@ -91,11 +92,11 @@ namespace Diphap.JsNetBridge.Mvc
                             {
                                 if (string.IsNullOrWhiteSpace(sig.Area) == false)
                                 {
-                                    dic = new { area = sig.Area, httproute = "", controller = sig.Controller };
+                                    dic = new { area = sig.Area, httproute = "", controller = sig.Controller, action = sig.Action };
                                 }
                                 else
                                 {
-                                    dic = new { httproute = "", controller = sig.Controller };
+                                    dic = new { httproute = "", controller = sig.Controller, action = sig.Action };
                                 }
 
                                 sig.Url = urlHelper.RouteUrl(apiRouteName, dic);
