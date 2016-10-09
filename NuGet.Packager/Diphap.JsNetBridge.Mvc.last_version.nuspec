@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.0.27</version>
+        <version>1.0.28</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -24,7 +24,8 @@ No hard coded url.
         <summary>A project to auto-generate JavaScript proxies for ASP.NET MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>fix bug on ajax settings mvc: forgetting quote
+        <releaseNotes>Fix: bug on generation web api url
+fix bug on ajax settings mvc: forgetting quote
 Fix bug: enable the loadFromRemoteSources switch in config. of generator application. 
 Fixed bug for dataType ('json' or 'text') for mvc action
 Fixed bug for dataType ('json' or 'text')
