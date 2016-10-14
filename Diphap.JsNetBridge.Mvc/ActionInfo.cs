@@ -359,7 +359,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         private StringBuilder GetAjaxSettings_ForMvc(string url, string data)
         {
-            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + MvcHelper.GetAjaxDataType(this.MethodInfo) + "'", data, "'POST'");
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + MvcHelper.GetAjaxDataType(this.MethodInfo) + "'", data, "'post'");
             return sb_ajax_options;
         }
 

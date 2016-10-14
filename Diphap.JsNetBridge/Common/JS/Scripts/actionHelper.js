@@ -181,7 +181,7 @@
             action.$Enums = function () { var obj = null; return obj; };
             action.$IsApi = false;
             action.$httpMethodArray = { $items:['post','get'], $single:'post', $first:'post' };
-            action.$AjaxSettings = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'POST' }; return obj; };
+            action.$AjaxSettings = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, method: 'post' }; return obj; };
             action.$RouteTemplate = '';
             return action;
         }
