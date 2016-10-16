@@ -25,12 +25,12 @@ namespace MvcAppExample
             AuthConfig.RegisterAuth();
         }
 
+        #region "JsNetBridge: it will help generate the url in the layout of views."
         static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
-        public static Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
+        static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
         {
-            get 
+            get
             {
-
                 if (_AspMvcInfo == null)
                 {
                     _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly());
@@ -38,5 +38,6 @@ namespace MvcAppExample
                 return _AspMvcInfo;
             }
         }
+        #endregion
     }
 }

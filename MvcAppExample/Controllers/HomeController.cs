@@ -28,5 +28,17 @@ namespace MvcAppExample.Controllers
 
             return View();
         }
+
+        public JsonResult ShowMe(string name, int? age)
+        {
+
+            JsonResult result = new JsonResult();
+            result.Data = new { name = name, age = age };
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            return result;
+        }
     }
+
+
+
 }

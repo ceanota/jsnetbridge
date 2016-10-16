@@ -45,16 +45,16 @@
     <CodeAnalysisRuleSet>SecurityRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diphap.JsNetBridge, Version=1.3.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.28\lib\net45\Diphap.JsNetBridge.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge, Version=1.4.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.1.34\lib\net45\Diphap.JsNetBridge.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.3.0.28, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.28\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.4.0.33, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.1.34\lib\net45\Diphap.JsNetBridge.Mvc.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.3.0.24, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.0.28\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.1.34\lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
@@ -271,6 +271,7 @@
     <Content Include="Scripts\Diphap.JsNetBridge\actionHelper.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\arrayFactory.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.Example.js" />
     <Content Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js">
       <DependentUpon>Diphap.JsNetBridge.tt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -281,6 +282,7 @@
       <LastGenOutput>Diphap.JsNetBridge.js</LastGenOutput>
     </Content>
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
+    <Content Include="Scripts\Diphap.JsNetBridge\readme.txt" />
     <Content Include="Scripts\jquery-1.8.2.js" />
     <Content Include="Scripts\jquery-1.8.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -377,8 +379,7 @@
     </VisualStudio>
   </ProjectExtensions>
   <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
+    <PostBuildEvent>IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"</PostBuildEvent>
   </PropertyGroup>
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

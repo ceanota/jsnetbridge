@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.0.28</version>
+        <version>1.1.34</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -10,21 +10,19 @@
         <projectUrl>http://jsnet.codeplex.com/</projectUrl>
         <iconUrl>https://download-codeplex.sec.s-msft.com/Download?ProjectName=jsnet&amp;DownloadId=1533502&amp;Build=21031</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>A project to auto-generate JavaScript proxies for ASP.NET MVC and WebApi controllers.
-
-Build javascript Proxy Objects.
-
-With Intellisense.
-
-No hard coded url.
+        <description>With Intellisense, the library provides information for easy writing to ajax requests in JavaScript for ASP.NET MVC ET WEB API applications. 
+The advantage is to have no more hard-coded client-side URL.
+When writing of ajax requests, the library allows the developer front-end to retrieve the url generated 
+on the server side, to know the structure of data to send parameter and instantiate it.
 
 [HOW TO USE IT]: http://jsnet.codeplex.com/
-
 [SAMPLE APPLICATION]: https://jsnet.codeplex.com/releases</description>
         <summary>A project to auto-generate JavaScript proxies for ASP.NET MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>Fix: bug on generation web api url
+        <releaseNotes>Improved readme.txt
+Fix: bug on method (POST) in AjaxSettings.
+Fix: bug on generation web api url
 fix bug on ajax settings mvc: forgetting quote
 Fix bug: enable the loadFromRemoteSources switch in config. of generator application. 
 Fixed bug for dataType ('json' or 'text') for mvc action
@@ -44,7 +42,9 @@ Fixed bug on the loading of assemblies</releaseNotes>
         <file src="content\Scripts\Diphap.JsNetBridge\actionHelper.js" target="content\Scripts\Diphap.JsNetBridge\actionHelper.js" />
         <file src="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" target="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
         <file src="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" target="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
+        <file src="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.Example.js" target="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.Example.js" />
         <file src="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" target="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
+        <file src="content\Scripts\Diphap.JsNetBridge\readme.txt" target="content\Scripts\Diphap.JsNetBridge\readme.txt" />
         <file src="lib\net45\Diphap.JsNetBridge.dll" target="lib\net45\Diphap.JsNetBridge.dll" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.dll" />
         <file src="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" target="lib\net45\Diphap.JsNetBridge.Mvc.Proxy.dll" />

@@ -23,8 +23,13 @@ namespace MvcAppExample
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
                         "~/Scripts/modernizr-*"));
 
-            bundles.Add(new ScriptBundle("~/bundles/JsNetBridge").Include(
-                        "~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
+            #region "JsNetBridge" 
+            bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
+                .Include("~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
+                .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
+                .Include("~/Scripts/Diphap.JsNetBridge/actionHelper.js")
+                .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
+            #endregion
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
 

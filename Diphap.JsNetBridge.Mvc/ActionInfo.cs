@@ -316,7 +316,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="url">Warning! ex: ['controller/action']</param>
         /// <param name="dataType">Warning! ex: ['json']</param>
         /// <param name="data">js object</param>
-        /// <param name="method">Warning! ['POST']</param>
+        /// <param name="method">Warning! ['post']</param>
         /// <returns></returns>
         static private StringBuilder GetAjaxSettings_Default(string url, string dataType, string data, string method)
         {
@@ -324,15 +324,17 @@ namespace Diphap.JsNetBridge.Mvc
             sb_ajax_options.Append("{");
             sb_ajax_options.AppendFormat("url:{0}", url);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:{0}", dataType);// data type of return.
+            sb_ajax_options.AppendFormat("dataType:{0}", dataType);//-- data type of return.
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("contentType:{0}", "'application/json'");
+            sb_ajax_options.AppendFormat("contentType:{0}", "'application/json'"); //-- Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases.
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("cache:{0}", "false");
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("method:{0}", method);
+            sb_ajax_options.AppendFormat("type:{0}", method); //-- An alias for method. You should use type if you're using versions of jQuery prior to 1.9.0.
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("data:{0}", data);
+            sb_ajax_options.AppendFormat("method:{0}", method); //-- The HTTP method to use for the request (e.g. "POST", "GET", "PUT"). (version added: 1.9.0)
+            sb_ajax_options.Append(",");
+            sb_ajax_options.AppendFormat("data:{0}", data); //-- parameters
 
             sb_ajax_options.Append("}");
             return sb_ajax_options;

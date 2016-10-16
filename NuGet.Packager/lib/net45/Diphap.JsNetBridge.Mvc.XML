@@ -112,7 +112,7 @@
             <param name="url">Warning! ex: ['controller/action']</param>
             <param name="dataType">Warning! ex: ['json']</param>
             <param name="data">js object</param>
-            <param name="method">Warning! ['POST']</param>
+            <param name="method">Warning! ['post']</param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxSettings_ForWebApi(System.String,System.String,System.String)">

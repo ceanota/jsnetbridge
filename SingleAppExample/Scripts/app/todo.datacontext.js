@@ -49,7 +49,7 @@ window.todoApp.datacontext = (function () {
         clearErrorMessage(todoItem);
 
         var settings = _getAjaxSettings(todoItem, $dpUrlSet.$apiTodo.PostTodoItem.$action0);
-
+        
         var xhr = $.ajax(settings);
         xhr.done(function (result) {
             /// <param name="result" type="$dpLib.SingleAppExample.Models.TodoItem"></param>
@@ -150,7 +150,7 @@ window.todoApp.datacontext = (function () {
         } else {
             options.url = action.$GetUrl();
         }
-
+        debugger;
         options.type = action.$httpMethodArray.$first;
 
         options.data = data ? data.toJson() : null;

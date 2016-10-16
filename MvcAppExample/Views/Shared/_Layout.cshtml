@@ -44,10 +44,15 @@
 
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+    @* JsNetBridge: it will generate the url. *@
     @Scripts.Render("~/bundles/JsNetBridge")
     <script>
-        @*@(new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))*@
-
+				@(new MvcHtmlString(MvcAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+    </script>
+    @* JsNetBridge: example of use. Read the prerequisites in the script 'Diphap.JsNetBridge.Example.js' *@
+    <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js" ></script>
+    <script>
+        window.test_dpUrlSet();
     </script>
 </body>
 </html>

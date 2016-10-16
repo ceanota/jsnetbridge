@@ -72,6 +72,8 @@
     <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
     <Content Include="content\Scripts\Diphap.JsNetBridge\actionHelper.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.Example.js" />
+    <Content Include="content\Scripts\Diphap.JsNetBridge\readme.txt" />
     <Content Include="Icon.png" />
     <None Include="build.bat" />
     <Content Include="_bin\Diphap.JsNetBridge.dll" />
