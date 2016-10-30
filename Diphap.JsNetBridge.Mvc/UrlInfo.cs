@@ -6,11 +6,21 @@ using System.Reflection;
 
 namespace Diphap.JsNetBridge.Mvc
 {
+    /// <summary>
+    /// Generates Url
+    /// </summary>
     public class UrlInfo
     {
-
+        /// <summary>
+        /// Areas
+        /// </summary>
         public readonly List<AreaInfo> AreaInfoList;
 
+        /// <summary>
+        /// Generates Url
+        /// </summary>
+        /// <param name="types_contoller"></param>
+        /// <param name="JSNamespace"></param>
         public UrlInfo(IList<Type> types_contoller, ConfigJS.JSNamespace JSNamespace)
         {
             this.AreaInfoList = GetAreaInfoList(types_contoller, JSNamespace);
@@ -114,6 +124,14 @@ namespace Diphap.JsNetBridge.Mvc
 
                                 sig.Url = urlHelper.Action(sig.Action, sig.Controller, dic);
                             }
+
+                            if (sig.Url != null && sig.Url.Contains('?'))
+                            {
+                                //ex: if routeTemplate = "api/{controller}/{id}", url_temp = "/Person?action='PostName'"
+                                //ex: we remove the query string.
+                                sig.Url = sig.Url.Split('?')[0];
+                            }
+
                         }
                     }
                 }
@@ -282,7 +300,8 @@ namespace Diphap.JsNetBridge.Mvc
         /// Creates instance of ActionInfo.
         /// </summary>
         /// <param name="type_controller_current"></param>
-        /// <param name="mig_current">differents signatures of one method</param>
+        /// <param name="miGroup">differents signatures of one method</param>
+        /// <param name="JSNamespace"></param>
         /// <returns></returns>
         private static ActionInfoGroup CreateUrl(Type type_controller_current, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace)
         {
