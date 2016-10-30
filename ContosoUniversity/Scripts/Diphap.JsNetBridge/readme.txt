@@ -1,7 +1,10 @@
-﻿GET STARTED
-/***************************************************************************************************************
-            GET STARTED: Here's an example to start using the API:
+﻿/***************************************************************************************************************
+			GET STARTED: Here's an example to start using the API - Diphap.JsNetBridge.Mvc
+									http://jsnet.codeplex.com/
 ***************************************************************************************************************/
+
+0- You can download a sample application using the library.
+	http://jsnet.codeplex.com/releases/view/624368
 
 1- Paste this code into the file 'BundleConfig.cs' in the function 'RegisterBundles' of the class 'BundleConfig':
 
@@ -53,7 +56,6 @@
 
 	 IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"
 
-
 7- Build your ASP.NET application to generate the content of this script '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'
 
 8- In the Output Window of Visual Studio, you can check the logs:
@@ -83,7 +85,6 @@
 10- In your js scripts, this global object '$dpUrlSet' allows you to access the API.
 
 	//#region "Example"
-
 	//--  get the url of action method
 	var url = $dpUrlSet.Home.Index.$action0.$GetUrl();
 
@@ -92,10 +93,11 @@
 
 	//-- get the parameters of action method 
 	var settings = $dpUrlSet.Home.Index.$action0.AjaxSettings();
-
 	//#endregion
 
+11- In this script 'Diphap.JsNetBridge.Example.js', you have an example of functional code.
+	Read the PREREQUISITES in 'Diphap.JsNetBridge.Example.js'.
 
-12- In this script 'Diphap.JsNetBridge.Example.js', you have an example of functional code.
-	Read the PREREQUISITES.
+12- You can download a sample application using the library.
+	http://jsnet.codeplex.com/releases/view/624368
 

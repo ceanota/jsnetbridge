@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.1.34</version>
+        <version>1.2.34</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -20,7 +20,8 @@ on the server side, to know the structure of data to send parameter and instanti
         <summary>A project to auto-generate JavaScript proxies for ASP.NET MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>Improved readme.txt
+        <releaseNotes>Fix: bug on generation of url of action method: we remove the query string.
+Improved readme.txt
 Fix: bug on method (POST) in AjaxSettings.
 Fix: bug on generation web api url
 fix bug on ajax settings mvc: forgetting quote
@@ -33,9 +34,7 @@ Fixed bug on the loading of assemblies</releaseNotes>
         <language>en-US</language>
         <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES METADATA</tags>
         <dependencies>
-            <group targetFramework=".NETFramework4.5">
-                <dependency id="Newtonsoft.Json" version="4.5.11" />
-            </group>
+            <group targetFramework=".NETFramework4.5" />
         </dependencies>
     </metadata>
     <files>

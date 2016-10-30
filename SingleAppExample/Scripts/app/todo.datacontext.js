@@ -111,7 +111,7 @@ window.todoApp.datacontext = (function () {
         /// <param name="todoItem" type="todo_model.todoItem"></param>
         clearErrorMessage(todoItem);
         
-        var options = _getAjaxSettings(todoItem, $dp.$JsNet.$UrlSet.$apiTodo.PutTodoItem.$action0, todoItem.todoItemId);
+        var options = _getAjaxSettings(todoItem, $dpUrlSet.$apiTodo.PutTodoItem.$action0, todoItem.todoItemId);
 
         return $.ajax(options)
             .fail(function () {
@@ -124,7 +124,7 @@ window.todoApp.datacontext = (function () {
         /// <param name="todoList" type="todo_model.todoList"></param>
         clearErrorMessage(todoList);
 
-        var options = _getAjaxSettings(todoList, $dp.$JsNet.$UrlSet.$apiTodoList.PutTodoList.$action0, todoList.todoListId);
+        var options = _getAjaxSettings(todoList, $dpUrlSet.$apiTodoList.PutTodoList.$action0, todoList.todoListId);
         options.dataType = "text";
         
         return $.ajax(options)
@@ -145,12 +145,12 @@ window.todoApp.datacontext = (function () {
 
         var options = action.$AjaxSettings();
 
+        options.url = action.$GetUrl();
+
         if (id) {
-            options.url = action.$GetUrl({ id: id });
-        } else {
-            options.url = action.$GetUrl();
+            options.url += "/" + id ;
         }
-        debugger;
+
         options.type = action.$httpMethodArray.$first;
 
         options.data = data ? data.toJson() : null;

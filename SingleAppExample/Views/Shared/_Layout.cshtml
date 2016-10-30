@@ -25,7 +25,7 @@
                 <li>@Html.ActionLink("API", "Index", "Help", new { area = "HelpPage" }, null)</li>
             </ul>
         </nav>
-		<p>Learn more about <a href="http://jsnet.codeplex.com/ " target="_blank">Diphap.JsNetBridge.Mvc</a></p>
+        <p>Learn more about <a href="http://jsnet.codeplex.com/ " target="_blank">Diphap.JsNetBridge.Mvc</a></p>
         <p>Learn more about <a href="http://go.microsoft.com/fwlink/?LinkId=273732" target="_blank">Single Page Applications</a></p>
         <p>&copy; @DateTime.Now.Year - My ASP.NET MVC Application</p>
     </footer>
@@ -34,13 +34,13 @@
     @Scripts.Render("~/bundles/jqueryui")
     @Scripts.Render("~/bundles/ajaxlogin")
 
+    @* JsNetBridge: it will generate the url. *@
     @Scripts.Render("~/bundles/JsNetBridge")
     <script>
         @(new MvcHtmlString(SingleAppExample.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
-        @{
-            SingleAppExample.MvcApplication.AspMvcInfo.AssemblyResolver.SubscribeAssemblyResolveEvent(false);
-        }
     </script>
+    @* JsNetBridge: example of use. Read the prerequisites in the script 'Diphap.JsNetBridge.Example.js' *@
+    <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js"></script>
 
     @RenderSection("scripts", required: false)
 

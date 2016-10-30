@@ -112,7 +112,7 @@
             <param name="url">Warning! ex: ['controller/action']</param>
             <param name="dataType">Warning! ex: ['json']</param>
             <param name="data">js object</param>
-            <param name="method">Warning! ['POST']</param>
+            <param name="method">Warning! ['post']</param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxSettings_ForWebApi(System.String,System.String,System.String)">
@@ -374,6 +374,23 @@
             </summary>
             <returns></returns>
         </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.UrlInfo">
+            <summary>
+            Generates Url
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.UrlInfo.AreaInfoList">
+            <summary>
+            Areas
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.#ctor(System.Collections.Generic.IList{System.Type},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+            <summary>
+            Generates Url
+            </summary>
+            <param name="types_contoller"></param>
+            <param name="JSNamespace"></param>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(Diphap.JsNetBridge.Mvc.Proxy.UrlManager,System.String)">
             <summary>
             Set url jsvalue.
@@ -443,7 +460,8 @@
             Creates instance of ActionInfo.
             </summary>
             <param name="type_controller_current"></param>
-            <param name="mig_current">differents signatures of one method</param>
+            <param name="miGroup">differents signatures of one method</param>
+            <param name="JSNamespace"></param>
             <returns></returns>
         </member>
     </members>

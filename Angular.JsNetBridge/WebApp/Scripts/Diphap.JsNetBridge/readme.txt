@@ -1,6 +1,6 @@
-﻿GET STARTED
-/***************************************************************************************************************
-            GET STARTED: Here's an example to start using the API:
+﻿/***************************************************************************************************************
+			GET STARTED: Here's an example to start using the API - Diphap.JsNetBridge.Mvc
+									http://jsnet.codeplex.com/
 ***************************************************************************************************************/
 
 0- You can download a sample application using the library.
@@ -55,7 +55,6 @@
 6- Properties of your csproj, then Build Events, and then  Post-build event command line, past this command line:
 
 	 IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"
-
 
 7- Build your ASP.NET application to generate the content of this script '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'
 

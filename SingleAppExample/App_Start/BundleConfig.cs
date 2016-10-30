@@ -32,11 +32,13 @@ namespace SingleAppExample
                 "~/Scripts/app/todo.model.js",
                 "~/Scripts/app/todo.viewmodel.js"));
 
+            #region "JsNetBridge" 
             bundles.Add(new ScriptBundle("~/bundles/JsNetBridge")
                 .Include("~/Scripts/Diphap.JsNetBridge/arrayFactory.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/actionHelper.js")
                 .Include("~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"));
+            #endregion
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
