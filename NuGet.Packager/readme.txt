@@ -42,10 +42,17 @@
 
 4- Paste this code in each layout file (ex: '_Layout.cshtml), before JS app:
 			
-			@* JsNetBridge: it will generate the url. *@
+			@* JsNetBridge: it will generates the url. *@
             @Scripts.Render("~/bundles/JsNetBridge")
 			<script>
-				@(new MvcHtmlString({MyWebApp}.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+        
+				@* JsNetBridge: it retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
+				$dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@((System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
+				$dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@((System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
+
+				@* JsNetBridge: it generates the url of action method. *@
+				@(new MvcHtmlString(WebApiApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+    
 			</script>
 			@* JsNetBridge: example of use. Read the prerequisites in the script 'Diphap.JsNetBridge.Example.js' *@
 			@* <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js" ></script> *@

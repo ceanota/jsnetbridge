@@ -23,6 +23,8 @@ namespace SingleAppExample
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+
+
         }
 
         #region "JsNetBridge: it will help generate the url in the layout of views."
