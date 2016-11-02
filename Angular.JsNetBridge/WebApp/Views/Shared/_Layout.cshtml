@@ -8,10 +8,10 @@
     @Styles.Render("~/styles")
 </head>
 <body>
-    
+
     @RenderBody()
 
-    
+
     <br />
     <br />
     <div class="row">
@@ -30,14 +30,14 @@
 
     @Scripts.Render("~/bundles/JsNetBridge")
     <script>
-        
+
         @* retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
-        $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@((System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
-        $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@((System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
+        $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["DefaultApi"] == null ? "" : (System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
+        $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
 
         @* generates the url of action method. *@
         @(new MvcHtmlString(WebApiApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
-    
+
     </script>
 
     @Scripts.Render("~/misc")
