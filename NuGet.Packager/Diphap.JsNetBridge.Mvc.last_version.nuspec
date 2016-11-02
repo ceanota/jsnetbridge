@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.2.34</version>
+        <version>1.2.35</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -32,7 +32,7 @@ Fixed bug for redirecting assembly version
 Fixed bug on the loading of assemblies</releaseNotes>
         <copyright>Copyright (c) 2015</copyright>
         <language>en-US</language>
-        <tags>Build JS javascript ASP.NET Generate Intellisense URL API PROXY PROXIES METADATA</tags>
+        <tags>Build JS javascript ASP.NET MVC Generate Intellisense URL WEB API PROXY PROXIES METADATA Calling action method</tags>
         <dependencies>
             <group targetFramework=".NETFramework4.5" />
         </dependencies>
