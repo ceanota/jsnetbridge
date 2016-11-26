@@ -44,9 +44,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigDynamicAssembly.cs" />
+    <Compile Include="TypesOfAspNetSetCoreMvc.cs" />
+    <Compile Include="TypesOfAspNetSetBaseMvc.cs" />
     <Compile Include="TypesOfAspNetSetMvc.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="TypesOfAspNetSetBaseWebApi.cs" />
     <Compile Include="TypesOfAspNetSetWebApi.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TypesOfAspNetSet.cs" />

@@ -75,7 +75,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
 
             {
-                string[] methods = AspMvcInfo.TypesOfAspNetSetWebApi.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
+                string[] methods = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo, AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp);
                 if (methods.Length > 0)
                 {
                     return methods;
@@ -101,9 +101,9 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         {
             Type value = null;
 
-            if (AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute != null)
+            if (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_RespsonseTypeAttribute != null)
             {
-                value = TypeHelper.GetAttributePropertyValue(mi, AspMvcInfo.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute, "ResponseType") as Type;
+                value = TypeHelper.GetAttributePropertyValue(mi, AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_RespsonseTypeAttribute, "ResponseType") as Type;
             }
 
             if (value == null)
@@ -132,7 +132,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
             Type treturn = GetEffectiveReturnType(mi) ?? typeof(void);
 
             bool isText = typeof(void) == treturn ||
-                AspMvcInfo.TypesOfAspNetSetWebApi.Type_HttpResponseMessage.IsAssignableFrom(treturn);
+                AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(treturn);
 
             if (isText)
             {
@@ -148,7 +148,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         static private string GetHttpMethod_FromHttpAttribute(MethodInfo MethodInfo)
         {
 
-            foreach (var t in AspMvcInfo.TypesOfAspNetSetWebApi.THttpAttributes.Values)
+            foreach (var t in AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.THttpAttributes.Values)
             {
                 var att = TypeHelper.GetCustomAttribute(MethodInfo, t);
                 if (att != null)

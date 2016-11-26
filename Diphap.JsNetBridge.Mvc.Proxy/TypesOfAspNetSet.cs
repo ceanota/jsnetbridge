@@ -19,13 +19,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// MVC and Web API
         /// </summary>
-        internal Type Type_ActionNameAttribute;
-
-        /// <summary>
-        /// Warning, Since Web API 2
-        /// [Optionnal]
-        /// </summary>
-        internal Type Type_RouteAttribute;
+        abstract protected internal Type Type_ActionNameAttribute { get; }
 
         public static string AssemblyDirectory
         {
@@ -38,14 +32,10 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
-        static protected Assembly _LoadAssembly(string assName, AssemblyResolver assemblyResolver)
+        static internal Assembly _LoadAssembly(string assName, AssemblyResolver assemblyResolver)
         {
             Assembly ass = ReflectionLoader.Load(ConfigDynamicAssembly.References[assName], assemblyResolver);
             return ass;
-        }
-
-        public TypesOfAspNetSet(AssemblyResolver assemblyResolver)
-        {
         }
 
         #region "ActionName"
@@ -68,24 +58,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         #region "TemplateName"
         /// <summary>
-        /// Get Action Name.
+        /// GetRouteTemplate
         /// </summary>
         /// <param name="MethodInfo"></param>
         /// <returns></returns>
-        internal string GetRouteTemplate(MethodInfo MethodInfo)
-        {
-            if (this.Type_RouteAttribute != null)
-            {
-                object value = TypeHelper.GetAttributePropertyValue(MethodInfo, this.Type_RouteAttribute, "Template");
-                if (value != null)
-                {
-                    string name = value as string;
-                    return name;
-                }
-                else { return ""; }
-            }
-            else { return ""; }
-        }
+        abstract protected internal string GetRouteTemplate(MethodInfo MethodInfo);
         #endregion
     }
 }

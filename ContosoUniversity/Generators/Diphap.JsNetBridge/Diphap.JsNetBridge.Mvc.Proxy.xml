@@ -14,27 +14,39 @@
             For loading dynamically Assemblies.
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi.Type_IHttpActionResult">
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi.GetRouteTemplate(System.Reflection.MethodInfo)">
             <summary>
-            Warning, Since Web API 2
-            [Optionnal]
+            GetRouteTemplate
             </summary>
+            <param name="MethodInfo"></param>
+            <returns></returns>
         </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi.Type_RespsonseTypeAttribute">
-            <summary>
-            Warning, Since Web API 2
-            [Optionnal]
-            </summary>
-        </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_ActionNameAttribute">
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.Type_ActionNameAttribute">
             <summary>
             MVC and Web API
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_RouteAttribute">
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.Type_RouteAttribute">
             <summary>
             Warning, Since Web API 2
             [Optionnal]
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.Type_IHttpActionResult">
+            <summary>
+            Warning, Since Web API 2
+            [Optionnal]
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.Type_RespsonseTypeAttribute">
+            <summary>
+            Warning, Since Web API 2
+            [Optionnal]
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_ActionNameAttribute">
+            <summary>
+            MVC and Web API
             </summary>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.GetActionName(System.Reflection.MethodInfo)">
@@ -46,7 +58,7 @@
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.GetRouteTemplate(System.Reflection.MethodInfo)">
             <summary>
-            Get Action Name.
+            GetRouteTemplate
             </summary>
             <param name="MethodInfo"></param>
             <returns></returns>
