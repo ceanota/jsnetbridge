@@ -75,7 +75,8 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
 
 
             {
-                string[] methods = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo, AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp);
+                string[] methods = AspMvcInfo.TypesOfAspNetSetWebApi.
+                    TWebHttp.GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo);
                 if (methods.Length > 0)
                 {
                     return methods;

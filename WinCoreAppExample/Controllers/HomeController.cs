@@ -38,6 +38,7 @@ namespace WinCoreAppExample.Controllers
             throw new NotImplementedException();
         }
 
+        [AcceptVerbsAttribute("fdsf")]
         public JsonResult Data()
         {
             return new JsonResult("");

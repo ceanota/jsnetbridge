@@ -44,6 +44,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AspNetCore\TypesOfAspNetSetCoreMvc.cs" />
+    <Compile Include="AssemblyInfoWrapper.cs" />
+    <Compile Include="TypeInfoWrapper.cs" />
     <Compile Include="TypesOfAspNetSetBaseMvc.cs" />
     <Compile Include="AspNet\TypesOfAspNetSetMvc.cs">
       <SubType>Code</SubType>

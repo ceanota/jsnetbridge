@@ -21,7 +21,6 @@ namespace Diphap.JsNetBridge.Mvc
         #region "Constants"
         public static TypesOfAspNetSetBaseMvc TypesOfAspNetSetMvc { get; private set; }
         public static TypesOfAspNetSetBaseWebApi TypesOfAspNetSetWebApi { get; private set; }
-        //public static ConfigDynamicAssembly ConfigReferences { get; private set; }
         #endregion
 
         #region "Internal"
@@ -122,7 +121,8 @@ namespace Diphap.JsNetBridge.Mvc
             else
             {
                 AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(ar);
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetWebApi_NetHttp(ar), new TypesOfAspNetSetWebApi_WebHttp(ar));
+                var TNetHttp = new TypesOfAspNetSetWebApi_NetHttp(ar);
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new TypesOfAspNetSetWebApi_WebHttp(ar, TNetHttp));
             }
             
 

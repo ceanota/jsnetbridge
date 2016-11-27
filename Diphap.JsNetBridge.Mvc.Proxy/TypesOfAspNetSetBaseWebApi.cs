@@ -56,38 +56,58 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
     }
 
-    abstract public class TypesOfAspNetSetBaseWebApi_NetHttp
+    /// <summary>
+    /// System.Net.Http or Microsoft.AspNetCore.Mvc
+    /// </summary>
+    abstract public class TypesOfAspNetSetBaseWebApi_NetHttp : AssemblyInfoWrapper
     {
-        #region "_Ass_NetHttp"
-        protected readonly Assembly _Ass_NetHttp;
-        protected internal Type Type_HttpResponseMessage;
-        abstract protected string assName_NetHttp { get; }  //= "System.Net.Http";
-        protected internal Type Type_HttpMethod;
-        #endregion
+        /// <summary>
+        /// Type: System.Net.Http.HttpResponseMessage
+        /// </summary>
+        protected Type _Type_HttpResponseMessage;
 
+        /// <summary>
+        /// Type: System.Net.Http.HttpMethod
+        /// </summary>
+        protected Type Type_HttpMethod;
+
+        /// <summary>
+        /// Wrapper
+        /// </summary>
+        internal TypeInfoWrapper Type_HttpResponseMessage
+        {
+            get
+            {
+                return new TypeInfoWrapper(this._Type_HttpResponseMessage);
+            }
+        }
+
+        /// <summary>
+        /// System.Net.Http or Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
         public TypesOfAspNetSetBaseWebApi_NetHttp(AssemblyResolver assemblyResolver)
         {
             #region "_Ass_NetHttp"
 
-            this._Ass_NetHttp = ReflectionLoader.Load(assName_NetHttp, assemblyResolver);
+            this._Assembly = ReflectionLoader.Load(assName, assemblyResolver);
 
-            foreach (var t in this._Ass_NetHttp.ExportedTypes)
+            foreach (var t in this._Assembly.ExportedTypes)
             {
-                if (this.Type_HttpResponseMessage == null && t.FullName == assName_NetHttp + ".HttpResponseMessage")
+                if (this._Type_HttpResponseMessage == null && t.FullName == this._Namespace + ".HttpResponseMessage")
                 {
-                    this.Type_HttpResponseMessage = t;
+                    this._Type_HttpResponseMessage = t;
                 }
 
-                if (this.Type_HttpMethod == null && t.FullName == assName_NetHttp + ".HttpMethod")
+                if (this.Type_HttpMethod == null && t.FullName == this._Namespace + ".HttpMethod")
                 {
                     this.Type_HttpMethod = t;
                 }
 
-                if (this.Type_HttpResponseMessage != null && this.Type_HttpMethod != null)
+                if (this._Type_HttpResponseMessage != null && this.Type_HttpMethod != null)
                 {
                     break;
                 }
-
             }
 
 
@@ -95,51 +115,13 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
         }
 
-        #region "HttpMethod"
-
-        PropertyInfo _PropInfo_HttpMethod;
-        private PropertyInfo PropInfo_HttpMethod
-        {
-            get
-            {
-                if (_PropInfo_HttpMethod == null)
-                {
-                    if ((Type_HttpMethod != null) == false) { throw new ArgumentNullException("Type_HttpMethod"); }
-                    _PropInfo_HttpMethod = Type_HttpMethod.GetProperty("Method");
-                    if ((_PropInfo_HttpMethod != null) == false) { throw new ArgumentNullException("_PropInfo_HttpMethod"); }
-                }
-                return _PropInfo_HttpMethod;
-            }
-        }
-        #endregion
-
-        internal string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo, TypesOfAspNetSetBaseWebApi_WebHttp TWebHttp)
-        {
-            object value = TypeHelper.GetAttributePropertyValue(MethodInfo, TWebHttp.Type_AcceptVerbsAttribute, "HttpMethods");
-
-            if (value != null)
-            {
-                List<string> methods_str = new List<string>();
-
-                IEnumerable httpMethodArray = value as IEnumerable;
-
-                if ((httpMethodArray != null) == false) { throw new ArgumentNullException("httpMethodArray"); }
-
-                foreach (var m in httpMethodArray)
-                {
-                    methods_str.Add(this.PropInfo_HttpMethod.GetValue(m) as string);
-                }
-
-                return methods_str.ToArray();
-            }
-            else { return new string[0]; }
-        }
-
     }
 
-    abstract public class TypesOfAspNetSetBaseWebApi_WebHttp
+    /// <summary>
+    /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+    /// </summary>
+    abstract public class TypesOfAspNetSetBaseWebApi_WebHttp : AssemblyInfoWrapper
     {
-
         /// <summary>
         /// MVC and Web API
         /// </summary>
@@ -151,9 +133,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// </summary>
         internal Type Type_RouteAttribute { get; }
 
-        #region "_Ass_WebHttp"
-        protected readonly Assembly _Ass_WebHttp;
-        protected internal Type Type_ApiController;
+        protected internal Type Type_Controller;
         protected internal Type Type_AcceptVerbsAttribute;
 
 
@@ -169,53 +149,61 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// </summary>
         protected internal Type Type_RespsonseTypeAttribute;
 
+        /// <summary>
+        /// ex: ?.HttpGetAttribute
+        /// </summary>
         readonly protected internal Dictionary<string, Type> THttpAttributes;
 
-        abstract protected string assName_WebHttp { get; }  //= "System.Web.Http";
+        /// <summary>
+        /// System.Web.Http.ApiController or Microsoft.AspNetCore.Mvc.Controlleur
+        /// </summary>
+        abstract protected string _NameOfClassOfController { get; }
 
-        #endregion
-
+        /// <summary>
+        /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
         public TypesOfAspNetSetBaseWebApi_WebHttp(AssemblyResolver assemblyResolver)
         {
             #region "_Ass_WebHttp"
 
             THttpAttributes = new Dictionary<string, Type>(){
-                {assName_WebHttp + ".HttpGetAttribute",null}, {assName_WebHttp +".HttpPostAttribute",null},
-                {assName_WebHttp +".HttpPutAttribute",null}, {assName_WebHttp +".HttpDeleteAttribute",null},
-                {assName_WebHttp +".HttpHeadAttribute",null} };
+                {this._Namespace + ".HttpGetAttribute",null}, {this._Namespace +".HttpPostAttribute",null},
+                {this._Namespace +".HttpPutAttribute",null}, {this._Namespace +".HttpDeleteAttribute",null},
+                {this._Namespace +".HttpHeadAttribute",null} };
 
 
-            this._Ass_WebHttp = ReflectionLoader.Load(assName_WebHttp, assemblyResolver);
+            this._Assembly = ReflectionLoader.Load(assName, assemblyResolver);
 
 
-            foreach (var t in this._Ass_WebHttp.ExportedTypes)
+            foreach (var t in this._Assembly.ExportedTypes)
             {
-                if (this.Type_ApiController == null && t.FullName == assName_WebHttp + ".ApiController")
+                if (this.Type_Controller == null && t.FullName == this._Namespace + "." + this._NameOfClassOfController)
                 {
-                    this.Type_ApiController = t;
+                    this.Type_Controller = t;
                 }
 
-                if (this.Type_AcceptVerbsAttribute == null && t.FullName == assName_WebHttp + ".AcceptVerbsAttribute")
+                if (this.Type_AcceptVerbsAttribute == null && t.FullName == this._Namespace + ".AcceptVerbsAttribute")
                 {
                     this.Type_AcceptVerbsAttribute = t;
                 }
 
-                if (this.Type_IHttpActionResult == null && t.FullName == assName_WebHttp + ".IHttpActionResult")
+                if (this.Type_IHttpActionResult == null && t.FullName == this._Namespace + ".IHttpActionResult")
                 {
                     this.Type_IHttpActionResult = t;
                 }
 
-                if (this.Type_RespsonseTypeAttribute == null && t.FullName == assName_WebHttp + ".Description.ResponseTypeAttribute")
+                if (this.Type_RespsonseTypeAttribute == null && t.FullName == this._Namespace + ".Description.ResponseTypeAttribute")
                 {
                     this.Type_RespsonseTypeAttribute = t;
                 }
 
-                if (this.Type_ActionNameAttribute == null && t.FullName == assName_WebHttp + ".ActionNameAttribute")
+                if (this.Type_ActionNameAttribute == null && t.FullName == this._Namespace + ".ActionNameAttribute")
                 {
                     this.Type_ActionNameAttribute = t;
                 }
 
-                if (this.Type_RouteAttribute == null && t.FullName == assName_WebHttp + ".RouteAttribute")
+                if (this.Type_RouteAttribute == null && t.FullName == this._Namespace + ".RouteAttribute")
                 {
                     this.Type_RouteAttribute = t;
                 }
@@ -225,7 +213,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
                     this.THttpAttributes[t.FullName] = t;
                 }
 
-                if (this.Type_ApiController != null &&
+                if (this.Type_Controller != null &&
                     this.Type_AcceptVerbsAttribute != null &&
                     this.Type_IHttpActionResult != null &&
                     this.Type_RespsonseTypeAttribute != null &&
@@ -238,10 +226,14 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
             #endregion
 
-
-
         }
 
+        /// <summary>
+        /// ex: [AcceptVerbsAttribute("PUT", "TEST", "get")]
+        /// </summary>
+        /// <param name="MethodInfo">Controller</param>
+        /// <returns></returns>
+        abstract protected internal string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo);
 
     }
 

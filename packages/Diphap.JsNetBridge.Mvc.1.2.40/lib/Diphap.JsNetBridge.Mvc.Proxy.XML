@@ -4,12 +4,84 @@
         <name>Diphap.JsNetBridge.Mvc.Proxy</name>
     </assembly>
     <members>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper._Assembly">
+            <summary>
+            Assembly, ex: "System.Net.Http"
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper.assName">
+            <summary>
+            Assembly Name, ex: "System.Net.Http"
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper._Namespace">
+            <summary>
+            Namespace.
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypeInfoWrapper">
+            <summary>
+            Wrapper
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypeInfoWrapper.#ctor(System.Type)">
+            <summary>
+            Wrapper
+            </summary>
+            <param name="t">optionnel</param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypeInfoWrapper.IsAssignableFrom(System.Type)">
+            <summary>
+            Determines whether an instance of a specified type can be assigned to the current
+                type instance.
+            </summary>
+            <param name="c">The type to compare with the current type.</param>
+            <returns>
+            true if any of the following conditions is true: c and the current instance represent
+                the same type. c is derived either directly or indirectly from the current instance.
+                The current instance is an interface that c implements. c is a generic type parameter,
+                and the current instance represents one of the constraints of c. c represents
+                a value type, and the current instance represents Nullable (Nullable(Of c)
+                in Visual Basic).false if none of these conditions are true, or if c is null.
+            </returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi.GetRouteTemplate(System.Reflection.MethodInfo)">
             <summary>
             GetRouteTemplate
             </summary>
             <param name="MethodInfo"></param>
             <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_NetHttp">
+            <summary>
+            System.Net.Http or Microsoft.AspNetCore.Mvc
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_NetHttp._Type_HttpResponseMessage">
+            <summary>
+            Type: System.Net.Http.HttpResponseMessage
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_NetHttp.Type_HttpMethod">
+            <summary>
+            Type: System.Net.Http.HttpMethod
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_NetHttp.Type_HttpResponseMessage">
+            <summary>
+            Wrapper
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_NetHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            System.Net.Http or Microsoft.AspNetCore.Mvc
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp">
+            <summary>
+            ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+            </summary>
         </member>
         <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.Type_ActionNameAttribute">
             <summary>
@@ -33,6 +105,129 @@
             Warning, Since Web API 2
             [Optionnal]
             </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.THttpAttributes">
+            <summary>
+            ex: ?.HttpGetAttribute
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp._NameOfClassOfController">
+            <summary>
+            System.Web.Http.ApiController or Microsoft.AspNetCore.Mvc.Controlleur
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi_WebHttp.GetHttpMethod_FromAcceptVerbsAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            ex: [AcceptVerbsAttribute("PUT", "TEST", "get")]
+            </summary>
+            <param name="MethodInfo">Controller</param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_NetHttp">
+            <summary>
+            System.Net.Http.
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_WebHttp">
+            <summary>
+            Microsoft.AspNetCore.Mvc
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_WebHttp.assName">
+            <summary>
+            Assembly Name
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_WebHttp._Namespace">
+            <summary>
+            Namespace.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Microsoft.AspNetCore.Mvc
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetCoreWebApi_WebHttp.GetHttpMethod_FromAcceptVerbsAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            ex: [AcceptVerbsAttribute("PUT", "TEST", "get")]
+            </summary>
+            <param name="MethodInfo"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp">
+            <summary>
+            System.Web.Http.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp.assName">
+            <summary>
+            Name of assembly
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp._Namespace">
+            <summary>
+            Namespace.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            System.Web.Http.
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp.PropInfo_HttpMethod">
+            <summary>
+            Get getter info about 'System.Net.Http.HttpMethod.Method'.
+            => public string Method { get; }
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp">
+            <summary>
+            System.Web.Http references System.Net.Http
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp._NameOfClassOfController">
+            <summary>
+            Name of class of System.Net.Http.ApiController.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp.assName">
+            <summary>
+            Name of assembly
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp._Namespace">
+            <summary>
+            Namespace.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp._TNetHttp">
+            <summary>
+            System.Net.Http.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_NetHttp)">
+            <summary>
+            System.Web.Http references System.Net.Http
+            </summary>
+            <param name="assemblyResolver"></param>
+            <param name="TNetHttp_">System.Net.Http</param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetWebApi_WebHttp.GetHttpMethod_FromAcceptVerbsAttribute(System.Reflection.MethodInfo)">
+            <summary>
+            ex: [System.Web.Http.AcceptVerbsAttribute("PUT", "TEST", "get")]
+            System.Web.Http references System.Net.Http.
+            </summary>
+            <param name="MethodInfo"></param>
+            <returns></returns>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSet.Type_ActionNameAttribute">
             <summary>

@@ -126,12 +126,12 @@ namespace SingleAppExample.Controllers
             db.Dispose();
             base.Dispose(disposing);
         }
-        //[ActionName("testPutt")]
-        //[AcceptVerbsAttribute("PUT", "TEST", "get")]
-        //public HttpResponseMessage testPut()
-        //{
-        //    return Request.CreateResponse(HttpStatusCode.NotFound);
-        //}
+        [ActionName("testPutt")]
+        [AcceptVerbsAttribute("PUT", "TEST", "get")]
+        public HttpResponseMessage testPut()
+        {
+            return Request.CreateResponse(HttpStatusCode.NotFound);
+        }
 
         //public HttpResponseMessage PutTest(string test)
         //{
