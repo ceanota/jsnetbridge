@@ -102,10 +102,7 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         {
             Type value = null;
 
-            if (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_RespsonseTypeAttribute != null)
-            {
-                value = TypeHelper.GetAttributePropertyValue(mi, AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_RespsonseTypeAttribute, "ResponseType") as Type;
-            }
+            value = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Get_RespsonseTypeAttribute_ResponseTypeOrDefault(mi);
 
             if (value == null)
             {

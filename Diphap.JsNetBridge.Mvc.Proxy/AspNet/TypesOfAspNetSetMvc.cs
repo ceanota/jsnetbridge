@@ -19,6 +19,36 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// </summary>
     public class AssemblyInfoWrapperMvc : AssemblyInfoWrapperBaseMvc
     {
+        Type _Type_JsonResult;
+        protected internal override Type Type_JsonResult
+        {
+            get
+            {
+                if (_Type_JsonResult == null)
+                {
+                    string name = (this.Namespace + ".JsonResult");
+                    this._Type_JsonResult = this._Assembly.GetType(name, false);
+                }
+
+                return _Type_JsonResult;
+            }
+        }
+
+        Type _Type_ViewResult;
+        protected internal override Type Type_ViewResult
+        {
+            get
+            {
+                if (_Type_ViewResult == null)
+                {
+                    string name = (this.Namespace + ".ViewResult");
+                    _Type_ViewResult = this._Assembly.GetType(name, false);
+                }
+
+                return _Type_ViewResult;
+            }
+        }
+
         /// <summary>
         /// Name of assembly.
         /// </summary>
@@ -31,7 +61,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return this.Name;
+                return "System.Web.Mvc";
             }
         }
         /// <summary>

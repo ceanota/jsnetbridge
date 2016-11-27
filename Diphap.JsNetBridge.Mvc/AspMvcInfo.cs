@@ -111,15 +111,17 @@ namespace Diphap.JsNetBridge.Mvc
 
         private void InitializeCore(Assembly asp_net, IList<AssemblySet> typeSetList, AssemblyResolver ar, bool isAspNetCoreWindows)
         {
+            this.IsAspNetCoreWindows = isAspNetCoreWindows;
+
             _JSNamespace = new ConfigJS.JSNamespace();
 
             if (isAspNetCoreWindows)
             {
                 //-- AspNetCore.
 
-                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar));
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar, new AssemblyInfoWrapperBaseMvc_FormattersJson(ar), new AssemblyInfoWrapperBaseMvc_ViewFeatures(ar)));
                 AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new AssemblyInfoWrapperCoreWebApi_NetHttp() /* is useless */, 
-                    new AssemblyInfoWrapperCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/ ));
+                    new AssemblyInfoWrapperCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/, new AssemblyInfoWrapperBaseWebApi_Abstractions(ar)));
             }
             else
             {
@@ -153,6 +155,11 @@ namespace Diphap.JsNetBridge.Mvc
 
             }
         }
+
+        /// <summary>
+        /// IsAspNetCoreWindows
+        /// </summary>
+        public bool IsAspNetCoreWindows { get; private set; }
 
         /// <summary>
         /// Instanciate information about AspMvc Application.

@@ -19,6 +19,23 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// </summary>
     public class AssemblyInfoWrapperCoreMvc : AssemblyInfoWrapperBaseMvc
     {
+
+        protected internal override Type Type_JsonResult
+        {
+            get
+            {
+                return _assWrapper_FormatterJson.Type_JsonResult;
+            }
+        }
+
+        protected internal override Type Type_ViewResult
+        {
+            get
+            {
+                return _assWrapper_ViewFeatures.Type_ViewResult;
+            }
+        }
+
         /// <summary>
         /// Name of assembly
         /// </summary>
@@ -35,14 +52,20 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
+        readonly AssemblyInfoWrapperBaseMvc_FormattersJson _assWrapper_FormatterJson;
+        readonly AssemblyInfoWrapperBaseMvc_ViewFeatures _assWrapper_ViewFeatures;
+
         /// <summary>
         /// Microsoft.AspNetCore.Mvc
         /// </summary>
         /// <param name="assemblyResolver"></param>
-        public AssemblyInfoWrapperCoreMvc(AssemblyResolver assemblyResolver)
+        /// <param name="assWrapper_FormatterJson"></param>
+        /// <param name="assWrapper_ViewFeatures"></param>
+        public AssemblyInfoWrapperCoreMvc(AssemblyResolver assemblyResolver, AssemblyInfoWrapperBaseMvc_FormattersJson assWrapper_FormatterJson, AssemblyInfoWrapperBaseMvc_ViewFeatures assWrapper_ViewFeatures)
             : base(assemblyResolver)
         {
-
+            _assWrapper_FormatterJson = assWrapper_FormatterJson;
+            _assWrapper_ViewFeatures = assWrapper_ViewFeatures;
         }
     }
 }

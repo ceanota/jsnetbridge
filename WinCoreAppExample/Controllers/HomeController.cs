@@ -38,10 +38,18 @@ namespace WinCoreAppExample.Controllers
             throw new NotImplementedException();
         }
 
+        [Produces(typeof(object))]
         [AcceptVerbsAttribute("fdsf")]
         public JsonResult Data()
         {
+            
             return new JsonResult("");
+        }
+
+        [ActionName("vue")]
+        public ActionResult Vue88()
+        {
+            throw new NotImplementedException();
         }
     }
 }

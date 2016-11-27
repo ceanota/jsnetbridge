@@ -15,6 +15,7 @@ namespace SingleAppExample.Controllers
     {
         private TodoItemContext db = new TodoItemContext();
 
+        [System.Web.Http.Description.ResponseTypeAttribute(null)]
         // PUT api/Todo/5
         public HttpResponseMessage PutTodoItem(int id, TodoItemDto todoItemDto)
         {

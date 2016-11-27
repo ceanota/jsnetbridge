@@ -156,22 +156,30 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// </summary>
         internal Type Type_RouteAttribute { get; private set; }
 
-        protected internal Type Type_Controller;
+        protected Type Type_Controller;
         protected internal Type Type_AcceptVerbsAttribute;
 
+        /// <summary>
+        /// IsApiConstroller
+        /// </summary>
+        /// <param name="tcontroller"></param>
+        /// <returns></returns>
+        abstract protected internal bool IsApiConstroller(Type tcontroller);
 
+
+        protected Type _Type_IHttpActionResult { get; }
 
         /// <summary>
         /// Warning, Since Web API 2
         /// [Optionnal]
         /// </summary>
-        protected internal Type Type_IHttpActionResult;
+        abstract protected internal Type Type_IHttpActionResult { get; }
 
         /// <summary>
         /// Warning, Since Web API 2
         /// [Optionnal]
         /// </summary>
-        protected internal Type Type_RespsonseTypeAttribute;
+        protected Type Type_RespsonseTypeAttribute;
 
         /// <summary>
         /// ex: ?.HttpGetAttribute
@@ -182,6 +190,16 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// System.Web.Http.ApiController or Microsoft.AspNetCore.Mvc.Controlleur
         /// </summary>
         abstract protected string _NameOfClassOfController { get; }
+
+        /// <summary>
+        /// System.Web.Http.IHttActionResult or Microsoft.AspNetCore.Mvc.IActionResult
+        /// </summary>
+        abstract protected string _NameOfClassIActionResult { get; }
+
+        /// <summary>
+        /// System.Web.Http.RespsonseTypeAttribute or Microsoft.AspNetCore.Mvc.Produces
+        /// </summary>
+        abstract protected string _NameOfClassResponseTypeAttribute { get; }
 
         /// <summary>
         /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
@@ -195,73 +213,66 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
         /// </summary>
-        /// <param name="ass"></param>
-        public AssemblyInfoWrapperBaseWebApi_WebHttp(Assembly ass)
+        /// <param name="assembly"></param>
+        public AssemblyInfoWrapperBaseWebApi_WebHttp(Assembly assembly)
         {
-            this.InitializeCore(ass);
+            this.InitializeCore(assembly);
+        }
+
+        /// <summary>
+        /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+        /// </summary>
+        public AssemblyInfoWrapperBaseWebApi_WebHttp()
+        {
+            //-- nothing.
         }
 
         /// <summary>
         /// ex: System.Web.Http or Microsoft.AspNetCore.Mvc
         /// </summary>
         /// <param name="ass"></param>
-        private void InitializeCore(Assembly ass)
+        protected void InitializeCore(Assembly ass)
         {
 
             this._Assembly = ass;
 
-            THttpAttributes = new Dictionary<string, Type>(){
+            this.THttpAttributes = new Dictionary<string, Type>(){
                 {this.Namespace + ".HttpGetAttribute",null}, {this.Namespace +".HttpPostAttribute",null},
                 {this.Namespace +".HttpPutAttribute",null}, {this.Namespace +".HttpDeleteAttribute",null},
                 {this.Namespace +".HttpHeadAttribute",null} };
 
-            foreach (var t in this._Assembly.ExportedTypes)
+
             {
-                if (this.Type_Controller == null && t.FullName == this.Namespace + "." + this._NameOfClassOfController)
-                {
-                    this.Type_Controller = t;
-                }
-
-                if (this.Type_AcceptVerbsAttribute == null && t.FullName == this.Namespace + ".AcceptVerbsAttribute")
-                {
-                    this.Type_AcceptVerbsAttribute = t;
-                }
-
-                if (this.Type_IHttpActionResult == null && t.FullName == this.Namespace + ".IHttpActionResult")
-                {
-                    this.Type_IHttpActionResult = t;
-                }
-
-                if (this.Type_RespsonseTypeAttribute == null && t.FullName == this.Namespace + ".Description.ResponseTypeAttribute")
-                {
-                    this.Type_RespsonseTypeAttribute = t;
-                }
-
-                if (this.Type_ActionNameAttribute == null && t.FullName == this.Namespace + ".ActionNameAttribute")
-                {
-                    this.Type_ActionNameAttribute = t;
-                }
-
-                if (this.Type_RouteAttribute == null && t.FullName == this.Namespace + ".RouteAttribute")
-                {
-                    this.Type_RouteAttribute = t;
-                }
-
-                if (this.THttpAttributes.ContainsKey(t.FullName) && this.THttpAttributes[t.FullName] == null)
-                {
-                    this.THttpAttributes[t.FullName] = t;
-                }
-
-                if (this.Type_Controller != null &&
-                    this.Type_AcceptVerbsAttribute != null &&
-                    this.Type_IHttpActionResult != null &&
-                    this.Type_RespsonseTypeAttribute != null &&
-                    this.Type_ActionNameAttribute != null &&
-                    this.THttpAttributes.All(x => x.Value != null))
-                {
-                    break;
-                }
+                string name = (this.Namespace + "." + this._NameOfClassOfController);
+                this.Type_Controller = this._Assembly.GetType(name, false);
             }
+
+            {
+                string name = (this.Namespace + ".AcceptVerbsAttribute");
+                this.Type_AcceptVerbsAttribute = this._Assembly.GetType(name, false);
+            }
+
+            {
+                string name = (this.Namespace + ".ActionNameAttribute");
+                this.Type_ActionNameAttribute = this._Assembly.GetType(name, false);
+            }
+
+            {
+                string name = (this.Namespace + ".RouteAttribute");
+                this.Type_RouteAttribute = this._Assembly.GetType(name, false);
+            }
+
+            {
+                string name = (this.Namespace + "." + this._NameOfClassResponseTypeAttribute);
+                this.Type_RespsonseTypeAttribute = this._Assembly.GetType(name, false);
+            }
+
+            var keys = this.THttpAttributes.Keys.ToArray();
+            foreach (var name in keys)
+            {
+                this.THttpAttributes[name] = this._Assembly.GetType(name, false);
+            }
+
         }
 
         /// <summary>
@@ -271,6 +282,58 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <returns></returns>
         abstract protected internal string[] GetHttpMethod_FromAcceptVerbsAttribute(MethodInfo MethodInfo);
 
+        /// <summary>
+        /// Get type of response of controller.
+        /// </summary>
+        /// <returns></returns>
+        abstract internal Type Get_RespsonseTypeAttribute_ResponseTypeOrDefault(MethodInfo mi);
+
     }
+
+    /// <summary>
+    /// //Microsoft.AspNetCore.Mvc.Abstractions.dll
+    /// </summary>
+    public class AssemblyInfoWrapperBaseWebApi_Abstractions : AssemblyInfoWrapper
+    {
+        /// <summary>
+        /// Warning, Since Web API 2
+        /// [Optionnal]
+        /// </summary>
+        protected internal Type Type_IHttpActionResult;
+
+        protected internal override string Name
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc.Abstractions";
+            }
+        }
+
+        protected internal override string Namespace
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc";
+            }
+        }
+
+        /// <summary>
+        /// //Microsoft.AspNetCore.Mvc.Abstractions.dll
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperBaseWebApi_Abstractions(AssemblyResolver assemblyResolver)
+        {
+
+            this._Assembly = ReflectionLoader.Load(Name, assemblyResolver);
+
+            {
+                string name = (this.Namespace + "." + "IActionResult");
+                this.Type_IHttpActionResult = this._Assembly.GetType(name, false);
+            }
+
+        }
+
+    }
+
 
 }

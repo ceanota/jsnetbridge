@@ -19,11 +19,13 @@
             Namespace
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreMvc.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreMvc.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_FormattersJson,Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_ViewFeatures)">
             <summary>
             Microsoft.AspNetCore.Mvc
             </summary>
             <param name="assemblyResolver"></param>
+            <param name="assWrapper_FormatterJson"></param>
+            <param name="assWrapper_ViewFeatures"></param>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper">
             <summary>
@@ -105,6 +107,28 @@
             </summary>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Microsoft.AspNetCore.Mvc
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_FormattersJson">
+            <summary>
+            //Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_FormattersJson.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            //Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+            </summary>
+            <param name="assemblyResolver"></param>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_ViewFeatures">
+            <summary>
+            //Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseMvc_ViewFeatures.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
             <summary>
             Microsoft.AspNetCore.Mvc
             </summary>
@@ -211,7 +235,14 @@
             [Optionnal]
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.Type_IHttpActionResult">
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.IsApiConstroller(System.Type)">
+            <summary>
+            IsApiConstroller
+            </summary>
+            <param name="tcontroller"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.Type_IHttpActionResult">
             <summary>
             Warning, Since Web API 2
             [Optionnal]
@@ -233,6 +264,16 @@
             System.Web.Http.ApiController or Microsoft.AspNetCore.Mvc.Controlleur
             </summary>
         </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp._NameOfClassIActionResult">
+            <summary>
+            System.Web.Http.IHttActionResult or Microsoft.AspNetCore.Mvc.IActionResult
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp._NameOfClassResponseTypeAttribute">
+            <summary>
+            System.Web.Http.RespsonseTypeAttribute or Microsoft.AspNetCore.Mvc.Produces
+            </summary>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
             <summary>
             ex: System.Web.Http or Microsoft.AspNetCore.Mvc
@@ -243,7 +284,12 @@
             <summary>
             ex: System.Web.Http or Microsoft.AspNetCore.Mvc
             </summary>
-            <param name="ass"></param>
+            <param name="assembly"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.#ctor">
+            <summary>
+            ex: System.Web.Http or Microsoft.AspNetCore.Mvc
+            </summary>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.InitializeCore(System.Reflection.Assembly)">
             <summary>
@@ -257,6 +303,29 @@
             </summary>
             <param name="MethodInfo">Controller</param>
             <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_WebHttp.Get_RespsonseTypeAttribute_ResponseTypeOrDefault(System.Reflection.MethodInfo)">
+            <summary>
+            Get type of response of controller.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_Abstractions">
+            <summary>
+            //Microsoft.AspNetCore.Mvc.Abstractions.dll
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_Abstractions.Type_IHttpActionResult">
+            <summary>
+            Warning, Since Web API 2
+            [Optionnal]
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_Abstractions.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            //Microsoft.AspNetCore.Mvc.Abstractions.dll
+            </summary>
+            <param name="assemblyResolver"></param>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreWebApi_NetHttp">
             <summary>
@@ -289,6 +358,12 @@
             Microsoft.AspNetCore.Mvc
             </summary>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreWebApi_WebHttp.Get_RespsonseTypeAttribute_ResponseTypeOrDefault(System.Reflection.MethodInfo)">
+            <summary>
+            Get type of response of controller.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreWebApi_WebHttp.Name">
             <summary>
             Assembly Name
@@ -299,7 +374,7 @@
             Namespace.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper)">
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperCoreWebApi_WebHttp.#ctor(Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper,Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperBaseWebApi_Abstractions)">
             <summary>
             Microsoft.AspNetCore.Mvc
             </summary>
@@ -343,6 +418,19 @@
             <summary>
             System.Web.Http references System.Net.Http
             </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_WebHttp.IsApiConstroller(System.Type)">
+            <summary>
+            IsApiConstroller
+            </summary>
+            <param name="tcontroller"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_WebHttp.Get_RespsonseTypeAttribute_ResponseTypeOrDefault(System.Reflection.MethodInfo)">
+            <summary>
+            Get type of response of controller.
+            </summary>
+            <returns></returns>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_WebHttp._NameOfClassOfController">
             <summary>

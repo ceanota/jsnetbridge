@@ -37,7 +37,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return this.Name;
+                return "System.Net.Http";
             }
         }
 
@@ -79,6 +79,51 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// </summary>
     public class AssemblyInfoWrapperWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
     {
+        Type _Type_IHttpActionResult;
+        protected internal override Type Type_IHttpActionResult
+        {
+            get
+            {
+                if (this._Type_IHttpActionResult == null)
+                {
+                    this._Type_IHttpActionResult = _Assembly.GetType(this.Namespace + "." + this._NameOfClassIActionResult, false);
+                }
+
+                return this._Type_IHttpActionResult;
+            }
+        }
+
+        /// <summary>
+        /// IsApiConstroller
+        /// </summary>
+        /// <param name="tcontroller"></param>
+        /// <returns></returns>
+        override protected internal bool IsApiConstroller(Type tcontroller)
+        {
+            if (this.Type_Controller == null)
+            {
+                throw new Exception("Issue of Initilization for 'AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp'");
+            }
+
+            return this.Type_Controller.IsAssignableFrom(tcontroller);
+        }
+
+        /// <summary>
+        /// Get type of response of controller.
+        /// </summary>
+        /// <returns></returns>
+        override internal Type Get_RespsonseTypeAttribute_ResponseTypeOrDefault(MethodInfo mi)
+        {
+            Type value = null;
+
+            if (this.Type_RespsonseTypeAttribute != null)
+            {
+                value = TypeHelper.GetAttributePropertyValue(mi, this.Type_RespsonseTypeAttribute, "ResponseType") as Type;
+            }
+
+            return value;
+        }
+
         /// <summary>
         /// Name of class of System.Net.Http.ApiController.
         /// </summary>
@@ -87,6 +132,22 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             get
             {
                 return "ApiController";
+            }
+        }
+
+        protected override string _NameOfClassIActionResult
+        {
+            get
+            {
+                return "IHttpActionResult";
+            }
+        }
+
+        protected override string _NameOfClassResponseTypeAttribute
+        {
+            get
+            {
+                return "Description.ResponseTypeAttribute";
             }
         }
 
@@ -108,7 +169,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return this.Name;
+                return "System.Web.Http";
             }
         }
 

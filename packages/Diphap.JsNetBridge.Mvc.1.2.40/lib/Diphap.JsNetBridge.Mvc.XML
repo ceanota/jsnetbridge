@@ -274,6 +274,11 @@
             allTypes of controller.
             </summary>
         </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.IsAspNetCoreWindows">
+            <summary>
+            IsAspNetCoreWindows
+            </summary>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet},System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.

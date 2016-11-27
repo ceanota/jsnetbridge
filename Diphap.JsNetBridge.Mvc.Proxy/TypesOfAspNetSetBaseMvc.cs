@@ -60,12 +60,12 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// </summary>
     abstract public class AssemblyInfoWrapperBaseMvc : AssemblyInfoWrapper
     {
-        #region "_Ass_WebMvc"
-        protected internal Type Type_JsonResult;
+ 
+        abstract protected internal Type Type_JsonResult { get; }
+        abstract protected internal Type Type_ViewResult { get; }
+
         protected internal Type Type_ActionResult;
-        protected internal Type Type_ViewResult;
         protected internal Type _Type_ActionNameAttribute;
-        #endregion
 
         /// <summary>
         /// Microsoft.AspNetCore.Mvc
@@ -73,40 +73,100 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <param name="assemblyResolver"></param>
         public AssemblyInfoWrapperBaseMvc(AssemblyResolver assemblyResolver)
         {
-
-            #region "_Ass_WebMvc"
             this._Assembly = ReflectionLoader.Load(Name, assemblyResolver);
 
 
-            foreach (var t in this._Assembly.ExportedTypes)
+
             {
-                if (this.Type_JsonResult == null && t.FullName == Name + ".JsonResult")
-                {
-                    this.Type_JsonResult = t;
-                }
-
-                if (this.Type_ActionResult == null && t.FullName == Name + ".ActionResult")
-                {
-                    this.Type_ActionResult = t;
-                }
-
-                if (this.Type_ViewResult == null && t.FullName == Name + ".ViewResult")
-                {
-                    this.Type_ViewResult = t;
-                }
-
-                if (this._Type_ActionNameAttribute == null && t.FullName == Name + ".ActionNameAttribute")
-                {
-                    this._Type_ActionNameAttribute = t;
-                }
-
-                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null && this._Type_ActionNameAttribute != null)
-                {
-                    break;
-                }
+                string name = (this.Namespace + ".ActionResult");
+                this.Type_ActionResult = this._Assembly.GetType(name, false);
             }
 
-            #endregion
+            {
+                string name = (this.Namespace + ".ActionNameAttribute");
+                this._Type_ActionNameAttribute = this._Assembly.GetType(name, false);
+            }
+        }
+
+
+    }
+
+    /// <summary>
+    /// //Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+    /// </summary>
+    public class AssemblyInfoWrapperBaseMvc_FormattersJson : AssemblyInfoWrapper
+    {
+
+        protected internal Type Type_JsonResult;
+
+        protected internal override string Name
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc.Formatters.Json";
+            }
+        }
+
+        protected internal override string Namespace
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc";
+            }
+        }
+
+        /// <summary>
+        /// //Microsoft.AspNetCore.Mvc.Formatters.Json.dll
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperBaseMvc_FormattersJson(AssemblyResolver assemblyResolver)
+        {
+            this._Assembly = ReflectionLoader.Load(Name, assemblyResolver);
+
+            {
+                string name = (this.Namespace + ".JsonResult");
+                this.Type_JsonResult = this._Assembly.GetType(name, false);
+            }
+        }
+
+
+    }
+
+    /// <summary>
+    /// //Microsoft.AspNetCore.Mvc.ViewFeatures.dll
+    /// </summary>
+    public class AssemblyInfoWrapperBaseMvc_ViewFeatures : AssemblyInfoWrapper
+    {
+        protected internal Type Type_ViewResult;
+
+        protected internal override string Name
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc.ViewFeatures";
+            }
+        }
+
+        protected internal override string Namespace
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc";
+            }
+        }
+
+        /// <summary>
+        /// Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperBaseMvc_ViewFeatures(AssemblyResolver assemblyResolver)
+        {
+            this._Assembly = ReflectionLoader.Load(Name, assemblyResolver);
+
+            {
+                string name = (this.Namespace + ".ViewResult");
+                this.Type_ViewResult = this._Assembly.GetType(name, false);
+            }
         }
 
 

@@ -37,7 +37,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return this.Name;
+                return "System.Net.Http";
             }
         }
 
@@ -67,11 +67,55 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// </summary>
     public class AssemblyInfoWrapperCoreWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
     {
+        protected internal override bool IsApiConstroller(Type tcontroller)
+        {
+            return false;
+        }
+
+        /// <summary>
+        /// Get type of response of controller.
+        /// </summary>
+        /// <returns></returns>
+        override internal Type Get_RespsonseTypeAttribute_ResponseTypeOrDefault(MethodInfo mi)
+        {
+            Type value = null;
+
+            if (this.Type_RespsonseTypeAttribute != null)
+            {
+                value = TypeHelper.GetAttributePropertyValue(mi, this.Type_RespsonseTypeAttribute, "Type") as Type;
+            }
+            return value;
+        }
+
         protected override string _NameOfClassOfController
         {
             get
             {
-                return "Controller";
+                return "ControllerBase";
+            }
+        }
+
+        protected override string _NameOfClassIActionResult
+        {
+            get
+            {
+                return "IActionResult";
+            }
+        }
+
+        protected override string _NameOfClassResponseTypeAttribute
+        {
+            get
+            {
+                return "-Produces-";
+            }
+        }
+
+        protected internal override Type Type_IHttpActionResult
+        {
+            get
+            {
+                return this._assWrapper_abstractions.Type_IHttpActionResult;
             }
         }
 
@@ -82,7 +126,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return _assWrapper.Name;
+                return this._assWrapper.Name;
             }
         }
 
@@ -93,20 +137,23 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             get
             {
-                return _assWrapper.Namespace;
+                return this._assWrapper.Namespace;
             }
         }
 
         readonly AssemblyInfoWrapper _assWrapper;
+        readonly AssemblyInfoWrapperBaseWebApi_Abstractions _assWrapper_abstractions;
 
         /// <summary>
         /// Microsoft.AspNetCore.Mvc
         /// </summary>
         /// <param name="assWrapper"></param>
-        public AssemblyInfoWrapperCoreWebApi_WebHttp(AssemblyInfoWrapper assWrapper)
-            : base(assWrapper._Assembly)
+        public AssemblyInfoWrapperCoreWebApi_WebHttp(AssemblyInfoWrapper assWrapper, AssemblyInfoWrapperBaseWebApi_Abstractions assWrapper_abstractions)
+            : base()
         {
             _assWrapper = assWrapper;
+            _assWrapper_abstractions = assWrapper_abstractions;
+            this.InitializeCore(assWrapper._Assembly);
         }
 
         /// <summary>
