@@ -17,8 +17,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// <summary>
     /// System.Net.Http.
     /// </summary>
-    public class TypesOfAspNetSetCoreWebApi_NetHttp : AssemblyInfoWrapperBaseWebApi_NetHttp
+    public class AssemblyInfoWrapperCoreWebApi_NetHttp : AssemblyInfoWrapperBaseWebApi_NetHttp
     {
+        /// <summary>
+        /// Name of assembly.
+        /// </summary>
         internal protected override string Name
         {
             get
@@ -27,6 +30,9 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
+        /// <summary>
+        /// Namespace.
+        /// </summary>
         internal protected override string Namespace
         {
             get
@@ -35,16 +41,31 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
-        public TypesOfAspNetSetCoreWebApi_NetHttp(AssemblyResolver assemblyResolver) : base(assemblyResolver)
+        /// <summary>
+        /// System.Net.Http.
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperCoreWebApi_NetHttp(AssemblyResolver assemblyResolver)
+            : base(assemblyResolver)
         {
 
         }
+
+        /// <summary>
+        /// System.Net.Http is useless.
+        /// </summary>
+        public AssemblyInfoWrapperCoreWebApi_NetHttp()
+            : base()
+        {
+            //-- nothing.
+        }
+
     }
 
     /// <summary>
     /// Microsoft.AspNetCore.Mvc
     /// </summary>
-    public class TypesOfAspNetSetCoreWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
+    public class AssemblyInfoWrapperCoreWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
     {
         protected override string _NameOfClassOfController
         {
@@ -82,7 +103,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// Microsoft.AspNetCore.Mvc
         /// </summary>
         /// <param name="assWrapper"></param>
-        public TypesOfAspNetSetCoreWebApi_WebHttp(AssemblyInfoWrapper assWrapper)
+        public AssemblyInfoWrapperCoreWebApi_WebHttp(AssemblyInfoWrapper assWrapper)
             : base(assWrapper._Assembly)
         {
             _assWrapper = assWrapper;

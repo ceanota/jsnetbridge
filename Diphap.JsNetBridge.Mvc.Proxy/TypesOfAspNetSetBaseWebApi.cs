@@ -100,7 +100,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         }
 
         /// <summary>
-        /// System.Net.Http or Microsoft.AspNetCore.Mvc
+        /// System.Net.Http.
         /// </summary>
         /// <param name="assemblyResolver"></param>
         public AssemblyInfoWrapperBaseWebApi_NetHttp(AssemblyResolver assemblyResolver)
@@ -129,9 +129,15 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
 
             #endregion
-
         }
 
+        /// <summary>
+        ///  System.Net.Http.
+        /// </summary>
+        public AssemblyInfoWrapperBaseWebApi_NetHttp()
+        {
+            //-- nothing.
+        }
     }
 
     /// <summary>

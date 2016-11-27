@@ -118,8 +118,8 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- AspNetCore.
 
                 AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar));
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetCoreWebApi_NetHttp(ar), 
-                    new TypesOfAspNetSetCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/ ));
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new AssemblyInfoWrapperCoreWebApi_NetHttp() /* is useless */, 
+                    new AssemblyInfoWrapperCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/ ));
             }
             else
             {
