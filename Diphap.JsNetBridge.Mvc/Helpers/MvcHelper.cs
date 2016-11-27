@@ -42,8 +42,8 @@ namespace Diphap.JsNetBridge.Mvc.Helpers
         {
             Type treturn = GetEffectiveReturnType(mi) ?? typeof(void);
 
-            bool isJson = !AspMvcInfo.TypesOfAspNetSetMvc.Type_ActionResult.IsAssignableFrom(treturn) ||
-                AspMvcInfo.TypesOfAspNetSetMvc.Type_JsonResult.IsAssignableFrom(treturn);
+            bool isJson = !AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(treturn) ||
+                AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_JsonResult.IsAssignableFrom(treturn);
 
             if (isJson)
             {

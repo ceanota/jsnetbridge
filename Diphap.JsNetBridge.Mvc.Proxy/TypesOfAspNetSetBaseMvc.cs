@@ -14,56 +14,93 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Mvc.Proxy
 {
-    abstract public class TypesOfAspNetSetBaseMvc : TypesOfAspNetSet
+    /// <summary>
+    /// System.Web.Mvc or Microsoft.AspNetCore.Mvc
+    /// </summary>
+    public class TypesOfAspNetSetBaseMvc : TypesOfAspNetSet
     {
-        #region "_Ass_WebMvc"
-        protected readonly Assembly _Ass_WebMvc;
-        protected internal Type Type_JsonResult;
-        protected internal Type Type_ActionResult;
-        protected internal Type Type_ViewResult;
-        #endregion
-
-        private Type _Type_ActionNameAttribute;
+        /// <summary>
+        /// ActionNameAttribute
+        /// </summary>
         protected internal override Type Type_ActionNameAttribute
         {
             get
             {
-                return _Type_ActionNameAttribute;
+                return TMvc._Type_ActionNameAttribute;
             }
         }
 
-        abstract protected string assName { get; }
+        /// <summary>
+        /// System.Web.Mvc or Microsoft.AspNetCore.Mvc
+        /// </summary>
+        public readonly AssemblyInfoWrapperBaseMvc TMvc;
 
-        public TypesOfAspNetSetBaseMvc(AssemblyResolver assemblyResolver)
+        /// <summary>
+        /// System.Web.Mvc or Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="TMvc_"></param>
+        public TypesOfAspNetSetBaseMvc(AssemblyInfoWrapperBaseMvc TMvc_)
+        {
+            this.TMvc = TMvc_;
+        }
+
+        /// <summary>
+        /// Route template
+        /// </summary>
+        /// <param name="MethodInfo"></param>
+        /// <returns></returns>
+        protected internal override string GetRouteTemplate(MethodInfo MethodInfo)
+        {
+            return "";
+        }
+    }
+
+    /// <summary>
+    /// Microsoft.AspNetCore.Mvc
+    /// </summary>
+    abstract public class AssemblyInfoWrapperBaseMvc : AssemblyInfoWrapper
+    {
+        #region "_Ass_WebMvc"
+        protected internal Type Type_JsonResult;
+        protected internal Type Type_ActionResult;
+        protected internal Type Type_ViewResult;
+        protected internal Type _Type_ActionNameAttribute;
+        #endregion
+
+        /// <summary>
+        /// Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperBaseMvc(AssemblyResolver assemblyResolver)
         {
 
             #region "_Ass_WebMvc"
-            this._Ass_WebMvc = ReflectionLoader.Load(assName, assemblyResolver);
+            this._Assembly = ReflectionLoader.Load(Name, assemblyResolver);
 
 
-            foreach (var t in this._Ass_WebMvc.ExportedTypes)
+            foreach (var t in this._Assembly.ExportedTypes)
             {
-                if (this.Type_JsonResult == null && t.FullName == assName + ".JsonResult")
+                if (this.Type_JsonResult == null && t.FullName == Name + ".JsonResult")
                 {
                     this.Type_JsonResult = t;
                 }
 
-                if (this.Type_ActionResult == null && t.FullName == assName + ".ActionResult")
+                if (this.Type_ActionResult == null && t.FullName == Name + ".ActionResult")
                 {
                     this.Type_ActionResult = t;
                 }
 
-                if (this.Type_ViewResult == null && t.FullName == assName + ".ViewResult")
+                if (this.Type_ViewResult == null && t.FullName == Name + ".ViewResult")
                 {
                     this.Type_ViewResult = t;
                 }
 
-                if (this._Type_ActionNameAttribute == null && t.FullName == assName + ".ActionNameAttribute")
+                if (this._Type_ActionNameAttribute == null && t.FullName == Name + ".ActionNameAttribute")
                 {
                     this._Type_ActionNameAttribute = t;
                 }
 
-                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null && this.Type_ActionNameAttribute != null)
+                if (this.Type_JsonResult != null && this.Type_ActionResult != null && this.Type_ViewResult != null && this._Type_ActionNameAttribute != null)
                 {
                     break;
                 }
@@ -72,9 +109,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             #endregion
         }
 
-        protected internal override string GetRouteTemplate(MethodInfo MethodInfo)
-        {
-            return "";
-        }
+
     }
+
 }

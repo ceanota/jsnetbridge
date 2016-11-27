@@ -7,22 +7,25 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Mvc.Proxy
 {
+    /// <summary>
+    /// AssemblyInfoWrapper
+    /// </summary>
     public abstract class AssemblyInfoWrapper
     {
         /// <summary>
         /// Assembly, ex: "System.Net.Http"
         /// </summary>
-        protected Assembly _Assembly;
+        internal protected Assembly _Assembly;
 
         /// <summary>
         /// Assembly Name, ex: "System.Net.Http"
         /// </summary>
-        abstract protected string assName { get; }
+        internal abstract protected string Name { get; }
 
         /// <summary>
         /// Namespace.
         /// </summary>
-        abstract protected string _Namespace { get; }
+        internal abstract protected string Namespace { get; }
 
     }
 }

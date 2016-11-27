@@ -17,12 +17,12 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// <summary>
     /// System.Web.Http.
     /// </summary>
-    public class TypesOfAspNetSetWebApi_NetHttp : TypesOfAspNetSetBaseWebApi_NetHttp
+    public class AssemblyInfoWrapperWebApi_NetHttp : AssemblyInfoWrapperBaseWebApi_NetHttp
     {
         /// <summary>
         /// Name of assembly
         /// </summary>
-        protected override string assName
+        internal protected override string Name
         {
             get
             {
@@ -33,11 +33,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// Namespace.
         /// </summary>
-        protected override string _Namespace
+        internal protected override string Namespace
         {
             get
             {
-                return this.assName;
+                return this.Name;
             }
         }
 
@@ -45,7 +45,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// System.Web.Http.
         /// </summary>
         /// <param name="assemblyResolver"></param>
-        public TypesOfAspNetSetWebApi_NetHttp(AssemblyResolver assemblyResolver) : base(assemblyResolver)
+        public AssemblyInfoWrapperWebApi_NetHttp(AssemblyResolver assemblyResolver) : base(assemblyResolver)
         {
 
         }
@@ -77,7 +77,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// <summary>
     /// System.Web.Http references System.Net.Http
     /// </summary>
-    public class TypesOfAspNetSetWebApi_WebHttp : TypesOfAspNetSetBaseWebApi_WebHttp
+    public class AssemblyInfoWrapperWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
     {
         /// <summary>
         /// Name of class of System.Net.Http.ApiController.
@@ -93,7 +93,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// Name of assembly
         /// </summary>
-        protected override string assName
+        internal protected override string Name
         {
             get
             {
@@ -104,25 +104,35 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// Namespace.
         /// </summary>
-        protected override string _Namespace
+        internal protected override string Namespace
         {
             get
             {
-                return this.assName;
+                return this.Name;
             }
         }
 
         /// <summary>
         /// System.Net.Http.
         /// </summary>
-        private readonly TypesOfAspNetSetWebApi_NetHttp _TNetHttp;
+        private readonly AssemblyInfoWrapperWebApi_NetHttp _TNetHttp;
 
         /// <summary>
         /// System.Web.Http references System.Net.Http
         /// </summary>
         /// <param name="assemblyResolver"></param>
         /// <param name="TNetHttp_">System.Net.Http</param>
-        public TypesOfAspNetSetWebApi_WebHttp(AssemblyResolver assemblyResolver, TypesOfAspNetSetWebApi_NetHttp TNetHttp_) : base(assemblyResolver)
+        public AssemblyInfoWrapperWebApi_WebHttp(AssemblyResolver assemblyResolver, AssemblyInfoWrapperWebApi_NetHttp TNetHttp_) : base(assemblyResolver)
+        {
+            this._TNetHttp = TNetHttp_;
+        }
+
+        /// <summary>
+        /// System.Web.Http references System.Net.Http
+        /// </summary>
+        /// <param name="ass"></param>
+        /// <param name="TNetHttp_">System.Net.Http</param>
+        public AssemblyInfoWrapperWebApi_WebHttp(Assembly ass, AssemblyInfoWrapperWebApi_NetHttp TNetHttp_) : base(ass)
         {
             this._TNetHttp = TNetHttp_;
         }

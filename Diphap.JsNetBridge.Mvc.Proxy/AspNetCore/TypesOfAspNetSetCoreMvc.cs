@@ -14,12 +14,32 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Mvc.Proxy
 {
-    public class TypesOfAspNetSetCoreMvc : TypesOfAspNetSetBaseMvc
+    /// <summary>
+    /// Microsoft.AspNetCore.Mvc
+    /// </summary>
+    public class AssemblyInfoWrapperCoreMvc : AssemblyInfoWrapperBaseMvc
     {
+        /// <summary>
+        /// Name of assembly
+        /// </summary>
+        internal override protected string Name { get { return "Microsoft.AspNetCore.Mvc.Core"; } }
 
-        override protected string assName { get { return "Microsoft.AspNetCore.Mvc.Core"; } }
+        /// <summary>
+        /// Namespace
+        /// </summary>
+        internal protected override string Namespace
+        {
+            get
+            {
+                return "Microsoft.AspNetCore.Mvc";
+            }
+        }
 
-        public TypesOfAspNetSetCoreMvc(AssemblyResolver assemblyResolver)
+        /// <summary>
+        /// Microsoft.AspNetCore.Mvc
+        /// </summary>
+        /// <param name="assemblyResolver"></param>
+        public AssemblyInfoWrapperCoreMvc(AssemblyResolver assemblyResolver)
             : base(assemblyResolver)
         {
 

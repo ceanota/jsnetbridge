@@ -98,10 +98,10 @@ namespace Diphap.JsNetBridge.Mvc
 
             this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_Controller.IsAssignableFrom(this._type_controller);
 
-            this.IsJsonResult = AspMvcInfo.TypesOfAspNetSetMvc.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsJsonResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsHttpResponseMessage = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsActionResult = AspMvcInfo.TypesOfAspNetSetMvc.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsViewResult = AspMvcInfo.TypesOfAspNetSetMvc.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsActionResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
+            this.IsViewResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
 
             this.Action = this._TypesOfAspNetSet.GetActionName(methodInfo);
@@ -486,7 +486,7 @@ namespace Diphap.JsNetBridge.Mvc
                     }
                     else
                     {
-                        if ((AspMvcInfo.TypesOfAspNetSetMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
+                        if ((AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
                                 AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
                             (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult == null ||
                             AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&

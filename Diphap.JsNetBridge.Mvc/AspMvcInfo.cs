@@ -115,14 +115,19 @@ namespace Diphap.JsNetBridge.Mvc
 
             if (isAspNetCoreWindows)
             {
-                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetCoreMvc(ar);
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetCoreWebApi_NetHttp(ar), new TypesOfAspNetSetCoreWebApi_WebHttp(ar));
+                //-- AspNetCore.
+
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar));
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetCoreWebApi_NetHttp(ar), 
+                    new TypesOfAspNetSetCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/ ));
             }
             else
             {
-                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(ar);
-                var TNetHttp = new TypesOfAspNetSetWebApi_NetHttp(ar);
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new TypesOfAspNetSetWebApi_WebHttp(ar, TNetHttp));
+                //-- AspNet.
+
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperMvc(ar));
+                var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
             }
             
 

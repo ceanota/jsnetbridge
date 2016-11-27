@@ -17,9 +17,9 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// <summary>
     /// System.Net.Http.
     /// </summary>
-    public class TypesOfAspNetSetCoreWebApi_NetHttp : TypesOfAspNetSetBaseWebApi_NetHttp
+    public class TypesOfAspNetSetCoreWebApi_NetHttp : AssemblyInfoWrapperBaseWebApi_NetHttp
     {
-        protected override string assName
+        internal protected override string Name
         {
             get
             {
@@ -27,11 +27,11 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
             }
         }
 
-        protected override string _Namespace
+        internal protected override string Namespace
         {
             get
             {
-                return this.assName;
+                return this.Name;
             }
         }
 
@@ -44,7 +44,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     /// <summary>
     /// Microsoft.AspNetCore.Mvc
     /// </summary>
-    public class TypesOfAspNetSetCoreWebApi_WebHttp : TypesOfAspNetSetBaseWebApi_WebHttp
+    public class TypesOfAspNetSetCoreWebApi_WebHttp : AssemblyInfoWrapperBaseWebApi_WebHttp
     {
         protected override string _NameOfClassOfController
         {
@@ -57,32 +57,35 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         /// <summary>
         /// Assembly Name
         /// </summary>
-        protected override string assName
+        internal protected override string Name
         {
             get
             {
-                return "Microsoft.AspNetCore.Mvc.Core";
+                return _assWrapper.Name;
             }
         }
 
         /// <summary>
         /// Namespace.
         /// </summary>
-        protected override string _Namespace
+        internal protected override string Namespace
         {
             get
             {
-                return "Microsoft.AspNetCore.Mvc";
+                return _assWrapper.Namespace;
             }
         }
+
+        readonly AssemblyInfoWrapper _assWrapper;
 
         /// <summary>
         /// Microsoft.AspNetCore.Mvc
         /// </summary>
-        /// <param name="assemblyResolver"></param>
-        public TypesOfAspNetSetCoreWebApi_WebHttp(AssemblyResolver assemblyResolver) : base(assemblyResolver)
+        /// <param name="assWrapper"></param>
+        public TypesOfAspNetSetCoreWebApi_WebHttp(AssemblyInfoWrapper assWrapper)
+            : base(assWrapper._Assembly)
         {
-
+            _assWrapper = assWrapper;
         }
 
         /// <summary>
