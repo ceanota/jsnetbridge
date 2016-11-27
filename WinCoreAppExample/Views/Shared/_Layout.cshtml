@@ -48,7 +48,27 @@
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+
+        @* JsNetBridge: it will generate the url. *@
+        <script src="~/lib/Diphap.JsNetBridge/arrayFactory.js"></script>
+        <script src="~/lib/Diphap.JsNetBridge/circularReferenceManagerFactory.js"></script>
+        <script src="~/lib/Diphap.JsNetBridge/actionHelper.js"></script>
+        <script src="~/lib/Diphap.JsNetBridge/Diphap.JsNetBridge.js"></script>
+        
+        <script>
+            @* retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
+            @*$dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["DefaultApi"] == null ? "" : (System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
+			$dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';*@
+
+            @* generates the url of action method. *@
+            @(new Microsoft.AspNetCore.Html.HtmlString(Program.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+
+        </script>
+        @* JsNetBridge: example of use. Read the prerequisites in the script 'Diphap.JsNetBridge.Example.js' *@
+        @* <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js" ></script> *@
+
         <script src="~/js/site.js" asp-append-version="true"></script>
+
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"

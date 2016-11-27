@@ -20,5 +20,19 @@ namespace WinCoreAppExample
 
             host.Run();
         }
+
+        static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+        static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
+        {
+            get
+            {
+                if (_AspMvcInfo == null)
+                {
+                    _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly(), true);
+                }
+                return _AspMvcInfo;
+            }
+        }
+
     }
 }

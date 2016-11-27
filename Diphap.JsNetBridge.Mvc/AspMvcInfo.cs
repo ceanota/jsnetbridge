@@ -19,9 +19,9 @@ namespace Diphap.JsNetBridge.Mvc
     public class AspMvcInfo
     {
         #region "Constants"
-        public static TypesOfAspNetSetMvc TypesOfAspNetSetMvc { get; private set; }
+        public static TypesOfAspNetSetBaseMvc TypesOfAspNetSetMvc { get; private set; }
         public static TypesOfAspNetSetBaseWebApi TypesOfAspNetSetWebApi { get; private set; }
-        public static ConfigDynamicAssembly ConfigReferences { get; private set; }
+        //public static ConfigDynamicAssembly ConfigReferences { get; private set; }
         #endregion
 
         #region "Internal"
@@ -110,11 +110,21 @@ namespace Diphap.JsNetBridge.Mvc
 
         readonly public AssemblyResolver AssemblyResolver;
 
-        private void InitializeCore(Assembly asp_net, IList<AssemblySet> typeSetList, AssemblyResolver ar)
+        private void InitializeCore(Assembly asp_net, IList<AssemblySet> typeSetList, AssemblyResolver ar, bool isAspNetCoreWindows)
         {
             _JSNamespace = new ConfigJS.JSNamespace();
-            AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(ar);
-            AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetWebApi_NetHttp(ar), new TypesOfAspNetSetWebApi_WebHttp(ar));
+
+            if (isAspNetCoreWindows)
+            {
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetCoreMvc(ar);
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetCoreWebApi_NetHttp(ar), new TypesOfAspNetSetCoreWebApi_WebHttp(ar));
+            }
+            else
+            {
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetMvc(ar);
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new TypesOfAspNetSetWebApi_NetHttp(ar), new TypesOfAspNetSetWebApi_WebHttp(ar));
+            }
+            
 
             InitiliazeForAspNetObjects(asp_net);
 
@@ -144,13 +154,13 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         /// <param name="asp_net"></param>
         /// <param name="typeSetList"></param>
+        /// <param name="isAspNetCoreWindows"></param>
         /// <returns></returns>
-        public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList)
+        public AspMvcInfo(Assembly asp_net, IList<AssemblySet> typeSetList, bool isAspNetCoreWindows = false)
         {
-            
             this.AssemblyResolver = new AssemblyResolver(Path.GetDirectoryName(asp_net.Location));
 
-            InitializeCore(asp_net, typeSetList, this.AssemblyResolver);
+            InitializeCore(asp_net, typeSetList, this.AssemblyResolver, isAspNetCoreWindows);
         }
 
         /// <summary>
@@ -158,22 +168,24 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         /// <param name="appAspNetPath"></param>
         /// <param name="typeSetList"></param>
+        /// <param name="isAspNetCoreWindows"></param>
         /// <returns></returns>
-        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList)
+        public AspMvcInfo(string appAspNetPath, IList<AssemblySet> typeSetList, bool isAspNetCoreWindows = false)
         {
             this.AssemblyResolver = new AssemblyResolver(Path.GetDirectoryName(appAspNetPath));
             Assembly asp_net = ReflectionLoader.LoadFrom(appAspNetPath, this.AssemblyResolver);
 
-            InitializeCore(asp_net, typeSetList, this.AssemblyResolver);
+            InitializeCore(asp_net, typeSetList, this.AssemblyResolver, isAspNetCoreWindows);
         }
 
         /// <summary>
         /// Instanciate information about AspMvc Application.
         /// </summary>
         /// <param name="asp_net"></param>
+        /// <param name="isAspNetCoreWindows"></param>
         /// <returns></returns>
-        public AspMvcInfo(Assembly asp_net)
-            : this(asp_net, new AssemblySet[] { })
+        public AspMvcInfo(Assembly asp_net, bool isAspNetCoreWindows = false)
+            : this(asp_net, new AssemblySet[] { }, isAspNetCoreWindows)
         {
 
         }
@@ -185,9 +197,9 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         /// <param name="appAspNetPath"></param>
         /// <param name="typeSet"></param>
-        /// 
-        public AspMvcInfo(string appAspNetPath, AssemblySet typeSet)
-            : this(appAspNetPath, new AssemblySet[] { typeSet })
+        /// <param name="isAspNetCoreWindows"></param>
+        public AspMvcInfo(string appAspNetPath, AssemblySet typeSet, bool isAspNetCoreWindows = false)
+            : this(appAspNetPath, new AssemblySet[] { typeSet }, isAspNetCoreWindows)
         {
 
         }
@@ -196,8 +208,9 @@ namespace Diphap.JsNetBridge.Mvc
         /// Instanciate information about AspMvc Application.
         /// </summary>
         /// <param name="appAspNetPath"></param>
-        public AspMvcInfo(string appAspNetPath)
-            : this(appAspNetPath, new AssemblySet[] { })
+        /// <param name="isAspNetCoreWindows"></param>
+        public AspMvcInfo(string appAspNetPath, bool isAspNetCoreWindows = false)
+            : this(appAspNetPath, new AssemblySet[] { }, isAspNetCoreWindows)
         {
 
         }

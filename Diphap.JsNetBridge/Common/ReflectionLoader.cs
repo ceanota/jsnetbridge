@@ -280,12 +280,12 @@ namespace Diphap.JsNetBridge.Common
         /// <summary>
         /// Load only assembly (and its referenced assemblies)
         /// </summary>
-        /// <param name="assName"></param>
+        /// <param name="assNameOrFullname"></param>
         /// <param name="AssemblyResolver_"></param>
         /// <returns></returns>
-        public static Assembly Load(string assName, AssemblyResolver AssemblyResolver_)
+        public static Assembly Load(string assNameOrFullname, AssemblyResolver AssemblyResolver_)
         {
-            ReflectionLoader loader = new ReflectionLoader(assName, AssemblyResolver_);
+            ReflectionLoader loader = new ReflectionLoader(assNameOrFullname, AssemblyResolver_);
             return loader.Assembly;
         }
     }

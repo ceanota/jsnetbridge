@@ -65,7 +65,7 @@
     <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="lib\net45\" />
+    <Folder Include="lib\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />

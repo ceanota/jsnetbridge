@@ -274,42 +274,46 @@
             allTypes of controller.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet})">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet},System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
             <param name="asp_net"></param>
             <param name="typeSetList"></param>
+            <param name="isAspNetCoreWindows"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet})">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet},System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
             <param name="appAspNetPath"></param>
             <param name="typeSetList"></param>
+            <param name="isAspNetCoreWindows"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly)">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly,System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
             <param name="asp_net"></param>
+            <param name="isAspNetCoreWindows"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,Diphap.JsNetBridge.AssemblySet)">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,Diphap.JsNetBridge.AssemblySet,System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
             <param name="appAspNetPath"></param>
             <param name="typeSet"></param>
-            
+            <param name="isAspNetCoreWindows"></param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String)">
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.String,System.Boolean)">
             <summary>
             Instanciate information about AspMvc Application.
             </summary>
             <param name="appAspNetPath"></param>
+            <param name="isAspNetCoreWindows"></param>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.WriteAllText(System.String)">
             <summary>

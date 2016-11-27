@@ -38,9 +38,8 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
 
             #region "_Ass_WebMvc"
-            {
-                this._Ass_WebMvc = _LoadAssembly(assName, assemblyResolver);
-            }
+            this._Ass_WebMvc = ReflectionLoader.Load(assName, assemblyResolver);
+
 
             foreach (var t in this._Ass_WebMvc.ExportedTypes)
             {

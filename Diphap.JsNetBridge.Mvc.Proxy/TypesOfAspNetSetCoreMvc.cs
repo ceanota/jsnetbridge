@@ -17,7 +17,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     public class TypesOfAspNetSetCoreMvc : TypesOfAspNetSetBaseMvc
     {
 
-        override protected string assName { get { return "Microsoft.AspNetCore.Mvc"; } }
+        override protected string assName { get { return "Microsoft.AspNetCore.Mvc.Core"; } }
 
         public TypesOfAspNetSetCoreMvc(AssemblyResolver assemblyResolver)
             : base(assemblyResolver)

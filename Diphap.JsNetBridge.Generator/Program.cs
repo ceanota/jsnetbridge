@@ -37,16 +37,6 @@ namespace Diphap.JsNetBridge.Generator
 
                 config _config = config.ResolveAbsolutePathes(js_config);
 
-
-                #region "AssemblyResolve"
-
-                ConfigDynamicAssembly.References["System.Net.Http"] = Diphap.JsNetBridge.Generator.Properties.Settings.Default.System_Net_Http;
-                ConfigDynamicAssembly.References["System.Web.Http"] = Diphap.JsNetBridge.Generator.Properties.Settings.Default.System_Web_Http;
-                ConfigDynamicAssembly.References["System.Web.Mvc"] = Diphap.JsNetBridge.Generator.Properties.Settings.Default.System_Web_Mvc;
-
-                #endregion
-
-
                 #region "validation"
                 if (Directory.Exists(Path.GetDirectoryName(_config.file_js_absolute)) == false)
                 {
@@ -80,7 +70,7 @@ namespace Diphap.JsNetBridge.Generator
                         }
                     }
 
-                    AspMvcInfo api = new AspMvcInfo(_config.dll_asp_absolute, assemblySetList);
+                    AspMvcInfo api = new AspMvcInfo(_config.dll_asp_absolute, assemblySetList, _config.isAspNetCoreWindows);
                     Console.WriteLine(string.Format("Instanciate AspMvcInfo - End [{0}]", sw.Elapsed.TotalSeconds));
 
                     //-- js code.

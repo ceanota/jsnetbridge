@@ -68,9 +68,9 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         public TypesOfAspNetSetBaseWebApi_NetHttp(AssemblyResolver assemblyResolver)
         {
             #region "_Ass_NetHttp"
-            {
-                this._Ass_NetHttp = TypesOfAspNetSet._LoadAssembly(assName_NetHttp, assemblyResolver);
-            }
+
+            this._Ass_NetHttp = ReflectionLoader.Load(assName_NetHttp, assemblyResolver);
+
             foreach (var t in this._Ass_NetHttp.ExportedTypes)
             {
                 if (this.Type_HttpResponseMessage == null && t.FullName == assName_NetHttp + ".HttpResponseMessage")
@@ -137,7 +137,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
     }
 
-    abstract public class TypesOfAspNetSetBaseWebApi_WebHttp 
+    abstract public class TypesOfAspNetSetBaseWebApi_WebHttp
     {
 
         /// <summary>
@@ -179,18 +179,14 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         {
             #region "_Ass_WebHttp"
 
-
-
-
             THttpAttributes = new Dictionary<string, Type>(){
-                { assName_WebHttp + ".HttpGetAttribute",null}, {assName_WebHttp +".HttpPostAttribute",null},
+                {assName_WebHttp + ".HttpGetAttribute",null}, {assName_WebHttp +".HttpPostAttribute",null},
                 {assName_WebHttp +".HttpPutAttribute",null}, {assName_WebHttp +".HttpDeleteAttribute",null},
                 {assName_WebHttp +".HttpHeadAttribute",null} };
 
-            {
 
-                this._Ass_WebHttp = TypesOfAspNetSet._LoadAssembly(assName_WebHttp, assemblyResolver);
-            }
+            this._Ass_WebHttp = ReflectionLoader.Load(assName_WebHttp, assemblyResolver);
+
 
             foreach (var t in this._Ass_WebHttp.ExportedTypes)
             {
@@ -242,7 +238,7 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
 
             #endregion
 
-           
+
 
         }
 

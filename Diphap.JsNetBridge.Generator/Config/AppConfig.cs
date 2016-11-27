@@ -21,6 +21,7 @@ namespace Diphap.JsNetBridge.Generator.Config
         internal string js_out = string.Format(@"Scripts\Diphap.JsNetBridge\{0}.js", file_name_out);
         public const string file_name_exe = file_name_out + ".Generator.exe";
         public AssemblyConfig[] dll_set;
+        public bool isAspNetCoreWindows;
 
         internal string json_content;
         internal string bin_path

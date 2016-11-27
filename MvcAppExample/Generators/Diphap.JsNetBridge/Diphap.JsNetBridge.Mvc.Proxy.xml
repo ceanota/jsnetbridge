@@ -4,16 +4,6 @@
         <name>Diphap.JsNetBridge.Mvc.Proxy</name>
     </assembly>
     <members>
-        <member name="T:Diphap.JsNetBridge.Mvc.Proxy.ConfigDynamicAssembly">
-            <summary>
-            For loading dynamically Assemblies.
-            </summary>
-        </member>
-        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.ConfigDynamicAssembly.References">
-            <summary>
-            For loading dynamically Assemblies.
-            </summary>
-        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.Proxy.TypesOfAspNetSetBaseWebApi.GetRouteTemplate(System.Reflection.MethodInfo)">
             <summary>
             GetRouteTemplate

@@ -170,7 +170,7 @@
             <summary>
             Load only assembly (and its referenced assemblies)
             </summary>
-            <param name="assName"></param>
+            <param name="assNameOrFullname"></param>
             <param name="AssemblyResolver_"></param>
             <returns></returns>
         </member>
