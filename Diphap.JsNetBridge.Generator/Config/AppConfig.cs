@@ -17,12 +17,15 @@ namespace Diphap.JsNetBridge.Generator.Config
     public class config
     {
         public string dll_asp;
+        public AssemblyConfig[] dll_set;
+        public bool isAspNetCoreWindows;
+        public string file_js_absolute;
+
         public const string file_name_out = "Diphap.JsNetBridge";
         internal string js_out = string.Format(@"Scripts\Diphap.JsNetBridge\{0}.js", file_name_out);
         public const string file_name_exe = file_name_out + ".Generator.exe";
-        public AssemblyConfig[] dll_set;
-        public bool isAspNetCoreWindows;
 
+        
         internal string json_content;
         internal string bin_path
         {
@@ -31,7 +34,7 @@ namespace Diphap.JsNetBridge.Generator.Config
         internal string exe_path;
         internal string config_path;
         internal string folder_site_absolute;
-        internal string file_js_absolute;
+        
         internal string dll_asp_absolute;
         internal string asp_bin_absolute
         {
@@ -114,7 +117,7 @@ namespace Diphap.JsNetBridge.Generator.Config
 
             _config.folder_site_absolute = new DirectoryInfo(folder_asp).FullName;
 
-            _config.file_js_absolute = new FileInfo(_config.folder_site_absolute + @"/" + _config.js_out).FullName;
+            _config.file_js_absolute = _config.file_js_absolute != null ? _config.file_js_absolute : new FileInfo(_config.folder_site_absolute + @"/" + _config.js_out).FullName;
 
             _config.dll_asp_absolute = new FileInfo(dll_asp).FullName;
             #endregion

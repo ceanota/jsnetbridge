@@ -29,6 +29,7 @@ namespace WinCoreAppExample
                 if (_AspMvcInfo == null)
                 {
                     _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly(), true);
+                    _AspMvcInfo.WriteAllText("C:\\Users\\diphap\\Source\\Repos\\jsnet\\WinCoreAppExample\\wwwroot\\lib\\Diphap.JsNetBridge\\Diphap.JsNetBridge.js");
                 }
                 return _AspMvcInfo;
             }

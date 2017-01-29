@@ -204,11 +204,18 @@ namespace Diphap.JsNetBridge.Common
         {
 
             this.AssemblyResolver = assemblyResolver_;
-            string[] files = Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll");
+            List<string> files = new List<string>(200);
+            files.AddRange(Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll"));
+            files.Add(file);
+            
+            files = files.Distinct().ToList();
 
             //Then load each referenced assembly into the context
             foreach (var f in files)
             {
+                //-- mysterious??
+                if (f.Contains("libuv.dll")) { continue; }
+
                 var foundAssembly = this.AssemblyResolver.Redirects.Where(x => TypeHelper.GetAssemblyNameFromFullname(x.Key) == Path.GetFileNameWithoutExtension(f)).ToArray();
                 Assembly reflectedAssembly = null;
 
@@ -219,7 +226,15 @@ namespace Diphap.JsNetBridge.Common
 
                 if (reflectedAssembly == null)
                 {
-                    reflectedAssembly = Assembly.LoadFrom(f);
+                    if (System.IO.Path.GetExtension(f).Replace(".", "") == "exe")
+                    {
+                        reflectedAssembly = Assembly.LoadFrom(f);
+                    }
+                    else
+                    {
+                        reflectedAssembly = Assembly.LoadFrom(f);
+                    }
+
                 }
 
                 if (this.AssemblyResolver.Redirects.ContainsKey(reflectedAssembly.FullName) == false)

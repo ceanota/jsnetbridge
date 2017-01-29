@@ -45,7 +45,9 @@
   },
 
   "scripts": {
-    "prepublish": [ "bower install", "dotnet bundle" ],
-    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ]
+    //"postcompile": "\"C:\\Users\\diphap\\Source\\Repos\\jsnet\\WinCoreAppExample\\Generators\\Diphap.JsNetBridge\\Diphap.JsNetBridge.Generator.exe\" \"{ dll_asp:'%project:Directory%\\bin\\Debug\\net452\\win7-x64\\WinCoreAppExample.exe', file_js_absolute: 'C:\\Users\\diphap\\Source\\Repos\\jsnet\\WinCoreAppExample\\Scripts\\Diphap.JsNetBridge\\Diphap.JsNetBridge.js', isAspNetCoreWindows: true }\"",
+    //"postcompile": "\"%project:Directory%\\Generators\\Diphap.JsNetBridge\\Diphap.JsNetBridge.Generator.exe\" \"{ dll_asp:'%project:Directory%\\bin\\Debug\\net452\\win7-x64\\WinCoreAppExample.exe', file_js_absolute: '%project:Directory%\\Scripts\\Diphap.JsNetBridge\\Diphap.JsNetBridge.js', isAspNetCoreWindows: true }\"",
+    "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ],
+    "prepublish": [ "bower install", "dotnet bundle" ]
   }
 }

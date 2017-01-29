@@ -120,7 +120,7 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- AspNetCore.
 
                 AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar, new AssemblyInfoWrapperBaseMvc_FormattersJson(ar), new AssemblyInfoWrapperBaseMvc_ViewFeatures(ar)));
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new AssemblyInfoWrapperCoreWebApi_NetHttp() /* is useless */, 
+                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new AssemblyInfoWrapperCoreWebApi_NetHttp() /* is useless */,
                     new AssemblyInfoWrapperCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/, new AssemblyInfoWrapperBaseWebApi_Abstractions(ar)));
             }
             else
@@ -131,7 +131,7 @@ namespace Diphap.JsNetBridge.Mvc
                 var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
                 AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
             }
-            
+
 
             InitiliazeForAspNetObjects(asp_net);
 
@@ -202,7 +202,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         }
 
-        
+
 
         /// <summary>
         /// Instanciate information about AspMvc Application.
