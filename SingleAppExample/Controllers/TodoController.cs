@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using SingleAppExample.Filters;
 using SingleAppExample.Models;
+using System.Data.Entity;
 
 namespace SingleAppExample.Controllers
 {

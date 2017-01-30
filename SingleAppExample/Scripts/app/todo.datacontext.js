@@ -155,6 +155,8 @@ window.todoApp.datacontext = (function () {
 
         options.data = data ? data.toJson() : null;
 
+        options.dataType = undefined;
+
         var antiForgeryToken = $("#antiForgeryToken").val();
         if (antiForgeryToken) {
             options.headers = {

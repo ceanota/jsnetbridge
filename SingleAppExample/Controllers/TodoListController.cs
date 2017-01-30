@@ -10,6 +10,7 @@ using SingleAppExample.Filters;
 using SingleAppExample.Models;
 using System.Threading.Tasks;
 using System.Web.Http.Description;
+using System.Data.Entity;
 
 namespace SingleAppExample.Controllers
 {

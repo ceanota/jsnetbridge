@@ -91,9 +91,8 @@
     var xhr = $.ajax(ajaxsettings);
     console.info("$dpUrlSet ajax send:", ajaxsettings);
 
-    xhr.success(function (result) {
+    xhr.done(function (result) {
         /// <param name="result" type="$dpUrlSet.Home.ShowMe.$action0.$Return">Description</param>
-
         console.info("$dpUrlSet ajax success:", result);
     });
 
@@ -101,10 +100,8 @@
         console.info("$dpUrlSet ajax fail:", arguments);
     });
 
-    xhr.complete(function () {
-
+    xhr.always(function () {
         console.info("-------------- window.test_dpUrlSet - END:");
-
     });
 
 }
