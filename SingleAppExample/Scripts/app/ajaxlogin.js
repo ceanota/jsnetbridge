@@ -17,6 +17,7 @@
     };
     
     var formSubmitHandler = function (e) {
+        debugger;
         var $form = $(this);
 
         // We check if jQuery.validator exists on the form
@@ -32,7 +33,7 @@
                         displayErrors($form, json.errors);
                     }
                 })
-                .error(function () {
+                .fail(function () {
                     displayErrors($form, ['An unknown error happened.']);
                 });
         }
