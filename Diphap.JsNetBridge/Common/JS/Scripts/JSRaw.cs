@@ -285,7 +285,7 @@ namespace Diphap.JsNetBridge.Common.JS
             action.$Enums = function () { var obj = null; return obj; };
             action.$IsApi = false;
             action.$httpMethodArray = { $items:['post','get'], $single:'post', $first:'post' };
-            action.$AjaxSettings = function () { var obj = { dataType: 'json', contentType: 'application/json', cache: false, type: 'post', method: 'post' }; return obj; };
+            action.$AjaxSettings = function () { var obj = { dataType: undefined, contentType: 'application/json', cache: false, type: 'post', method: 'post' }; return obj; };
             action.$RouteTemplate = '';
             return action;
         }

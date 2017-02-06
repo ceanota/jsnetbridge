@@ -1,2 +1,8 @@
-#:C:\Users\diphap\Source\Repos\jsnet\WinCoreAppExample\WinCoreAppExample.xproj
-#:C:\Users\diphap\Source\Repos\jsnet\WinCoreWebApiExample\WinCoreWebApiExample.xproj
+#:D:\Source\Repos\jsnet\Diphap.JsNetBridge.GeneratorNetCore\Diphap.JsNetBridge.GeneratorNetCore.xproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.GeneratorNetCore\Diphap.JsNetBridge.GeneratorNetCore.xproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge.Generator.Lib\Diphap.JsNetBridge.Generator.Lib.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Generator.Lib\Diphap.JsNetBridge.Generator.Lib.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Generator.Lib\Diphap.JsNetBridge.Generator.Lib.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Generator.Lib\Diphap.JsNetBridge.Generator.Lib.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc.Proxy\Diphap.JsNetBridge.Mvc.Proxy.csproj
+D:\Source\Repos\jsnet\Diphap.JsNetBridge.Mvc\Diphap.JsNetBridge.Mvc.csproj|D:\Source\Repos\jsnet\Diphap.JsNetBridge\Diphap.JsNetBridge.csproj

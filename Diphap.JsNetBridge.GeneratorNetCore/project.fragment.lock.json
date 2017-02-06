@@ -1,0 +1,74 @@
+{
+  "version": 2,
+  "exports": {
+    "Diphap.JsNetBridge.Generator.Lib/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5.2",
+      "compile": {
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.dll": {}
+      },
+      "runtime": {
+        "../packages/Newtonsoft.Json.4.5.11/lib/net40/Newtonsoft.Json.dll": {},
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Diphap.JsNetBridge/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5",
+      "compile": {
+        "bin/Debug/Diphap.JsNetBridge.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Diphap.JsNetBridge.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Diphap.JsNetBridge.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Diphap.JsNetBridge.Mvc/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5",
+      "compile": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    },
+    "Diphap.JsNetBridge.Mvc.Proxy/1.0.0": {
+      "type": "project",
+      "framework": ".NETFramework,Version=v4.5",
+      "compile": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
+      },
+      "runtime": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
+      },
+      "contentFiles": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.pdb": {
+          "buildAction": "None",
+          "codeLanguage": "any",
+          "copyToOutput": true
+        }
+      }
+    }
+  }
+}

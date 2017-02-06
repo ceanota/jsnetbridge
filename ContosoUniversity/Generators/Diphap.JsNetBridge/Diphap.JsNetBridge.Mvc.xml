@@ -71,7 +71,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
+        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Enums">
             <summary>
             
@@ -105,7 +105,7 @@
             
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxSettings_Default(System.String,System.String,System.String,System.String)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetAjaxSettings_Default(System.String,System.String,System.String)">
             <summary>
             Default ajax settings.ex: {url:'http://www.google.fr', method: obj.getMethod()}
             </summary>
@@ -232,7 +232,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
+        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ToString">
             <summary>
             Text representing instance.
@@ -272,6 +272,11 @@
         <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.Types_Controller">
             <summary>
             allTypes of controller.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.AspMvcInfo.IsAspNetCoreWindows">
+            <summary>
+            IsAspNetCoreWindows
             </summary>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.#ctor(System.Reflection.Assembly,System.Collections.Generic.IList{Diphap.JsNetBridge.AssemblySet},System.Boolean)">

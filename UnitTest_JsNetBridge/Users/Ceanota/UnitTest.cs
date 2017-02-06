@@ -2,9 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Diphap.JsNetBridge;
 using System.Reflection;
-using System.Web.Http.Controllers;
 using System.Linq;
-using System.Web.Http.Description;
 using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
@@ -72,6 +70,16 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", api.ToJS(true));
+        }
+
+        [TestMethod]
+        public void TestExeCore()
+        {
+            string appAspNetPath = "";
+            appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Release\net452\win7-x64\WebApplicationWinCore.exe";
+            appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\win7-x64\WebApplicationWinCore.exe";
+            //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\WebApplicationWinCore.exe";
+            AspMvcInfo api = new AspMvcInfo(appAspNetPath, true);
         }
 
 

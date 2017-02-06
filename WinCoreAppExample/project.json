@@ -1,6 +1,6 @@
 {
   "dependencies": {
-    "Diphap.JsNetBridge.Mvc": "1.2.40",
+    "Diphap.JsNetBridge.Mvc": "1.2.42",
     "Microsoft.AspNetCore.Diagnostics": "1.0.0",
     "Microsoft.AspNetCore.Mvc": "1.0.1",
     "Microsoft.AspNetCore.Razor.Tools": {
@@ -45,6 +45,7 @@
   },
 
   "scripts": {
+    "postcompile": "\"D:\\Source\\Repos\\jsnet\\Diphap.JsNetBridge.GeneratorNetCore\\bin\\Debug\\net452\\win7-x64\\Diphap.JsNetBridge.GeneratorNetCore.exe\"",
     //"postcompile": "\"C:\\Users\\diphap\\Source\\Repos\\jsnet\\WinCoreAppExample\\Generators\\Diphap.JsNetBridge\\Diphap.JsNetBridge.Generator.exe\" \"{ dll_asp:'%project:Directory%\\bin\\Debug\\net452\\win7-x64\\WinCoreAppExample.exe', file_js_absolute: 'C:\\Users\\diphap\\Source\\Repos\\jsnet\\WinCoreAppExample\\Scripts\\Diphap.JsNetBridge\\Diphap.JsNetBridge.js', isAspNetCoreWindows: true }\"",
     //"postcompile": "\"%project:Directory%\\Generators\\Diphap.JsNetBridge\\Diphap.JsNetBridge.Generator.exe\" \"{ dll_asp:'%project:Directory%\\bin\\Debug\\net452\\win7-x64\\WinCoreAppExample.exe', file_js_absolute: '%project:Directory%\\Scripts\\Diphap.JsNetBridge\\Diphap.JsNetBridge.js', isAspNetCoreWindows: true }\"",
     "postpublish": [ "dotnet publish-iis --publish-folder %publish:OutputPath% --framework %publish:FullTargetFramework%" ],

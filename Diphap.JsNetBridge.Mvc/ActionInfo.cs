@@ -318,13 +318,13 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="data">js object</param>
         /// <param name="method">Warning! ['post']</param>
         /// <returns></returns>
-        static private StringBuilder GetAjaxSettings_Default(string url, string dataType, string data, string method)
+        static private StringBuilder GetAjaxSettings_Default(string url, string data, string method)
         {
             StringBuilder sb_ajax_options = new StringBuilder();
             sb_ajax_options.Append("{");
             sb_ajax_options.AppendFormat("url:{0}", url);
             sb_ajax_options.Append(",");
-            sb_ajax_options.AppendFormat("dataType:{0}", dataType);//-- data type of return.
+            sb_ajax_options.AppendFormat("dataType:{0}", "undefined");//-- data type of return.
             sb_ajax_options.Append(",");
             sb_ajax_options.AppendFormat("contentType:{0}", "'application/json'"); //-- Default is "application/x-www-form-urlencoded; charset=UTF-8", which is fine for most cases.
             sb_ajax_options.Append(",");
@@ -349,7 +349,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         private StringBuilder GetAjaxSettings_ForWebApi(string url, string data, string method)
         {
-            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + WebApiHelper.GetAjaxDataType(this.MethodInfo) + "'", data, method);
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, data, method);
             return sb_ajax_options;
         }
 
@@ -361,7 +361,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         private StringBuilder GetAjaxSettings_ForMvc(string url, string data)
         {
-            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, "'" + MvcHelper.GetAjaxDataType(this.MethodInfo) + "'", data, "'post'");
+            StringBuilder sb_ajax_options = GetAjaxSettings_Default(url, data, "'post'");
             return sb_ajax_options;
         }
 

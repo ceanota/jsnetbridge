@@ -205,9 +205,10 @@ namespace Diphap.JsNetBridge.Common
 
             this.AssemblyResolver = assemblyResolver_;
             List<string> files = new List<string>(200);
+            
             files.AddRange(Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll"));
             files.Add(file);
-            
+
             files = files.Distinct().ToList();
 
             //Then load each referenced assembly into the context
@@ -228,7 +229,7 @@ namespace Diphap.JsNetBridge.Common
                 {
                     if (System.IO.Path.GetExtension(f).Replace(".", "") == "exe")
                     {
-                        reflectedAssembly = Assembly.LoadFrom(f);
+                        reflectedAssembly = Assembly.LoadFile(f);
                     }
                     else
                     {
