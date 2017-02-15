@@ -1,11 +1,12 @@
 ﻿/// <autosync enabled="true" />
-/// <reference path="../scripts/Diphap.JsNetBridge/actionHelper.js" />
-/// <reference path="../scripts/Diphap.JsNetBridge/arrayFactory.js" />
-/// <reference path="../scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js" />
-/// <reference path="../scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js" />
-/// <reference path="../scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js" />
 /// <reference path="js/site.js" />
 /// <reference path="lib/bootstrap/dist/js/bootstrap.js" />
 /// <reference path="lib/jquery/dist/jquery.js" />
 /// <reference path="lib/jquery-validation/dist/jquery.validate.js" />
 /// <reference path="lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js" />
+/// <reference path="lib/diphap.jsnetbridge/actionhelper.js" />
+/// <reference path="lib/diphap.jsnetbridge/arrayfactory.js" />
+/// <reference path="lib/diphap.jsnetbridge/circularreferencemanagerfactory.js" />
+/// <reference path="lib/diphap.jsnetbridge/diphap.jsnetbridge.js" />
+/// <reference path="lib/diphap.jsnetbridge/diphap.jsnetbridge.example.js" />
+
