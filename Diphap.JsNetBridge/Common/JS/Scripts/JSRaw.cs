@@ -279,10 +279,21 @@ namespace Diphap.JsNetBridge.Common.JS
             action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
-                var url_from_template = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action, routeData);
-                if (url_from_template.indexOf('{') >= 0 || url_from_template.indexOf('}') >= 0)
-                { return action.$_Url }
-                else { return url_from_template; }
+
+                var url_route;
+                if (!!action.$RouteTemplate && action.$RouteTemplate.indexOf('{') < 0 && action.$RouteTemplate.indexOf('}') < 0) {
+                    url_route = action.$RouteTemplate;
+                } else {
+                    url_route = null;
+                }
+
+                var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
+                if (!routeData) {
+                    return url_route || action.$_Url || f(action);
+                }
+                else {
+                    return f(action, routeData);
+                }
             };
             action.$GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };
             action.$Names = { action: '', controller: '', area: '' };

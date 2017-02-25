@@ -1,4 +1,6 @@
 ﻿
+
+QUnit.module("MVC");
 QUnit.asyncTest('Call MVC action method (no parameters)', function () {
 
     //-- we have one async test to run
@@ -75,6 +77,7 @@ QUnit.asyncTest('Call MVC action method with [Area], [ActionName]', function () 
 
 });
 
+QUnit.module("WebApi");
 QUnit.asyncTest('Call WebApi action method (no parameters) ', function () {
 
     //-- we have one async test to run
