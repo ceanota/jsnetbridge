@@ -200,7 +200,11 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <summary>Get Url</summary>
         /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
+        
         var url = '';
+        if (typeof routeData != 'object') {
+            routeData = null;
+        }
 
         var selectedRouteTemplate;
         if (action.$IsApi) {
@@ -275,8 +279,10 @@ namespace Diphap.JsNetBridge.Common.JS
             action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
-                var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
-                if (!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); }
+                var url_from_template = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate(action, routeData);
+                if (url_from_template.indexOf('{') >= 0 || url_from_template.indexOf('}') >= 0)
+                { return action.$_Url }
+                else { return url_from_template; }
             };
             action.$GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };
             action.$Names = { action: '', controller: '', area: '' };

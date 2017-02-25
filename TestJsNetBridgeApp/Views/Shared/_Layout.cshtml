@@ -1,0 +1,64 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    @*<link href="~/bower_components/mocha/mocha.css" rel="stylesheet" />*@
+    <link href="~/bower_components/qunit/qunit/qunit.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    <script src="~/Scripts/jquery-3.1.1.js"></script>
+    <script src="~/bower_components/underscore/underscore.js"></script>
+    @*<script src="~/bower_components/mocha/mocha.js"></script>*@
+    <script src="~/bower_components/qunit/qunit/qunit.js"></script>
+
+    <script src="~/Scripts/Diphap.JsNetBridge/actionHelper.js"></script>
+    <script src="~/Scripts/Diphap.JsNetBridge/arrayFactory.js"></script>
+    <script src="~/Scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js"></script>
+    <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"></script>
+
+    <script>
+
+			@* retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
+			$dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["DefaultApi"] == null ? "" : (System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
+			$dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
+
+			@* generates the url of action method. *@
+			@(new MvcHtmlString(TestJsNetBridgeApp.Global.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+
+    </script>
+
+    <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js"></script>
+    <script src="~/Scripts/_app/test.js"></script>
+
+</body>
+</html>
