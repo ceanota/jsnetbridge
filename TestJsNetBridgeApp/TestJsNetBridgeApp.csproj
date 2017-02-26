@@ -216,6 +216,12 @@
     <Folder Include="Areas\TestArea\Views\Home\" />
     <Folder Include="Areas\TestArea\Views\Shared\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TestModels\TestModels.csproj">
+      <Project>{0a8036b1-aee5-4046-9906-a016bfa857a7}</Project>
+      <Name>TestModels</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

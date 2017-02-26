@@ -28,8 +28,14 @@ namespace TestJsNetBridgeApp.Controllers
         [System.Web.Http.HttpPut()]
         public ReturnData Orders()
         {
-            return new ReturnData() { Success = true, Url = this.Request.RequestUri.AbsolutePath, Method = this.Request.Method.Method }; ;
+            return new ReturnData() { Success = true, Url = this.Request.RequestUri.AbsolutePath, Method = this.Request.Method.Method };
         }
 
+        [Route("customers/{customerId}/orders")]
+        [System.Web.Http.HttpPut()]
+        public ReturnData Orders_WithCustomerId(int customerId)
+        {
+            return new ReturnData() { InputStream = new { customerId }, Success = true, Url = this.Request.RequestUri.AbsolutePath, Method = this.Request.Method.Method }; ;
+        }
     }
 }

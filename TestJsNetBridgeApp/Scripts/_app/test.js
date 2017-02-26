@@ -32,7 +32,7 @@
             //-- ajax.
             var xhr = $.ajax(settings);
 
-            assert(action.$Names.area == areaName,'The action method should be in a MVC area.');
+            assert(action.$Names.area == areaName, 'The action method should be in a MVC area.');
             assert(action.$Names.action != funcName, 'function name and action name should be different');
 
             xhr.always(function (result, status, xhr) {
@@ -83,6 +83,59 @@
             });
 
         });
+        it('Call action method with another route defined by [RouteAttribute]', function (done) {
+
+            var className = "$apiData";
+
+            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+
+            //-- action method.
+            var action = $dpUrlSet[className].Orders.$action0;
+
+
+
+            //-- ajax.
+            var settings = action.$AjaxSettings();
+            assert(!!settings.method, 'the http method should be defined.');
+            assert(settings.url != $dpUrlSet.$apiData.Get.$action0.$GetUrl(), 'the route should be different of traditional route');
+
+            var xhr = $.ajax(settings);
+            xhr.always(function (result, status, xhr) {
+                assert(result.Success === true, 'Should receive {Success:true}');
+                done();
+            });
+
+        });
+        it('Call action method with another parameterized route defined by [RouteAttribute]', function (done) {
+
+            var className = "$apiData";
+
+            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+
+            //-- action method.
+            var action = $dpUrlSet[className].Orders_WithCustomerId.$action0;
+
+            assert(action.$RouteTemplate.indexOf('{customerId}') > 0, "the route template should contain a parameter placeholder.");
+
+            //-- ajax.
+            var settings = action.$AjaxSettings();
+               
+            //-- applying the route data to generate url.
+            var routeData = { customerId: 5 };
+            settings.url = action.$GetUrl(routeData);
+
+            assert(!!settings.method, 'the http method should be defined.');
+            assert(settings.url != $dpUrlSet.$apiData.Get.$action0.$GetUrl(), 'the route should be different of traditional route');
+
+
+            var xhr = $.ajax(settings);
+            xhr.always(function (result, status, xhr) {
+                assert(result.Success === true, 'Should receive {Success:true}');
+                assert(result.InputStream.customerId === routeData.customerId, 'Server should receive { customerId: 5 }');
+                done();
+            });
+
+        });
         it('Call the action method in [Area]', function (done) {
 
             //-- action method.
@@ -105,7 +158,7 @@
             });
 
         });
-        it('Call action method with new http method defined by [AcceptVerbs]', function (done) {
+        it('Call action method with new http method defined by [AcceptVerbsAttribute]', function (done) {
 
             var className = "$apiData";
 
@@ -117,8 +170,8 @@
             //-- settings.
             var settings = action.$AjaxSettings();
             assert(!!settings.method, 'the http method should be defined.');
-            assert(['get','post','put','delete'].indexOf(settings.method.toLocaleLowerCase()) === -1, 'the http method should be different of get,post,put,delete');
-            
+            assert(['get', 'post', 'put', 'delete'].indexOf(settings.method.toLocaleLowerCase()) === -1, 'the http method should be different of get,post,put,delete');
+
             //-- ajax.
             var xhr = $.ajax(settings);
             xhr.always(function (result, status, xhr) {
