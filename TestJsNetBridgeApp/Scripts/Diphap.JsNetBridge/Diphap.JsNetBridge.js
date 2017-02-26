@@ -22,6 +22,7 @@ $dp.$JsNet.TestJsNetBridgeApp.Controllers = $dp.$JsNet.TestJsNetBridgeApp.Contro
 $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController = $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController || {};
 var _alias0 = $dp.$JsNet.TestJsNetBridgeApp.Models;
 var _alias1 = $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController;
+_alias0.LayoutModel = _alias0.LayoutModel || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"PackageNugetName":"","PackageNugetVersion":{}};obj.constructor=_alias0.LayoutModel; return obj; };
 _alias0.ReturnData = _alias0.ReturnData || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"Url":"","Success":false,"Method":"","InputStream":{}};obj.constructor=_alias0.ReturnData; return obj; };
 _alias1.dpPerson = _alias1.dpPerson || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"name":"","age":0,"description":""};obj.constructor=_alias1.dpPerson; return obj; };
 //#endregion
