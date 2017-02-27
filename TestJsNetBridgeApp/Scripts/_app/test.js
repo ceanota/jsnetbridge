@@ -2,7 +2,7 @@
     mocha.setup('bdd')
     var expect = chai.expect;
     var assert = chai.assert;
-    describe('MVC', function () {
+    describe('MVC Action', function () {
         it('Call action method', function (done) {
             //-- action method.
             var funcName = 'Action_NoParams';
@@ -80,7 +80,159 @@
 
         });
     });
+    describe('MVC Models', function () {
 
+        it('Call action method to get a instance of \'Student\'', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.Home.GetStudent.$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- Warning, we must stringify our parameter.
+            var saved_settings_data = settings.data;
+            saved_settings_data.PersonID = 69;
+            settings.data = JSON.stringify(saved_settings_data);
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the studend</param>
+                assert(result.Success === true, 'Should receive {Success:true}');
+
+                var student = result.TypedBusinessData;
+                assert(student.PersonID === saved_settings_data.PersonID, 'should receive instance of $dpLib.ContosoUniversity.Models.Student');
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
+        it('Call action method to get a array of \'Students\'', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.Home.GetStudents.$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- Warning, we must stringify our parameter.
+            var saved_settings_data = settings.data;
+            saved_settings_data.FirstMidName = 'Alexandre';
+            settings.data = JSON.stringify(saved_settings_data);
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the array of students</param>
+
+                assert(
+                    result.Success === true,
+                    'Should receive {Success:true}');
+
+                var students = result.TypedBusinessData;
+
+                assert(
+                    _.isArray(students)
+                    && students.length > 0
+                    && _.all(students, function (el) { return _.has(el, 'FirstMidName') }),
+                    'Should receive a array of instances of $dpLib.ContosoUniversity.Models.Student');
+
+                assert(
+                    _.all(students, function (el) { return el.FirstMidName === saved_settings_data.FirstMidName; }),
+                    'All instances of $dpLib.ContosoUniversity.Models.Student should have the same FirstMidName (Alexandre)');
+
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
+        it('Call action method to get the courses of \'SCIENCE\' Department', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.Home.GetDepartment.$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- Warning, we must stringify our parameter.
+            var saved_settings_data = settings.data;
+            saved_settings_data.departmentName = 'SCIENCE';
+            settings.data = JSON.stringify(saved_settings_data);
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the department</param>
+
+                assert(
+                    result.Success === true,
+                    'Should receive {Success:true}');
+
+                var department = result.TypedBusinessData;
+
+                assert(
+                    department.Name === saved_settings_data.departmentName,
+                    'Should receive a instance of $dpLib.ContosoUniversity.Models.Department');
+
+                assert(
+                    _.isArray(department.Courses)
+                    && department.Courses.length > 0
+                    && _.all(department.Courses, function (el) { return el.CourseID > 0 }),
+                    'Should receive courses of SCIENCE department (instances of $dpLib.ContosoUniversity.Models.Course)');
+
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
+        it('Call action method to create a NEW \'Student\'', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.Home.CreateNewStudent.$action0;
+
+            //--  new instance of ajax settings.
+            var settings = action.$AjaxSettings();
+
+            //-- settings give empty student.
+            var saved_settings_data = settings.data;
+
+            //-- fill the instance of student.
+            saved_settings_data.student.PersonID = 0;
+            saved_settings_data.student.FirstMidName = 'Toan';
+            saved_settings_data.student.LastName = 'TRUONG';
+
+            //-- Warning, we must stringify our instance.
+            settings.data = JSON.stringify(saved_settings_data);
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the created student</param>
+                assert(result.Success === true, 'Should receive {Success:true}');
+
+                var student = result.TypedBusinessData;
+                assert(student.PersonID > 0, 'should receive created instance of $dpLib.ContosoUniversity.Models.Student');
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
+    });
     describe('WebApi', function () {
         it('Call action method', function (done) {
             var className = "$apiData";

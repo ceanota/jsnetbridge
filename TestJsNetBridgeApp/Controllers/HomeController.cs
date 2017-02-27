@@ -8,7 +8,7 @@ using TestJsNetBridgeApp.Models;
 
 namespace TestJsNetBridgeApp.Controllers
 {
-    public class HomeController : Controller
+    public partial class HomeController : Controller
     {
         // GET: Home
         public ActionResult Index()
@@ -24,7 +24,7 @@ namespace TestJsNetBridgeApp.Controllers
 
             var result = new JsonResult();
             result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
-            result.Data = new ReturnData() { Url = this.Request.Url.AbsolutePath, InputStream = inputStream, Success = true};
+            result.Data = new ReturnData() { Url = this.Request.Url.AbsolutePath, InputStream = inputStream, Success = true };
             return result;
         }
 

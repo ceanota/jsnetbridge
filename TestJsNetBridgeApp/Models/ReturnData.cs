@@ -11,6 +11,11 @@ namespace TestJsNetBridgeApp.Models
         public string Url { get; set; }
         public bool Success { get; set; }
         public string Method { get; set; }
-        public object RouteData { get; set; }
+        public object BusinessData { get; set; }
+    }
+
+    public class ReturnData<T> : ReturnData where T : class
+    {
+        public T TypedBusinessData { get; set; }
     }
 }
