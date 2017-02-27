@@ -15,7 +15,6 @@ namespace TestJsNetBridgeApp.Controllers
             return new ReturnData() { Success = true, Url = this.Request.RequestUri.AbsolutePath };
         }
 
-        //[ActionName("testPutt")]
         [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
         [AcceptVerbsAttribute("TEST")]
         public HttpResponseMessage Action_AcceptVerbs_TEST()
@@ -23,7 +22,6 @@ namespace TestJsNetBridgeApp.Controllers
             return Request.CreateResponse(HttpStatusCode.OK, new ReturnData() { Success = true, Url = this.Request.RequestUri.AbsolutePath, Method = this.Request.Method.Method });
         }
 
-        //[Route("customers/{customerId}/orders")]
         [Route("customers/orders")]
         [System.Web.Http.HttpPost()]
         public ReturnData Orders()

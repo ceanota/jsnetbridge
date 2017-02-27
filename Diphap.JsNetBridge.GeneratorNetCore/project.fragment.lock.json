@@ -5,14 +5,14 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5.2",
       "compile": {
-        "bin/Release/Diphap.JsNetBridge.Generator.Lib.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.dll": {}
       },
       "runtime": {
         "../packages/Newtonsoft.Json.4.5.11/lib/net40/Newtonsoft.Json.dll": {},
-        "bin/Release/Diphap.JsNetBridge.Generator.Lib.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.dll": {}
       },
       "contentFiles": {
-        "bin/Release/Diphap.JsNetBridge.Generator.Lib.pdb": {
+        "bin/Debug/Diphap.JsNetBridge.Generator.Lib.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -23,13 +23,13 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5",
       "compile": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.dll": {}
       },
       "runtime": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.dll": {}
       },
       "contentFiles": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.pdb": {
+        "bin/Debug/Diphap.JsNetBridge.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -40,13 +40,13 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5",
       "compile": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Mvc.dll": {}
       },
       "runtime": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Mvc.dll": {}
       },
       "contentFiles": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.pdb": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
@@ -57,13 +57,13 @@
       "type": "project",
       "framework": ".NETFramework,Version=v4.5",
       "compile": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
       },
       "runtime": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.dll": {}
       },
       "contentFiles": {
-        "../NuGet.Packager/lib/Diphap.JsNetBridge.Mvc.Proxy.pdb": {
+        "bin/Debug/Diphap.JsNetBridge.Mvc.Proxy.pdb": {
           "buildAction": "None",
           "codeLanguage": "any",
           "copyToOutput": true
