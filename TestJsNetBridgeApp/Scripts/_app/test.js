@@ -2,6 +2,7 @@
     mocha.setup('bdd')
     var expect = chai.expect;
     var assert = chai.assert;
+
     describe('MVC Action', function () {
         it('Call action method', function (done) {
             //-- action method.
@@ -80,8 +81,8 @@
 
         });
     });
-    describe('MVC Models', function () {
 
+    describe('MVC Models', function () {
         it('Call action method to get a instance of \'Student\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetStudent.$action0;
@@ -110,7 +111,6 @@
             });
 
         });
-
         it('Call action method to get a array of \'Students\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetStudents.$action0;
@@ -152,7 +152,6 @@
             });
 
         });
-
         it('Call action method to get the courses of \'SCIENCE\' Department', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetDepartment.$action0;
@@ -194,7 +193,6 @@
             });
 
         });
-
         it('Call action method to create a NEW \'Student\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.CreateNewStudent.$action0;
@@ -231,8 +229,8 @@
             });
 
         });
-
     });
+
     describe('WebApi', function () {
         it('Call action method', function (done) {
             var className = "$apiData";
