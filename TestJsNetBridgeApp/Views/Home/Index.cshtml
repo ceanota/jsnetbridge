@@ -2,11 +2,20 @@
 @{
     ViewBag.Title = "Testing";
 }
-
+<style>
+    #mocha.dip-test .comment {
+        color: forestgreen;
+    }
+</style>
 <br />
 <h3>
     @this.Html.ActionLink("All tests", "Index")
 </h3>
 
-<div id="mocha"></div>
+<button id="toggle_all_outlining" type="button">
+    Toggle all outlining
+</button>
+
+
+<div id="mocha" class="dip-test"></div>
 

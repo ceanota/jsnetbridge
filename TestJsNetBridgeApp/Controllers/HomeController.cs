@@ -29,6 +29,18 @@ namespace TestJsNetBridgeApp.Controllers
         }
 
         [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
+        public ActionResult Action_WithParamterIdInUrl(string id)
+        {
+            StreamReader reader = new StreamReader(this.Request.InputStream);
+            string inputStream = reader.ReadToEnd();
+
+            var result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            result.Data = new ReturnData() { InputStream = new { id }, Url = this.Request.Url.AbsolutePath, Success = true };
+            return result;
+        }
+
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
         [ActionName("Action_RealName")]
         public ActionResult Action_FakeName()
         {

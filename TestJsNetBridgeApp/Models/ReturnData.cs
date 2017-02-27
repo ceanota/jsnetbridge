@@ -11,5 +11,6 @@ namespace TestJsNetBridgeApp.Models
         public string Url { get; set; }
         public bool Success { get; set; }
         public string Method { get; set; }
+        public object RouteData { get; set; }
     }
 }
