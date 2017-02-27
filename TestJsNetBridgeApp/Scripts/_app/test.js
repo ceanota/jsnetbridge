@@ -345,12 +345,12 @@
             var action = $dpUrlSet.$apiInstructor.Get.$action0;
             var settings = action.$AjaxSettings();
 
-            //-- Warning, we must set null.
+            //-- Warning, we must set 'settings.data' at null.
             settings.data = null;
 
+            //append id to url.
             var routeData = { id: 13 };
             settings.url = action.$GetUrl(routeData);
-
             assert(settings.method === 'get', 'the http method should be defined.');
             
             //-- ajax.
@@ -362,6 +362,7 @@
 
                 var instructor = result.TypedBusinessData;
                 assert(instructor.PersonID === routeData.id, 'should receive instance of $dpLib.ContosoUniversity.Models.Instructor');
+                assert(instructor.OfficeAssignment.Location === 'House Einstein, room E45', 'should receive instance of $dpLib.ContosoUniversity.Models.Instructor');
                 done();
 
             });
