@@ -97,7 +97,7 @@
             var xhr = $.ajax(settings);
 
             xhr.done(function (result) {
-                /// <param name="result" type="action.$Return">receive the studend</param>
+                /// <param name="result" type="action.$Return">receive the student</param>
                 assert(result.Success === true, 'Should receive {Success:true}');
 
                 var student = result.TypedBusinessData;
@@ -334,6 +334,40 @@
             xhr.always(function (result, status, xhr) {
                 assert(result.Success === true, 'Should receive {Success:true}');
                 done();
+            });
+
+        });
+    });
+
+    describe('WebApi Models', function () {
+        it('Call action method to get a instance of \'Instructor\'', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.$apiInstructor.Get.$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- Warning, we must set null.
+            settings.data = null;
+
+            var routeData = { id: 13 };
+            settings.url = action.$GetUrl(routeData);
+
+            assert(settings.method === 'get', 'the http method should be defined.');
+            
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the instructor</param>
+                assert(result.Success === true, 'Should receive {Success:true}');
+
+                var instructor = result.TypedBusinessData;
+                assert(instructor.PersonID === routeData.id, 'should receive instance of $dpLib.ContosoUniversity.Models.Instructor');
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
             });
 
         });

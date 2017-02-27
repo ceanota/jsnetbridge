@@ -181,6 +181,7 @@
     <Compile Include="Areas\TestArea\Controllers\Home2Controller.cs" />
     <Compile Include="Areas\TestArea\TestAreaAreaRegistration.cs" />
     <Compile Include="Controllers\Api\DataController.cs" />
+    <Compile Include="Controllers\Api\InstructorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\HomeController.models.cs" />
     <Compile Include="Global.asax.cs">
