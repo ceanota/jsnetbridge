@@ -420,6 +420,61 @@
 
         });
 
+        it('action method OVERLOADING', function (done) {
+            //-- Warning 2 action methods for InstructorController.Put !!!.
+            var action = $dpUrlSet.$apiInstructor.Put.
+
+                //-- $action1 instead of $action0
+                $action1;
+
+
+            assert(typeof action.$Params().id === 'number',
+                'the method action should have a numeric parameter \'id\'');
+            assert(typeof action.$Params().instructor === 'object' && typeof action.$Params().instructor.PersonID === 'number',
+                'the method action should have a instance of Instructor as parameter');
+
+            //-- settings
+            var settings = action.$AjaxSettings();
+
+
+            //**** First Parameter IN URL ****/
+            //-- append id parameter to url.
+            var routeData = { id: 888 };
+            settings.url = action.$GetUrl(routeData);
+
+
+            //**** Second Parameter IN settings.data ****/
+            //-- settings give a empty instance of Instructor.
+            var instructor_in = settings.data.instructor;
+            //-- Fill the empty instance of Instructor.
+            instructor_in.FirstMidName = "Anh";
+            instructor_in.LastName = "Hung";
+            //-- Warning, we must stringify the parameter.
+            settings.data = JSON.stringify(settings.data.instructor);
+
+
+            //-- http method.
+            assert(settings.method === 'put', 'the http method should be defined.');
+
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the instructor</param>
+                assert(result.Success === true, 'Should receive {Success:true}');
+
+                var instructor_out = result.TypedBusinessData;
+                assert(instructor_out.PersonID === routeData.id, 'should receive instance of $dpLib.ContosoUniversity.Models.Instructor');
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
 
     });
 

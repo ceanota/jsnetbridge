@@ -11,6 +11,11 @@ namespace TestJsNetBridgeApp.Controllers.Api
 {
     public class InstructorController : ApiController
     {
+        /// <summary>
+        /// Get instructor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ReturnData<Instructor> Get(int id)
         {
             Instructor instructor = new Instructor();
@@ -33,10 +38,43 @@ namespace TestJsNetBridgeApp.Controllers.Api
             return new ReturnData<Instructor>() { Success = true, TypedBusinessData = instructor };
         }
 
+        /// <summary>
+        /// Update instructor.
+        /// </summary>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
         public ReturnData<Instructor> Put(Instructor instructor)
         {
-        
             return new ReturnData<Instructor>() { Success = true, TypedBusinessData = instructor };
         }
+
+        /// <summary>
+        /// Update instructor
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="instructor"></param>
+        /// <returns></returns>
+        public ReturnData<Instructor> Put(int id, Instructor instructor)
+        {
+            instructor.PersonID = id;
+            return new ReturnData<Instructor> { Success = true, TypedBusinessData = instructor };
+        }
+
+        /// <summary>
+        /// Delete instructor.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ReturnData<Instructor> Delete(int id)
+        {
+            Instructor instructor = new Instructor();
+            instructor.PersonID = id;
+            instructor.FirstMidName = "Marie Théophanie";
+            instructor.LastName = "TRUONG";
+
+            return new ReturnData<Instructor> { Success = true, TypedBusinessData = instructor };
+        }
+
+
     }
 }

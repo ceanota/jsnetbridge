@@ -1882,7 +1882,7 @@
   },
   "libraries": {
     "Diphap.JsNetBridge.Mvc/1.2.42": {
-      "sha512": "Ixu0qOgUZTkOGVGzNcU+BUu80YZkNQXNlUXqbBlnX/UqHPsMbu9k2cHFC1Xe4vcRkyv6PCo9/yQEcbmMVXbkXg==",
+      "sha512": "Hc0FXyHcdSExGlZd2Oj0xi/JhCX0qaoVBYojPiL5dZL1s3px3cR0hbGxEEoJizsv0MeZEoBmUMa3NzX6Y1MB9Q==",
       "type": "package",
       "path": "Diphap.JsNetBridge.Mvc/1.2.42",
       "files": [
