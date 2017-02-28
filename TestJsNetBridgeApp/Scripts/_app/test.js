@@ -352,7 +352,7 @@
             var routeData = { id: 13 };
             settings.url = action.$GetUrl(routeData);
             assert(settings.method === 'get', 'the http method should be defined.');
-            
+
             //-- ajax.
             var xhr = $.ajax(settings);
 
@@ -372,6 +372,55 @@
             });
 
         });
+
+        it('Call action method to Add \'Courses\' to a instance of \'Instructor\'', function (done) {
+            //-- action method.
+            var action = $dpUrlSet.$apiInstructor.Put.$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- settings give a empty instance of Instructor.
+            var instructor_in = settings.data.instructor;
+
+            //-- Fill the empty instance of Instructor.
+            instructor_in.FirstMidName = "Anh";
+            instructor_in.LastName = "Hung";
+            instructor_in.HireDate = Date();
+
+            //-- create new instances of Course with its Factory.
+            var physics = instructor_in.Courses.$dpItemFactory();
+            physics.Title = 'Physics';
+            instructor_in.Courses.push(physics);
+
+            var computer = instructor_in.Courses.$dpItemFactory();
+            computer.Title = 'Computer';
+            instructor_in.Courses.push(computer);
+
+            //-- Warning, we must stringify the parameter.
+            settings.data = JSON.stringify(settings.data.instructor);
+
+            assert(settings.method === 'put', 'the http method should be defined.');
+
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            xhr.done(function (result) {
+                /// <param name="result" type="action.$Return">receive the instructor</param>
+                assert(result.Success === true, 'Should receive {Success:true}');
+
+                var instructor_out = result.TypedBusinessData;
+                assert(instructor_out.FirstMidName === instructor_in.FirstMidName, 'should receive instance of $dpLib.ContosoUniversity.Models.Instructor');
+                assert(!!_.find(instructor_out.Courses, function (el) { return el.Title === computer.Title }, 'should receive Courses of Instructor.'));
+                done();
+
+            });
+
+            xhr.fail(function (xhr, status, message) {
+                throw new Error(message);
+            });
+
+        });
+
+
     });
 
 }());

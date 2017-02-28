@@ -32,5 +32,11 @@ namespace TestJsNetBridgeApp.Controllers.Api
 
             return new ReturnData<Instructor>() { Success = true, TypedBusinessData = instructor };
         }
+
+        public ReturnData<Instructor> Put(Instructor instructor)
+        {
+        
+            return new ReturnData<Instructor>() { Success = true, TypedBusinessData = instructor };
+        }
     }
 }
