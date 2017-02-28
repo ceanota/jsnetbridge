@@ -4,7 +4,7 @@
     var assert = chai.assert;
 
     describe('MVC Action', function () {
-        it('Call action method', function (done) {
+        it('Call action method [HomeController.Action_NoParams]', function (done) {
             //-- action method.
             var funcName = 'Action_NoParams';
             var action = $dpUrlSet.Home[funcName].$action0;
@@ -21,7 +21,7 @@
             });
 
         });
-        it('Call action method with parameter id in url [{controller}/{action}/{id}]', function (done) {
+        it('Call action method [HomeController.Action_WithParamterIdInUrl] with parameter id in url [{controller}/{action}/{id}]', function (done) {
             //-- action method.
             var funcName = 'Action_WithParamterIdInUrl';
             var action = $dpUrlSet.Home[funcName].$action0;
@@ -43,7 +43,7 @@
             });
 
         });
-        it('Call the action method in MVC [Area]', function (done) {
+        it('Call the action method [TestArea.Home2Controller.Action_FakeName] in MVC [Area]', function (done) {
             //-- action method.
             var funcName = 'Action_FakeName';
             var areaName = 'TestArea';
@@ -63,7 +63,7 @@
             });
 
         });
-        it('Call the action method with an alias defined by [ActionNameAttribute]', function (done) {
+        it('Call the action method [HomeController.Action_FakeName] with an alias defined by [ActionNameAttribute]', function (done) {
             //-- action method.
             var funcName = 'Action_FakeName';
             var action = $dpUrlSet.Home[funcName].$action0;
@@ -83,7 +83,7 @@
     });
 
     describe('MVC Models', function () {
-        it('Call action method to get a instance of \'Student\'', function (done) {
+        it('Call action method [HomeController.GetStudent] to get a instance of \'Student\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetStudent.$action0;
             var settings = action.$AjaxSettings();
@@ -111,7 +111,7 @@
             });
 
         });
-        it('Call action method to get a array of \'Students\'', function (done) {
+        it('Call action method [HomeController.GetStudents] to get a array of \'Students\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetStudents.$action0;
             var settings = action.$AjaxSettings();
@@ -152,7 +152,7 @@
             });
 
         });
-        it('Call action method to get the courses of \'SCIENCE\' Department', function (done) {
+        it('Call action method [HomeController.GetDepartment] to get the courses of \'SCIENCE\' Department', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.GetDepartment.$action0;
             var settings = action.$AjaxSettings();
@@ -193,7 +193,7 @@
             });
 
         });
-        it('Call action method to create a NEW \'Student\'', function (done) {
+        it('Call action method [HomeController.CreateNewStudent] to create a NEW \'Student\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.Home.CreateNewStudent.$action0;
 
@@ -232,7 +232,7 @@
     });
 
     describe('WebApi', function () {
-        it('Call action method', function (done) {
+        it('Call action method [DataController.Get]', function (done) {
             var className = "$apiData";
 
             assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
@@ -251,7 +251,7 @@
             });
 
         });
-        it('Call action method with another route defined by [RouteAttribute("customers/orders")]', function (done) {
+        it('Call action method [DataController.Orders] with another route defined by [RouteAttribute("customers/orders")]', function (done) {
             var className = "$apiData";
 
             assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
@@ -271,7 +271,7 @@
             });
 
         });
-        it('Call action method with another parameterized route defined by [RouteAttribute("customers/{customerId}/orders")]', function (done) {
+        it('Call action method [DataController.Orders_WithCustomerId] with another parameterized route defined by [RouteAttribute("customers/{customerId}/orders")]', function (done) {
             var className = "$apiData";
             assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
@@ -297,7 +297,7 @@
             });
 
         });
-        it('Call the action method in [Area]', function (done) {
+        it('Call the action method [TestArea.Data2Controller.Get] in [Area]', function (done) {
             //-- action method.
             var areaName = 'TestArea';
             var className = '$apiData2';
@@ -318,7 +318,7 @@
             });
 
         });
-        it('Call action method with new http method defined by [AcceptVerbsAttribute]', function (done) {
+        it('Call action method [DataController.Action_AcceptVerbs_TEST] with new http method defined by [AcceptVerbsAttribute]', function (done) {
             var className = "$apiData";
             assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
@@ -340,7 +340,7 @@
     });
 
     describe('WebApi Models', function () {
-        it('Call action method to get a instance of \'Instructor\'', function (done) {
+        it('Call action method [InstructorController.Get] to get a instance of \'Instructor\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.$apiInstructor.Get.$action0;
             var settings = action.$AjaxSettings();
@@ -373,7 +373,7 @@
 
         });
 
-        it('Call action method to Add \'Courses\' to a instance of \'Instructor\'', function (done) {
+        it('Call action method [InstructorController.Put] to Add \'Courses\' to a instance of \'Instructor\'', function (done) {
             //-- action method.
             var action = $dpUrlSet.$apiInstructor.Put.$action0;
             var settings = action.$AjaxSettings();
@@ -420,7 +420,7 @@
 
         });
 
-        it('action method OVERLOADING', function (done) {
+        it('action method OVERLOADING => [InstructorController.Put(instructor)] OR [InstructorController.Put(id, instructor)]', function (done) {
             //-- Warning 2 action methods for InstructorController.Put !!!.
             var action = $dpUrlSet.$apiInstructor.Put.
 
