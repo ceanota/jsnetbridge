@@ -145,8 +145,6 @@
     <Content Include="bower_components\chai\chai.js" />
     <Content Include="bower_components\mocha\mocha.css" />
     <Content Include="bower_components\mocha\mocha.js" />
-    <Content Include="bower_components\qunit\qunit\qunit.css" />
-    <Content Include="bower_components\qunit\qunit\qunit.js" />
     <Content Include="bower_components\underscore\underscore.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
