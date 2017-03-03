@@ -1462,7 +1462,7 @@
   },
   "libraries": {
     "Diphap.JsNetBridge.Mvc/1.2.40": {
-      "sha512": "G5Fn75ZpqskCcx/u8XhkgstSC0rBZ6wVQI2Z0VQLIDPkER929EHgd6wk6qv5sQ8dL8gZoT1d/oGiRtT2fnNMIA==",
+      "sha512": "1ECgHINSmxyKKQdnloAmi/p2hsGLbPfd7Q6PALngWBWEUXuX1NMafyL2srI+72oMcq3rSmCte1UMSHyHXF2U3Q==",
       "type": "package",
       "path": "Diphap.JsNetBridge.Mvc/1.2.40",
       "files": [
