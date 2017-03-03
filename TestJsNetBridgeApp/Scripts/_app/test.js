@@ -4,6 +4,24 @@
     var assert = chai.assert;
 
     describe('MVC Action', function () {
+
+        it('Call action method [HomeController.Index] to get View', function (done) {
+            //-- action method.
+            var funcName = 'Index';
+            var action = $dpUrlSet.Home[funcName].$action0;
+            var settings = action.$AjaxSettings();
+            //-- ajax.
+            var xhr = $.ajax(settings);
+
+            assert(action.$Names.action == funcName, 'function name and action name should be same');
+
+            xhr.always(function (result, status, xhr) {
+                assert($(result).length > 0, 'Should receive the view');
+                done();
+            });
+
+        });
+
         it('Call action method [HomeController.Action_NoParams]', function (done) {
             //-- action method.
             var funcName = 'Action_NoParams';
