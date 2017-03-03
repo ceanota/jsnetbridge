@@ -286,7 +286,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     string sb_ajax_options;
                     string getUrl = objName + "." + ConfigJS.brandLetter + "GetUrl()";
-                    string getParams = objName + "." + ConfigJS.brandLetter + "Params()";
+                    string getParams = "undefined"; //objName + "." + ConfigJS.brandLetter + "Params()";
                     if (this.IsApiController)
                     {
                         sb_ajax_options = GetAjaxSettings_ForWebApi(getUrl, getParams, prop_httpMethodArray + "." + ConfigJS.brandLetter + "first").ToString();

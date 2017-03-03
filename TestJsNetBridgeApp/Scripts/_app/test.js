@@ -31,9 +31,6 @@
             var routeData = { id: 'id_frolon' };
             settings.url = action.$GetUrl(routeData);
 
-            //-- Warning, set settings.data at undefined.
-            settings.data = undefined;
-
             //-- ajax.
             var xhr = $.ajax(settings);
             xhr.always(function (result, status, xhr) {
@@ -89,7 +86,7 @@
             var settings = action.$AjaxSettings();
 
             //-- Warning, we must stringify our parameter.
-            var saved_settings_data = settings.data;
+            var saved_settings_data = action.$Params();
             saved_settings_data.PersonID = 69;
             settings.data = JSON.stringify(saved_settings_data);
 
@@ -117,7 +114,7 @@
             var settings = action.$AjaxSettings();
 
             //-- Warning, we must stringify our parameter.
-            var saved_settings_data = settings.data;
+            var saved_settings_data = action.$Params();
             saved_settings_data.FirstMidName = 'Alexandre';
             settings.data = JSON.stringify(saved_settings_data);
 
@@ -158,7 +155,7 @@
             var settings = action.$AjaxSettings();
 
             //-- Warning, we must stringify our parameter.
-            var saved_settings_data = settings.data;
+            var saved_settings_data = action.$Params();
             saved_settings_data.departmentName = 'SCIENCE';
             settings.data = JSON.stringify(saved_settings_data);
 
@@ -201,7 +198,7 @@
             var settings = action.$AjaxSettings();
 
             //-- settings give empty student.
-            var saved_settings_data = settings.data;
+            var saved_settings_data = action.$Params();
 
             //-- fill the instance of student.
             saved_settings_data.student.PersonID = 0;
@@ -345,9 +342,6 @@
             var action = $dpUrlSet.$apiInstructor.Get.$action0;
             var settings = action.$AjaxSettings();
 
-            //-- Warning, we must set 'settings.data' at null.
-            settings.data = null;
-
             //append id to url.
             var routeData = { id: 13 };
             settings.url = action.$GetUrl(routeData);
@@ -379,7 +373,7 @@
             var settings = action.$AjaxSettings();
 
             //-- settings give a empty instance of Instructor.
-            var instructor_in = settings.data.instructor;
+            var instructor_in = action.$Params().instructor;
 
             //-- Fill the empty instance of Instructor.
             instructor_in.FirstMidName = "Anh";
@@ -396,7 +390,7 @@
             instructor_in.Courses.push(computer);
 
             //-- Warning, we must stringify the parameter.
-            settings.data = JSON.stringify(settings.data.instructor);
+            settings.data = JSON.stringify(instructor_in);
 
             assert(settings.method === 'put', 'the http method should be defined.');
 
@@ -445,12 +439,12 @@
 
             //**** Second Parameter IN settings.data ****/
             //-- settings give a empty instance of Instructor.
-            var instructor_in = settings.data.instructor;
+            var instructor_in = action.$Params().instructor;
             //-- Fill the empty instance of Instructor.
             instructor_in.FirstMidName = "Anh";
             instructor_in.LastName = "Hung";
             //-- Warning, we must stringify the parameter.
-            settings.data = JSON.stringify(settings.data.instructor);
+            settings.data = JSON.stringify(instructor_in);
 
 
             //-- http method.

@@ -96,7 +96,11 @@
         /// <summary>Get Url</summary>
         /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
+        
         var url = '';
+        if (typeof routeData != 'object') {
+            routeData = null;
+        }
 
         var selectedRouteTemplate;
         if (action.$IsApi) {
@@ -171,8 +175,21 @@
             action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
+
+                var url_route;
+                if (!!action.$RouteTemplate && action.$RouteTemplate.indexOf('{') < 0 && action.$RouteTemplate.indexOf('}') < 0) {
+                    url_route = action.$RouteTemplate;
+                } else {
+                    url_route = null;
+                }
+
                 var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
-                if (!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); }
+                if (!routeData) {
+                    return url_route || action.$_Url || f(action);
+                }
+                else {
+                    return f(action, routeData);
+                }
             };
             action.$GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };
             action.$Names = { action: '', controller: '', area: '' };

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.2.42</version>
+        <version>1.2.45</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -45,7 +45,6 @@ Fixed bug on the loading of assemblies</releaseNotes>
         <file src="lib\Diphap.JsNetBridge.Mvc.dll" target="lib\Diphap.JsNetBridge.Mvc.dll" />
         <file src="lib\Diphap.JsNetBridge.Mvc.Proxy.dll" target="lib\Diphap.JsNetBridge.Mvc.Proxy.dll" />
         <file src="lib\Diphap.JsNetBridge.Mvc.Proxy.XML" target="lib\Diphap.JsNetBridge.Mvc.Proxy.XML" />
-        <file src="lib\Diphap.JsNetBridge.Mvc.XML" target="lib\Diphap.JsNetBridge.Mvc.XML" />
         <file src="lib\Diphap.JsNetBridge.XML" target="lib\Diphap.JsNetBridge.XML" />
         <file src="tools\init.ps1" target="tools\init.ps1" />
         <file src="tools\install.ps1" target="tools\install.ps1" />
@@ -54,10 +53,10 @@ Fixed bug on the loading of assemblies</releaseNotes>
         <file src="_bin\Diphap.JsNetBridge.Generator.exe" target="_bin\Diphap.JsNetBridge.Generator.exe" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.config" target="_bin\Diphap.JsNetBridge.Generator.exe.config" />
         <file src="_bin\Diphap.JsNetBridge.Generator.exe.json" target="_bin\Diphap.JsNetBridge.Generator.exe.json" />
+        <file src="_bin\Diphap.JsNetBridge.Generator.Lib.dll" target="_bin\Diphap.JsNetBridge.Generator.Lib.dll" />
         <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
         <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
         <file src="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" target="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
-        <file src="_bin\Diphap.JsNetBridge.Generator.XML" target="_bin\Diphap.JsNetBridge.Generator.XML" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.dll" target="_bin\Diphap.JsNetBridge.Mvc.dll" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
         <file src="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" target="_bin\Diphap.JsNetBridge.Mvc.Proxy.xml" />

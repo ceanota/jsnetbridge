@@ -71,7 +71,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
+        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Enums">
             <summary>
             
@@ -232,7 +232,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
+        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ToString">
             <summary>
             Text representing instance.
