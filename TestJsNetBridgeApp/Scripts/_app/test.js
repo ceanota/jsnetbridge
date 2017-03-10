@@ -104,7 +104,7 @@
             var settings = action.$AjaxSettings();
 
             //-- Warning, we must stringify our parameter.
-            var saved_settings_data = action.$Params();
+            var saved_settings_data = action.$Params(); 
             saved_settings_data.PersonID = 69;
             settings.data = JSON.stringify(saved_settings_data);
 
