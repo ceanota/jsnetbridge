@@ -110,3 +110,5 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent {
     function $action0(): _$action0
 
 }
+
+import $dpUrlSet = $dp.$JsNet.$UrlSet;
