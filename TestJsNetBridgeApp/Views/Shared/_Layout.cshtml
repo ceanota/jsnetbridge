@@ -20,10 +20,10 @@
                     <span class="icon-bar"></span>
                 </button>
                 @Html.ActionLink("Testing " + Global.LayoutModel.PackageNugetName + " " + Global.LayoutModel.PackageNugetVersion, "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="https://www.nuget.org/packages/Diphap.JsNetBridge.Mvc" target="_blank"> - Get NuGet Package</a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+                <ul class="nav navbar-nav"></ul>
             </div>
         </div>
     </div>
@@ -50,11 +50,11 @@
     <script>
 
 			@* retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
-			$dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["DefaultApi"] == null ? "" : (System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
-			$dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
+        $dp.$JsNet.$Helpers.$Api.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["DefaultApi"] == null ? "" : (System.Web.Routing.RouteTable.Routes["DefaultApi"] as System.Web.Routing.Route).Url)';
+        $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
 
-			@* generates the url of action method. *@
-			@(new MvcHtmlString(TestJsNetBridgeApp.Global.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+        @* generates the url of action method. *@
+        @(new MvcHtmlString(TestJsNetBridgeApp.Global.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
 
     </script>
 

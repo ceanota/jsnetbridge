@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.2.45</version>
+        <version>1.3.45</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -20,16 +20,8 @@ on the server side, to know the structure of data to send parameter and instanti
         <summary>A project to auto-generate JavaScript proxies for ASP.NET MVC and WebApi controllers
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>Fix: bug on generation of url of action method: we remove the query string.
-Improved readme.txt
-Fix: bug on method (POST) in AjaxSettings.
-Fix: bug on generation web api url
-fix bug on ajax settings mvc: forgetting quote
-Fix bug: enable the loadFromRemoteSources switch in config. of generator application. 
-Fixed bug for dataType ('json' or 'text') for mvc action
-Fixed bug for dataType ('json' or 'text')
-Fixed bug for redirecting assembly version
-Fixed bug on the loading of assemblies</releaseNotes>
+        <releaseNotes>Compatible with ASP.NET Core (.NET Framework)
+Fix: action.$AjaxSettings().Data is set at undefined.</releaseNotes>
         <copyright>Copyright (c) 2015</copyright>
         <language>en-US</language>
         <tags>Build JS javascript ASP.NET MVC Generate Intellisense URL WEB API PROXY PROXIES METADATA Calling action method</tags>
