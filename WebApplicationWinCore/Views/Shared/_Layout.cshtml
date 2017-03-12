@@ -8,6 +8,7 @@
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link href="~/lib/mocha/mocha.css" rel="stylesheet" />
     </environment>
     <environment names="Staging,Production">
         <link rel="stylesheet" href="https://ajax.aspnetcdn.com/ajax/bootstrap/3.3.6/css/bootstrap.min.css"
@@ -48,13 +49,27 @@
 
     <environment names="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/underscore/underscore.js"></script>
+        <script src="~/lib/mocha/mocha.js"></script>
+        <script src="~/lib/chai/chai.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/lib/Diphap.JsNetBridge/actionHelper.js"></script>
         <script src="~/lib/Diphap.JsNetBridge/arrayFactory.js"></script>
         <script src="~/lib/Diphap.JsNetBridge/circularReferenceManagerFactory.js"></script>
         <script src="~/lib/Diphap.JsNetBridge/Diphap.JsNetBridge.js"></script>
-        <script src="~/lib/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js"></script>
+        <script>
+            @* generates the url of action method. *@
+            @(new Microsoft.AspNetCore.Html.HtmlString(Program.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl))))
+        </script>
+
+
         <script src="~/js/site.js" asp-append-version="true"></script>
+
+        <script>
+            mocha.run();
+        </script>
+
+
     </environment>
     <environment names="Staging,Production">
         <script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-2.2.0.min.js"
@@ -67,6 +82,8 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
+
+
 
     @RenderSection("scripts", required: false)
 </body>

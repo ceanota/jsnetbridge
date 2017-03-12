@@ -3,37 +3,48 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.IO;
+using WebApplicationWinCore.Models;
 
 namespace WebApplicationWinCore.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        // GET: Home
+        public ActionResult Index()
         {
             return View();
         }
 
-        public IActionResult About()
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
+        public ActionResult Action_NoParams()
         {
-            ViewData["Message"] = "Your application description page.";
+            StreamReader reader = new StreamReader(this.Request.Body);
+            string inputStream = reader.ReadToEnd();
 
-            return View();
+            var result = new JsonResult(new ReturnData() { Url = this.Request.Path.Value, InputStream = inputStream, Success = true });
+            return result;
         }
 
-        public IActionResult Contact()
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
+        public ActionResult Action_WithParamterIdInUrl(string id)
         {
-            ViewData["Message"] = "Your contact page.";
+            StreamReader reader = new StreamReader(this.Request.Body);
+            string inputStream = reader.ReadToEnd();
 
-            return View();
+            var result = new JsonResult(new ReturnData() { InputStream = new { id }, Url = this.Request.Path.Value, Success = true });
+            return result;
         }
 
-        public IActionResult Error()
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
+        [ActionName("Action_RealName")]
+        public ActionResult Action_FakeName()
         {
-            return View();
-        }
-        public JsonResult Donnee(int age, string nom)
-        {
-            return new JsonResult(new { age = age});
+            StreamReader reader = new StreamReader(this.Request.Body);
+            string inputStream = reader.ReadToEnd();
+
+            var result = new JsonResult(new ReturnData() { Url = this.Request.Path.Value, InputStream = inputStream, Success = true });
+            return result;
         }
     }
 }

@@ -91,12 +91,16 @@
         }
         return text;
     }
-    
+
     function _getUrlFromTemplate(action, routeData) {
         /// <summary>Get Url</summary>
         /// <param name='action' type='$dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory'></param>
         /// <param name='routeData' type='Object'>ex:{id:1}</param>
+
         var url = '';
+        if (typeof routeData != 'object') {
+            routeData = null;
+        }
 
         var selectedRouteTemplate;
         if (action.$IsApi) {
@@ -168,11 +172,24 @@
     $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory = function _actionFactory() {
         try {
             var action = {};
-            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory; 
+            action.constructor = $dp.$JsNet.$Helpers.$Shared.$Action.$ActionFactory;
             action.$_Url = null;
             action.$GetUrl = function (routeData) {
+
+                var url_route;
+                if (!!action.$RouteTemplate && action.$RouteTemplate.indexOf('{') < 0 && action.$RouteTemplate.indexOf('}') < 0) {
+                    url_route = action.$RouteTemplate;
+                } else {
+                    url_route = null;
+                }
+
                 var f = $dp.$JsNet.$Helpers.$Shared.$Action.getUrlFromTemplate;
-                if (!routeData) { return action.$_Url || f(action); } else { return f(action, routeData); }
+                if (!routeData) {
+                    return url_route || action.$_Url || f(action);
+                }
+                else {
+                    return f(action, routeData);
+                }
             };
             action.$GetRouteData = function () { return $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData(action); };
             action.$Names = { action: '', controller: '', area: '' };
@@ -180,7 +197,7 @@
             action.$Return = function () { var obj = {}; return obj; };
             action.$Enums = function () { var obj = null; return obj; };
             action.$IsApi = false;
-            action.$httpMethodArray = { $items:['post','get'], $single:'post', $first:'post' };
+            action.$httpMethodArray = { $items: ['post', 'get'], $single: 'post', $first: 'post' };
             action.$AjaxSettings = function () { var obj = { dataType: undefined, contentType: 'application/json', cache: false, type: 'post', method: 'post' }; return obj; };
             action.$RouteTemplate = '';
             return action;

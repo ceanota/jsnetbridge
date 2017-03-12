@@ -34,6 +34,8 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Diphap.JsNetBridge.Generato
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestJsNetBridgeApp", "TestJsNetBridgeApp\TestJsNetBridgeApp.csproj", "{81E162CD-0DF4-437E-AFE5-5400AC55B02F}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "WebApplicationWinCore", "WebApplicationWinCore\WebApplicationWinCore.xproj", "{6059B4D3-33EB-4DA4-A531-EFD84B861DA7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{81E162CD-0DF4-437E-AFE5-5400AC55B02F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81E162CD-0DF4-437E-AFE5-5400AC55B02F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81E162CD-0DF4-437E-AFE5-5400AC55B02F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6059B4D3-33EB-4DA4-A531-EFD84B861DA7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6059B4D3-33EB-4DA4-A531-EFD84B861DA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6059B4D3-33EB-4DA4-A531-EFD84B861DA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6059B4D3-33EB-4DA4-A531-EFD84B861DA7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -88,5 +94,6 @@ Global
 		{7A1EF236-CEA6-4FB8-B135-8D930CF825EC} = {51F6D796-1F21-422D-9A0C-099669E93E96}
 		{0A7C4C14-2086-4731-82C8-882CD5C1C3CE} = {51F6D796-1F21-422D-9A0C-099669E93E96}
 		{81E162CD-0DF4-437E-AFE5-5400AC55B02F} = {ED1FFE1E-C412-43A9-A251-2C7CA05808A5}
+		{6059B4D3-33EB-4DA4-A531-EFD84B861DA7} = {ED1FFE1E-C412-43A9-A251-2C7CA05808A5}
 	EndGlobalSection
 EndGlobal

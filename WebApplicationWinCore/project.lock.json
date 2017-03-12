@@ -3,7 +3,7 @@
   "version": 2,
   "targets": {
     ".NETFramework,Version=v4.5.2": {
-      "Diphap.JsNetBridge.Mvc/1.2.42": {
+      "Diphap.JsNetBridge.Mvc/1.3.45": {
         "type": "package",
         "compile": {
           "lib/Diphap.JsNetBridge.Mvc.Proxy.dll": {},
@@ -1881,15 +1881,15 @@
     }
   },
   "libraries": {
-    "Diphap.JsNetBridge.Mvc/1.2.42": {
-      "sha512": "Hc0FXyHcdSExGlZd2Oj0xi/JhCX0qaoVBYojPiL5dZL1s3px3cR0hbGxEEoJizsv0MeZEoBmUMa3NzX6Y1MB9Q==",
+    "Diphap.JsNetBridge.Mvc/1.3.45": {
+      "sha512": "IrAEtZJurTtncoh0Z2g3tlTC5PksZAfXYzBBrMDNhkSVswF4KQ64mMIlE8doi56why29lKa+yAM6RxPi/gEoQA==",
       "type": "package",
-      "path": "Diphap.JsNetBridge.Mvc/1.2.42",
+      "path": "Diphap.JsNetBridge.Mvc/1.3.45",
       "files": [
-        "Diphap.JsNetBridge.Mvc.1.2.42.nupkg.sha512",
+        "Diphap.JsNetBridge.Mvc.1.3.45.nupkg.sha512",
         "Diphap.JsNetBridge.Mvc.nuspec",
         "Icon.png",
-        "_bin/Diphap.JsNetBridge.Generator.XML",
+        "_bin/Diphap.JsNetBridge.Generator.Lib.dll",
         "_bin/Diphap.JsNetBridge.Generator.exe",
         "_bin/Diphap.JsNetBridge.Generator.exe.config",
         "_bin/Diphap.JsNetBridge.Generator.exe.json",
@@ -1912,7 +1912,6 @@
         "content/Scripts/Diphap.JsNetBridge/readme.txt",
         "lib/Diphap.JsNetBridge.Mvc.Proxy.XML",
         "lib/Diphap.JsNetBridge.Mvc.Proxy.dll",
-        "lib/Diphap.JsNetBridge.Mvc.XML",
         "lib/Diphap.JsNetBridge.Mvc.dll",
         "lib/Diphap.JsNetBridge.XML",
         "lib/Diphap.JsNetBridge.dll",
@@ -4983,7 +4982,7 @@
   },
   "projectFileDependencyGroups": {
     "": [
-      "Diphap.JsNetBridge.Mvc >= 1.2.42",
+      "Diphap.JsNetBridge.Mvc >= 1.3.45",
       "Microsoft.ApplicationInsights.AspNetCore >= 1.0.0",
       "Microsoft.AspNetCore.Diagnostics >= 1.0.0",
       "Microsoft.AspNetCore.Mvc >= 1.0.1",

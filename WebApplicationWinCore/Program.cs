@@ -19,16 +19,26 @@ namespace WebApplicationWinCore
                 .UseStartup<Startup>()
                 .Build();
 
-            string appAspNetPath = "";
-            appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Release\net452\win7-x64\WebApplicationWinCore.exe";
-            appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\win7-x64\WebApplicationWinCore.exe";
-            //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\WebApplicationWinCore.exe";
-            AspMvcInfo api = new AspMvcInfo(appAspNetPath, true);
+            //string appAspNetPath = "";
+            //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Release\net452\win7-x64\WebApplicationWinCore.exe";
+            //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\win7-x64\WebApplicationWinCore.exe";
+            ////appAspNetPath = @"D:\Source\Repos\jsnet\WebApplicationWinCore\bin\Debug\net452\WebApplicationWinCore.exe";
+            //AspMvcInfo api = new AspMvcInfo(appAspNetPath, true);
 
             host.Run();
+        }
 
-
-
+        static Diphap.JsNetBridge.Mvc.AspMvcInfo _AspMvcInfo;
+        static public Diphap.JsNetBridge.Mvc.AspMvcInfo AspMvcInfo
+        {
+            get
+            {
+                if (_AspMvcInfo == null)
+                {
+                    _AspMvcInfo = new Diphap.JsNetBridge.Mvc.AspMvcInfo(System.Reflection.Assembly.GetExecutingAssembly(), true);
+                }
+                return _AspMvcInfo;
+            }
         }
     }
 }
