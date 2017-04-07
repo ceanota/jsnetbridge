@@ -43,12 +43,12 @@ declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
         $items: ArrayConstructor, $single: string, $first: string
     }
 
-    
+
     interface _$Action {
         $_Url: string,
         $GetUrl(routeData: Object): string,
         $GetRouteData(): Object,
-        $Names: Object,
+        $Names: { action: '', controller: '', area: '' },
         $Params(): Object,
         $Return(): Object,
         $Enums(): Object,
@@ -96,8 +96,7 @@ declare namespace $dp.$JsNet.TestJsNetBridgeApp.Models {
 
 declare namespace $dp.$JsNet.$UrlSet.Home.Index {
 
-    function $action0(): $dp.$JsNet.$Helpers.$Shared.$Action._$Action
-
+    var $action0: $dp.$JsNet.$Helpers.$Shared.$Action._$Action;
 }
 
 declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent {
@@ -107,8 +106,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent {
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData<$dp.$JsNet.ContosoUniversity.Models.Student>,
     }
 
-    function $action0(): _$action0
-
+    var $action0: _$action0;
 }
 
 import $dpUrlSet = $dp.$JsNet.$UrlSet;
