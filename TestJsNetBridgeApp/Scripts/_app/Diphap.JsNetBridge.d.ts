@@ -43,12 +43,15 @@ declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
         $items: ArrayConstructor, $single: string, $first: string
     }
 
+    interface $Names {
+        action: string, controller: string, area: string
+    }
 
     interface _$Action {
         $_Url: string,
         $GetUrl(routeData: Object): string,
         $GetRouteData(): Object,
-        $Names: { action: '', controller: '', area: '' },
+        $Names: $Names,
         $Params(): Object,
         $Return(): Object,
         $Enums(): Object,
