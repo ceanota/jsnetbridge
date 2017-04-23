@@ -97,7 +97,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb.Append("return " + objName + ";");
                 }
 
-                string json = JSHelper.GetFunction(sb.ToString(), true, "actionFactory");
+                string json = ScriptHelper.GetInstance().GetFunction(sb.ToString(), true, "actionFactory");
 
                 return json;
             }

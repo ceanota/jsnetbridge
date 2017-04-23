@@ -59,7 +59,7 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// To Dictionnary
         /// </summary>
-        /// <param name="tenum"></param>
+        /// <param name="t"></param>
         /// <returns></returns>
         private static Dictionary<string, int> ToDictionnary(Type t)
         {

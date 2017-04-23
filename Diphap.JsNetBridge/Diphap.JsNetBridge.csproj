@@ -46,9 +46,11 @@
     <Compile Include="Common\AssemblyInfo.cs" />
     <Compile Include="Common\JsNetResponseTypeAttribute.cs" />
     <Compile Include="Common\JsNetIgnoreAttribute.cs" />
-    <Compile Include="Common\JS\JSHelper.cs" />
+    <Compile Include="Common\Script\ScriptHelper.cs" />
+    <Compile Include="Common\JS\ScriptHelper_JS.cs" />
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
-    <Compile Include="Common\JS\TypeSorter\TypeSorter.cs" />
+    <Compile Include="Common\Script\TypeSorter\TypeSorter.cs" />
+    <Compile Include="Common\JS\TypeSorter\TypeSorter_JS.cs" />
     <Compile Include="Common\JS\SerializeEnum.cs" />
     <Compile Include="Common\JS\TypeSorter\RecursiveTypeSorter.cs" />
     <Compile Include="Common\JS\JSArrayFactory.cs" />

@@ -10,11 +10,8 @@ namespace Diphap.JsNetBridge.Common.JS
     /// My array factory extends a js array.
     /// New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
     /// </summary>
-    public class JSArrayFactory
+    internal class JSArrayFactory
     {
-
-
-
         /// <summary>
         /// Name of factory.
         /// </summary>

@@ -76,7 +76,6 @@ namespace Diphap.JsNetBridge.Data
         /// Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
         /// </summary>
         /// <param name="tobjArray"></param>
-        /// <param name="oldClasses"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="rTypeSorters"></param>
         /// <param name="classes"></param>
@@ -178,10 +177,10 @@ namespace Diphap.JsNetBridge.Data
                 foreach (var kv in dic)
                 {
                     {
-                        string funcDecl = JSHelper.GetFactoryDeclaration(
-                            kv.Key, 
-                            kv.Value.JSValue, 
-                            true, 
+                        string funcDecl = ScriptHelper.GetInstance().GetFactoryDeclaration(
+                            kv.Key,
+                            kv.Value.JSValue,
+                            true,
                             _JSNamespace.GetObjectFullName(kv.Key, withAlias));
                         funcDecl_Array.Add(funcDecl);
                     }
@@ -201,7 +200,7 @@ namespace Diphap.JsNetBridge.Data
             {
                 foreach (var kv in dic)
                 {
-                    createdNamespaces.AddRange(JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key)));
+                    createdNamespaces.AddRange(ScriptHelper.GetInstance().CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key)));
                 }
             }
             List<string> jsInstructions = new List<string>();

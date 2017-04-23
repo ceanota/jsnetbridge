@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge
 {
-    public class JSHelper
+    public class ScriptHelper_JS : ScriptHelper
     {
         /// <summary>
         /// Get name of object factory.
@@ -15,10 +15,9 @@ namespace Diphap.JsNetBridge
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
         /// <param name="functionReference"></param>
-        /// <param name="nsAlias"></param>
-        /// <param name="JSNamespace"></param>
+        /// <param name="objectFullName"></param>
         /// <returns></returns>
-        public static string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
+        public override string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
         {
             string jsvalue = string.Format("{0}()", objectFullName);
             if (isCollection)
@@ -37,7 +36,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="js_obj_fullName"></param>
         /// <returns></returns>
-        static public List<string> CreateNamespace(string js_obj_fullName)
+        override public List<string> CreateNamespace(string js_obj_fullName)
         {
             //-- 
             List<string> obj_full_array;
@@ -80,7 +79,7 @@ namespace Diphap.JsNetBridge
         /// <param name="tmember"></param>
         /// <param name="jsValue"></param>
         /// <returns></returns>
-        public static bool GetPrimitiveEmptyValue(Type tmember, out string jsValue)
+        public override bool GetPrimitiveEmptyValue(Type tmember, out string jsValue)
         {
             jsValue = "";
 
@@ -106,7 +105,7 @@ namespace Diphap.JsNetBridge
                 Type telement;
                 if (TypeHelper.GetElementTypeOfCollection(tmember, out telement))
                 {
-                    if (JSHelper.GetPrimitiveEmptyValue(telement, out jsValue) == false)
+                    if (this.GetPrimitiveEmptyValue(telement, out jsValue) == false)
                     {
                         jsValue = "";
                     }
@@ -132,7 +131,7 @@ namespace Diphap.JsNetBridge
         /// <param name="funcName"></param>
         /// <param name="exceptionMessage"></param>
         /// <returns></returns>
-        static public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null)
+        override public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
             return string.Format("function {0} () {{ try {{ {1} }} catch(ex) {{ {3}  }} }}{2}",
                 funcName,
@@ -149,7 +148,7 @@ namespace Diphap.JsNetBridge
         /// <param name="funcName"></param>
         /// <param name="exceptionMessage"></param>
         /// <returns></returns>
-        static public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null)
+        override public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
             return "(" + GetFunction(body, call, funcName, exceptionMessage) + ")";
         }
@@ -162,7 +161,7 @@ namespace Diphap.JsNetBridge
         /// <param name="constructorName">function name.</param>
         /// <param name="stampFunc"></param>
         /// <returns></returns>
-        static public string GetFactory(string jsObj, bool withArgs, string constructorName = null, bool stampFunc = false)
+        override public string GetFactory(string jsObj, bool withArgs, string constructorName = null, bool stampFunc = false)
         {
             if ((string.IsNullOrWhiteSpace(jsObj) == false) == false)
             {
@@ -195,7 +194,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="instructions"></param>
         /// <returns></returns>
-        static public string GetFactory_Executing(string instructions)
+        override public string GetFactory_Executing(string instructions)
         {
             string value = string.Format("(function(){{ {0} }})();", instructions);
             return value;
@@ -207,8 +206,9 @@ namespace Diphap.JsNetBridge
         /// <param name="t"></param>
         /// <param name="jsObj"></param>
         /// <param name="withArgs"></param>
+        /// <param name="objFullName"></param>
         /// <returns></returns>
-        static public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName)//, bool nsAlias, ConfigJS.JSNamespace JSNamespace)
+        override public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName)
         {
             return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
@@ -218,7 +218,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="t"></param>
         /// <returns></returns>
-        static public string GetNamespace(Type t)
+        override public string GetNamespace(Type t)
         {
             string ns = string.Format("{0}.{1}", ConfigJS.prefix_ns_jsnet, ConfigJS.JSNamespace.GetPseudoNamespace(t).Replace("+", "."));
             return ns;
@@ -230,7 +230,7 @@ namespace Diphap.JsNetBridge
         /// <param name="objectFullName"></param>
         /// <param name="jsObj"></param>
         /// <returns></returns>
-        static public string GetObjectDeclaration(string objectFullName, string jsObj)
+        override public string GetObjectDeclaration(string objectFullName, string jsObj)
         {
             return string.Format("{0} = {0} || {1};", objectFullName, jsObj);
         }

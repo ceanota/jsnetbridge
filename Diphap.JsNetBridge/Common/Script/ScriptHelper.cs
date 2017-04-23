@@ -1,0 +1,109 @@
+﻿using Diphap.JsNetBridge.Common.JS;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Diphap.JsNetBridge
+{
+    abstract public class ScriptHelper
+    {
+        /// <summary>
+        /// Get instance.
+        /// </summary>
+        /// <returns></returns>
+        static public ScriptHelper GetInstance()
+        {
+            return new ScriptHelper_JS();
+        }
+
+        /// <summary>
+        /// Get name of object factory.
+        /// </summary>
+        /// <param name="telem_work"></param>
+        /// <param name="isCollection"></param>
+        /// <param name="functionReference"></param>
+        /// <param name="objectFullName"></param>
+        /// <returns></returns>
+        public abstract string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName);
+
+        /// <summary>
+        /// Create namespace.
+        /// </summary>
+        /// <param name="js_obj_fullName"></param>
+        /// <returns></returns>
+        abstract public List<string> CreateNamespace(string js_obj_fullName);
+
+        /// <summary>
+        /// Primitive Type of member or Collection of primitive types .
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <param name="jsValue"></param>
+        /// <returns></returns>
+        public abstract bool GetPrimitiveEmptyValue(Type tmember, out string jsValue);
+
+        /// <summary>
+        /// Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="call"></param>
+        /// <param name="funcName"></param>
+        /// <param name="exceptionMessage"></param>
+        /// <returns></returns>
+        abstract public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null);
+
+        /// <summary>
+        /// Get Module => ex: (function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }())
+        /// </summary>
+        /// <param name="body"></param>
+        /// <param name="call"></param>
+        /// <param name="funcName"></param>
+        /// <param name="exceptionMessage"></param>
+        /// <returns></returns>
+        abstract public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null);
+
+        /// <summary>
+        /// Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
+        /// </summary>
+        /// <param name="jsObj">JS object.</param>
+        /// <param name="withArgs"></param>
+        /// <param name="constructorName">function name.</param>
+        /// <param name="stampFunc"></param>
+        /// <returns></returns>
+        abstract public string GetFactory(string jsObj, bool withArgs, string constructorName = null, bool stampFunc = false);
+
+        /// <summary>
+        /// (function(){ return {param1:obj1, param2:2, param3:"" }; })();
+        /// </summary>
+        /// <param name="instructions"></param>
+        /// <returns></returns>
+        abstract public string GetFactory_Executing(string instructions);
+
+        /// <summary>
+        /// $dp.namespace = $dp.namespace || function(){ return {param1:obj1, param2:2, param3:"" }; };
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="jsObj"></param>
+        /// <param name="withArgs"></param>
+        /// <param name="objFullName"></param>
+        /// <returns></returns>
+        abstract public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName);
+
+        /// <summary>
+        /// namespace.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <returns></returns>
+        abstract public string GetNamespace(Type t);
+
+        /// <summary>
+        /// $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
+        /// </summary>
+        /// <param name="objectFullName"></param>
+        /// <param name="jsObj"></param>
+        /// <returns></returns>
+        abstract public string GetObjectDeclaration(string objectFullName, string jsObj);
+
+    }
+}

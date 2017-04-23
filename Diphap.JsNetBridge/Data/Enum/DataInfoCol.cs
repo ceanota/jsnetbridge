@@ -93,7 +93,7 @@ namespace Diphap.JsNetBridge.Data.Enum
 
             foreach (var t in tobjArray)
             {
-                IEnumerable<string> nsArray = JSHelper.CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
+                IEnumerable<string> nsArray = ScriptHelper.GetInstance().CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
                 foreach (var ns in nsArray)
                 {
                     if (jsInstructions.Contains(ns) == false)

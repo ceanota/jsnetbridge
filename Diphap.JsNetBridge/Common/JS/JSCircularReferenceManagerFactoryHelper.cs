@@ -9,7 +9,7 @@ namespace Diphap.JsNetBridge.Common.JS
     /// <summary>
     /// Factory gives un new instance of Function that handles the circular reference objects.
     /// </summary>
-    public class JSCircularReferenceManagerFactoryHelper
+    internal class JSCircularReferenceManagerFactoryHelper
     {
 
         const string prefixe_ns = "$dp";
@@ -25,10 +25,11 @@ namespace Diphap.JsNetBridge.Common.JS
         /// </summary>
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
+        /// <param name="objectFullname"></param>
         /// <returns></returns>
-        public static string FunctionDefinitionCall(Type telem_work, bool isCollection, string objectFullname) //ConfigJS.JSNamespace JSNamespace)
+        public static string FunctionDefinitionCall(Type telem_work, bool isCollection, string objectFullname)
         {
-            string factoryName = JSHelper.GetObjectFactoryName(telem_work, false, true, objectFullname);//true, JSNamespace);
+            string factoryName = ScriptHelper.GetInstance().GetObjectFactoryName(telem_work, false, true, objectFullname);
             return FunctionDefinitionCall(factoryName, isCollection);
         }
 

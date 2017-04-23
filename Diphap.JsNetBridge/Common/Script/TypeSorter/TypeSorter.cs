@@ -10,14 +10,20 @@ namespace Diphap.JsNetBridge.Common.JS
     /// <summary>
     /// Indicates if the type has members with complex or somple type.
     /// </summary>
-    internal class TypeSorter
+    abstract internal class TypeSorter
     {
+
+        internal static TypeSorter GetInstance(Type tobj, ConfigJS.JSNamespace JSNamespace)
+        {
+            return new TypeSorter_JS(tobj, JSNamespace);
+        }
+
         public readonly Type TObj;
         public IList<Type> TypesToIgnore = new Type[] { };
         public readonly List<Type> TypesIgnored = new List<Type>();
         public List<MemberInfo> ComplexMembers = new List<MemberInfo>();
         public readonly MemberInfo[] miArray;
-        List<string> js_key_value_list;
+        protected List<string> js_key_value_list;
         public static string prefix_namespace = ConfigJS.prefix_ns_jsnet;
 
         public List<string> Js_key_value_list
@@ -27,19 +33,8 @@ namespace Diphap.JsNetBridge.Common.JS
                 return js_key_value_list.ToList();
             }
         }
-        public string JSValue
-        {
-            get
-            {
-                string value = "null";
-                if (ComplexMembers.Count == 0)
-                {
-                    value = "{" + string.Join(",", js_key_value_list) + "}";
-                }
+        abstract public string JSValue { get; }
 
-                return value;
-            }
-        }
         public bool IsSimpleType
         {
             get
@@ -49,7 +44,8 @@ namespace Diphap.JsNetBridge.Common.JS
 
         }
 
-        Type[] _TComplexMembers;
+        private Type[] _TComplexMembers;
+
         /// <summary>
         /// Get element type of collection if 't' is collection other else return 't'. 
         /// </summary>
@@ -66,12 +62,11 @@ namespace Diphap.JsNetBridge.Common.JS
 
         }
 
-        readonly ConfigJS.JSNamespace _JSNamespace;
+        private readonly ConfigJS.JSNamespace _JSNamespace;
 
-        public TypeSorter(Type tobj, ConfigJS.JSNamespace JSNamespace)
+        protected TypeSorter(Type tobj)
         {
             this.TObj = tobj;
-            _JSNamespace = JSNamespace;
 
             //-- all fields and properties of object.
             this.miArray = this.TObj.GetMembers(BindingFlags.Public | BindingFlags.Instance)
@@ -92,9 +87,9 @@ namespace Diphap.JsNetBridge.Common.JS
 
                 Type tmem = TypeHelper.GetMemberType(mi);
 
-                if (JSHelper.GetPrimitiveEmptyValue(tmem, out value))
+                if (ScriptHelper.GetInstance().GetPrimitiveEmptyValue(tmem, out value))
                 {
-                    js_key_value_list.Add(string.Format("\"{0}\":{1}", mi.Name, value));
+                    js_key_value_list.Add(this.get_js_key_value(mi, value));
                 }
                 else
                 {
@@ -120,7 +115,7 @@ namespace Diphap.JsNetBridge.Common.JS
                         {
                             TypesIgnored.Add(tmem);
 
-                            string js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work, true));
+                            string js_key_value = this.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
                             js_key_value_list.Add(js_key_value);
                         }
                     }
@@ -134,31 +129,30 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <param name="mi"></param>
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
-        /// <param name="functionReference">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
         /// <returns></returns>
-        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, string objectFullName) //ConfigJS.JSNamespace JSNamespace)
-        {
-            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection, objectFullName));//JSNamespace));
-        }
+        abstract protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection);
 
         /// <summary>
-        /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+        /// JS code of call of my factory who extends instances of array.
+        /// </summary>
+        /// <param name="jsvalue"></param>
+        /// <returns></returns>
+        abstract protected string FunctionDefinitionCall(string jsvalue);
+
+        /// <summary>
+        /// ex: 'propertyName : 78'
         /// </summary>
         /// <param name="mi"></param>
-        /// <param name="factoryName"></param>
-        /// <param name="isCollection"></param>
+        /// <param name="valueTemp"></param>
         /// <returns></returns>
-        private static string GetJsKeyValue_FactoryCall(MemberInfo mi, string factoryName, bool isCollection)
-        {
-            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(factoryName, isCollection));
-        }
+        abstract protected string get_js_key_value(MemberInfo mi, string valueTemp);
 
         /// <summary>
         /// Force.
         /// </summary>
         /// <param name="mi"></param>
         /// <param name="jsvalue">force value</param>
-        public void ResolveComplexMember(MemberInfo mi, string jsvalue = null)
+        internal void ResolveComplexMember(MemberInfo mi, string jsvalue = null)
         {
             if (this.ComplexMembers.Contains(mi))
             {
@@ -174,16 +168,16 @@ namespace Diphap.JsNetBridge.Common.JS
                         telem_work = tmem;
                     }
 
-                    js_key_value = GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work,true));
+                    js_key_value = this.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
                 }
                 else
                 {
                     string valueTemp = jsvalue;
                     if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
                     {
-                        valueTemp = JSArrayFactory.FunctionDefinitionCall(jsvalue);
+                        valueTemp = this.FunctionDefinitionCall(jsvalue);
                     }
-                    js_key_value = string.Format("\"{0}\":{1}", mi.Name, valueTemp);
+                    js_key_value = this.get_js_key_value(mi, valueTemp);
                 }
 
                 js_key_value_list.Add(js_key_value);

@@ -14,6 +14,9 @@ namespace Diphap.JsNetBridge
     /// </summary>
     public class RecursiveTypeSorter
     {
+        /// <summary>
+        /// Sorts all types of type recursively 
+        /// </summary>
         public RecursiveTypeSorter() { }
 
         internal class GlobalRecursiveContext
@@ -74,6 +77,7 @@ namespace Diphap.JsNetBridge
         /// <param name="tobj"></param>
         /// <param name="exclude"></param>
         /// <param name="noReturn"></param>
+        /// <param name="JSNamespace"></param>
         /// <returns></returns>
         public void Execute(Type tobj, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
@@ -82,54 +86,17 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// ???
-        /// </summary>
-        [Obsolete("unused")]
-        public bool? HasRecursive
-        {
-            get
-            {
-                bool? value;
-
-                if (this.Context_global != null)
-                {
-                    if (this.Context_global.Occurences.Count == 0)
-                    {
-                        value = false;
-                    }
-                    else
-                    {
-                        if (this.Context_global.Occurences.All(x => x.Value == 0))
-                        {
-                            value = false;
-                        }
-                        else
-                        {
-                            value = true;
-                        }
-                    }
-                }
-                else
-                {
-                    value = null;
-                }
-
-                return value;
-
-            }
-        }
-
-        /// <summary>
         /// Serialalize type. Recursive function.
         /// </summary>
         /// <param name="tobj">type of object</param>
         /// <param name="_idx_max"></param>
         /// <param name="noReturn"></param>
+        /// <param name="JSNamespace"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
         internal void Execute(Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
-            TypeSorter tSorter = new TypeSorter(tobj, JSNamespace);
+            TypeSorter tSorter = TypeSorter.GetInstance(tobj, JSNamespace);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
 

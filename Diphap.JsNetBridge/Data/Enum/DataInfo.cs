@@ -21,7 +21,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             {
                 return string.Format("\"{0}\":{1}",
                     TObj.Name,
-                    this.flagGetFactory ? JSHelper.GetFactory(this.JsObj, false) : this.JsObj);
+                    this.flagGetFactory ? ScriptHelper.GetInstance().GetFactory(this.JsObj, false) : this.JsObj);
             }
         }
 
@@ -29,7 +29,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
 
             string objFullName = this._JSNamespace.GetObjectFullName(TObj, withAlias);
-            return this.flagGetFactory ? JSHelper.GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : JSHelper.GetObjectDeclaration(objFullName, this.JsObj);
+            return this.flagGetFactory ? ScriptHelper.GetInstance().GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : ScriptHelper.GetInstance().GetObjectDeclaration(objFullName, this.JsObj);
 
         }
 

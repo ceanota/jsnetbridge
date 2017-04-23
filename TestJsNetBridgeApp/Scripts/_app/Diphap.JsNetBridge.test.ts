@@ -1,1 +1,1 @@
-﻿var aa = $dpUrlSet.Home.GetStudent.$action0;
+﻿var aa = $dpUrlSet.Home.GetStudent.$action0.$AjaxSettings().method
