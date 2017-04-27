@@ -35,6 +35,7 @@ namespace Diphap.JsNetBridge
         public const string url_set = ConfigJS.prefix_ns_jsnet + "." + brandLetter + "UrlSet";
 
         public const string stampFunc = "_stampFunc";
+
         public static readonly string stampFuncInstruction = string.Format("var {0} = function() {{ return {1}; }};", stampFunc, ConfigJS.prefix_ns_jsnet);
 
         public static string prefix_apiController = brandLetter + "api";
