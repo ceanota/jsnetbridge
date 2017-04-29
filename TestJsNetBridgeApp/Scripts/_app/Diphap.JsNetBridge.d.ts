@@ -78,6 +78,7 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
         EnrollmentID: number, CourseID: number, PersonID: number, Grade: number,
         Student: Student,
         Course: Object,
+        //test: any[]
     }
 
     interface Student {

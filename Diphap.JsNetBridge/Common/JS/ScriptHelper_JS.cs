@@ -73,54 +73,21 @@ namespace Diphap.JsNetBridge
 
         }
 
+        ScriptTypeInfo _GetScriptTypeInfo;
         /// <summary>
-        /// Primitive Type of member or Collection of primitive types .
+        /// Singleton.
         /// </summary>
-        /// <param name="tmember"></param>
-        /// <param name="jsValue"></param>
         /// <returns></returns>
-        public override bool GetPrimitiveEmptyValue(Type tmember, out string jsValue)
+        public override ScriptTypeInfo GetScriptTypeInfo
         {
-            jsValue = "";
-
-            if (tmember == typeof(string))
+            get
             {
-                jsValue = "\"\"";
-            }
-            else if (TypeHelper.IsNumber(tmember) || TypeHelper.IsEnum(tmember))
-            {
-                jsValue = "0";
-            }
-            else if (TypeHelper.IsDateTime(tmember))
-            {
-                jsValue = "new Date()";
-            }
-            else if (TypeHelper.IsBoolean(tmember))
-            {
-                jsValue = "false";
-            }
-            else if (TypeHelper.IsCollection(tmember))
-            {
-                //-- member is collection
-                Type telement;
-                if (TypeHelper.GetElementTypeOfCollection(tmember, out telement))
+                if (this._GetScriptTypeInfo == null)
                 {
-                    if (this.GetPrimitiveEmptyValue(telement, out jsValue) == false)
-                    {
-                        jsValue = "";
-                    }
-                    else
-                    {
-                        jsValue = JSArrayFactory.FunctionDefinitionCall(jsValue);
-                    }
+                    this._GetScriptTypeInfo = new ScriptTypeInfo_JS();
                 }
-                else
-                {
-                    jsValue = "[]";
-                }
+                return this._GetScriptTypeInfo;
             }
-
-            return string.IsNullOrWhiteSpace(jsValue) == false;
         }
 
         /// <summary>

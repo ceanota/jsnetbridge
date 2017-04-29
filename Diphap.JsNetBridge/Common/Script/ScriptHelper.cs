@@ -38,10 +38,58 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// Primitive Type of member or Collection of primitive types .
         /// </summary>
+        /// <returns></returns>
+        public abstract ScriptTypeInfo GetScriptTypeInfo { get; }
+
+        /// <summary>
+        /// Primitive Type of member or Collection of primitive types .
+        /// </summary>
         /// <param name="tmember"></param>
         /// <param name="jsValue"></param>
         /// <returns></returns>
-        public abstract bool GetPrimitiveEmptyValue(Type tmember, out string jsValue);
+        public bool GetPrimitiveEmptyValue(Type tmember, out string jsValue)
+        {
+            jsValue = "";
+
+            if (tmember == typeof(string))
+            {
+                jsValue = GetScriptTypeInfo.TString;
+            }
+            else if (TypeHelper.IsNumber(tmember) || TypeHelper.IsEnum(tmember))
+            {
+                jsValue = GetScriptTypeInfo.TNumber;
+            }
+            else if (TypeHelper.IsDateTime(tmember))
+            {
+                jsValue = GetScriptTypeInfo.TDatetime;
+            }
+            else if (TypeHelper.IsBoolean(tmember))
+            {
+                jsValue = GetScriptTypeInfo.TBoolean;
+            }
+            else if (TypeHelper.IsCollection(tmember))
+            {
+                //-- member is collection
+                Type telement;
+                if (TypeHelper.GetElementTypeOfCollection(tmember, out telement))
+                {
+                    if (this.GetPrimitiveEmptyValue(telement, out jsValue) == false)
+                    {
+                        jsValue = "";
+                    }
+                    else
+                    {
+                        jsValue = GetScriptTypeInfo.TArrayFactoryFunctionDefinitionCall(jsValue);
+                    }
+                }
+                else
+                {
+                    jsValue = GetScriptTypeInfo.TArray ;
+                }
+            }
+
+            return string.IsNullOrWhiteSpace(jsValue) == false;
+        }
 
         /// <summary>
         /// Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
