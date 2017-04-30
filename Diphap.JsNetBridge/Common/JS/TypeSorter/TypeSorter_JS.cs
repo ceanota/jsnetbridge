@@ -1,11 +1,12 @@
-﻿using System;
+﻿using Diphap.JsNetBridge.Common.JS;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge.Common.JS
+namespace Diphap.JsNetBridge.Common
 {
     /// <summary>
     /// Indicates if the type has members with complex or somple type.
@@ -57,6 +58,7 @@ namespace Diphap.JsNetBridge.Common.JS
 
         /// <summary>
         /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+        /// ex: "Courses_":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course))
         /// </summary>
         /// <param name="mi"></param>
         /// <param name="telem_work"></param>

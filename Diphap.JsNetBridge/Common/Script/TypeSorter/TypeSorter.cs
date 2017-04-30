@@ -5,17 +5,34 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge.Common.JS
+namespace Diphap.JsNetBridge.Common
 {
+
     /// <summary>
     /// Indicates if the type has members with complex or somple type.
     /// </summary>
     abstract internal class TypeSorter
     {
-
-        internal static TypeSorter GetInstance(Type tobj, ConfigJS.JSNamespace JSNamespace)
+        
+        /// <summary>
+        /// Get instance.
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="tobj"></param>
+        /// <param name="JSNamespace"></param>
+        /// <returns></returns>
+        internal static TypeSorter GetInstance(EnumScript choice, Type tobj, ConfigJS.JSNamespace JSNamespace)
         {
-            return new TypeSorter_JS(tobj, JSNamespace);
+            switch (choice)
+            {
+                case EnumScript.JS:
+                    return new TypeSorter_JS(tobj, JSNamespace);
+                case EnumScript.TS:
+                    return new TypeSorter_TS(tobj, JSNamespace);
+                default:
+                    throw new NotImplementedException();
+            }
+            
         }
 
         public readonly Type TObj;

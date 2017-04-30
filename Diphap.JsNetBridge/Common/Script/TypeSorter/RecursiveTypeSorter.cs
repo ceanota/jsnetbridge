@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Data;
 using System;
 using System.Collections.Generic;
@@ -14,10 +15,15 @@ namespace Diphap.JsNetBridge
     /// </summary>
     public class RecursiveTypeSorter
     {
+
+        private readonly EnumScript _EnumScript;
         /// <summary>
         /// Sorts all types of type recursively 
         /// </summary>
-        public RecursiveTypeSorter() { }
+        public RecursiveTypeSorter(EnumScript choice)
+        {
+            this._EnumScript = choice;
+        }
 
         internal class GlobalRecursiveContext
         {
@@ -96,7 +102,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         internal void Execute(Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
-            TypeSorter tSorter = TypeSorter.GetInstance(tobj, JSNamespace);
+            TypeSorter tSorter = TypeSorter.GetInstance(this._EnumScript, tobj, JSNamespace);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.Execute();
 

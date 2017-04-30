@@ -10,7 +10,7 @@ namespace Diphap.JsNetBridge
     /// <summary>
     /// 
     /// </summary>
-    public class ScriptHelper_JS : ScriptHelper
+    public class ScriptHelper_TS : ScriptHelper
     {
         /// <summary>
         /// Get name of object factory.
@@ -87,7 +87,7 @@ namespace Diphap.JsNetBridge
             {
                 if (this._GetScriptTypeInfo == null)
                 {
-                    this._GetScriptTypeInfo = new ScriptTypeInfo_JS();
+                    this._GetScriptTypeInfo = new ScriptTypeInfo_TS();
                 }
                 return this._GetScriptTypeInfo;
             }
@@ -103,14 +103,11 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
-
-            var value = string.Format("function {0} () {{ try {{ {1} }} catch(ex) {{ {3}  }} }}{2}",
+            return string.Format("function {0} () {{ try {{ {1} }} catch(ex) {{ {3}  }} }}{2}",
                 funcName,
                 body,
                 call ? "()" : null,
                 exceptionMessage == null ? "throw ex;" : string.Format("var new_message = '{0}' + ' => ' + ex.message; throw new_message;", exceptionMessage));
-
-            return value;
         }
 
         /// <summary>
@@ -123,8 +120,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
-            var value = "(" + GetFunction(body, call, funcName, exceptionMessage) + ")";
-            return value;
+            return "(" + GetFunction(body, call, funcName, exceptionMessage) + ")";
         }
 
         /// <summary>
@@ -160,8 +156,7 @@ namespace Diphap.JsNetBridge
                 argsInstruction = "var args = Array.prototype.slice.call(arguments);";
             }
 
-            var value = string.Format("function(){{ {0} var obj = {1};{2}{3} return obj; }}", argsInstruction, jsObj, constructorInstruction, stampObjInstruction);
-            return value;
+            return string.Format("function(){{ {0} var obj = {1};{2}{3} return obj; }}", argsInstruction, jsObj, constructorInstruction, stampObjInstruction);
         }
 
         /// <summary>
@@ -185,8 +180,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName)
         {
-            var value = GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
-            return value;
+            return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
         }
 
         /// <summary>
@@ -208,8 +202,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetObjectDeclaration(string objectFullName, string jsObj)
         {
-            var value = string.Format("{0} = {0} || {1};", objectFullName, jsObj);
-            return value;
+            return string.Format("{0} = {0} || {1};", objectFullName, jsObj);
         }
 
     }

@@ -247,7 +247,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             Func<StringBuilder, object> f = (sb) =>
             {
-                sb.AppendLine(this.ModelInfo.ToJSCore());
+                sb.AppendLine(this.ModelInfo.ToJSCore(EnumScript.JS));
                 sb.AppendLine(this.EnumInfo.ToJSCore());
                 sb.AppendLine(JSRaw.Region.Begin("UrlSet"));
                 sb.AppendLine(string.Join("\r\n", ScriptHelper.GetInstance().CreateNamespace(ConfigJS.url_set)));

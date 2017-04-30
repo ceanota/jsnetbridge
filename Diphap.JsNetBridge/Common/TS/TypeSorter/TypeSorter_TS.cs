@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Diphap.JsNetBridge.Common.JS
+namespace Diphap.JsNetBridge.Common
 {
     /// <summary>
     /// Indicates if the type has members with complex or somple type.

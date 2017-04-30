@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -56,18 +57,18 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Sort types.
         /// </summary>
-        public void Execute()
+        public void Execute(EnumScript choice)
         {
             this.Classes.Clear();
             List<RecursiveTypeSorter> serializeTypes = new List<RecursiveTypeSorter>();
             List<Type> unresolvedTypes;
 
             #region "First Pass"
-            unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, _JSNamespace, ref serializeTypes);
+            unresolvedTypes = ModelInfo.ExecuteCore(choice, this.Types, this.Classes, _JSNamespace, ref serializeTypes);
             #endregion
 
             #region "2nd Pass: For recursive issues"
-            unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
+            unresolvedTypes = ModelInfo.ExecuteCore(choice, unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
             #endregion
 
         }
@@ -75,18 +76,19 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
         /// </summary>
+        /// <param name="choice"></param>
         /// <param name="tobjArray"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="rTypeSorters"></param>
         /// <param name="classes"></param>
         /// <returns></returns>
-        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
+        static private List<Type> ExecuteCore(EnumScript choice, List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
         {
             do
             {
                 //-- create each class.
             }
-            while (AddClass(tobjArray, classes, JSNamespace, ref rTypeSorters));
+            while (AddClass(choice, tobjArray, classes, JSNamespace, ref rTypeSorters));
 
             #region "unresolvedTypes"
             List<Type> unresolvedTypes;
@@ -103,14 +105,15 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
         /// </summary>
+        /// <param name="choice"></param>
         /// <param name="allTypes"></param>
         /// <param name="oldClasses"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="serializeTypes"></param>
         /// <returns></returns>
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
+        private static bool AddClass(EnumScript choice, List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
         {
-            RecursiveTypeSorter st = new RecursiveTypeSorter();
+            RecursiveTypeSorter st = new RecursiveTypeSorter(choice);
             serializeTypes.Add(st);
 
             st.TypesToIgnore.AddRange(oldClasses.SelectMany(kv => kv.Keys));
@@ -138,10 +141,10 @@ namespace Diphap.JsNetBridge.Data
         /// There is not 'JSArrayFactory'
         /// </summary>
         /// <returns></returns>
-        public string ToJSCore(string regionName = "Model")
+        public string ToJSCore(EnumScript choice, string regionName = "Model")
         {
             //-- sort types of oldClasses.
-            this.Execute();
+            this.Execute(choice);
 
             List<string> jsInstructions = new List<string>();
 
@@ -273,23 +276,35 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// All code js.
         /// </summary>
+        /// <param name="choice"></param>
         /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
-        public string ToJS(bool withJsFileDependencies = true)
+        public string ToJS(EnumScript choice, bool withJsFileDependencies = true)
         {
             Func<StringBuilder, object> f =
-                (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
+                (sb) => { sb.AppendLine(this.ToJSCore(choice)); return null; };
             return ToJSTemplate(f, withJsFileDependencies);
         }
-
-        public void WriteAllText(string jsFilePath, bool withJsFileDependencies = true)
+        /// <summary>
+        /// Generates file script
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="jsFilePath"></param>
+        /// <param name="withJsFileDependencies"></param>
+        public void WriteAllText(EnumScript choice, string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.WriteAllText(jsFilePath, this.ToJS(withJsFileDependencies));
+            File.WriteAllText(jsFilePath, this.ToJS(choice, withJsFileDependencies));
         }
 
-        public void AppendAllText(string jsFilePath, bool withJsFileDependencies = true)
+        /// <summary>
+        /// Generates file script
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="jsFilePath"></param>
+        /// <param name="withJsFileDependencies"></param>
+        public void AppendAllText(EnumScript choice, string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.AppendAllText(jsFilePath, this.ToJS(withJsFileDependencies));
+            File.AppendAllText(jsFilePath, this.ToJS(choice, withJsFileDependencies));
         }
 
     }
