@@ -35,11 +35,11 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jsValue"></param>
+        /// <param name="T"></param>
         /// <returns></returns>
-        public override string TArrayFactoryFunctionDefinitionCall(string jsValue)
+        public override string TArrayFactoryFunctionDefinitionCall(string T)
         {
-            return JSArrayFactory.FunctionDefinitionCall(jsValue);
+            return JSArrayFactory.FunctionDefinitionCall(T);
         }
     }
 }

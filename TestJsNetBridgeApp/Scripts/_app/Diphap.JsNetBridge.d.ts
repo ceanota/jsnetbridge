@@ -72,7 +72,7 @@ declare namespace $dp.$shared {
 }
 
 
-declare namespace $dp.$JsNet.ContosoUniversity.Models {
+declare namespace $dp.$JsNet.ContosoUniversity {
 
     interface Enrollment {
         EnrollmentID: number, CourseID: number, PersonID: number, Grade: number,
@@ -84,7 +84,15 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
     interface Student {
         EnrollmentDate: Date, PersonID: number, LastName: string, FirstMidName: string, FullName: string, Enrollments: $dp.$shared.$Array<Enrollment>,
     }
+
+    interface Models {
+        Enrollment(): $dp.$JsNet.ContosoUniversity.Enrollment;
+        Student(): $dp.$JsNet.ContosoUniversity.Student;
+    }
+
+    var Models: Models;
 }
+
 
 declare namespace $dp.$JsNet.TestJsNetBridgeApp.Models {
 
@@ -107,7 +115,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent {
 
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { PersonID: Number }
-        $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData<$dp.$JsNet.ContosoUniversity.Models.Student>,
+        $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData<$dp.$JsNet.ContosoUniversity.Student>,
     }
 
     var $action0: _$action0;

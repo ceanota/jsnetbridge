@@ -1,2 +1,4 @@
 var aa = $dpUrlSet.Home.GetStudent.$action0.$AjaxSettings().method;
-//# sourceMappingURL=Diphap.JsNetBridge.test.js.map
+var bb = $dp.$JsNet.ContosoUniversity.Models();
+
+var c = $dp.$JsNet.ContosoUniversity.Models;

@@ -133,19 +133,18 @@ namespace Diphap.JsNetBridge.Common.JS
         abstract protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection);
 
         /// <summary>
-        /// JS code of call of my factory who extends instances of array.
-        /// </summary>
-        /// <param name="jsvalue"></param>
-        /// <returns></returns>
-        abstract protected string FunctionDefinitionCall(string jsvalue);
-
-        /// <summary>
         /// ex: 'propertyName : 78'
         /// </summary>
         /// <param name="mi"></param>
         /// <param name="valueTemp"></param>
         /// <returns></returns>
         abstract protected string get_js_key_value(MemberInfo mi, string valueTemp);
+
+        /// <summary>
+        /// Primitive Type of member or Collection of primitive types .
+        /// </summary>
+        /// <returns></returns>
+        public abstract ScriptTypeInfo GetScriptTypeInfo { get; }
 
         /// <summary>
         /// Force.
@@ -175,7 +174,7 @@ namespace Diphap.JsNetBridge.Common.JS
                     string valueTemp = jsvalue;
                     if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
                     {
-                        valueTemp = this.FunctionDefinitionCall(jsvalue);
+                        valueTemp = this.GetScriptTypeInfo.TArrayFactoryFunctionDefinitionCall(jsvalue);
                     }
                     js_key_value = this.get_js_key_value(mi, valueTemp);
                 }

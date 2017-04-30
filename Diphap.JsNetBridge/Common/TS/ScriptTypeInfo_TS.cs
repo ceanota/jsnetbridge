@@ -1,5 +1,4 @@
-﻿using Diphap.JsNetBridge.Common.JS;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -35,11 +34,11 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="jsValue"></param>
+        /// <param name="T">Type of data</param>
         /// <returns></returns>
-        public override string TArrayFactoryFunctionDefinitionCall(string jsValue)
+        public override string TArrayFactoryFunctionDefinitionCall(string T)
         {
-            return JSArrayFactory.FunctionDefinitionCall(jsValue);
+            return "$dp.$shared.$Array<{T}>".Replace("{T}", T);
         }
     }
 }
