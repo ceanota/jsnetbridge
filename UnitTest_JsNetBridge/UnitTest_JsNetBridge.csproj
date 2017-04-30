@@ -113,6 +113,9 @@
   <ItemGroup>
     <Content Include="Users\Ceanota\test.js" />
   </ItemGroup>
+  <ItemGroup>
+    <TypeScriptCompile Include="Users\Ceanota\test.d.ts" />
+  </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
       <ItemGroup>

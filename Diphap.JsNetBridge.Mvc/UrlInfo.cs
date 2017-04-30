@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Mvc.Proxy;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Mvc.Proxy;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,7 +63,7 @@ namespace Diphap.JsNetBridge.Mvc
 
             string properties = GetJsSetUrl(this.AreaInfoList, ConfigJS.url_set);
 
-            return Diphap.JsNetBridge.ScriptHelper.GetInstance().GetFunctionModule(properties, true, null, "NetObjectGenerationException\\r\\nCheck that the .NET objects are generated in the js file [/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js].\\r\\nPlease read the file [/Generators/Diphap.JsNetBridge/_ReadMe.txt]"); ;
+            return Diphap.JsNetBridge.ScriptHelper.GetInstance(EnumScript.JS).GetFunctionModule(properties, true, null, "NetObjectGenerationException\\r\\nCheck that the .NET objects are generated in the js file [/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js].\\r\\nPlease read the file [/Generators/Diphap.JsNetBridge/_ReadMe.txt]"); ;
         }
 
         #region "static"

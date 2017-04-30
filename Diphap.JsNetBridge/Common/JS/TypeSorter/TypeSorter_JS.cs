@@ -88,6 +88,17 @@ namespace Diphap.JsNetBridge.Common
         }
 
         /// <summary>
+        /// EnumScript
+        /// </summary>
+        protected override EnumScript _EnumScript
+        {
+            get
+            {
+                return EnumScript.JS;
+            }
+        }
+
+        /// <summary>
         /// ex: 'propertyName : 78'
         /// </summary>
         /// <param name="mi"></param>

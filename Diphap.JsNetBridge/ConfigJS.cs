@@ -55,7 +55,7 @@ namespace Diphap.JsNetBridge
             {
                 string objFullname = this.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
                 return objFullname;
-            }
+            }   
 
             public void ClearAlias()
             {

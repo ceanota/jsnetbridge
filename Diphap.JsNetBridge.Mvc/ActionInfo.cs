@@ -265,9 +265,9 @@ namespace Diphap.JsNetBridge.Mvc
                     objName, ConfigJS.brandLetter, this.Action, this.Controller, string.IsNullOrWhiteSpace(this.Area) ? "" : this.Area);
 
                 //-- IN/OUT parameters.
-                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", ScriptHelper.GetInstance().GetFactory(this.ToJS_Params(), false));
-                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", ScriptHelper.GetInstance().GetFactory(this.ToJS_Return(), false));
-                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", ScriptHelper.GetInstance().GetFactory(this.ToJS_Enums(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Params(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Return(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Enums(), false));
 
                 string prop_httpMethodArray = objName + "." + ConfigJS.brandLetter + "httpMethodArray";
                 //-- httpMethod
@@ -296,7 +296,7 @@ namespace Diphap.JsNetBridge.Mvc
                         sb_ajax_options = GetAjaxSettings_ForMvc(getUrl, getParams).ToString();
                     }
 
-                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxSettings = {0};", ScriptHelper.GetInstance().GetFactory(sb_ajax_options, false));
+                    sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "AjaxSettings = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(sb_ajax_options, false));
                 }
 
                 //-- Route Template
@@ -306,7 +306,7 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.Append("return action;");
             }
 
-            string json = ScriptHelper.GetInstance().GetFunction(sb.ToString(), true, "actionFactory");
+            string json = ScriptHelper.GetInstance(EnumScript.JS).GetFunction(sb.ToString(), true, "actionFactory");
             return json;
         }
 
@@ -469,7 +469,7 @@ namespace Diphap.JsNetBridge.Mvc
         internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
         {
             string jsValue = "null";
-            if (!ScriptHelper.GetInstance().GetPrimitiveEmptyValue(t, out jsValue))
+            if (!ScriptHelper.GetInstance(EnumScript.JS).GetPrimitiveEmptyValue(t, out jsValue))
             {
                 bool isCollection;
 
@@ -481,7 +481,7 @@ namespace Diphap.JsNetBridge.Mvc
                     if (isCollection)
                     {
                         //-- telem_work  is collection.
-                        jsValue = ScriptHelper.GetInstance().GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                        jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                     }
                     else
                     {
@@ -491,7 +491,7 @@ namespace Diphap.JsNetBridge.Mvc
                             AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
                             AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
                         {
-                            jsValue = ScriptHelper.GetInstance().GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                            jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                         }
                         else { jsValue = "{}"; }
 
@@ -534,7 +534,7 @@ namespace Diphap.JsNetBridge.Mvc
             }
 
             //-- telem_work  is collection.
-            jsValue = ScriptHelper.GetInstance().GetObjectFactoryName(telem_work, isCollection, true, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+            jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, true, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
 
             return jsValue;
         }

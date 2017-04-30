@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace Diphap.JsNetBridge.Data.Enum
     {
         abstract protected DataInfo Factory(Type tobj, ConfigJS.JSNamespace JSNamespace);
 
-
+        readonly EnumScript _EnumScript = EnumScript.JS;
 
         public List<DataInfo> JsObjCol { get; protected set; }
 
@@ -33,7 +34,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         /// <returns></returns>
         public IList<string> CreateNamespaces()
         {
-            return CreateNamespaces(this.GetJsObjColTypes());
+            return CreateNamespaces(this._EnumScript, this.GetJsObjColTypes());
         }
 
         /// <summary>
@@ -85,15 +86,16 @@ namespace Diphap.JsNetBridge.Data.Enum
         /// <summary>
         /// Create namespaces.
         /// </summary>
+        /// <param name="choice"></param>
         /// <param name="tobjArray"></param>
         /// <returns></returns>
-        static public List<string> CreateNamespaces(IEnumerable<Type> tobjArray)
+        static private List<string> CreateNamespaces(EnumScript choice, IEnumerable<Type> tobjArray)
         {
             List<string> jsInstructions = new List<string>();
 
             foreach (var t in tobjArray)
             {
-                IEnumerable<string> nsArray = ScriptHelper.GetInstance().CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
+                IEnumerable<string> nsArray = ScriptHelper.GetInstance(choice).CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
                 foreach (var ns in nsArray)
                 {
                     if (jsInstructions.Contains(ns) == false)

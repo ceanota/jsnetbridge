@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diphap.JsNetBridge.Common;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +15,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         public Type TObj { get; set; }
         public IList<DataInfo> ObjInfoCol { get; set; }
         readonly private ConfigJS.JSNamespace _JSNamespace;
+        readonly EnumScript _EnumScript;
 
         public string JsKeyValue
         {
@@ -21,7 +23,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             {
                 return string.Format("\"{0}\":{1}",
                     TObj.Name,
-                    this.flagGetFactory ? ScriptHelper.GetInstance().GetFactory(this.JsObj, false) : this.JsObj);
+                    this.flagGetFactory ? ScriptHelper.GetInstance(this._EnumScript).GetFactory(this.JsObj, false) : this.JsObj);
             }
         }
 
@@ -29,7 +31,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
 
             string objFullName = this._JSNamespace.GetObjectFullName(TObj, withAlias);
-            return this.flagGetFactory ? ScriptHelper.GetInstance().GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : ScriptHelper.GetInstance().GetObjectDeclaration(objFullName, this.JsObj);
+            return this.flagGetFactory ? ScriptHelper.GetInstance(this._EnumScript).GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : ScriptHelper.GetInstance(this._EnumScript).GetObjectDeclaration(objFullName, this.JsObj);
 
         }
 
@@ -45,6 +47,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             this.ObjInfoCol = objInfoCol_;
             this.flagGetFactory = flagGetFactory_;
             this._JSNamespace = JSNamespace;
+            this._EnumScript = EnumScript.JS;
         }
 
         public override string ToString()

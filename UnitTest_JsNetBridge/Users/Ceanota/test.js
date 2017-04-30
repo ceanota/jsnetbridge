@@ -306,7 +306,13 @@ $dp.$JsNet = $dp.$JsNet || {};
 $dp.$JsNet.ContosoUniversity = $dp.$JsNet.ContosoUniversity || {};
 $dp.$JsNet.ContosoUniversity.Models = $dp.$JsNet.ContosoUniversity.Models || {};
 var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
-_alias0.OfficeAssignment = _alias0.OfficeAssignment || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"PersonID":0,"Location":"","Instructor":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Instructor)};obj.constructor=_alias0.OfficeAssignment; return obj; };
+_alias0.OfficeAssignment = _alias0.OfficeAssignment || function () {
+    var args = Array.prototype.slice.call(arguments);
+    var obj = {
+        "PersonID": 0, "Location": "",
+        "Instructor": $dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Instructor)
+    }; obj.constructor = _alias0.OfficeAssignment; return obj;
+};
 _alias0.Student = _alias0.Student || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"EnrollmentDate":new Date(),"PersonID":0,"LastName":"","FirstMidName":"","FullName":"","Enrollments":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Enrollment))};obj.constructor=_alias0.Student; return obj; };
 _alias0.Instructor = _alias0.Instructor || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"HireDate":new Date(),"OfficeAssignment":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.OfficeAssignment),"PersonID":0,"LastName":"","FirstMidName":"","FullName":"","Courses":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course))};obj.constructor=_alias0.Instructor; return obj; };
 _alias0.Enrollment = _alias0.Enrollment || function(){ var args = Array.prototype.slice.call(arguments); var obj = {"EnrollmentID":0,"CourseID":0,"PersonID":0,"Grade":0,"Student":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Student),"Course":$dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course)};obj.constructor=_alias0.Enrollment; return obj; };

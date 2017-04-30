@@ -29,7 +29,7 @@ namespace Diphap.JsNetBridge.Common.JS
         /// <returns></returns>
         public static string FunctionDefinitionCall(Type telem_work, bool isCollection, string objectFullname)
         {
-            string factoryName = ScriptHelper.GetInstance().GetObjectFactoryName(telem_work, false, true, objectFullname);
+            string factoryName = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, false, true, objectFullname);
             return FunctionDefinitionCall(factoryName, isCollection);
         }
 

@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +14,18 @@ namespace Diphap.JsNetBridge
         /// Get instance.
         /// </summary>
         /// <returns></returns>
-        static public ScriptHelper GetInstance()
+        static public ScriptHelper GetInstance(EnumScript choice)
         {
-            return new ScriptHelper_JS();
+            switch (choice)
+            {
+                case EnumScript.JS:
+                    return new ScriptHelper_JS();
+                case EnumScript.TS:
+                    return new ScriptHelper_TS();
+                default:
+                    throw new NotImplementedException();
+            }
+            
         }
 
         /// <summary>

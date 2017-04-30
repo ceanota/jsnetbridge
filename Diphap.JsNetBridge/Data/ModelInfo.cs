@@ -141,10 +141,10 @@ namespace Diphap.JsNetBridge.Data
         /// There is not 'JSArrayFactory'
         /// </summary>
         /// <returns></returns>
-        public string ToJSCore(EnumScript choice, string regionName = "Model")
+        public string ToJSCore(string regionName = "Model")
         {
             //-- sort types of oldClasses.
-            this.Execute(choice);
+            this.Execute(EnumScript.JS);
 
             List<string> jsInstructions = new List<string>();
 
@@ -167,6 +167,78 @@ namespace Diphap.JsNetBridge.Data
         }
 
         /// <summary>
+        /// Code TS of factories of c# oldClasses.
+        /// There is not 'JSArrayFactory'
+        /// </summary>
+        /// <returns></returns>
+        public string ToTSCore()
+        {
+            //-- sort types of oldClasses.
+            this.Execute(EnumScript.TS);
+
+            Dictionary<string, List<TypeSorter>> groups_by_ns = new Dictionary<string, List<TypeSorter>>();
+
+            foreach (var dic in this.Classes)
+            {
+                foreach (var kv in dic)
+                {
+                    var ns = kv.Value.GetScriptNamespace_Full();
+                    if (groups_by_ns.ContainsKey(ns))
+                    {
+                        groups_by_ns[ns].Add(kv.Value);
+                    }
+                    else
+                    {
+                        var list = new List<TypeSorter>();
+                        list.Add(kv.Value);
+                        groups_by_ns.Add(ns, list);
+                    }
+
+                }
+            }
+
+            StringBuilder scriptInstructions = new StringBuilder();
+
+            scriptInstructions.AppendLine(
+@"declare namespace $dp.$shared {
+    interface $Array<T> extends Array<T> {
+        $dpItemFactory(): T;
+    }
+}");
+
+            foreach (var kv in groups_by_ns)
+            {
+                //--ex: declare namespace _I_NS_$dp.$JsNet.ContosoUniversity.Models {
+                scriptInstructions.AppendLine("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
+
+                scriptInstructions.AppendLine("//#region 'interfaces'");
+                foreach (var typeSorter in kv.Value)
+                {
+                    // interface Enrollment
+                    // { EnrollmentID: number, CourseID: number, PersonID: number, Grade: number, Student: Student, Course: Course }
+                    scriptInstructions.AppendLine("interface {name}".Replace("{name}", TypeHelper.GetName(typeSorter.TObj)/*model name*/));
+                    scriptInstructions.AppendLine(typeSorter.JSValue);
+                }
+                scriptInstructions.AppendLine("//#endregion");
+
+                scriptInstructions.AppendLine("//#region 'functions'");
+                foreach (var typeSorter in kv.Value)
+                {
+                    //-- var OfficeAssignment: () => $dp.$JsNet.ContosoUniversity.Models.OfficeAssignment;
+                    scriptInstructions.AppendLine("var {model_name}: () => {model_fullname};"
+                        .Replace("{model_name}", TypeHelper.GetName(typeSorter.TObj))
+                        .Replace("{model_fullname}", kv.Key + "." + TypeHelper.GetName(typeSorter.TObj)));
+                }
+                scriptInstructions.AppendLine("//#endregion");
+
+                scriptInstructions.AppendLine("}");
+            }
+
+            return scriptInstructions.ToString();
+
+        }
+
+        /// <summary>
         /// function declaration
         /// ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
         /// </summary>
@@ -180,7 +252,7 @@ namespace Diphap.JsNetBridge.Data
                 foreach (var kv in dic)
                 {
                     {
-                        string funcDecl = ScriptHelper.GetInstance().GetFactoryDeclaration(
+                        string funcDecl = ScriptHelper.GetInstance(EnumScript.JS).GetFactoryDeclaration(
                             kv.Key,
                             kv.Value.JSValue,
                             true,
@@ -203,7 +275,7 @@ namespace Diphap.JsNetBridge.Data
             {
                 foreach (var kv in dic)
                 {
-                    createdNamespaces.AddRange(ScriptHelper.GetInstance().CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key)));
+                    createdNamespaces.AddRange(ScriptHelper.GetInstance(EnumScript.JS).CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(kv.Key)));
                 }
             }
             List<string> jsInstructions = new List<string>();
@@ -276,35 +348,33 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// All code js.
         /// </summary>
-        /// <param name="choice"></param>
         /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
-        public string ToJS(EnumScript choice, bool withJsFileDependencies = true)
+        public string ToJS(bool withJsFileDependencies = true)
         {
             Func<StringBuilder, object> f =
-                (sb) => { sb.AppendLine(this.ToJSCore(choice)); return null; };
+                (sb) => { sb.AppendLine(this.ToJSCore()); return null; };
             return ToJSTemplate(f, withJsFileDependencies);
         }
         /// <summary>
         /// Generates file script
         /// </summary>
-        /// <param name="choice"></param>
         /// <param name="jsFilePath"></param>
         /// <param name="withJsFileDependencies"></param>
-        public void WriteAllText(EnumScript choice, string jsFilePath, bool withJsFileDependencies = true)
+        public void WriteAllText(string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.WriteAllText(jsFilePath, this.ToJS(choice, withJsFileDependencies));
+            File.WriteAllText(jsFilePath, this.ToJS(withJsFileDependencies));
         }
 
         /// <summary>
         /// Generates file script
         /// </summary>
-        /// <param name="choice"></param>
+
         /// <param name="jsFilePath"></param>
         /// <param name="withJsFileDependencies"></param>
-        public void AppendAllText(EnumScript choice, string jsFilePath, bool withJsFileDependencies = true)
+        public void AppendAllText(string jsFilePath, bool withJsFileDependencies = true)
         {
-            File.AppendAllText(jsFilePath, this.ToJS(choice, withJsFileDependencies));
+            File.AppendAllText(jsFilePath, this.ToJS(withJsFileDependencies));
         }
 
     }

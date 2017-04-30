@@ -56,7 +56,10 @@ namespace Diphap.JsNetBridge.Common
             {
                 tname = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(tname);
             }
-            return tname;
+
+            var key_value = string.Format("{0}:{1}", mi.Name, tname);
+
+            return key_value;
         }
 
         ScriptTypeInfo _GetScriptTypeInfo;
@@ -77,6 +80,17 @@ namespace Diphap.JsNetBridge.Common
         }
 
         /// <summary>
+        /// EnumScript
+        /// </summary>
+        protected override EnumScript _EnumScript
+        {
+            get
+            {
+                return EnumScript.TS;
+            }
+        }
+
+        /// <summary>
         /// ex: 'propertyName : 78'
         /// </summary>
         /// <param name="mi"></param>
@@ -84,7 +98,7 @@ namespace Diphap.JsNetBridge.Common
         /// <returns></returns>
         override protected string get_js_key_value(MemberInfo mi, string valueTemp)
         {
-            return string.Format("\"{0}\":{1}", mi.Name, valueTemp);
+            return string.Format("{0}:{1}", mi.Name, valueTemp);
         }
     }
 }

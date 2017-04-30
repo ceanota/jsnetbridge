@@ -9,11 +9,13 @@ namespace Diphap.JsNetBridge.Common
 {
 
     /// <summary>
-    /// Indicates if the type has members with complex or somple type.
+    /// Indicates if the type has members with complex or simple type.
     /// </summary>
     abstract internal class TypeSorter
     {
         
+        protected abstract EnumScript _EnumScript { get; }
+
         /// <summary>
         /// Get instance.
         /// </summary>
@@ -104,7 +106,7 @@ namespace Diphap.JsNetBridge.Common
 
                 Type tmem = TypeHelper.GetMemberType(mi);
 
-                if (ScriptHelper.GetInstance().GetPrimitiveEmptyValue(tmem, out value))
+                if (ScriptHelper.GetInstance(this._EnumScript).GetPrimitiveEmptyValue(tmem, out value))
                 {
                     js_key_value_list.Add(this.get_js_key_value(mi, value));
                 }
@@ -199,6 +201,15 @@ namespace Diphap.JsNetBridge.Common
                 js_key_value_list.Add(js_key_value);
                 this.ComplexMembers.Remove(mi);
             }
+        }
+
+        /// <summary>
+        /// ex: $dp.$JsNet.ContosoUniversity.Models
+        /// </summary>
+        /// <returns></returns>
+        public string GetScriptNamespace_Full()
+        {
+            return ConfigJS.JSNamespace.GetNamespace(this.TObj);
         }
 
         public override string ToString()

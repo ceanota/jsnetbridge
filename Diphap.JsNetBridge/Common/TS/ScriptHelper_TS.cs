@@ -41,38 +41,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public List<string> CreateNamespace(string js_obj_fullName)
         {
-            //-- 
-            List<string> obj_full_array;
-            {
-                //-- parts of namespace.
-                List<string> ns_parts = js_obj_fullName.Split('.').ToList();
-
-                obj_full_array = new List<string>(ns_parts.Count);
-
-                string ns_remain = js_obj_fullName;
-                for (int ii = ns_parts.Count - 1; ii > 0; ii--)
-                {
-                    string obj_current = ns_parts[ii];
-                    int length = ns_remain.Length - obj_current.Length;
-                    string obj_all = ns_remain.Substring(0, length).TrimEnd('.');
-                    obj_full_array.Add(obj_all);
-                    ns_remain = obj_all;
-                }
-
-                obj_full_array.Reverse();
-
-                if (obj_full_array.Count > 0)
-                { obj_full_array[0] = "window." + obj_full_array[0]; }
-            }
-
-
-            List<string> instructions = new List<string>();
-            foreach (string obj in obj_full_array)
-            {
-                instructions.Add(string.Format("{0} = {0} || {{}};", obj));
-            }
-
-            return instructions;
+            throw new NotImplementedException();
 
         }
 

@@ -1,4 +1,5 @@
-﻿using Diphap.JsNetBridge.Common.JS;
+﻿using Diphap.JsNetBridge.Common;
+using Diphap.JsNetBridge.Common.JS;
 using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
@@ -97,7 +98,7 @@ namespace Diphap.JsNetBridge.Mvc
                     sb.Append("return " + objName + ";");
                 }
 
-                string json = ScriptHelper.GetInstance().GetFunction(sb.ToString(), true, "actionFactory");
+                string json = ScriptHelper.GetInstance(EnumScript.JS).GetFunction(sb.ToString(), true, "actionFactory");
 
                 return json;
             }
