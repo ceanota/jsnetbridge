@@ -65,31 +65,6 @@ declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
 
 }
 
-//declare namespace $dp.$shared {
-//    interface $Array<T> extends Array<T> {
-//        $dpItemFactory(): T;
-//    }
-//}
-
-//declare namespace $dp.$JsNet.ContosoUniversity.Models {
-
-//    interface Enrollment {
-//        EnrollmentID: number, CourseID: number, PersonID: number, Grade: number,
-//        Student: Student,
-//        Course: Object,
-//        //test: any[]
-//    }
-
-//    interface Student {
-//        EnrollmentDate: Date, PersonID: number, LastName: string, FirstMidName: string, FullName: string, Enrollments: $dp.$shared.$Array<Enrollment>,
-//    }
-
-//    var Enrollment: () => Enrollment;
-
-//    var Student: () => Student;
-
-//}
-
 declare namespace $dp.$shared {
     interface $Array<T> extends Array<T> {
         $dpItemFactory(): T;

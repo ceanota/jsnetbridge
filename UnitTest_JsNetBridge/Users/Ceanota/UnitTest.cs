@@ -26,12 +26,14 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestMethod1()
         {
-            ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student), typeof(ContosoUniversity.Models.Generic.ReturnData<ContosoUniversity.Models.Enrollment>));
+            //ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student), typeof(ContosoUniversity.Models.Generic.ReturnData<ContosoUniversity.Models.Enrollment>));
             //var code = st.ToTSCore();
-
             //File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", code);
 
-            st.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", true);
+            //st.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", true);
+
+            EnumColInfo ei = new EnumColInfo(new List<Type>() { typeof(ContosoUniversity.Models.Grade) }, new ConfigJS.JSNamespace());
+            ei.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.js");
         }
 
         [TestMethod]

@@ -111,6 +111,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Users\Ceanota\test.enum.js" />
     <Content Include="Users\Ceanota\test.js" />
   </ItemGroup>
   <ItemGroup>
