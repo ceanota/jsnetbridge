@@ -10,6 +10,14 @@ namespace Diphap.JsNetBridge
 {
     abstract public class ScriptHelper
     {
+        static ScriptHelper_JS _ScriptHelper_JS;
+        static ScriptHelper_JS ScriptHelper_JS
+        { get { if (_ScriptHelper_JS == null) { _ScriptHelper_JS = new ScriptHelper_JS(); } return _ScriptHelper_JS; } }
+
+        static ScriptHelper_TS _ScriptHelper_TS;
+        static ScriptHelper_TS ScriptHelper_TS
+        { get { if (_ScriptHelper_TS == null) { _ScriptHelper_TS = new ScriptHelper_TS(); } return _ScriptHelper_TS; } }
+
         /// <summary>
         /// Get instance.
         /// </summary>
@@ -19,13 +27,13 @@ namespace Diphap.JsNetBridge
             switch (choice)
             {
                 case EnumScript.JS:
-                    return new ScriptHelper_JS();
+                    return ScriptHelper.ScriptHelper_JS;
                 case EnumScript.TS:
-                    return new ScriptHelper_TS();
+                    return ScriptHelper.ScriptHelper_TS;
                 default:
                     throw new NotImplementedException();
             }
-            
+
         }
 
         /// <summary>
@@ -94,7 +102,7 @@ namespace Diphap.JsNetBridge
                 }
                 else
                 {
-                    jsValue = GetScriptTypeInfo.TArray ;
+                    jsValue = GetScriptTypeInfo.TArray;
                 }
             }
 
