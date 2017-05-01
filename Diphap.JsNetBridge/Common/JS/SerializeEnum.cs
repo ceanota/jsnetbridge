@@ -12,7 +12,8 @@ namespace Diphap.JsNetBridge
     public static class SerializeEnum
     {
         /// <summary>
-        /// Serialize Enum.
+        /// Serialize Enum for JS
+        /// returns content => ex :{"A":{ "$Key":"A","$Value":0 },"B":{ "$Key":"B","$Value":1 },"C":{ "$Key":"C","$Value":2 },"D":{ "$Key":"D","$Value":3 },"F":{ "$Key":"F","$Value":4 }}
         /// </summary>
         /// <param name="tenum"></param>
         /// <returns></returns>
@@ -28,6 +29,30 @@ namespace Diphap.JsNetBridge
                 string prop_value = string.Format("\"{0}\":{1}", ConfigJS.brandLetter + "Value", kv.Value);
                 string obj = string.Format("{{ {0},{1} }}", prop_key, prop_value);
                 string prop = string.Format("\"{0}\":{1}", kv.Key, obj);
+                props.Add(prop);
+            }
+
+            string jsValue = "{" + string.Join(",", props) + "}";
+
+            return jsValue;
+        }
+
+        /// <summary>
+        /// Serialize Enum for TS (ambient)
+        /// </summary>
+        /// <param name="tenum"></param>
+        /// <returns></returns>
+        public static string ExecuteAdvanced_TS(Type tenum)
+        {
+            Dictionary<string, int> dic = ToDictionnary(tenum);
+
+            List<string> props = new List<string>(dic.Count);
+            foreach (var kv in dic)
+            {
+                string prop_key = string.Format("{0}:string", ConfigJS.brandLetter + "Key");
+                string prop_value = string.Format("{0}:number", ConfigJS.brandLetter + "Value");
+                string obj = string.Format("{{ {0},{1} }}", prop_key, prop_value);
+                string prop = string.Format("{0}:{1}", kv.Key, obj);
                 props.Add(prop);
             }
 
@@ -63,7 +88,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         private static Dictionary<string, int> ToDictionnary(Type t)
         {
-            if (TypeHelper.IsEnum(t) == false) 
+            if (TypeHelper.IsEnum(t) == false)
             {
                 throw new ArgumentException("It is not 'Enum'");
             }

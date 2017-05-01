@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Diphap.JsNetBridge.Common;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -8,9 +9,19 @@ namespace Diphap.JsNetBridge.Data.Enum
 
     public class EnumColInfo : DataInfoCol
     {
-        protected override DataInfo Factory(Type tobj, ConfigJS.JSNamespace JSNamespac)
+        protected override DataInfo Factory(EnumScript choice, Type tobj, ConfigJS.JSNamespace JSNamespac)
         {
-            return new EnumInfo(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
+            switch (choice)
+            {
+                case EnumScript.JS:
+                    return new EnumInfo(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
+                case EnumScript.TS:
+                    return new EnumInfo_TS(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
+                default:
+                    throw new NotImplementedException();
+            }
+
+
         }
 
         #region "Constructor"
@@ -33,7 +44,7 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         public EnumColInfo(Assembly ass)
         : this(ass, new ConfigJS.JSNamespace())
-        { 
+        {
 
         }
 

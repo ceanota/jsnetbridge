@@ -32,7 +32,14 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
 
             //st.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", true);
 
-            EnumColInfo ei = new EnumColInfo(new List<Type>() { typeof(ContosoUniversity.Models.Grade) }, new ConfigJS.JSNamespace());
+            EnumColInfo ei = new EnumColInfo(
+                new List<Type>() { typeof(ContosoUniversity.Models.Grade), typeof(General.Langue), typeof(General.Matiere) },
+                new ConfigJS.JSNamespace());
+
+            //var code = ei.ToTSCore();
+
+            //File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.d.ts", code);
+
             ei.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.js");
         }
 

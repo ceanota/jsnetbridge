@@ -22,16 +22,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public override string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
         {
-            string jsvalue = string.Format("{0}()", objectFullName);
-            if (isCollection)
-            {
-                jsvalue = JSArrayFactory.FunctionDefinitionCall(jsvalue);
-            }
-            if (functionReference)
-            {
-                jsvalue = jsvalue.Replace("()", null);
-            }
-            return jsvalue;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -72,11 +63,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFunction(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
-            return string.Format("function {0} () {{ try {{ {1} }} catch(ex) {{ {3}  }} }}{2}",
-                funcName,
-                body,
-                call ? "()" : null,
-                exceptionMessage == null ? "throw ex;" : string.Format("var new_message = '{0}' + ' => ' + ex.message; throw new_message;", exceptionMessage));
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -89,7 +76,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFunctionModule(string body, bool call, string funcName = null, string exceptionMessage = null)
         {
-            return "(" + GetFunction(body, call, funcName, exceptionMessage) + ")";
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -102,30 +89,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFactory(string jsObj, bool withArgs, string constructorName = null, bool stampFunc = false)
         {
-            if ((string.IsNullOrWhiteSpace(jsObj) == false) == false)
-            {
-                throw new ArgumentNullException("jsObj");
-            }
-
-            string constructorInstruction = null;
-            if (string.IsNullOrWhiteSpace(constructorName) == false)
-            {
-                constructorInstruction = string.Format("obj.constructor={0};", constructorName);
-            }
-
-            string stampObjInstruction = null;
-            if (stampFunc)
-            {
-                constructorInstruction = string.Format("obj.{0}stamp = {1};", ConfigJS.brandLetter, ConfigJS.stampFunc);
-            }
-
-            string argsInstruction = null;
-            if (withArgs)
-            {
-                argsInstruction = "var args = Array.prototype.slice.call(arguments);";
-            }
-
-            return string.Format("function(){{ {0} var obj = {1};{2}{3} return obj; }}", argsInstruction, jsObj, constructorInstruction, stampObjInstruction);
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -135,8 +99,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFactory_Executing(string instructions)
         {
-            string value = string.Format("(function(){{ {0} }})();", instructions);
-            return value;
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -149,7 +112,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetFactoryDeclaration(Type t, string jsObj, bool withArgs, string objFullName)
         {
-            return GetObjectDeclaration(objFullName, GetFactory(jsObj, withArgs, objFullName, false));
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -171,7 +134,10 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         override public string GetObjectDeclaration(string objectFullName, string jsObj)
         {
-            return string.Format("{0} = {0} || {1};", objectFullName, jsObj);
+            var value = "interface {objectFullName} {jsObj} "
+                .Replace("{objectFullName}", objectFullName)
+                .Replace("{jsObj}", jsObj);
+            return value;
         }
 
     }

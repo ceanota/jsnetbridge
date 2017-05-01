@@ -111,6 +111,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="Users\Ceanota\test.enum.d.ts" />
     <Content Include="Users\Ceanota\test.enum.js" />
     <Content Include="Users\Ceanota\test.js" />
   </ItemGroup>

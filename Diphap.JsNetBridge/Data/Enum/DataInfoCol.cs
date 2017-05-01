@@ -11,11 +11,11 @@ namespace Diphap.JsNetBridge.Data.Enum
 {
     abstract public class DataInfoCol
     {
-        abstract protected DataInfo Factory(Type tobj, ConfigJS.JSNamespace JSNamespace);
-
-        readonly EnumScript _EnumScript = EnumScript.JS;
+        abstract protected DataInfo Factory(EnumScript choice, Type tobj, ConfigJS.JSNamespace JSNamespace);
 
         public List<DataInfo> JsObjCol { get; protected set; }
+
+        public List<DataInfo> TsObjCol { get; protected set; }
 
         IEnumerable<Type> _GetJsObjColType;
         public IEnumerable<Type> GetJsObjColTypes()
@@ -34,7 +34,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         /// <returns></returns>
         public IList<string> CreateNamespaces()
         {
-            return CreateNamespaces(this._EnumScript, this.GetJsObjColTypes());
+            return DataInfoCol.CreateNamespaces(this.GetJsObjColTypes());
         }
 
         /// <summary>
@@ -63,6 +63,11 @@ namespace Diphap.JsNetBridge.Data.Enum
             return objDecl_Array;
         }
 
+        /// <summary>
+        /// Generates JS Codes.
+        /// </summary>
+        /// <param name="regionName"></param>
+        /// <returns></returns>
         virtual public string ToJSCore(string regionName = "")
         {
             List<string> jsInstructions = new List<string>();
@@ -84,18 +89,64 @@ namespace Diphap.JsNetBridge.Data.Enum
         }
 
         /// <summary>
+        /// Generates TS (ambient) codes.
+        /// </summary>
+        /// <param name="regionName"></param>
+        /// <returns></returns>
+        virtual public string ToTSCore(string regionName = "")
+        {
+            List<string> scriptInstructions = new List<string>();
+
+            Dictionary<string, List<DataInfo>> groups_by_ns = new Dictionary<string, List<DataInfo>>();
+
+            foreach (var scriptObj in this.TsObjCol)
+            {
+                var ns = ConfigJS.JSNamespace.GetNamespace(scriptObj.TObj);
+                if (groups_by_ns.ContainsKey(ns))
+                {
+                    groups_by_ns[ns].Add(scriptObj);
+                }
+                else
+                {
+                    var list = new List<DataInfo>();
+                    list.Add(scriptObj);
+                    groups_by_ns.Add(ns, list);
+                }
+            }
+
+            scriptInstructions.Add(JSRaw.Region.Begin(regionName));
+
+            foreach (var kv in groups_by_ns)
+            {
+                //--ex: declare namespace $dp.$JsNet.ContosoUniversity.Models {
+                scriptInstructions.Add("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
+
+                foreach(var scriptObj in kv.Value)
+                {
+                    //-- Declaration of interfaces.
+                    scriptInstructions.Add(scriptObj.JsObjDeclaration(false));
+                }
+
+                scriptInstructions.Add("}");
+            }
+
+            scriptInstructions.Add(JSRaw.Region.End());
+
+            return string.Join("\r\n", scriptInstructions);
+        }
+
+        /// <summary>
         /// Create namespaces.
         /// </summary>
-        /// <param name="choice"></param>
         /// <param name="tobjArray"></param>
         /// <returns></returns>
-        static private List<string> CreateNamespaces(EnumScript choice, IEnumerable<Type> tobjArray)
+        static private List<string> CreateNamespaces(IEnumerable<Type> tobjArray)
         {
             List<string> jsInstructions = new List<string>();
 
             foreach (var t in tobjArray)
             {
-                IEnumerable<string> nsArray = ScriptHelper.GetInstance(choice).CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
+                IEnumerable<string> nsArray = ScriptHelper.GetInstance(EnumScript.JS).CreateNamespace(ConfigJS.JSNamespace.GetObjectFullName(t));
                 foreach (var ns in nsArray)
                 {
                     if (jsInstructions.Contains(ns) == false)
@@ -119,16 +170,30 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         virtual protected void Init(IList<Type> Types_Net)
         {
+            #region "Javascript"
             this.JsObjCol = new List<DataInfo>(Types_Net.Count);
 
             foreach (Type tobj in Types_Net)
             {
-                DataInfo objInfo = this.Factory(tobj, _JSNamespace);
+                DataInfo objInfo = this.Factory(EnumScript.JS, tobj, _JSNamespace);
                 if (string.IsNullOrWhiteSpace(objInfo.JsKeyValue) == false)
                 {
-                    JsObjCol.Add(objInfo);
+                    this.JsObjCol.Add(objInfo);
                 }
             }
+            #endregion
+
+            #region "Typescript"
+            this.TsObjCol = new List<DataInfo>(Types_Net.Count);
+            foreach (Type tobj in Types_Net)
+            {
+                DataInfo objInfo = this.Factory(EnumScript.TS, tobj, _JSNamespace);
+                if (string.IsNullOrWhiteSpace(objInfo.JsKeyValue) == false)
+                {
+                    this.TsObjCol.Add(objInfo);
+                }
+            }
+            #endregion
         }
 
         protected ConfigJS.JSNamespace _JSNamespace { get; private set; }
@@ -137,7 +202,6 @@ namespace Diphap.JsNetBridge.Data.Enum
         {
             _JSNamespace = JSNamespace;
             this.Init(Types_Net);
-
         }
 
     }

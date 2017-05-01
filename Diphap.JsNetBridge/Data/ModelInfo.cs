@@ -208,7 +208,7 @@ namespace Diphap.JsNetBridge.Data
 
             foreach (var kv in groups_by_ns)
             {
-                //--ex: declare namespace _I_NS_$dp.$JsNet.ContosoUniversity.Models {
+                //--ex: declare namespace $dp.$JsNet.ContosoUniversity.Models {
                 scriptInstructions.AppendLine("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
 
                 scriptInstructions.AppendLine("//#region 'interfaces'");

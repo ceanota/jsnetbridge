@@ -93,6 +93,17 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
     var Course: () => $dp.$JsNet.ContosoUniversity.Models.Course;
     var Department: () => $dp.$JsNet.ContosoUniversity.Models.Department;
     //#endregion
+
+
+    interface Grade {
+        A: { $Key: string, $Value: number },
+        C: { $Key: string, $Value: number },
+        D: { $Key: string, $Value: number },
+        B: { $Key: string, $Value: number },
+    }
+
+    var Grade: Grade;
+
 }
 declare namespace $dp.$JsNet.ContosoUniversity.Models.Generic {
     interface ReturnData_$gen$_ContosoUniversityModelsEnrollment

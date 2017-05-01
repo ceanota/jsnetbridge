@@ -18,4 +18,7 @@ namespace TestJsNetBridgeApp.Models
     {
         public T TypedBusinessData { get; set; }
     }
+
+
+
 }

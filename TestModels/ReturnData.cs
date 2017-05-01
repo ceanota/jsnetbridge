@@ -19,3 +19,18 @@ namespace ContosoUniversity.Models.Generic
         public T TypedBusinessData { get; set; }
     }
 }
+
+namespace General
+{
+    public enum Langue
+    {
+        Francais,
+        Anglais,
+    }
+
+    public enum Matiere
+    {
+        Francais,
+        Anglais,
+    }
+}

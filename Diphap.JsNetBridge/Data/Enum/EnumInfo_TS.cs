@@ -7,13 +7,13 @@ using Diphap.JsNetBridge.Common;
 
 namespace Diphap.JsNetBridge.Data.Enum
 {
-    public class EnumInfo : DataInfo
+    public class EnumInfo_TS : DataInfo
     {
         protected override EnumScript _EnumScript
         {
             get
             {
-                return EnumScript.JS;
+                return EnumScript.TS;
             }
         }
         string _JsObj;
@@ -23,30 +23,29 @@ namespace Diphap.JsNetBridge.Data.Enum
             {
                 if (this._JsObj == null)
                 {
-                    this._JsObj = SerializeEnum.ExecuteAdvanced(this.TObj);
+                    this._JsObj = SerializeEnum.ExecuteAdvanced_TS(this.TObj); 
                 }
 
                 return this._JsObj;
-                
+
             }
         }
 
 
         override public string JsObjDeclaration(bool withAlias)
         {
-            string objFullName = this._JSNamespace.GetObjectFullName(TObj, withAlias);
-            return this.flagGetFactory ? ScriptHelper.GetInstance(this._EnumScript).GetFactoryDeclaration(TObj, this.JsObj, false, objFullName) : ScriptHelper.GetInstance(this._EnumScript).GetObjectDeclaration(objFullName, this.JsObj);
+            string objFullName = TypeHelper.GetName(TObj);
+            return ScriptHelper.GetInstance(this._EnumScript).GetObjectDeclaration(objFullName, this.JsObj);
 
         }
 
-        public EnumInfo(Type tobj_, IList<DataInfo> jsObjCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
+        public EnumInfo_TS(Type tobj_, IList<DataInfo> jsObjCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
             : base(tobj_, jsObjCol_, JSNamespace, flagGetFactory_)
         {
-            if (tobj_.IsEnum == false) 
+            if (tobj_.IsEnum == false)
             {
-                throw new Exception("It must be 'Enum'"); 
+                throw new Exception("It must be 'Enum'");
             }
         }
     }
-    
 }
