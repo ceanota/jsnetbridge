@@ -14,7 +14,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             switch (choice)
             {
                 case EnumScript.JS:
-                    return new EnumInfo(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
+                    return new EnumInfo_JS(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
                 case EnumScript.TS:
                     return new EnumInfo_TS(tobj, this.JsObjCol, JSNamespac, this.flagGetFactory);
                 default:

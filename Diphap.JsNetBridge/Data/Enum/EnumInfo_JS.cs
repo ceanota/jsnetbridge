@@ -7,7 +7,7 @@ using Diphap.JsNetBridge.Common;
 
 namespace Diphap.JsNetBridge.Data.Enum
 {
-    public class EnumInfo : DataInfo
+    public class EnumInfo_JS : DataInfo
     {
         protected override EnumScript _EnumScript
         {
@@ -23,7 +23,7 @@ namespace Diphap.JsNetBridge.Data.Enum
             {
                 if (this._JsObj == null)
                 {
-                    this._JsObj = SerializeEnum.ExecuteAdvanced(this.TObj);
+                    this._JsObj = SerializeEnum.ExecuteAdvanced_JS(this.TObj);
                 }
 
                 return this._JsObj;
@@ -39,7 +39,7 @@ namespace Diphap.JsNetBridge.Data.Enum
 
         }
 
-        public EnumInfo(Type tobj_, IList<DataInfo> jsObjCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
+        public EnumInfo_JS(Type tobj_, IList<DataInfo> jsObjCol_, ConfigJS.JSNamespace JSNamespace, bool flagGetFactory_ = true)
             : base(tobj_, jsObjCol_, JSNamespace, flagGetFactory_)
         {
             if (tobj_.IsEnum == false) 

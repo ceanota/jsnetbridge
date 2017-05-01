@@ -17,7 +17,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="tenum"></param>
         /// <returns></returns>
-        public static string ExecuteAdvanced(Type tenum)
+        public static string ExecuteAdvanced_JS(Type tenum)
         {
             Dictionary<string, int> dic = ToDictionnary(tenum);
 
@@ -66,7 +66,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="tenum"></param>
         /// <returns></returns>
-        public static string ExecuteSimple(Type tenum)
+        public static string ExecuteSimple_JS(Type tenum)
         {
             Dictionary<string, int> dic = ToDictionnary(tenum);
 
