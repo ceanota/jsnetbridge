@@ -52,6 +52,9 @@ namespace Diphap.JsNetBridge.Common
                 return js_key_value_list.ToList();
             }
         }
+        /// <summary>
+        /// Content of object ex: for TS,  '{ prop1: number, prop2: string }'
+        /// </summary>
         abstract public string JSValue { get; }
 
         public bool IsSimpleType

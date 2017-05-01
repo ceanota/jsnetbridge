@@ -26,7 +26,6 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
     var Course: () => $dp.$JsNet.ContosoUniversity.Models.Course;
     var Department: () => $dp.$JsNet.ContosoUniversity.Models.Department;
     //#endregion
-        
 }
 declare namespace $dp.$JsNet.ContosoUniversity.Models.Generic {
     //#region 'interfaces'

@@ -127,15 +127,15 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
-        /// $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
+        /// ex: 'interface objectName { prop1: number, prop2: string }'
         /// </summary>
-        /// <param name="objectFullName"></param>
-        /// <param name="jsObj"></param>
+        /// <param name="objectName"></param>
+        /// <param name="jsObj">content of interface: ex '{ prop1: number, prop2: string }'</param>
         /// <returns></returns>
-        override public string GetObjectDeclaration(string objectFullName, string jsObj)
+        override public string GetObjectDeclaration(string objectName, string jsObj)
         {
-            var value = "interface {objectFullName} {jsObj} "
-                .Replace("{objectFullName}", objectFullName)
+            var value = "interface {objectName} {jsObj} "
+                .Replace("{objectName}", objectName)
                 .Replace("{jsObj}", jsObj);
             return value;
         }

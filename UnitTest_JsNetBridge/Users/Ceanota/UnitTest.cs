@@ -26,9 +26,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestMethod1()
         {
-            //ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student), typeof(ContosoUniversity.Models.Generic.ReturnData<ContosoUniversity.Models.Enrollment>));
-            //var code = st.ToTSCore();
-            //File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", code);
+            ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student), typeof(ContosoUniversity.Models.Generic.ReturnData<ContosoUniversity.Models.Enrollment>));
+            File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", st.ToTSCore());
 
             //st.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", true);
 
@@ -36,11 +35,9 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
                 new List<Type>() { typeof(ContosoUniversity.Models.Grade), typeof(General.Langue), typeof(General.Matiere) },
                 new ConfigJS.JSNamespace());
 
-            //var code = ei.ToTSCore();
+            File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.d.ts", ei.ToTSCore());
 
-            //File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.d.ts", code);
-
-            ei.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.js");
+            //ei.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.js");
         }
 
         [TestMethod]

@@ -68,7 +68,7 @@ namespace Diphap.JsNetBridge.Data.Enum
         /// </summary>
         /// <param name="regionName"></param>
         /// <returns></returns>
-        virtual public string ToJSCore(string regionName = "")
+        virtual public string ToJSCore(string regionName = "Enum")
         {
             List<string> jsInstructions = new List<string>();
 
@@ -93,10 +93,8 @@ namespace Diphap.JsNetBridge.Data.Enum
         /// </summary>
         /// <param name="regionName"></param>
         /// <returns></returns>
-        virtual public string ToTSCore(string regionName = "")
+        virtual public string ToTSCore(string regionName = "Enum")
         {
-            List<string> scriptInstructions = new List<string>();
-
             Dictionary<string, List<DataInfo>> groups_by_ns = new Dictionary<string, List<DataInfo>>();
 
             foreach (var scriptObj in this.TsObjCol)
@@ -114,25 +112,27 @@ namespace Diphap.JsNetBridge.Data.Enum
                 }
             }
 
-            scriptInstructions.Add(JSRaw.Region.Begin(regionName));
+            StringBuilder scriptInstructions = new StringBuilder();
+
+            scriptInstructions.AppendLine(JSRaw.Region.Begin(regionName));
 
             foreach (var kv in groups_by_ns)
             {
                 //--ex: declare namespace $dp.$JsNet.ContosoUniversity.Models {
-                scriptInstructions.Add("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
+                scriptInstructions.AppendLine("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
 
                 foreach(var scriptObj in kv.Value)
                 {
                     //-- Declaration of interfaces.
-                    scriptInstructions.Add(scriptObj.JsObjDeclaration(false));
+                    scriptInstructions.AppendLine(scriptObj.JsObjDeclaration(false));
                 }
 
-                scriptInstructions.Add("}");
+                scriptInstructions.AppendLine("}");
             }
 
-            scriptInstructions.Add(JSRaw.Region.End());
+            scriptInstructions.AppendLine(JSRaw.Region.End());
 
-            return string.Join("\r\n", scriptInstructions);
+            return scriptInstructions.ToString();
         }
 
         /// <summary>

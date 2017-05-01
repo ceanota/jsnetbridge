@@ -158,10 +158,10 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
         /// </summary>
-        /// <param name="objectFullName"></param>
+        /// <param name="objectFullNameOrName"></param>
         /// <param name="jsObj"></param>
         /// <returns></returns>
-        abstract public string GetObjectDeclaration(string objectFullName, string jsObj);
+        abstract public string GetObjectDeclaration(string objectFullNameOrName, string jsObj);
 
     }
 }

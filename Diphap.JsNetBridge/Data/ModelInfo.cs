@@ -211,7 +211,7 @@ namespace Diphap.JsNetBridge.Data
                 //--ex: declare namespace $dp.$JsNet.ContosoUniversity.Models {
                 scriptInstructions.AppendLine("declare namespace {name} {".Replace("{name}", kv.Key /*namespace*/));
 
-                scriptInstructions.AppendLine("//#region 'interfaces'");
+                scriptInstructions.AppendLine(JSRaw.Region.Begin("interfaces"));
                 foreach (var typeSorter in kv.Value)
                 {
                     // interface Enrollment
@@ -219,9 +219,9 @@ namespace Diphap.JsNetBridge.Data
                     scriptInstructions.AppendLine("interface {name}".Replace("{name}", TypeHelper.GetName(typeSorter.TObj)/*model name*/));
                     scriptInstructions.AppendLine(typeSorter.JSValue);
                 }
-                scriptInstructions.AppendLine("//#endregion");
+                scriptInstructions.AppendLine(JSRaw.Region.End());
 
-                scriptInstructions.AppendLine("//#region 'functions'");
+                scriptInstructions.AppendLine(JSRaw.Region.Begin("functions"));
                 foreach (var typeSorter in kv.Value)
                 {
                     //-- var OfficeAssignment: () => $dp.$JsNet.ContosoUniversity.Models.OfficeAssignment;
@@ -229,7 +229,7 @@ namespace Diphap.JsNetBridge.Data
                         .Replace("{model_name}", TypeHelper.GetName(typeSorter.TObj))
                         .Replace("{model_fullname}", kv.Key + "." + TypeHelper.GetName(typeSorter.TObj)));
                 }
-                scriptInstructions.AppendLine("//#endregion");
+                scriptInstructions.AppendLine(JSRaw.Region.End());
 
                 scriptInstructions.AppendLine("}");
             }
