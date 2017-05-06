@@ -51,7 +51,7 @@ namespace Diphap.JsNetBridge.Common
         /// <returns></returns>
         override protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
         {
-            var tname = _JSNamespace.GetObjectFullName(telem_work, true);
+            var tname = _JSNamespace.GetObjectFullName(telem_work, false);
             if (isCollection)
             {
                 tname = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(tname);

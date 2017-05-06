@@ -243,6 +243,11 @@ namespace Diphap.JsNetBridge.Mvc
             File.AppendAllText(jsFilePath, this.ToJS(false));
         }
 
+        /// <summary>
+        /// Generates JS code.
+        /// </summary>
+        /// <param name="withJsFileDependencies"></param>
+        /// <returns></returns>
         public string ToJS(bool withJsFileDependencies = true)
         {
             Func<StringBuilder, object> f = (sb) =>
@@ -261,6 +266,110 @@ namespace Diphap.JsNetBridge.Mvc
                 return null;
             };
             return ModelInfo.ToJSTemplate(f, withJsFileDependencies);
+        }
+
+        /// <summary>
+        /// Generates TS code.
+        /// </summary>
+        /// <param name="withJsFileDependencies"></param>
+        /// <returns></returns>
+        public string ToTS(bool withJsFileDependencies = true)
+        {
+            StringBuilder sb = new StringBuilder();
+
+            string share =
+@"declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
+
+    interface $AjaxSettings {
+        dataType: string,
+        contentType: string,
+        cache: boolean,
+        type: string,
+        method: string,
+    }
+
+    interface $httpMethodArray {
+        $items: ArrayConstructor, $single: string, $first: string
+    }
+
+    interface $Names {
+        action: string, controller: string, area: string
+    }
+
+    interface _$Action {
+        $_Url: string,
+        $GetUrl(routeData: Object): string,
+        $GetRouteData(): Object,
+        $Names: $Names,
+        $Params(): {},
+        $Return(): Object,
+        $Enums(): Object,
+        $IsApi: boolean,
+        $httpMethodArray: $httpMethodArray,
+        $AjaxSettings(): $AjaxSettings,
+        $RouteTemplate: string,
+    }
+
+    function $ActionFactory(): _$Action;
+
+}";
+            sb.AppendLine(share);
+            sb.AppendLine(this.ModelInfo.ToTSCore());
+            sb.AppendLine(this.EnumInfo.ToTSCore());
+
+            ToTS_UrlSet(sb);
+
+            return sb.ToString();
+        }
+
+        private void ToTS_UrlSet(StringBuilder sb)
+        {
+            foreach (var area in this.UrlInfo.AreaInfoList)
+            {
+                foreach (var controller in area.ControllerInfoCol)
+                {
+                    foreach (var actionGroup in controller.ActionInfoCol)
+                    {
+                        sb.Append("declare namespace $dp.$JsNet.$UrlSet." + actionGroup.Controller + "." + actionGroup.MethodName + "{");
+                        sb.AppendLine();
+
+                        for (var ii = 0; ii < actionGroup.Signatures.Length; ii++)
+                        {
+                            sb.AppendLine("interface _$action" + ii + " extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {");
+                            var signature = actionGroup.Signatures[ii];
+
+
+                            //-- parameters of action method.
+                            {
+                                ParameterInfo[] piArray = signature.MethodInfo.GetParameters();
+
+                                //ex: $Params(): { PersonID: Number, Name: String }
+                                sb.Append("$Params():");
+                                if (signature.ToScript_Params(EnumScript.TS, sb, false) == false)
+                                {
+                                    sb.Append("{}");
+                                }
+                                sb.AppendLine();
+                            }
+
+                            //-- returns of action method.
+                            {
+                                sb.Append("$Return():");
+                                sb.Append(signature.ToScript_Return(EnumScript.TS, false));
+                                sb.AppendLine();
+                            }
+
+                            sb.AppendLine("}");
+
+                            sb.AppendLine("var $action" + ii + ": _$action" + ii + ";");
+                        }
+
+                        sb.AppendLine("}");
+
+
+                    }
+                }
+            }
         }
 
         private ModelInfo _ModelInfo;

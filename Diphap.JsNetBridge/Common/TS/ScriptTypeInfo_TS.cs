@@ -38,7 +38,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public override string TArrayFactoryFunctionDefinitionCall(string T)
         {
-            return "$dp.$shared.$Array<{T}>".Replace("{T}", T);
+            return "$dp.$shared.$Array<" + T + ">";
         }
     }
 }

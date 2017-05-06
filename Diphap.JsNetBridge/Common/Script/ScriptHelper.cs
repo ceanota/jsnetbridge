@@ -37,6 +37,14 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
+        /// ex: '"{0}":{1}'
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public abstract string GetKeyValue(string key, string value);
+
+        /// <summary>
         /// Get name of object factory.
         /// </summary>
         /// <param name="telem_work"></param>

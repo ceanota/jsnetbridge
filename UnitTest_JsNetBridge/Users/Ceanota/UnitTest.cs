@@ -67,7 +67,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
                 path = Directory.GetParent(path).ToString();
             }
 
-            //path = @"C:\Users\diphap";
+            path = @"D:";
 
             return path;
         }
@@ -77,9 +77,9 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         {
             //string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
             //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
-            string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\SingleAppExample\bin\SingleAppExample.dll";
+            string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-            File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", api.ToJS(true));
+            File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", api.ToTS(true));
         }
 
         [TestMethod]

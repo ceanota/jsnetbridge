@@ -8,10 +8,19 @@ using System.Threading.Tasks;
 namespace Diphap.JsNetBridge
 {
     /// <summary>
-    /// 
+    /// Helper for TS.
     /// </summary>
     public class ScriptHelper_TS : ScriptHelper
     {
+        /// <summary>
+        /// ex: "prop1" : Number
+        /// </summary>
+        /// <returns></returns>
+        public override string GetKeyValue(string key, string value)
+        {
+            return string.Format("{0}:{1}", key, value);
+        }
+
         /// <summary>
         /// Get name of object factory.
         /// </summary>
@@ -22,7 +31,12 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public override string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
         {
-            throw new NotImplementedException();
+            string jsvalue = objectFullName;
+            if (isCollection)
+            {
+                jsvalue = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(jsvalue);
+            }
+            return jsvalue;
         }
 
         /// <summary>

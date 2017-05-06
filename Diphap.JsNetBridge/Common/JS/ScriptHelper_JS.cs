@@ -8,10 +8,21 @@ using System.Threading.Tasks;
 namespace Diphap.JsNetBridge
 {
     /// <summary>
-    /// 
+    /// Helper for jS.
     /// </summary>
     public class ScriptHelper_JS : ScriptHelper
     {
+        /// <summary>
+        /// ex: "prop1" : 0.
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        public override string GetKeyValue(string key, string value)
+        {
+            return string.Format("\"{0}\":{1}", key, value);
+        }
+
         /// <summary>
         /// Get name of object factory.
         /// </summary>

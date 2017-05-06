@@ -160,7 +160,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Parameter Class Types and Return class type.
         /// </summary>
-        /// <returns></return>
+        /// <returns></returns>
         public IList<Type> AllInOutClassTypes()
         {
             if (this._AllInOutClassTypes == null)
@@ -202,33 +202,56 @@ namespace Diphap.JsNetBridge.Mvc
 
         /// <summary>
         /// Serialise parameters of action.
-        /// {param1:obj1, param2:2, param3:"" }
+        /// {param1:obj1, param2:2, param3:"" } or "null"
         /// </summary>
         /// <returns></returns>
         public string ToJS_Params()
         {
-            ParameterInfo[] piArray = this.MethodInfo.GetParameters();
+            StringBuilder sb = new StringBuilder();
 
-            List<string> jsonParams = GetJS_Params(piArray, _JSNamespace);
-
-            string jsonParams_string = "null";
-
-            if (jsonParams.Count > 0)
+            if (ToScript_Params(EnumScript.JS, sb, true) == false)
             {
-                jsonParams_string = "{" + string.Join(",", jsonParams) + "}";
+                sb.Append("null");
             }
 
-            return jsonParams_string;
+            return sb.ToString();
         }
 
         /// <summary>
-        /// 
+        /// Serialise parameters of action.
+        /// {param1:obj1, param2:2, param3:"" } or null
         /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="jsonParams"></param>
+        /// <param name="nsAlias"></param>
+        /// <returns>true: appending, false: nothing</returns>
+        public bool ToScript_Params(EnumScript choice, StringBuilder jsonParams, bool nsAlias)
+        {
+            ParameterInfo[] piArray = this.MethodInfo.GetParameters();
+
+            if (piArray.Length > 0)
+            {
+                jsonParams.Append("{");
+                ActionInfo.GetJS_Params(piArray, _JSNamespace, choice, jsonParams, nsAlias);
+                jsonParams.Append("}");
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Serialise returns of action.
+        /// </summary>
+        /// <param name="choice"></param>
+        /// <param name="alias"></param>
         /// <returns></returns>
-        public string ToJS_Return()
+        public string ToScript_Return(EnumScript choice, bool alias)
         {
             Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
-            string jsonValue = GetJS_EmptyValue_WithFactory(type_return, true, _JSNamespace);
+            string jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice);
             return jsonValue;
         }
 
@@ -266,7 +289,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 //-- IN/OUT parameters.
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Params = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Params(), false));
-                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Return(), false));
+                sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Return = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToScript_Return(EnumScript.JS, true), false));
                 sb.AppendFormat(objName + "." + ConfigJS.brandLetter + "Enums = {0};", ScriptHelper.GetInstance(EnumScript.JS).GetFactory(this.ToJS_Enums(), false));
 
                 string prop_httpMethodArray = objName + "." + ConfigJS.brandLetter + "httpMethodArray";
@@ -446,30 +469,49 @@ namespace Diphap.JsNetBridge.Mvc
 
         #region "private"
         /// <summary>
-        /// Get parameters of action in JS.
+        /// Get parameters of action in JS in string.
         /// </summary>
         /// <param name="piArray"></param>
-        /// <returns></returns>
-        static internal List<string> GetJS_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace)
+        /// <param name="_JSNamespace"></param>
+        /// <param name="choice"></param>
+        /// <param name="jsParams"></param>
+        /// <param name="nsAlias"></param>
+        /// <param name="separator"></param>
+        /// <returns>true => appending, false => nothing </returns>
+        static internal bool GetJS_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, StringBuilder jsParams, bool nsAlias, char separator = ',')
         {
-            List<string> jsParams = new List<string>();
-            foreach (var pi in piArray)
+            for (var ii = 0; ii < piArray.Length; ii++)
             {
+                var pi = piArray[ii];
                 string paramName = pi.Name;
 
                 string jsValue;
 
-                jsValue = GetJS_EmptyValue_WithFactory(pi.ParameterType, true, _JSNamespace);
+                jsValue = GetScript_EmptyValue_WithFactory(pi.ParameterType, nsAlias, _JSNamespace, choice);
 
-                jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
+                if (ii >= 1)
+                {
+                    jsParams.Append(separator);
+                }
+
+                jsParams.Append(ScriptHelper.GetInstance(choice).GetKeyValue(paramName, jsValue));
             }
-            return jsParams;
+
+            return piArray.Length > 0;
         }
 
-        internal static string GetJS_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
+        /// <summary>
+        /// Get js value or ts type.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="nsAlias"></param>
+        /// <param name="_JSNamespace"></param>
+        /// <param name="choice"></param>
+        /// <returns></returns>
+        internal static string GetScript_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice)
         {
-            string jsValue = "null";
-            if (!ScriptHelper.GetInstance(EnumScript.JS).GetPrimitiveEmptyValue(t, out jsValue))
+            string jsValue;
+            if (!ScriptHelper.GetInstance(choice).GetPrimitiveEmptyValue(t, out jsValue))
             {
                 bool isCollection;
 
@@ -481,7 +523,7 @@ namespace Diphap.JsNetBridge.Mvc
                     if (isCollection)
                     {
                         //-- telem_work  is collection.
-                        jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                        jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                     }
                     else
                     {
@@ -491,7 +533,7 @@ namespace Diphap.JsNetBridge.Mvc
                             AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
                             AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
                         {
-                            jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                            jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                         }
                         else { jsValue = "{}"; }
 

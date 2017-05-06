@@ -71,7 +71,12 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes" -->
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.AllInOutClassTypes">
+            <summary>
+            Parameter Class Types and Return class type.
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Enums">
             <summary>
             
@@ -81,13 +86,22 @@
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Params">
             <summary>
             Serialise parameters of action.
-            {param1:obj1, param2:2, param3:"" }
+            {param1:obj1, param2:2, param3:"" } or "null"
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToJS_Return">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToScript_Params(Diphap.JsNetBridge.Common.EnumScript,System.Text.StringBuilder)">
             <summary>
-            
+            Serialise parameters of action.
+            {param1:obj1, param2:2, param3:"" } or null
+            </summary>
+            <param name="choice"></param>
+            <param name="jsonParams"></param>
+            <returns>true: appending, false: nothing</returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToScript_Return(Diphap.JsNetBridge.Common.EnumScript)">
+            <summary>
+            Serialise returns of action.
             </summary>
             <returns></returns>
         </member>
@@ -110,7 +124,6 @@
             Default ajax settings.ex: {url:'http://www.google.fr', method: obj.getMethod()}
             </summary>
             <param name="url">Warning! ex: ['controller/action']</param>
-            <param name="dataType">Warning! ex: ['json']</param>
             <param name="data">js object</param>
             <param name="method">Warning! ['post']</param>
             <returns></returns>
@@ -161,11 +174,25 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_Params(System.Reflection.ParameterInfo[],Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_Params(System.Reflection.ParameterInfo[],Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Common.EnumScript,System.Text.StringBuilder,System.Char)">
             <summary>
-            Get parameters of action in JS.
+            Get parameters of action in JS in string.
             </summary>
             <param name="piArray"></param>
+            <param name="_JSNamespace"></param>
+            <param name="choice"></param>
+            <param name="jsParams"></param>
+            <param name="separator"></param>
+            <returns>true => appending, false => nothing </returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetScript_EmptyValue_WithFactory(System.Type,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Common.EnumScript)">
+            <summary>
+            Get js value or ts type.
+            </summary>
+            <param name="t"></param>
+            <param name="nsAlias"></param>
+            <param name="_JSNamespace"></param>
+            <param name="choice"></param>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.ActionInfoGroup">
@@ -325,6 +352,20 @@
             Creates file which contains ASP MVC object model. 
             </summary>
             <param name="jsFilePath"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.ToJS(System.Boolean)">
+            <summary>
+            Generates JS code.
+            </summary>
+            <param name="withJsFileDependencies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.ToTS(System.Boolean)">
+            <summary>
+            Generates TS code.
+            </summary>
+            <param name="withJsFileDependencies"></param>
+            <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.AspMvcInfo.AllInOutClassTypes">
             <summary>
