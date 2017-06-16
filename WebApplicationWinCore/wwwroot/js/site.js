@@ -33,33 +33,35 @@
             assert(action.$Names.action == funcName, 'function name and action name should be same');
 
             xhr.always(function (result, status, xhr) {
-                debugger;
                 assert(result.Success === true, 'Should receive {Success:true}');
                 done();
             });
 
         });
+
+        it('Call action method [HomeController.Action_WithParamterIdInUrl] with parameter id in url [{controller}/{action}/{id}]', function (done) {
+            //-- action method.
+            var funcName = 'Action_WithParamterIdInUrl';
+            var action = $dpUrlSet.Home[funcName].$action0;
+            var settings = action.$AjaxSettings();
+
+            //-- we want to transmit a paramater in url.
+            var routeData = { id: 'id_frolon' };
+            settings.url = action.$GetUrl(routeData);
+           
+            //-- ajax.
+            var xhr = $.ajax(settings);
+            xhr.always(function (result, status, xhr) {
+                assert(result.Success === true, 'Should receive {Success:true}');
+                assert(result.InputStream.id === routeData.id, 'Server should receveive the id');
+                done();
+            });
+
+        });
+
         if (false) {
             
-            it('Call action method [HomeController.Action_WithParamterIdInUrl] with parameter id in url [{controller}/{action}/{id}]', function (done) {
-                //-- action method.
-                var funcName = 'Action_WithParamterIdInUrl';
-                var action = $dpUrlSet.Home[funcName].$action0;
-                var settings = action.$AjaxSettings();
 
-                //-- we want to transmit a paramater in url.
-                var routeData = { id: 'id_frolon' };
-                settings.url = action.$GetUrl(routeData);
-
-                //-- ajax.
-                var xhr = $.ajax(settings);
-                xhr.always(function (result, status, xhr) {
-                    assert(result.Success === true, 'Should receive {Success:true}');
-                    assert(result.InputStream.id === routeData.id, 'Server should receveive the id');
-                    done();
-                });
-
-            });
             it('Call the action method [TestArea.Home2Controller.Action_FakeName] in MVC [Area]', function (done) {
                 //-- action method.
                 var funcName = 'Action_FakeName';
