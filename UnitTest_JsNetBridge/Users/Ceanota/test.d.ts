@@ -1,15 +1,17 @@
 declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
 
     interface $AjaxSettings {
-        dataType: string,
-        contentType: string,
         cache: boolean,
-        type: string,
+        contentType: any,
+        data: any,
+        dataType: string,
         method: string,
+        type: string,
+        url: string
     }
 
     interface $httpMethodArray {
-        $items: ArrayConstructor, $single: string, $first: string
+        $items: Array<string>, $single: string, $first: string
     }
 
     interface $Names {
@@ -100,12 +102,16 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
 }
 
 //#region 'Enum'
+declare namespace $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController {
+    interface enum_test { test1: { $Key: string, $Value: number }, test2: { $Key: string, $Value: number } }
+}
 //#endregion
 
 declare namespace $dp.$JsNet.$UrlSet.Data2.Get {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -113,6 +119,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home2.Action_NoParams {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -120,6 +127,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home2.Action_FakeName {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -127,6 +135,7 @@ declare namespace $dp.$JsNet.$UrlSet.Data.Get {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -134,6 +143,7 @@ declare namespace $dp.$JsNet.$UrlSet.Data.Action_AcceptVerbs_TEST {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -141,6 +151,7 @@ declare namespace $dp.$JsNet.$UrlSet.Data.Orders {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -148,6 +159,7 @@ declare namespace $dp.$JsNet.$UrlSet.Data.Orders_WithCustomerId {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { customerId: number }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -155,6 +167,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.Index {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): {}
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -162,6 +175,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.Action_NoParams {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -169,6 +183,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.Action_WithParamterIdInUrl {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { id: string }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -176,6 +191,15 @@ declare namespace $dp.$JsNet.$UrlSet.Home.Action_FakeName {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): {}
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): {}
+    }
+    var $action0: _$action0;
+}
+declare namespace $dp.$JsNet.$UrlSet.Home.Action_Enum {
+    interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
+        $Params(): { choice: number }
+        $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
+        $Enums(): { choice: $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.enum_test }
     }
     var $action0: _$action0;
 }
@@ -183,6 +207,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.ShowMe {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { name: string, age: number }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.dpPerson
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -190,6 +215,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { PersonID: number }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -197,6 +223,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetStudents {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { FirstMidName: string }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -204,6 +231,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.CreateNewStudent {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { student: $dp.$JsNet.ContosoUniversity.Models.Student }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -211,6 +239,7 @@ declare namespace $dp.$JsNet.$UrlSet.Home.GetDepartment {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { departmentName: string }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsDepartment
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -218,6 +247,7 @@ declare namespace $dp.$JsNet.$UrlSet.Instructor.Get {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { id: number }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
+        $Enums(): {}
     }
     var $action0: _$action0;
 }
@@ -225,11 +255,13 @@ declare namespace $dp.$JsNet.$UrlSet.Instructor.Put {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { instructor: $dp.$JsNet.ContosoUniversity.Models.Instructor }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
+        $Enums(): {}
     }
     var $action0: _$action0;
     interface _$action1 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { id: number, instructor: $dp.$JsNet.ContosoUniversity.Models.Instructor }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
+        $Enums(): {}
     }
     var $action1: _$action1;
 }
@@ -237,6 +269,7 @@ declare namespace $dp.$JsNet.$UrlSet.Instructor.Delete {
     interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
         $Params(): { id: number }
         $Return(): $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
+        $Enums(): {}
     }
     var $action0: _$action0;
 }

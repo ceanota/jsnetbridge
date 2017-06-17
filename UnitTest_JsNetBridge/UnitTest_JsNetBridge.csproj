@@ -114,6 +114,7 @@
     <TypeScriptCompile Include="Users\Ceanota\test.enum.d.ts" />
     <Content Include="Users\Ceanota\test.enum.js" />
     <Content Include="Users\Ceanota\test.js" />
+    <TypeScriptCompile Include="Users\Ceanota\use_test.ts" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Users\Ceanota\test.d.ts" />

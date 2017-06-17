@@ -53,6 +53,24 @@ namespace TestJsNetBridgeApp.Controllers
             return result;
         }
 
+        public enum enum_test
+        {
+            test1, test2
+        }
+
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
+        [ActionName("Action_RealName")]
+        public ActionResult Action_Enum(enum_test choice)
+        {
+            StreamReader reader = new StreamReader(this.Request.InputStream);
+            string inputStream = reader.ReadToEnd();
+
+            var result = new JsonResult();
+            result.JsonRequestBehavior = JsonRequestBehavior.AllowGet;
+            result.Data = new ReturnData() { Url = this.Request.Url.AbsolutePath, InputStream = inputStream, Success = true };
+            return result;
+        }
+
         #region "copy and paste this"
         public class dpPerson
         {

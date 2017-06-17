@@ -180,13 +180,35 @@ namespace Diphap.JsNetBridge.Mvc
         }
 
         /// <summary>
+        /// {{ choice: ns.enum_test },{ choice0: ns.enum_test0 }} or {}
+        /// </summary>
+        public StringBuilder ToTS_Enums()
+        {
+        
+            StringBuilder sb = new StringBuilder();
+            var enumParams = this.EnumParameters();
+            sb.Append("{");
+            for (int index = 0; index < enumParams.Count; index++)
+            {
+                var pi = enumParams[index];
+                string script_value = GetScript_EmptyValue_WithFactory_forEnum(TypeHelper.GetUnderlyingTypeOrDefault(pi.ParameterType), false, _JSNamespace, EnumScript.TS);
+                if (index > 0)
+                {
+                    sb.Append(",");
+                }
+                sb.Append(string.Format("{0}: {1}", pi.Name, script_value));
+            }
+            sb.Append("}");
+
+            return sb;
+        }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
         public string ToJS_Enums()
         {
-            ParameterInfo[] piArray = this.MethodInfo.GetParameters();
-
             List<string> jsonParams = GetJS_Enums(this.EnumParameters(), _JSNamespace);
 
             string jsonParams_string = "null";
@@ -555,14 +577,14 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string jsValue;
 
-                jsValue = GetJS_EmptyValue_WithFactory_forEnum(TypeHelper.GetUnderlyingTypeOrDefault(pi.ParameterType), true, _JSNamespace);
+                jsValue = GetScript_EmptyValue_WithFactory_forEnum(TypeHelper.GetUnderlyingTypeOrDefault(pi.ParameterType), true, _JSNamespace, EnumScript.JS);
 
                 jsParams.Add(string.Format("\"{0}\":{1}", paramName, jsValue));
             }
             return jsParams;
         }
 
-        internal static string GetJS_EmptyValue_WithFactory_forEnum(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace)
+        internal static string GetScript_EmptyValue_WithFactory_forEnum(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice)
         {
             if (t.IsEnum == false) { throw new Exception("t must be Enum"); }
 
@@ -576,7 +598,7 @@ namespace Diphap.JsNetBridge.Mvc
             }
 
             //-- telem_work  is collection.
-            jsValue = ScriptHelper.GetInstance(EnumScript.JS).GetObjectFactoryName(telem_work, isCollection, true, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+            jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, true, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
 
             return jsValue;
         }

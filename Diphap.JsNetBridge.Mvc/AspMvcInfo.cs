@@ -281,15 +281,17 @@ namespace Diphap.JsNetBridge.Mvc
 @"declare namespace $dp.$JsNet.$Helpers.$Shared.$Action {
 
     interface $AjaxSettings {
-        dataType: string,
-        contentType: string,
         cache: boolean,
-        type: string,
+        contentType: any,
+        data: any,
+        dataType: string,
         method: string,
+        type: string,
+        url: string
     }
 
     interface $httpMethodArray {
-        $items: ArrayConstructor, $single: string, $first: string
+        $items: Array<string>, $single: string, $first: string
     }
 
     interface $Names {
@@ -341,8 +343,6 @@ namespace Diphap.JsNetBridge.Mvc
 
                             //-- parameters of action method.
                             {
-                                ParameterInfo[] piArray = signature.MethodInfo.GetParameters();
-
                                 //ex: $Params(): { PersonID: Number, Name: String }
                                 sb.Append("$Params():");
                                 if (signature.ToScript_Params(EnumScript.TS, sb, false) == false)
@@ -354,9 +354,33 @@ namespace Diphap.JsNetBridge.Mvc
 
                             //-- returns of action method.
                             {
-                                sb.Append("$Return():");
-                                sb.Append(signature.ToScript_Return(EnumScript.TS, false));
-                                sb.AppendLine();
+                                var script_value = signature.ToScript_Return(EnumScript.TS, false);
+                                if (string.IsNullOrWhiteSpace(script_value) == false)
+                                {
+                                    sb.Append("$Return():");
+                                    sb.Append(script_value);
+                                    sb.AppendLine();
+                                }
+                                else
+                                {
+                                    //-- do nothing
+                                }
+
+                            }
+
+                            //-- enums
+                            {
+                                var script_value = signature.ToTS_Enums().ToString();
+                                if (string.IsNullOrWhiteSpace(script_value) == false)
+                                {
+                                    sb.Append("$Enums():");
+                                    sb.Append(signature.ToTS_Enums().ToString());
+                                    sb.AppendLine();
+                                }
+                                else
+                                {
+                                    //-- do nothing
+                                }
                             }
 
                             sb.AppendLine("}");
