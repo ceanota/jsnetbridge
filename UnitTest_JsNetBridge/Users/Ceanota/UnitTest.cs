@@ -79,7 +79,13 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
             string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-            File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", api.ToTS(true));
+            
+            //File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", api.ToTS());
+
+            api.WriteAllText(
+                GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\lib.js", 
+                GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\lib.d.ts");
+
         }
 
         [TestMethod]

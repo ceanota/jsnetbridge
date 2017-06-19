@@ -57,7 +57,7 @@ namespace Diphap.JsNetBridge.Generator
                 try
                 {
                     Console.WriteLine(string.Format("Generate JS code - Begin  [{0}]", sw.Elapsed.TotalSeconds));
-                    #region "Generate JS code"
+
 
                     List<AssemblySet> assemblySetList = new List<Diphap.JsNetBridge.AssemblySet>();
 
@@ -73,12 +73,12 @@ namespace Diphap.JsNetBridge.Generator
                     AspMvcInfo api = new AspMvcInfo(_config.dll_asp_absolute, assemblySetList, _config.isAspNetCoreWindows);
                     Console.WriteLine(string.Format("Instanciate AspMvcInfo - End [{0}]", sw.Elapsed.TotalSeconds));
 
-                    //-- js code.
-                    api.WriteAllText(_config.file_js_absolute);
-                    Console.WriteLine(string.Format("api.WriteAllText(); - End [{0}]", sw.Elapsed.TotalSeconds));
-
+                    #region "Generate Script codes"
+                    //-- ts and js code.
+                    api.WriteAllText(_config.file_js_absolute, _config.file_ts_absolute);
+                    Console.WriteLine(string.Format("Generate JS and TS codes - api.WriteAllText({0}, {1}); - End [{2}]", 
+                        _config.file_js_absolute, _config.file_ts_absolute, sw.Elapsed.TotalSeconds));
                     #endregion
-                    Console.WriteLine(string.Format("Generate JS code - End [{0}]", sw.Elapsed.TotalSeconds));
                 }
                 catch (Exception ex)
                 {

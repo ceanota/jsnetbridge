@@ -20,12 +20,14 @@ namespace Diphap.JsNetBridge.Generator.Config
         public AssemblyConfig[] dll_set;
         public bool isAspNetCoreWindows;
         public string file_js_absolute;
+        public string file_ts_absolute;
 
         public const string file_name_out = "Diphap.JsNetBridge";
         internal string js_out = string.Format(@"Scripts\Diphap.JsNetBridge\{0}.js", file_name_out);
+        internal string ts_out = string.Format(@"Scripts\Diphap.JsNetBridge\{0}.d.ts", file_name_out);
         public const string file_name_exe = file_name_out + ".Generator.exe";
 
-        
+
         internal string json_content;
         internal string bin_path
         {
@@ -34,7 +36,7 @@ namespace Diphap.JsNetBridge.Generator.Config
         internal string exe_path;
         internal string config_path;
         internal string folder_site_absolute;
-        
+
         internal string dll_asp_absolute;
         internal string asp_bin_absolute
         {
@@ -89,8 +91,8 @@ namespace Diphap.JsNetBridge.Generator.Config
                 {
                     dll_asp = @"C:\www\MyApplicationMvc\bin\MyApplicationMvc.dll (ASP.NET MVC application)",
                     js_out = @"Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js (output file, relative path from folder of ASP.NET MVC application)",
-                    dll_set = new AssemblyConfig[] 
-                        { 
+                    dll_set = new AssemblyConfig[]
+                        {
                             new AssemblyConfig() { file = @"bin\MyBusinessEntities.dll (relative path from folder of ASP.NET MVC application)", whitens_filters = new string[] { "MyBusinessEntities.dto (or no items)", "MyBusinessEntities.enum (or no items)" }, blackns_filters = new string[] {  } },
                             new AssemblyConfig() { file = @"bin\MyViewEntities.dll (relative path from folder of ASP.NET MVC application)" }
                         }
@@ -118,12 +120,14 @@ namespace Diphap.JsNetBridge.Generator.Config
             _config.folder_site_absolute = new DirectoryInfo(folder_asp).FullName;
 
             _config.file_js_absolute = _config.file_js_absolute != null ? _config.file_js_absolute : new FileInfo(_config.folder_site_absolute + @"/" + _config.js_out).FullName;
+            _config.file_ts_absolute = _config.file_ts_absolute != null ? _config.file_ts_absolute : new FileInfo(_config.folder_site_absolute + @"/" + _config.ts_out).FullName;
 
             _config.dll_asp_absolute = new FileInfo(dll_asp).FullName;
             #endregion
 
             Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.folder_site_absolute", _config.folder_site_absolute, file_name_exe));
             Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.file_js_absolute", _config.file_js_absolute, file_name_exe));
+            Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.file_js_absolute", _config.file_ts_absolute, file_name_exe));
             Console.WriteLine(string.Format("{2}: [{0}:{1}]", "_config.dll_asp_absolute", _config.dll_asp_absolute, file_name_exe));
 
             return _config;

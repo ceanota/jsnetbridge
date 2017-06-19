@@ -235,7 +235,22 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="jsFilePath"></param>
         public void WriteAllText(string jsFilePath)
         {
-            File.WriteAllText(jsFilePath, this.ToJS(false), Encoding.UTF8);
+            this.WriteAllText(jsFilePath);
+        }
+
+        /// <summary>
+        /// Creates files (js and ts) which contains ASP MVC object model.
+        /// </summary>
+        /// <param name="jsFilePath"></param>
+        /// <param name="tsFilePath">[optionnal]</param>
+        public void WriteAllText(string jsFilePath, string tsFilePath = null)
+        {
+            var encoding = Encoding.UTF8;
+            File.WriteAllText(jsFilePath, this.ToJS(false), encoding);
+            if (tsFilePath != null)
+            {
+                File.WriteAllText(tsFilePath, this.ToTS(), encoding);
+            }
         }
 
         public void AppendAllText(string jsFilePath)
@@ -273,7 +288,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
-        public string ToTS(bool withJsFileDependencies = true)
+        public string ToTS()
         {
             StringBuilder sb = new StringBuilder();
 
