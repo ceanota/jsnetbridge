@@ -1,1 +1,1 @@
-﻿
+﻿var test = $dp.$JsNet.$UrlSet.Home.Action_Enum.$action0.$Enums().choice.test1;

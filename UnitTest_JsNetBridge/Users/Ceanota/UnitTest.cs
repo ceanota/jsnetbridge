@@ -67,7 +67,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
                 path = Directory.GetParent(path).ToString();
             }
 
-            path = @"D:";
+            //path = @"D:";
 
             return path;
         }

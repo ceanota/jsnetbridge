@@ -319,7 +319,7 @@ namespace Diphap.JsNetBridge.Mvc
             sb.AppendLine(this.ModelInfo.ToTSCore());
             sb.AppendLine(this.EnumInfo.ToTSCore());
 
-            ToTS_UrlSet(sb);
+            this.ToTS_UrlSet(sb);
 
             return sb.ToString();
         }
