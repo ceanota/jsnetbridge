@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ContosoUniversity.Models;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -59,8 +60,8 @@ namespace TestJsNetBridgeApp.Controllers
         }
 
         [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(ReturnData))]
-        [ActionName("Action_RealName")]
-        public ActionResult Action_Enum(enum_test choice)
+        [ActionName("Action_Enum")]
+        public ActionResult Action_Enum(enum_test choice, Grade myGrade)
         {
             StreamReader reader = new StreamReader(this.Request.InputStream);
             string inputStream = reader.ReadToEnd();

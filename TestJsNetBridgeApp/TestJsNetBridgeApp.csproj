@@ -227,7 +227,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <TypeScriptCompile Include="Scripts\_app\Diphap.JsNetBridge.d.ts" />
+    <TypeScriptCompile Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts" />
     <TypeScriptCompile Include="Scripts\_app\Diphap.JsNetBridge.test.ts" />
   </ItemGroup>
   <ItemGroup>

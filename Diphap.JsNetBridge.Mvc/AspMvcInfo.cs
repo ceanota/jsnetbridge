@@ -286,7 +286,6 @@ namespace Diphap.JsNetBridge.Mvc
         /// <summary>
         /// Generates TS code.
         /// </summary>
-        /// <param name="withJsFileDependencies"></param>
         /// <returns></returns>
         public string ToTS()
         {
@@ -335,6 +334,8 @@ namespace Diphap.JsNetBridge.Mvc
             sb.AppendLine(this.EnumInfo.ToTSCore());
 
             this.ToTS_UrlSet(sb);
+
+            sb.AppendLine("import $dpUrlSet = $dp.$JsNet.$UrlSet;");
 
             return sb.ToString();
         }
@@ -399,13 +400,10 @@ namespace Diphap.JsNetBridge.Mvc
                             }
 
                             sb.AppendLine("}");
-
                             sb.AppendLine("var $action" + ii + ": _$action" + ii + ";");
                         }
 
                         sb.AppendLine("}");
-
-
                     }
                 }
             }
