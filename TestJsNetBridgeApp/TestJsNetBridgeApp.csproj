@@ -159,9 +159,11 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\_app\Diphap.JsNetBridge.test.js.map" />
+    <Content Include="Scripts\_app\ts_unit_test.js.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\_app\Diphap.JsNetBridge.test.js" />
     <Content Include="Scripts\_app\test.js" />
+    <Content Include="Scripts\_app\ts_unit_test.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -233,7 +235,7 @@
     <TypeScriptCompile Include="Scripts\typings\mocha\mocha.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="Scripts\_app\Diphap.JsNetBridge.test.ts" />
-    <TypeScriptCompile Include="Scripts\_app\unit_test.ts" />
+    <TypeScriptCompile Include="Scripts\_app\ts_unit_test.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />

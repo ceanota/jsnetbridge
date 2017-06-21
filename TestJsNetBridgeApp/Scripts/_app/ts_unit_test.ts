@@ -141,12 +141,12 @@
 
             xhr.done(function (result) {
                 /// <param name="result" type="action.$Return">receive the array of students</param>
-                
+
                 assert(
                     result.Success === true,
                     'Should receive {Success:true}');
 
-                var students = result.TypedBusinessData;
+                var students = result.TypedBusinessData as $dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Student>;
 
                 assert(
                     _.isArray(students)
@@ -182,12 +182,12 @@
 
             xhr.done(function (result) {
                 /// <param name="result" type="action.$Return">receive the department</param>
-
+                
                 assert(
                     result.Success === true,
                     'Should receive {Success:true}');
 
-                var department = result.TypedBusinessData;
+                var department = result.TypedBusinessData as $dp.$JsNet.ContosoUniversity.Models.Department;
 
                 assert(
                     department.Name === saved_settings_data.departmentName,
@@ -247,112 +247,112 @@
     });
 
     //describe('WebApi', function () {
-        it('Call action method [DataController.Get]', function (done) {
-            var className = "$apiData";
+    //    it('Call action method [DataController.Get]', function (done) {
+    //        var className = "$apiData";
 
-            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+    //        assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
-            //-- action method.
-            var action = $dpUrlSet[className].Get.$action0;
+    //        //-- action method.
+    //        var action = $dpUrlSet[className].Get.$action0;
 
-            //-- ajax.
-            var settings = action.$AjaxSettings();
-            assert(settings.method === 'get', 'the http method should be defined.');
+    //        //-- ajax.
+    //        var settings = action.$AjaxSettings();
+    //        assert(settings.method === 'get', 'the http method should be defined.');
 
-            var xhr = $.ajax(settings);
-            xhr.always(function (result, status, xhr) {
-                assert(result.Success === true, 'Should receive {Success:true}');
-                done();
-            });
+    //        var xhr = $.ajax(settings);
+    //        xhr.always(function (result, status, xhr) {
+    //            assert(result.Success === true, 'Should receive {Success:true}');
+    //            done();
+    //        });
 
-        });
-        it('Call action method [DataController.Orders] with another route defined by [RouteAttribute("customers/orders")]', function (done) {
-            var className = "$apiData";
+    //    });
+    //    it('Call action method [DataController.Orders] with another route defined by [RouteAttribute("customers/orders")]', function (done) {
+    //        var className = "$apiData";
 
-            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+    //        assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
-            //-- action method.
-            var action = $dpUrlSet[className].Orders.$action0;
+    //        //-- action method.
+    //        var action = $dpUrlSet[className].Orders.$action0;
 
-            //-- ajax.
-            var settings = action.$AjaxSettings();
-            assert(settings.method === 'post', 'the http method should be defined.');
-            assert(settings.url != $dpUrlSet.$apiData.Get.$action0.$GetUrl(), 'the route should be different of traditional route');
+    //        //-- ajax.
+    //        var settings = action.$AjaxSettings();
+    //        assert(settings.method === 'post', 'the http method should be defined.');
+    //        assert(settings.url != $dpUrlSet.$apiData.Get.$action0.$GetUrl(), 'the route should be different of traditional route');
 
-            var xhr = $.ajax(settings);
-            xhr.always(function (result, status, xhr) {
-                assert(result.Success === true, 'Should receive {Success:true}');
-                done();
-            });
+    //        var xhr = $.ajax(settings);
+    //        xhr.always(function (result, status, xhr) {
+    //            assert(result.Success === true, 'Should receive {Success:true}');
+    //            done();
+    //        });
 
-        });
-        it('Call action method [DataController.Orders_WithCustomerId] with another parameterized route defined by [RouteAttribute("customers/{customerId}/orders")]', function (done) {
-            var className = "$apiData";
-            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+    //    });
+    //    it('Call action method [DataController.Orders_WithCustomerId] with another parameterized route defined by [RouteAttribute("customers/{customerId}/orders")]', function (done) {
+    //        var className = "$apiData";
+    //        assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
-            //-- action method.
-            var action = $dpUrlSet[className].Orders_WithCustomerId.$action0;
-            assert(action.$RouteTemplate == 'customers/{customerId}/orders', 'the route template should contain a parameter placeholder');
+    //        //-- action method.
+    //        var action = $dpUrlSet[className].Orders_WithCustomerId.$action0;
+    //        assert(action.$RouteTemplate == 'customers/{customerId}/orders', 'the route template should contain a parameter placeholder');
 
-            //-- settings.
-            var settings = action.$AjaxSettings();
+    //        //-- settings.
+    //        var settings = action.$AjaxSettings();
 
-            //-- applying the route data to generate url.
-            var routeData = { customerId: 5 };
-            settings.url = action.$GetUrl(routeData);
-            assert(settings.method === 'post', 'the http method should be defined');
-            assert(settings.url === '/customers/5/orders', 'the route should be different of legacy route');
+    //        //-- applying the route data to generate url.
+    //        var routeData = { customerId: 5 };
+    //        settings.url = action.$GetUrl(routeData);
+    //        assert(settings.method === 'post', 'the http method should be defined');
+    //        assert(settings.url === '/customers/5/orders', 'the route should be different of legacy route');
 
-            //-- ajax
-            var xhr = $.ajax(settings);
-            xhr.always(function (result, status, xhr) {
-                assert(result.Success === true, 'Should receive {Success:true}');
-                assert(result.InputStream.customerId === routeData.customerId, 'Server should receive { customerId: 5 }');
-                done();
-            });
+    //        //-- ajax
+    //        var xhr = $.ajax(settings);
+    //        xhr.always(function (result, status, xhr) {
+    //            assert(result.Success === true, 'Should receive {Success:true}');
+    //            assert(result.InputStream.customerId === routeData.customerId, 'Server should receive { customerId: 5 }');
+    //            done();
+    //        });
 
-        });
-        it('Call the action method [TestArea.Data2Controller.Get] in [Area]', function (done) {
-            //-- action method.
-            var areaName = 'TestArea';
-            var className = '$apiData2';
-            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+    //    });
+    //    it('Call the action method [TestArea.Data2Controller.Get] in [Area]', function (done) {
+    //        //-- action method.
+    //        var areaName = 'TestArea';
+    //        var className = '$apiData2';
+    //        assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
-            var action = $dpUrlSet[areaName][className].Get.$action0;
-            assert(action.$Names.area === areaName, 'The action method should be in a MVC area.');
+    //        var action = $dpUrlSet[areaName][className].Get.$action0;
+    //        assert(action.$Names.area === areaName, 'The action method should be in a MVC area.');
 
-            var settings = action.$AjaxSettings();
-            assert(settings.method === 'get', 'the http method should be defined.');
+    //        var settings = action.$AjaxSettings();
+    //        assert(settings.method === 'get', 'the http method should be defined.');
 
-            //-- ajax.
-            var xhr = $.ajax(settings);
+    //        //-- ajax.
+    //        var xhr = $.ajax(settings);
 
-            xhr.always(function (result, status, xhr) {
-                assert(result.Success === true, 'Should receive {Success:true}');
-                done();
-            });
+    //        xhr.always(function (result, status, xhr) {
+    //            assert(result.Success === true, 'Should receive {Success:true}');
+    //            done();
+    //        });
 
-        });
-        it('Call action method [DataController.Action_AcceptVerbs_TEST] with new http method defined by [AcceptVerbsAttribute]', function (done) {
-            var className = "$apiData";
-            assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
+    //    });
+    //    it('Call action method [DataController.Action_AcceptVerbs_TEST] with new http method defined by [AcceptVerbsAttribute]', function (done) {
+    //        var className = "$apiData";
+    //        assert(className.indexOf('$api') === 0, 'the api controller name should contain "$api"');
 
-            //-- action method.
-            var action = $dpUrlSet[className].Action_AcceptVerbs_TEST.$action0;
+    //        //-- action method.
+    //        var action = $dpUrlSet[className].Action_AcceptVerbs_TEST.$action0;
 
-            //-- settings.
-            var settings = action.$AjaxSettings();
-            assert(settings.method === 'TEST', 'the http method should be defined.');
+    //        //-- settings.
+    //        var settings = action.$AjaxSettings();
+    //        assert(settings.method === 'TEST', 'the http method should be defined.');
 
-            //-- ajax.
-            var xhr = $.ajax(settings);
-            xhr.always(function (result, status, xhr) {
-                assert(result.Success === true, 'Should receive {Success:true}');
-                done();
-            });
+    //        //-- ajax.
+    //        var xhr = $.ajax(settings);
+    //        xhr.always(function (result, status, xhr) {
+    //            assert(result.Success === true, 'Should receive {Success:true}');
+    //            done();
+    //        });
 
-        });
-    });
+    //    });
+    //});
 
     //describe('WebApi Models', function () {
     //    it('Call action method [InstructorController.Get] to get a instance of \'Instructor\'', function (done) {
