@@ -290,6 +290,23 @@
             Controller name.
             </summary>
         </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ControllerInfo.ScriptName">
+            <summary>
+            $apiControllerName1 (if it's api controller) or ControllerName1
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Mvc.ControllerInfo.PrefixScriptName">
+            <summary>
+            $api or empty
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Mvc.ControllerInfo.ToJS">
+            <summary>
+            
+            </summary>
+        </member>
         <member name="T:Diphap.JsNetBridge.Mvc.AspMvcInfo">
             <summary>
             Information on AspMvc application.

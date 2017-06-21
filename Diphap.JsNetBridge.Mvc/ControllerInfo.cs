@@ -24,10 +24,31 @@ namespace Diphap.JsNetBridge.Mvc
         public ControllerInfo(IList<ActionInfoGroup> urlCol, string name)
         {
             this.ActionInfoCol = urlCol;
-            
+
             this.Name = name;
         }
 
+        /// <summary>
+        /// $apiControllerName1 (if it's api controller) or ControllerName1
+        /// </summary>
+        /// <returns></returns>
+        public string ScriptName()
+        {
+            return PrefixScriptName() + this.Name;
+        }
+
+        /// <summary>
+        /// $api or empty
+        /// </summary>
+        /// <returns></returns>
+        public string PrefixScriptName()
+        {
+            return (this.IsApiController ? ConfigJS.prefix_apiController : "");
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public string ToJS
         {
             get
@@ -36,7 +57,7 @@ namespace Diphap.JsNetBridge.Mvc
 
                 string keys_string = string.Join(",", keys);
                 string json = "{" + ConfigJS.VS_JsEnumKeyValue + keys_string + "}";
-                json = string.Format("\"{0}{1}\":{2}", this.IsApiController ? ConfigJS.prefix_apiController : null, this.Name, json);
+                json = string.Format("\"{0}{1}\":{2}", this.PrefixScriptName(), this.Name, json);
 
                 return json;
             }
@@ -44,7 +65,7 @@ namespace Diphap.JsNetBridge.Mvc
 
         public bool IsApiController
         {
-            get 
+            get
             {
                 return this.ActionInfoCol.Any(x => x.IsApiController);
             }

@@ -21,6 +21,7 @@
     interface _$Action {
         $_Url: string,
         $GetUrl(routeData: Object): string,
+        $GetUrl(): string,
         $GetRouteData(): Object,
         $Names: $Names,
         $Params(): {},
@@ -110,7 +111,7 @@ interface Grade {A:{ $Key:string,$Value:number },B:{ $Key:string,$Value:number }
 }
 //#endregion
 
-declare namespace $dp.$JsNet.$UrlSet.Data2.Get{
+declare namespace $dp.$JsNet.$UrlSet.$apiData2.Get{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
@@ -134,7 +135,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Data.Get{
+declare namespace $dp.$JsNet.$UrlSet.$apiData.Get{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
@@ -142,7 +143,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Data.Action_AcceptVerbs_TEST{
+declare namespace $dp.$JsNet.$UrlSet.$apiData.Action_AcceptVerbs_TEST{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
@@ -150,7 +151,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Data.Orders{
+declare namespace $dp.$JsNet.$UrlSet.$apiData.Orders{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
@@ -158,7 +159,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Data.Orders_WithCustomerId{
+declare namespace $dp.$JsNet.$UrlSet.$apiData.Orders_WithCustomerId{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{customerId:number}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
@@ -246,7 +247,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Instructor.Get{
+declare namespace $dp.$JsNet.$UrlSet.$apiInstructor.Get{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{id:number}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
@@ -254,7 +255,7 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.Instructor.Put{
+declare namespace $dp.$JsNet.$UrlSet.$apiInstructor.Put{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{instructor:$dp.$JsNet.ContosoUniversity.Models.Instructor}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor
@@ -268,7 +269,7 @@ $Enums():{}
 }
 var $action1: _$action1;
 }
-declare namespace $dp.$JsNet.$UrlSet.Instructor.Delete{
+declare namespace $dp.$JsNet.$UrlSet.$apiInstructor.Delete{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{id:number}
 $Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor

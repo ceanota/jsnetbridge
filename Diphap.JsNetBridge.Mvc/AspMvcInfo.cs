@@ -315,6 +315,7 @@ namespace Diphap.JsNetBridge.Mvc
     interface _$Action {
         $_Url: string,
         $GetUrl(routeData: Object): string,
+        $GetUrl(): string,
         $GetRouteData(): Object,
         $Names: $Names,
         $Params(): {},
@@ -348,7 +349,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var actionGroup in controller.ActionInfoCol)
                     {
-                        sb.Append("declare namespace $dp.$JsNet.$UrlSet." + actionGroup.Controller + "." + actionGroup.MethodName + "{");
+                        sb.Append("declare namespace $dp.$JsNet.$UrlSet." + controller.ScriptName() + "." + actionGroup.MethodName + "{"); 
                         sb.AppendLine();
 
                         for (var ii = 0; ii < actionGroup.Signatures.Length; ii++)
