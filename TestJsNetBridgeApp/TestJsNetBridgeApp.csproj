@@ -228,10 +228,12 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\mocha\mocha-node.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\chai\index.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Scripts\typings\mocha\mocha.d.ts" />
-    <TypeScriptCompile Include="Scripts\typings\node\node.d.ts" />
+    <TypeScriptCompile Include="Scripts\typings\underscore\underscore.d.ts" />
     <TypeScriptCompile Include="Scripts\_app\Diphap.JsNetBridge.test.ts" />
+    <TypeScriptCompile Include="Scripts\_app\unit_test.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
