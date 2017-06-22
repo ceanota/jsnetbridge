@@ -37,6 +37,7 @@ namespace WebApplicationWinCore
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
 
+            //-- Important: .Net case sensitive
             services.AddMvc()
                 .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver());
         }
