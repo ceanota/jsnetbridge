@@ -117,7 +117,7 @@ namespace Diphap.JsNetBridge.Common
         /// <summary>
         /// Load only assembly (and its referenced assemblies)
         /// </summary>
-        /// <param name="assemblyName">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
+        /// <param name="assNameOrFullname">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
         /// <param name="assemblyResolver_"></param>
         public ReflectionLoader(string assNameOrFullname, AssemblyResolver assemblyResolver_)
         {

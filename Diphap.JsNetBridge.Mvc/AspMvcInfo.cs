@@ -128,8 +128,18 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- AspNet.
 
                 AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperMvc(ar));
-                var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
-                AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
+                
+                try
+                {
+                    var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
+                    AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
+                }
+                catch (Exception)
+                {
+                    //-- no WebApi.
+                    //-- nothing.
+                }
+                
             }
 
 

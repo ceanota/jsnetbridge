@@ -65,10 +65,19 @@ namespace Diphap.JsNetBridge.Mvc
             this.Url = "";
             this.MethodInfoGroup = miGroup;
 
-            this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.IsApiConstroller(this._type_controller);
+            if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
+            {
+                this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.IsApiConstroller(this._type_controller);
+            }
+            else
+            {
+                this._IsApiController = false;
+            }
+
+
 
             this.Signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
-            
+
             //-- set idx.
             for (int ii = 0; ii < this.Signatures.Length; ii++)
             {

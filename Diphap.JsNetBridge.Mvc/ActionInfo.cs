@@ -96,7 +96,13 @@ namespace Diphap.JsNetBridge.Mvc
             this.Url = "";
             this.MethodInfo = methodInfo;
 
-            this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.IsApiConstroller(this._type_controller);
+            if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
+            {
+                this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.IsApiConstroller(this._type_controller);
+            }else
+            {
+                this._IsApiController = false;
+            }
 
             this.IsJsonResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsHttpResponseMessage = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
