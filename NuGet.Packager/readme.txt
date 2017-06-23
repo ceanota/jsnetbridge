@@ -63,7 +63,7 @@
 
 	 IF EXIST "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "$(ProjectDir)\Generators\Diphap.JsNetBridge\Diphap.JsNetBridge.Generator.exe" "{ dll_asp:'$(TargetPath)' }"
 
-7- Build your ASP.NET application to generate the content of this script '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'
+7- Build your ASP.NET application to generate the content of these scripts '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.d.ts' and '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'
 
 8- In the Output Window of Visual Studio, you can check the logs:
 	
@@ -87,7 +87,7 @@
 1>  Generate JS code - End [0,6906823]
 1>  Diphap.JsNetBridge.Generator.exe: SUCCESS [0,690753 sec]
 
-9- You can check the output to that script. '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'.
+9- You can check the output to the script '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js'.
 
 10- In your js scripts, this global object '$dpUrlSet' allows you to access the API.
 
@@ -107,4 +107,11 @@
 
 12- You can download a sample application using the library.
 	http://jsnet.codeplex.com/releases/view/624368
+
+	[********** optional: to use with TypeScript ***************** ]
+
+13- You must have TypeScript 2.3 or upper version.
+	https://www.typescriptlang.org/#download-links
+
+14- After bulding your application to generate the file '/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.d.ts', include this file in your project.
 
