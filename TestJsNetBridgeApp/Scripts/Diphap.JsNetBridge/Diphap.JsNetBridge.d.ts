@@ -49,14 +49,32 @@ interface ReturnData
 {Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
 interface ReturnData_$gen$_T
 {Url:string,Success:boolean,Method:string,TypedBusinessData:{},InputStream:{},BusinessData:{}}
+interface ReturnData_$gen$_ContosoUniversityModelsStudent
+{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Student,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
+interface ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent
+{TypedBusinessData:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Student>,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
 interface ReturnData_$gen$_ContosoUniversityModelsInstructor
 {TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Instructor,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
+interface ReturnData_$gen$_ContosoUniversityModelsDepartment
+{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Department,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
 //#endregion
 //#region 'functions'
 var LayoutModel: () => $dp.$JsNet.TestJsNetBridgeApp.Models.LayoutModel;
 var ReturnData: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData;
 var ReturnData_$gen$_T: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_T;
+var ReturnData_$gen$_ContosoUniversityModelsStudent: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent;
+var ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent;
 var ReturnData_$gen$_ContosoUniversityModelsInstructor: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor;
+var ReturnData_$gen$_ContosoUniversityModelsDepartment: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsDepartment;
+//#endregion
+}
+declare namespace $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController {
+//#region 'interfaces'
+interface dpPerson
+{name:string,age:number,description:string}
+//#endregion
+//#region 'functions'
+var dpPerson: () => $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.dpPerson;
 //#endregion
 }
 declare namespace $dp.$JsNet.ContosoUniversity.Models {
@@ -65,20 +83,20 @@ interface OfficeAssignment
 {PersonID:number,Location:string,Instructor:$dp.$JsNet.ContosoUniversity.Models.Instructor}
 interface Student
 {EnrollmentDate:Date,PersonID:number,LastName:string,FirstMidName:string,FullName:string,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>}
-interface Instructor
-{HireDate:Date,OfficeAssignment:$dp.$JsNet.ContosoUniversity.Models.OfficeAssignment,PersonID:number,LastName:string,FirstMidName:string,FullName:string,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
 interface Enrollment
 {EnrollmentID:number,CourseID:number,PersonID:number,Grade:number,Student:$dp.$JsNet.ContosoUniversity.Models.Student,Course:$dp.$JsNet.ContosoUniversity.Models.Course}
+interface Instructor
+{HireDate:Date,OfficeAssignment:$dp.$JsNet.ContosoUniversity.Models.OfficeAssignment,PersonID:number,LastName:string,FirstMidName:string,FullName:string,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
 interface Course
 {CourseID:number,Title:string,Credits:number,DepartmentID:number,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>,Instructors:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Instructor>,Department:$dp.$JsNet.ContosoUniversity.Models.Department}
 interface Department
-{DepartmentID:number,Name:string,Budget:number,StartDate:Date,PersonID:number,RowVersion:$dp.$shared.$Array<number>,Administrator:$dp.$JsNet.ContosoUniversity.Models.Instructor,Courses_:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
+{DepartmentID:number,Name:string,Budget:number,StartDate:Date,PersonID:number,RowVersion:$dp.$shared.$Array<number>,Courses_:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>,Administrator:$dp.$JsNet.ContosoUniversity.Models.Instructor,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
 //#endregion
 //#region 'functions'
 var OfficeAssignment: () => $dp.$JsNet.ContosoUniversity.Models.OfficeAssignment;
 var Student: () => $dp.$JsNet.ContosoUniversity.Models.Student;
-var Instructor: () => $dp.$JsNet.ContosoUniversity.Models.Instructor;
 var Enrollment: () => $dp.$JsNet.ContosoUniversity.Models.Enrollment;
+var Instructor: () => $dp.$JsNet.ContosoUniversity.Models.Instructor;
 var Course: () => $dp.$JsNet.ContosoUniversity.Models.Course;
 var Department: () => $dp.$JsNet.ContosoUniversity.Models.Department;
 //#endregion
@@ -104,7 +122,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home2.Action_NoParams{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -112,7 +130,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home2.Action_FakeName{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -128,7 +146,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.$apiData.Action_AcceptVerbs_TEST{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -160,7 +178,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.Action_NoParams{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -168,7 +186,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.Action_WithParamterIdInUrl{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{id:string}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -176,7 +194,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.Action_FakeName{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{}
 }
 var $action0: _$action0;
@@ -184,7 +202,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.Action_Enum{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{choice:number,myGrade:number}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData
 $Enums():{choice: $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.enum_test,myGrade: $dp.$JsNet.ContosoUniversity.Models.Grade}
 }
 var $action0: _$action0;
@@ -192,7 +210,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.ShowMe{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{name:string,age:number}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.dpPerson
 $Enums():{}
 }
 var $action0: _$action0;
@@ -200,7 +218,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{PersonID:number}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent
 $Enums():{}
 }
 var $action0: _$action0;
@@ -208,7 +226,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.GetStudents{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{FirstMidName:string}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent
 $Enums():{}
 }
 var $action0: _$action0;
@@ -216,7 +234,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.CreateNewStudent{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{student:$dp.$JsNet.ContosoUniversity.Models.Student}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent
 $Enums():{}
 }
 var $action0: _$action0;
@@ -224,7 +242,7 @@ var $action0: _$action0;
 declare namespace $dp.$JsNet.$UrlSet.Home.GetDepartment{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{departmentName:string}
-$Return():{}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsDepartment
 $Enums():{}
 }
 var $action0: _$action0;
