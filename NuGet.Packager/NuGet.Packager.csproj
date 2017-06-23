@@ -59,29 +59,15 @@
     <None Include="tools\init.ps1" />
     <None Include="tools\install.ps1" />
     <None Include="tools\uninstall.ps1" />
-    <None Include="_bin\Diphap.JsNetBridge.Generator.exe.config" />
-    <None Include="_bin\Diphap.JsNetBridge.Generator.exe.json" />
-    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.config" />
-    <None Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe.manifest" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="content\Scripts\Diphap.JsNetBridge\" />
     <Folder Include="lib\" />
+    <Folder Include="_bin\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="content\Scripts\Diphap.JsNetBridge\arrayFactory.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\circularReferenceManagerFactory.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\actionHelper.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.Example.js" />
-    <Content Include="content\Scripts\Diphap.JsNetBridge\readme.txt" />
     <Content Include="Icon.png" />
     <None Include="build.bat" />
-    <Content Include="_bin\Diphap.JsNetBridge.dll" />
-    <Content Include="_bin\Diphap.JsNetBridge.Generator.exe" />
-    <Content Include="_bin\Diphap.JsNetBridge.Generator.vshost.exe" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.dll" />
-    <Content Include="_bin\Diphap.JsNetBridge.Mvc.Proxy.dll" />
-    <Content Include="_bin\Newtonsoft.Json.dll" />
     <Content Include="readme.txt" />
   </ItemGroup>
   <ItemGroup>
