@@ -99,13 +99,15 @@ namespace Diphap.JsNetBridge.Mvc
             if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
             {
                 this._IsApiController = AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.IsApiConstroller(this._type_controller);
-            }else
+                this.IsHttpResponseMessage = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
+            }
+            else
             {
                 this._IsApiController = false;
+                this.IsHttpResponseMessage = false;
             }
 
             this.IsJsonResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_JsonResult.IsAssignableFrom(this.MethodInfo.ReturnType);
-            this.IsHttpResponseMessage = AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsActionResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsViewResult = AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ViewResult.IsAssignableFrom(this.MethodInfo.ReturnType);
             this.IsIEnumerable = TypeHelper.IsCollection(this.MethodInfo.ReturnType);
@@ -172,7 +174,12 @@ namespace Diphap.JsNetBridge.Mvc
             if (this._AllInOutClassTypes == null)
             {
                 this._AllInOutClassTypes = new List<Type>(this.ParameterClassTypes());
-                IList<Type> returnTypes = TypeHelper.GetCustomTypes(new Type[] { WebApiHelper.GetEffectiveReturnType(this.MethodInfo) });
+                IList<Type> returnTypes = new List<Type>();
+
+                if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
+                {
+                    returnTypes = TypeHelper.GetCustomTypes(new Type[] { WebApiHelper.GetEffectiveReturnType(this.MethodInfo) });
+                }
 
                 if (returnTypes.Count > 0)
                 {
@@ -190,7 +197,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// </summary>
         public StringBuilder ToTS_Enums()
         {
-        
+
             StringBuilder sb = new StringBuilder();
             var enumParams = this.EnumParameters();
             sb.Append("{");
@@ -278,8 +285,16 @@ namespace Diphap.JsNetBridge.Mvc
         /// <returns></returns>
         public string ToScript_Return(EnumScript choice, bool alias)
         {
-            Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
-            string jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice);
+
+            string jsonValue;
+            if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
+            {
+                Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
+                jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice);
+            }else
+            {
+                jsonValue = "{}";
+            }
             return jsonValue;
         }
 
@@ -555,15 +570,36 @@ namespace Diphap.JsNetBridge.Mvc
                     }
                     else
                     {
-                        if ((AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
-                                AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
-                            (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult == null ||
-                            AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
-                            AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)))
+
+                        if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
                         {
-                            jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                            if (
+                                AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
+                                AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
+
+                                (
+                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult == null ||
+
+                                    (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
+                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)
+                                )
+                            )
+                            {
+                                jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                            }
+                            else { jsValue = "{}"; }
+                        }else
+                        {
+                            //-- no web api.
+                            if (AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false)
+                            {
+                                jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                            }else
+                            {
+                                jsValue = "{}";
+                            }
                         }
-                        else { jsValue = "{}"; }
+
 
                     }
                 }

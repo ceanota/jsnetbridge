@@ -74,8 +74,6 @@ namespace Diphap.JsNetBridge.Mvc
                 this._IsApiController = false;
             }
 
-
-
             this.Signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
 
             //-- set idx.

@@ -162,7 +162,6 @@
     <Content Include="Scripts\_app\ts_unit_test.js.map" />
     <None Include="Scripts\_references.js" />
     <Content Include="Scripts\_app\Diphap.JsNetBridge.test.js" />
-    <Content Include="Scripts\_app\test.js" />
     <Content Include="Scripts\_app\ts_unit_test.js" />
     <Content Include="Web.config" />
   </ItemGroup>

@@ -119,7 +119,8 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 //-- AspNetCore.
 
-                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperCoreMvc(ar, new AssemblyInfoWrapperBaseMvc_FormattersJson(ar), new AssemblyInfoWrapperBaseMvc_ViewFeatures(ar)));
+                AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(
+                    new AssemblyInfoWrapperCoreMvc(ar, new AssemblyInfoWrapperBaseMvc_FormattersJson(ar), new AssemblyInfoWrapperBaseMvc_ViewFeatures(ar)));
                 AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(new AssemblyInfoWrapperCoreWebApi_NetHttp() /* is useless */,
                     new AssemblyInfoWrapperCoreWebApi_WebHttp(AspMvcInfo.TypesOfAspNetSetMvc.TMvc /*the same assembly*/, new AssemblyInfoWrapperBaseWebApi_Abstractions(ar)));
             }
@@ -138,6 +139,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     //-- no WebApi.
                     //-- nothing.
+                    AspMvcInfo.TypesOfAspNetSetWebApi = null;
                 }
                 
             }
