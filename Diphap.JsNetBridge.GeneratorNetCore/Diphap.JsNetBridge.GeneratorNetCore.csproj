@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <VersionPrefix>1.5.1</VersionPrefix>
+    <TargetFramework>net452</TargetFramework>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <AssemblyName>Diphap.JsNetBridge.GeneratorNetCore</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>Diphap.JsNetBridge.GeneratorNetCore</PackageId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="App.config" />
+    <ProjectReference Include="..\Diphap.JsNetBridge.Generator.Lib\Diphap.JsNetBridge.Generator.Lib.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net452' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
