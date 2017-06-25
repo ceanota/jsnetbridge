@@ -23,7 +23,7 @@ namespace TestJsNetBridgeApp
             RouteConfig.RegisterRoutes(RouteTable.Routes);
 
             Global.LayoutModel.PackageNugetName = "Diphap.JsNetBridge.Mvc";
-            Global.LayoutModel.PackageNugetVersion = new Version("1.3.45");
+            Global.LayoutModel.PackageNugetVersion = new Version("1.5.2");
             
         }
 
