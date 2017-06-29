@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
     <metadata>
         <id>Diphap.JsNetBridge.Mvc</id>
-        <version>1.5.2</version>
+        <version>1.5.3</version>
         <title>Diphap.JsNetBridge.Mvc</title>
         <authors>diphap</authors>
         <owners>diphap</owners>
@@ -10,18 +10,23 @@
         <projectUrl>http://jsnet.codeplex.com/</projectUrl>
         <iconUrl>https://download-codeplex.sec.s-msft.com/Download?ProjectName=jsnet&amp;DownloadId=1533502&amp;Build=21031</iconUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <description>With Intellisense, the library provides information for easy writing to ajax requests in JavaScript and in TypeScript for ASP.NET MVC and WEB API applications. 
+        <description>[NEW: works with TypeScript]
+A project to auto-generate JavaScript and TypeScript proxies for ASP.NET MVC and WebApi controllers.
+With Intellisense, the library provides information for easy writing to ajax requests in JavaScript and in TypeScript for ASP.NET MVC and WEB API applications. 
 The advantage is to have no more hard-coded client-side URL.
 When writing of ajax requests, the library allows the developer front-end to retrieve the url generated 
 on the server side, to know the structure of data to send parameter and instantiate it.
 
 [HOW TO USE IT]: http://jsnet.codeplex.com/
 [SAMPLE APPLICATION]: https://jsnet.codeplex.com/releases</description>
-        <summary>[NEW: usable with TypeScript]
-A project to auto-generate JavaScript and TypeScript proxies for ASP.NET MVC and WebApi controllers
+        <summary>[NEW: works with TypeScript]
+A project to auto-generate JavaScript and TypeScript proxies for ASP.NET MVC and WebApi controllers.
 Build javascript Proxy Objects.
 With Intellisense.</summary>
-        <releaseNotes>Generates TypeScript definition types of JS proxies
+        <releaseNotes>Current Version
+[not important]Fix bug in the script Diphap.JsNetBridge.Example.js
+1.5.2
+Generates TypeScript definition types of JS proxies
 Fix bug for application MVC without Web API
 1.3.45
 Compatible with ASP.NET Core (.NET Framework)
