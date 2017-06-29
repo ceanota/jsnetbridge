@@ -75,18 +75,14 @@
 
     //-- send ajax request:
     var ajaxsettings = action.$action0.$AjaxSettings();
+
+    //-- set parameters
+    ajaxsettings.data = JSON.stringify(params);
+
     console.info("$dpUrlSet.Home.ShowMe.$action0.$AjaxSettings():", ajaxsettings);
 
     //-- generated url by server.
     //-- $dpUrlSet.Home.ShowMe.$action0.$AjaxSettings().url;
-
-    ajaxsettings.data.age = 34;
-    ajaxsettings.data.name = "Alexandre";
-
-    //-- Warning: ajaxsettings.data is Object.
-    //-- so:
-    ajaxsettings.data = JSON.stringify(ajaxsettings.data);
-
     //-- now, we will never have hard-coded values.!!!
     var xhr = $.ajax(ajaxsettings);
     console.info("$dpUrlSet ajax send:", ajaxsettings);
