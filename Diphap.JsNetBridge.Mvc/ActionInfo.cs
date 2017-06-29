@@ -291,7 +291,8 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
                 jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice);
-            }else
+            }
+            else
             {
                 jsonValue = "{}";
             }

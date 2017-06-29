@@ -1,0 +1,53 @@
+﻿
+    public partial class EffetFacture
+    {
+
+        public long CreateurId { get; set; }
+
+        public long? PointageId { get; set; }
+
+		//-- ici
+        public Pointage Pointage { get; set; }
+
+        public bool Ecart{ get; set; }
+
+        public byte EtatId { get; set; }
+
+        public long? SessionComptabilisationId { get; set; }
+
+        public byte? NiveauRelanceId { get; set; }
+
+        public DateTime? DateDerniereRelance { get; set; }
+
+    }
+
+	public partial class Reglement
+    {
+        public decimal? TauxDev { get; set; }
+
+        public long? PointageId { get; set; }
+
+		//-- ici
+        public Pointage Pointage { get; set; }
+
+        public byte EtatId { get; set; }
+
+        public long? SessionComptabilisationId { get; set; }
+
+    }
+
+	public partial class Pointage : AEntity, ITimeStampEntity
+    {
+
+        public DateTime DateModif { get; set; }
+
+        public long CreateurId { get; set; }
+
+		//-- ici
+        public virtual ICollection<EffetFacture> EffetFacture { get; set; }
+
+
+		//-- ici
+        public virtual ICollection<Reglement> Reglement { get; set; }
+
+    }

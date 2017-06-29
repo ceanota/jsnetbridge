@@ -77,14 +77,19 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         {
             //string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
             //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
-            string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
+            //string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
+            string appAspNetPath = @"C:\tfs_cegid\Nouvelle_Gamme\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             
             //File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", api.ToTS());
 
+            //api.WriteAllText(
+            //    GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", 
+            //    GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
+
             api.WriteAllText(
-                GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", 
-                GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
+                @"C:\tfs_cegid\Nouvelle_Gamme\QuadraEden - Copie\QuadraEdenMVC_UI\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js",
+                @"C:\tfs_cegid\Nouvelle_Gamme\QuadraEden - Copie\QuadraEdenMVC_UI\Scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts");
 
         }
 
