@@ -21,6 +21,8 @@ namespace Diphap.JsNetBridge
             return string.Format("{0}:{1}", key, value);
         }
 
+        private static Type t_system_object = typeof(System.Object);
+
         /// <summary>
         /// Get name of object factory.
         /// </summary>
@@ -31,10 +33,22 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public override string GetObjectFactoryName(Type telem_work, bool isCollection, bool functionReference, string objectFullName)
         {
-            string jsvalue = objectFullName;
-            if (isCollection)
+            string jsvalue;
+            if (telem_work == t_system_object || objectFullName.Contains("System."))
             {
-                jsvalue = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(jsvalue);
+                jsvalue = "{}";
+                if (isCollection)
+                {
+                    jsvalue = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall("Object");
+                }
+            }
+            else
+            {
+                jsvalue = objectFullName;
+                if (isCollection)
+                {
+                    jsvalue = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(jsvalue);
+                }
             }
             return jsvalue;
         }

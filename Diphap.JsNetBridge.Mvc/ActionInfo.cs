@@ -257,18 +257,18 @@ namespace Diphap.JsNetBridge.Mvc
         /// {param1:obj1, param2:2, param3:"" } or null
         /// </summary>
         /// <param name="choice"></param>
-        /// <param name="jsonParams"></param>
+        /// <param name="sb"></param>
         /// <param name="nsAlias"></param>
         /// <returns>true: appending, false: nothing</returns>
-        public bool ToScript_Params(EnumScript choice, StringBuilder jsonParams, bool nsAlias)
+        public bool ToScript_Params(EnumScript choice, StringBuilder sb, bool nsAlias)
         {
             ParameterInfo[] piArray = this.MethodInfo.GetParameters();
 
             if (piArray.Length > 0)
             {
-                jsonParams.Append("{");
-                ActionInfo.GetJS_Params(piArray, _JSNamespace, choice, jsonParams, nsAlias);
-                jsonParams.Append("}");
+                sb.Append("{");
+                ActionInfo.GetScript_Params(piArray, _JSNamespace, choice, sb, nsAlias);
+                sb.Append("}");
                 return true;
             }
             else
@@ -521,23 +521,21 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="nsAlias"></param>
         /// <param name="separator"></param>
         /// <returns>true => appending, false => nothing </returns>
-        static internal bool GetJS_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, StringBuilder jsParams, bool nsAlias, char separator = ',')
+        static internal bool GetScript_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, StringBuilder jsParams, bool nsAlias, char separator = ',')
         {
             for (var ii = 0; ii < piArray.Length; ii++)
             {
                 var pi = piArray[ii];
                 string paramName = pi.Name;
 
-                string jsValue;
-
-                jsValue = GetScript_EmptyValue_WithFactory(pi.ParameterType, nsAlias, _JSNamespace, choice);
+                string scriptValue = GetScript_EmptyValue_WithFactory(pi.ParameterType, nsAlias, _JSNamespace, choice);
 
                 if (ii >= 1)
                 {
                     jsParams.Append(separator);
                 }
 
-                jsParams.Append(ScriptHelper.GetInstance(choice).GetKeyValue(paramName, jsValue));
+                jsParams.Append(ScriptHelper.GetInstance(choice).GetKeyValue(paramName, scriptValue));
             }
 
             return piArray.Length > 0;
@@ -588,20 +586,22 @@ namespace Diphap.JsNetBridge.Mvc
                                 jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
                             }
                             else { jsValue = "{}"; }
-                        }else
+                        }
+                        else
                         {
                             //-- no web api.
                             if (AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false)
                             {
                                 jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
-                            }else
+                            }
+                            else
                             {
                                 jsValue = "{}";
                             }
                         }
-
-
                     }
+
+
                 }
                 else { jsValue = "{}"; }
 
