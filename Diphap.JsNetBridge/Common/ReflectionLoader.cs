@@ -24,6 +24,30 @@ namespace Diphap.JsNetBridge.Common
 
     }
 
+    /// <summary>
+    /// System.Net.Http not found (no web api).
+    /// </summary>
+    public class SystemNetHttpNotFoundException : Exception
+    {
+        /// <summary>
+        /// System.Net.Http not found (no web api).
+        /// </summary>
+        public SystemNetHttpNotFoundException() : base()
+        {
+
+        }
+
+        /// <summary>
+        /// System.Net.Http not found (no web api).
+        /// </summary>
+        /// <param name="message"></param>
+        /// <param name="innerException"></param>
+        public SystemNetHttpNotFoundException(string message, Exception innerException) : base(message, innerException)
+        {
+
+        }
+    }
+
     public class AssemblyResolver
     {
         public readonly string Folder;
@@ -140,7 +164,30 @@ namespace Diphap.JsNetBridge.Common
 
                 if (reflectedAssembly == null)
                 {
-                    reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
+                    try
+                    {
+                        reflectedAssembly = File.Exists(dllPath) ? Assembly.LoadFrom(dllPath) : Assembly.Load(assNameOrFullname);
+                    }
+                    catch (Exception ex)
+                    {
+                        Exception my_ex;
+                        if (assNameOrFullname == "System.Net.Http")
+                        {
+                            my_ex = new SystemNetHttpNotFoundException("SystemNetHttpNotFoundException is managed", ex);
+                        }
+                        else
+                        {
+                            my_ex = ex;
+                        }
+
+                        //if an exception occurs it means that a referenced assembly could not be found    
+                        this.AssemblyResolver.AssemblyLoadErrors.Add(new AssemblyLoadError()
+                        { RootAssemblyPath = dllPath, RootAssemblyName = new AssemblyName(), AssemblyName = new AssemblyName(), Exception = my_ex, ReferencedAssemblies = new AssemblyName[0] });
+
+                        throw my_ex;
+                    }
+
+
                 }
             }
 
@@ -205,7 +252,7 @@ namespace Diphap.JsNetBridge.Common
 
             this.AssemblyResolver = assemblyResolver_;
             List<string> files = new List<string>(200);
-            
+
             files.AddRange(Directory.GetFiles(this.AssemblyResolver.Folder, "*.dll"));
             files.Add(file);
 

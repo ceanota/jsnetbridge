@@ -129,19 +129,18 @@ namespace Diphap.JsNetBridge.Mvc
                 //-- AspNet.
 
                 AspMvcInfo.TypesOfAspNetSetMvc = new TypesOfAspNetSetBaseMvc(new AssemblyInfoWrapperMvc(ar));
-                
+
                 try
                 {
                     var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
                     AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
                 }
-                catch (Exception)
+                catch (SystemNetHttpNotFoundException ex)
                 {
-                    //-- no WebApi.
-                    //-- nothing.
+                    //-- not System.Net.Http(not WebApi).
+                    //-- do nothing because issue is managed.
                     AspMvcInfo.TypesOfAspNetSetWebApi = null;
                 }
-                
             }
 
 
@@ -361,7 +360,7 @@ namespace Diphap.JsNetBridge.Mvc
                 {
                     foreach (var actionGroup in controller.ActionInfoCol)
                     {
-                        sb.Append("declare namespace $dp.$JsNet.$UrlSet." + controller.ScriptName() + "." + actionGroup.MethodName + "{"); 
+                        sb.Append("declare namespace $dp.$JsNet.$UrlSet." + controller.ScriptName() + "." + actionGroup.MethodName + "{");
                         sb.AppendLine();
 
                         for (var ii = 0; ii < actionGroup.Signatures.Length; ii++)
