@@ -165,7 +165,6 @@ namespace Diphap.JsNetBridge.Data
             return string.Join("\r\n", jsInstructions);
 
         }
-
         /// <summary>
         /// Code TS of factories of c# oldClasses.
         /// There is not 'JSArrayFactory'
@@ -173,15 +172,31 @@ namespace Diphap.JsNetBridge.Data
         /// <returns></returns>
         public string ToTSCore()
         {
+            HashSet<Type> found_types;
+            return ToTSCore(out found_types);
+        }
+        /// <summary>
+        /// Code TS of factories of c# oldClasses.
+        /// There is not 'JSArrayFactory'
+        /// </summary>
+        /// <returns></returns>
+        public string ToTSCore(out HashSet<Type> found_complex_types)
+        {
             //-- sort types of oldClasses.
             this.Execute(EnumScript.TS);
 
             Dictionary<string, List<TypeSorter>> groups_by_ns = new Dictionary<string, List<TypeSorter>>();
-
+            found_complex_types = new HashSet<Type>();
+            
             foreach (var dic in this.Classes)
             {
                 foreach (var kv in dic)
                 {
+                    if (found_complex_types.Contains(kv.Value.TObj) == false)
+                    {
+                        found_complex_types.Add(kv.Value.TObj);
+                    }
+
                     var ns = kv.Value.GetScriptNamespace_Full();
                     if (groups_by_ns.ContainsKey(ns))
                     {
@@ -193,7 +208,6 @@ namespace Diphap.JsNetBridge.Data
                         list.Add(kv.Value);
                         groups_by_ns.Add(ns, list);
                     }
-
                 }
             }
 
@@ -217,7 +231,7 @@ namespace Diphap.JsNetBridge.Data
                     // interface Enrollment
                     // { EnrollmentID: number, CourseID: number, PersonID: number, Grade: number, Student: Student, Course: Course }
                     scriptInstructions.AppendLine("interface {name}".Replace("{name}", TypeHelper.GetName(typeSorter.TObj)/*model name*/));
-                    scriptInstructions.AppendLine(typeSorter.JSValue);
+                    scriptInstructions.AppendLine(typeSorter.ScriptValue(found_complex_types));
                 }
                 scriptInstructions.AppendLine(JSRaw.Region.End());
 
@@ -254,7 +268,7 @@ namespace Diphap.JsNetBridge.Data
                     {
                         string funcDecl = ScriptHelper.GetInstance(EnumScript.JS).GetFactoryDeclaration(
                             kv.Key,
-                            kv.Value.JSValue,
+                            kv.Value.ScriptValue(null),
                             true,
                             _JSNamespace.GetObjectFullName(kv.Key, withAlias));
                         funcDecl_Array.Add(funcDecl);

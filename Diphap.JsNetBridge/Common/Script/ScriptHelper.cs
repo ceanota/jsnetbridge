@@ -117,6 +117,84 @@ namespace Diphap.JsNetBridge
             return string.IsNullOrWhiteSpace(jsValue) == false;
         }
 
+        public enum EnumType
+        {
+            /// <summary>
+            /// complex type
+            /// </summary>
+            tcomplex,
+            /// <summary>
+            /// String
+            /// </summary>
+            tstring,
+            /// <summary>
+            /// Number
+            /// </summary>
+            tnumber,
+            /// <summary>
+            /// Enum
+            /// </summary>
+            tenum,
+            /// <summary>
+            /// Datetime
+            /// </summary>
+            tdatetime,
+            /// <summary>
+            /// Boolean
+            /// </summary>
+            tboolean,
+            /// <summary>
+            /// Collection
+            /// </summary>
+            tcollection
+        }
+
+        /// <summary>
+        /// Primitive Type of member or Collection of primitive types .
+        /// </summary>
+        /// <param name="tmember"></param>
+        /// <returns></returns>
+        static public EnumType IsPrimitiveOrPureCollection(Type tmember)
+        {
+            EnumType result = EnumType.tcomplex;
+
+            if (tmember == typeof(string))
+            {
+                result = EnumType.tstring;
+            }
+            else if (TypeHelper.IsNumber(tmember))
+            {
+                result = EnumType.tnumber;
+            }
+            else if (TypeHelper.IsEnum(tmember))
+            {
+                result = EnumType.tenum;
+            }
+            else if (TypeHelper.IsDateTime(tmember))
+            {
+                result = EnumType.tdatetime;
+            }
+            else if (TypeHelper.IsBoolean(tmember))
+            {
+                result = EnumType.tboolean;
+            }
+            else if (TypeHelper.IsCollection(tmember))
+            {
+                //-- member is collection
+                Type telement;
+                if (TypeHelper.GetElementTypeOfCollection(tmember, out telement))
+                {
+                    result = ScriptHelper.IsPrimitiveOrPureCollection(telement);
+                }
+                else
+                {
+                    result = EnumType.tcollection;
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>
         /// Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
         /// </summary>

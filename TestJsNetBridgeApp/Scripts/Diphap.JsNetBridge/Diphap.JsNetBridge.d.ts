@@ -215,6 +215,14 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
+declare namespace $dp.$JsNet.$UrlSet.Home.ShowMe2{
+interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
+$Params():{name:string,age:number,prenom:string}
+$Return():$dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController.dpPerson
+$Enums():{}
+}
+var $action0: _$action0;
+}
 declare namespace $dp.$JsNet.$UrlSet.Home.GetStudent{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{PersonID:number}

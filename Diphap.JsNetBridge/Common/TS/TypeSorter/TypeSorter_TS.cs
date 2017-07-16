@@ -26,23 +26,6 @@ namespace Diphap.JsNetBridge.Common
         }
 
         /// <summary>
-        /// JS Value.
-        /// </summary>
-        override public string JSValue
-        {
-            get
-            {
-                string value = "null";
-                if (ComplexMembers.Count == 0)
-                {
-                    value = "{" + string.Join(",", js_key_value_list) + "}";
-                }
-
-                return value;
-            }
-        }
-
-        /// <summary>
         /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
         /// </summary>
         /// <param name="mi"></param>
@@ -51,11 +34,21 @@ namespace Diphap.JsNetBridge.Common
         /// <returns></returns>
         override protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
         {
-            var tname = _JSNamespace.GetObjectFullName(telem_work, false);
+            string tname;
+            if (telem_work == typeof(System.Object))
+            {
+                tname = "Object";
+            }
+            else
+            {
+                tname = _JSNamespace.GetObjectFullName(telem_work, false);
+            }
+
             if (isCollection)
             {
                 tname = (new ScriptTypeInfo_TS()).TArrayFactoryFunctionDefinitionCall(tname);
             }
+
 
             var key_value = string.Format("{0}:{1}", mi.Name, tname);
 

@@ -104,7 +104,7 @@ namespace Diphap.JsNetBridge
         {
             TypeSorter tSorter = TypeSorter.GetInstance(this._EnumScript, tobj, JSNamespace);
             tSorter.TypesToIgnore = TypesToIgnore;
-            tSorter.Execute();
+            tSorter.DetermineIfMemberInfoAreComplexMembers();
 
             IList<MemberInfo> complexMembersTemp = tSorter.ComplexMembers.ToArray();
 
@@ -123,7 +123,7 @@ namespace Diphap.JsNetBridge
 
                 if (typeof(System.Object) == telem_work)
                 {
-                    tSorter.ResolveComplexMember(mi, "{}");
+                    tSorter.ResolveComplexMember(mi);
                 }
                 else
                 {
@@ -147,7 +147,7 @@ namespace Diphap.JsNetBridge
                     }
                     else
                     {
-                        tSorter.ResolveComplexMember(mi, "{}");
+                        tSorter.ResolveComplexMember(mi);
                     }
                 }
             }

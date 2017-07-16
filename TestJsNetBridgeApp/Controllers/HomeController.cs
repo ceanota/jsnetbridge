@@ -89,6 +89,14 @@ namespace TestJsNetBridgeApp.Controllers
             result.Data = new dpPerson(name, age);
             return result;
         }
+
+        [Diphap.JsNetBridge.Common.JsNetResponseType(typeof(dpPerson))]
+        public JsonResult ShowMe2(string name, int age, string prenom)
+        {
+            JsonResult result = new JsonResult();
+            result.Data = new dpPerson(name, age);
+            return result;
+        }
         #endregion
     }
 }

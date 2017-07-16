@@ -26,7 +26,26 @@ namespace Diphap.JsNetBridge.Common
         /// <returns></returns>
         private static string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection, string objectFullName)
         {
-            return string.Format("\"{0}\":{1}", mi.Name, JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection, objectFullName));
+            string value;
+            if (telem_work == typeof(System.Object))
+            {
+                if (isCollection)
+                {
+                    value = "[]";
+                }
+                else
+                {
+                    value = "{}";
+                }
+            }
+            else
+            {
+                value = JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(telem_work, isCollection, objectFullName);
+            }
+
+            string key_value = string.Format("\"{0}\":{1}", mi.Name, value);
+
+            return key_value;
         }
 
         /// <summary>
@@ -40,23 +59,6 @@ namespace Diphap.JsNetBridge.Common
         }
 
         /// <summary>
-        /// JS Value.
-        /// </summary>
-        override public string JSValue
-        {
-            get
-            {
-                string value = "null";
-                if (ComplexMembers.Count == 0)
-                {
-                    value = "{" + string.Join(",", js_key_value_list) + "}";
-                }
-
-                return value;
-            }
-        }
-
-        /// <summary>
         /// ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
         /// ex: "Courses_":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course))
         /// </summary>
@@ -66,8 +68,8 @@ namespace Diphap.JsNetBridge.Common
         /// <returns></returns>
         override protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
         {
-            var value = TypeSorter_JS.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work, true));
-            return value;
+            string key_value = TypeSorter_JS.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection, _JSNamespace.GetObjectFullName(telem_work, true));
+            return key_value;
         }
 
         ScriptTypeInfo _GetScriptTypeInfo;

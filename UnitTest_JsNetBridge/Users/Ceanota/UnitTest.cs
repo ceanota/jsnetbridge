@@ -72,6 +72,27 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             return path;
         }
 
+
+        [TestMethod]
+        public void TestExe_gescom()
+        {
+            //string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
+            //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
+            //string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
+            string appAspNetPath = "";
+
+            //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplication_vide\bin\WebApplication_vide.dll";
+            appAspNetPath = @"D:\Source\Quadratus\QuadraEdenMRTUI - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
+
+            AspMvcInfo api = new AspMvcInfo(appAspNetPath);
+
+            string repertoire_destination = @"D:\Source\Repos";
+            api.WriteAllText(
+                repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js",
+                repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
+
+        }
+
         [TestMethod]
         public void TestExe()
         {
@@ -80,7 +101,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             //string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
             string appAspNetPath = @"C:\tfs_cegid\Nouvelle_Gamme\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-            
+
             //File.WriteAllText(GetUserFolder() + @"\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", api.ToTS());
 
             //api.WriteAllText(

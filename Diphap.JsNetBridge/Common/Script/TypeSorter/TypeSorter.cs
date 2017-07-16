@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Diphap.JsNetBridge.Common
 {
-
     /// <summary>
     /// Indicates if the type has members with complex or simple type.
     /// </summary>
     abstract internal class TypeSorter
     {
-        
+
         protected abstract EnumScript _EnumScript { get; }
 
         /// <summary>
@@ -34,28 +33,37 @@ namespace Diphap.JsNetBridge.Common
                 default:
                     throw new NotImplementedException();
             }
-            
+
         }
 
         public readonly Type TObj;
         public IList<Type> TypesToIgnore = new Type[] { };
-        public readonly List<Type> TypesIgnored = new List<Type>();
+        private readonly List<Type> TypesIgnored = new List<Type>();
         public List<MemberInfo> ComplexMembers = new List<MemberInfo>();
         public readonly MemberInfo[] miArray;
-        protected List<string> js_key_value_list;
         public static string prefix_namespace = ConfigJS.prefix_ns_jsnet;
 
-        public List<string> Js_key_value_list
-        {
-            get
-            {
-                return js_key_value_list.ToList();
-            }
-        }
+
+        private string _ScriptValue;
         /// <summary>
-        /// Content of object ex: for TS,  '{ prop1: number, prop2: string }'
+        /// Script Value.
         /// </summary>
-        abstract public string JSValue { get; }
+        public string ScriptValue(HashSet<Type> found_complex_types)
+        {
+
+            if (this._ScriptValue == null)
+            {
+                List<string> _script_key_value_list = this.Execute_to_script_key_value_list(found_complex_types);
+
+                this._ScriptValue = "null";
+                if (ComplexMembers.Count == 0)
+                {
+                    this._ScriptValue = "{" + string.Join(",", _script_key_value_list) + "}";
+                }
+            }
+            return this._ScriptValue;
+
+        }
 
         public bool IsSimpleType
         {
@@ -99,9 +107,10 @@ namespace Diphap.JsNetBridge.Common
         /// <summary>
         /// Executes.
         /// </summary>
-        public void Execute()
+        ///<param name="found_complex_types">optionnal</param>
+        public List<string> Execute_to_script_key_value_list(HashSet<Type> found_complex_types)
         {
-            js_key_value_list = new List<string>(miArray.Length);
+            var key_value_list = new List<string>(miArray.Length);
 
             foreach (MemberInfo mi in miArray)
             {
@@ -111,9 +120,41 @@ namespace Diphap.JsNetBridge.Common
 
                 if (ScriptHelper.GetInstance(this._EnumScript).GetPrimitiveEmptyValue(tmem, out value))
                 {
-                    js_key_value_list.Add(this.get_js_key_value(mi, value));
+                    key_value_list.Add(this.get_js_key_value(mi, value));
                 }
                 else
+                {
+                    Type telem_work;
+                    bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                    if (isCollection == false)
+                    {
+                        telem_work = tmem;
+                    }
+
+                    if (found_complex_types != null && found_complex_types.Contains(telem_work) == false)
+                    {
+                        telem_work = typeof(System.Object);
+                    }
+
+                    string key_value = this.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
+                    key_value_list.Add(key_value);
+                }
+            }
+
+            return key_value_list;
+        }
+
+        /// <summary>
+        /// Executes.
+        /// </summary>
+        public void DetermineIfMemberInfoAreComplexMembers()
+        {
+            foreach (MemberInfo mi in miArray)
+            {
+                Type tmem = TypeHelper.GetMemberType(mi);
+
+                if (ScriptHelper.IsPrimitiveOrPureCollection(tmem) == ScriptHelper.EnumType.tcomplex)
                 {
                     if (this.TypesToIgnore.Count == 0)
                     {
@@ -135,10 +176,7 @@ namespace Diphap.JsNetBridge.Common
                         }
                         else
                         {
-                            TypesIgnored.Add(tmem);
-
-                            string js_key_value = this.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
-                            js_key_value_list.Add(js_key_value);
+                            this.TypesIgnored.Add(tmem);
                         }
                     }
                 }
@@ -172,36 +210,10 @@ namespace Diphap.JsNetBridge.Common
         /// Force.
         /// </summary>
         /// <param name="mi"></param>
-        /// <param name="jsvalue">force value</param>
-        internal void ResolveComplexMember(MemberInfo mi, string jsvalue = null)
+        internal void ResolveComplexMember(MemberInfo mi)
         {
             if (this.ComplexMembers.Contains(mi))
             {
-                string js_key_value;
-                if (jsvalue == null)
-                {
-                    Type tmem = TypeHelper.GetMemberType(mi);
-                    Type telem_work;
-                    bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
-
-                    if (isCollection == false)
-                    {
-                        telem_work = tmem;
-                    }
-
-                    js_key_value = this.GetJsKeyValue_FactoryCall(mi, telem_work, isCollection);
-                }
-                else
-                {
-                    string valueTemp = jsvalue;
-                    if (TypeHelper.IsCollection(TypeHelper.GetMemberType(mi)))
-                    {
-                        valueTemp = this.GetScriptTypeInfo.TArrayFactoryFunctionDefinitionCall(jsvalue);
-                    }
-                    js_key_value = this.get_js_key_value(mi, valueTemp);
-                }
-
-                js_key_value_list.Add(js_key_value);
                 this.ComplexMembers.Remove(mi);
             }
         }
@@ -217,8 +229,9 @@ namespace Diphap.JsNetBridge.Common
 
         public override string ToString()
         {
-            string text = string.Format("{0},{1}", this.TObj, this.JSValue);
+            string text = string.Format("{0}", this.TObj);
             return text;
         }
     }
+
 }

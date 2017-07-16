@@ -56,7 +56,8 @@
     //-- The controller is 'Home' et the action method is 'ShowMe'
     var action = $dpUrlSet.Home.ShowMe;
     console.info("$dpUrlSet.Home.ShowMe:", action);
-
+    var params2 = $dpUrlSet.Home.ShowMe2.$action0.$Params();
+    
     //-- get the url of action method
     var url = action.$action0.$GetUrl();
     //-- generated url by server.
