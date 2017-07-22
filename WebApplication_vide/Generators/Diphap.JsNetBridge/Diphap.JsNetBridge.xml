@@ -1,0 +1,1222 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Diphap.JsNetBridge</name>
+    </assembly>
+    <members>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.ProductTitle">
+            <summary>
+            Gets the title property
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.Version">
+            <summary>
+            Gets the application's version
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.Description">
+            <summary>
+            Gets the description about the application.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.Product">
+            <summary>
+             Gets the product's full name.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.Copyright">
+            <summary>
+            Gets the copyright information for the product.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.AssemblyInfo.Company">
+            <summary>
+            Gets the company information for the product.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JsNetResponseTypeAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes a new instance
+            </summary>
+            <param name="responseType"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.JsNetResponseTypeAttribute.ResponseType">
+            <summary>
+            Gets the response type.
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.EnumScript">
+            <summary>
+            Enunm of script (JS or TypeScript)
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.EnumScript.JS">
+            <summary>
+            JavaScript
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.EnumScript.TS">
+            <summary>
+            TypeScript
+            </summary>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper">
+            <summary>
+            Factory gives un new instance of Function that handles the circular reference objects.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.Type,System.Boolean,System.String)">
+            <summary>
+             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="objectFullname"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSCircularReferenceManagerFactoryHelper.FunctionDefinitionCall(System.String,System.Boolean)">
+            <summary>
+             ex: $dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory)
+             or ex: $dp.shared.JSArrayFactory($dp.shared.circularReferenceManagerFactory.apply(null, args)(objectFactory))
+            </summary>
+            <param name="factoryName"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.JS.JSArrayFactory">
+            <summary>
+            My array factory extends a js array.
+            New instances of Array have a function '$dpItemFactory' who creates instance of item of Array.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionName">
+            <summary>
+            Name of factory.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.JS.JSArrayFactory.FunctionDefinitionCall(System.String)">
+            <summary>
+            JS code of call of my factory who extends instances of array.
+            </summary>
+            <param name="var"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.TypeSorter">
+            <summary>
+            Indicates if the type has members with complex or simple type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetInstance(Diphap.JsNetBridge.Common.EnumScript,System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+            <summary>
+            Get instance.
+            </summary>
+            <param name="choice"></param>
+            <param name="tobj"></param>
+            <param name="JSNamespace"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.JSValue">
+            <summary>
+            Content of object ex: for TS,  '{ prop1: number, prop2: string }'
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.TComplexMembers">
+            <summary>
+            Get element type of collection if 't' is collection other else return 't'. 
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.Execute">
+            <summary>
+            Executes.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            ex: 'propertyName : 78'
+            </summary>
+            <param name="mi"></param>
+            <param name="valueTemp"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.GetScriptTypeInfo">
+            <summary>
+            Primitive Type of member or Collection of primitive types .
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.ResolveComplexMember(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            Force.
+            </summary>
+            <param name="mi"></param>
+            <param name="jsvalue">force value</param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetScriptNamespace_Full">
+            <summary>
+            ex: $dp.$JsNet.ContosoUniversity.Models
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.TypeSorter_JS">
+            <summary>
+            Indicates if the type has members with complex or somple type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean,System.String)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="objectFullName">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.#ctor(System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+            <summary>
+            Indicates if the type has members with complex or somple type.
+            </summary>
+            <param name="tobj"></param>
+            <param name="JSNamespace"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS.JSValue">
+            <summary>
+            JS Value.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            ex: "Courses_":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course))
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS.GetScriptTypeInfo">
+            <summary>
+            Singleton.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS._EnumScript">
+            <summary>
+            EnumScript
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            ex: 'propertyName : 78'
+            </summary>
+            <param name="mi"></param>
+            <param name="valueTemp"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.ReflectionLoader">
+            <summary>
+            Load assemblies
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load only assembly (and its referenced assemblies)
+            </summary>
+            <param name="assNameOrFullname">ex: "System.Web.Mvc" OR "System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" </param>
+            <param name="assemblyResolver_"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.GetAlreadyLoadedAssembly(System.String)">
+            <summary>
+            Get already loaded assembly with high version.
+            </summary>
+            <param name="assName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.#ctor(Diphap.JsNetBridge.Common.AssemblyResolver,System.String)">
+            <summary>
+            Load also all assemblies (and their referenced assemblies) in the folder. 
+            </summary>
+            <param name="file"></param>
+            <param name="assemblyResolver_"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.LoadFrom(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load also all assemblies (and their referenced assemblies) in the folder.
+            </summary>
+            <param name="file"></param>
+            <param name="assemblyResolver_"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.ReflectionLoader.Load(System.String,Diphap.JsNetBridge.Common.AssemblyResolver)">
+            <summary>
+            Load only assembly (and its referenced assemblies)
+            </summary>
+            <param name="assNameOrFullname"></param>
+            <param name="AssemblyResolver_"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.TypeSorter_TS">
+            <summary>
+            Indicates if the type has members with complex or somple type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.#ctor(System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+            <summary>
+            Indicates if the type has members with complex or somple type.
+            </summary>
+            <param name="tobj"></param>
+            <param name="JSNamespace"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS.JSValue">
+            <summary>
+            JS Value.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+            <summary>
+            ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
+            </summary>
+            <param name="mi"></param>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS.GetScriptTypeInfo">
+            <summary>
+            Singleton.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS._EnumScript">
+            <summary>
+            EnumScript
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+            <summary>
+            ex: 'propertyName : 78'
+            </summary>
+            <param name="mi"></param>
+            <param name="valueTemp"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetInstance(Diphap.JsNetBridge.Common.EnumScript)">
+            <summary>
+            Get instance.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetKeyValue(System.String,System.String)">
+            <summary>
+            ex: '"{0}":{1}'
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetObjectFactoryName(System.Type,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Get name of object factory.
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference"></param>
+            <param name="objectFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.CreateNamespace(System.String)">
+            <summary>
+            Create namespace.
+            </summary>
+            <param name="js_obj_fullName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptHelper.GetScriptTypeInfo">
+            <summary>
+            Primitive Type of member or Collection of primitive types .
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetPrimitiveEmptyValue(System.Type,System.String@)">
+            <summary>
+            Primitive Type of member or Collection of primitive types .
+            </summary>
+            <param name="tmember"></param>
+            <param name="jsValue"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFunction(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFunctionModule(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Module => ex: (function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }())
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFactory(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
+            </summary>
+            <param name="jsObj">JS object.</param>
+            <param name="withArgs"></param>
+            <param name="constructorName">function name.</param>
+            <param name="stampFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFactory_Executing(System.String)">
+            <summary>
+            (function(){ return {param1:obj1, param2:2, param3:"" }; })();
+            </summary>
+            <param name="instructions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFactoryDeclaration(System.Type,System.String,System.Boolean,System.String)">
+            <summary>
+            $dp.namespace = $dp.namespace || function(){ return {param1:obj1, param2:2, param3:"" }; };
+            </summary>
+            <param name="t"></param>
+            <param name="jsObj"></param>
+            <param name="withArgs"></param>
+            <param name="objFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetNamespace(System.Type)">
+            <summary>
+            namespace.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetObjectDeclaration(System.String,System.String)">
+            <summary>
+            $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
+            </summary>
+            <param name="objectFullNameOrName"></param>
+            <param name="jsObj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.ScriptHelper_JS">
+            <summary>
+            Helper for jS.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetKeyValue(System.String,System.String)">
+            <summary>
+            ex: "prop1" : 0.
+            </summary>
+            <param name="key"></param>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetObjectFactoryName(System.Type,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Get name of object factory.
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference"></param>
+            <param name="objectFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.CreateNamespace(System.String)">
+            <summary>
+            Create namespace.
+            </summary>
+            <param name="js_obj_fullName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptHelper_JS.GetScriptTypeInfo">
+            <summary>
+            Singleton.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetFunction(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetFunctionModule(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Module => ex: (function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }())
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetFactory(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
+            </summary>
+            <param name="jsObj">JS object.</param>
+            <param name="withArgs"></param>
+            <param name="constructorName">function name.</param>
+            <param name="stampFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetFactory_Executing(System.String)">
+            <summary>
+            (function(){ return {param1:obj1, param2:2, param3:"" }; })();
+            </summary>
+            <param name="instructions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetFactoryDeclaration(System.Type,System.String,System.Boolean,System.String)">
+            <summary>
+            $dp.namespace = $dp.namespace || function(){ return {param1:obj1, param2:2, param3:"" }; };
+            </summary>
+            <param name="t"></param>
+            <param name="jsObj"></param>
+            <param name="withArgs"></param>
+            <param name="objFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetNamespace(System.Type)">
+            <summary>
+            namespace.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_JS.GetObjectDeclaration(System.String,System.String)">
+            <summary>
+            $dp.namespace = $dp.namespace ||  {param1:obj1, param2:2, param3:"" };
+            </summary>
+            <param name="objectFullName"></param>
+            <param name="jsObj"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.ScriptTypeInfo_JS">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_JS.TString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_JS.TNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_JS.TDatetime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_JS.TBoolean">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_JS.TArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptTypeInfo_JS.TArrayFactoryFunctionDefinitionCall(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="T"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.ScriptTypeInfo">
+            <summary>
+            Metadata on types.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo.TString">
+            <summary>
+            TString
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo.TNumber">
+            <summary>
+            TNumber
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo.TDatetime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo.TBoolean">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo.TArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptTypeInfo.TArrayFactoryFunctionDefinitionCall(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="jsValue"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.SerializeEnum">
+            <summary>
+            Serialize Enum
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.SerializeEnum.ExecuteAdvanced_JS(System.Type)">
+            <summary>
+            Serialize Enum for JS
+            returns content => ex :{"A":{ "$Key":"A","$Value":0 },"B":{ "$Key":"B","$Value":1 },"C":{ "$Key":"C","$Value":2 },"D":{ "$Key":"D","$Value":3 },"F":{ "$Key":"F","$Value":4 }}
+            </summary>
+            <param name="tenum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.SerializeEnum.ExecuteAdvanced_TS(System.Type)">
+            <summary>
+            Serialize Enum for TS (ambient)
+            </summary>
+            <param name="tenum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.SerializeEnum.ExecuteSimple_JS(System.Type)">
+            <summary>
+            Serialize Enum.
+            </summary>
+            <param name="tenum"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.SerializeEnum.ToDictionnary(System.Type)">
+            <summary>
+            To Dictionnary
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.RecursiveTypeSorter">
+            <summary>
+            Sorts all types of type recursively 
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.#ctor(Diphap.JsNetBridge.Common.EnumScript)">
+            <summary>
+            Sorts all types of type recursively 
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext.Occurences">
+            <summary>
+            complex types.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.ResolvedTypes">
+            <summary>
+            allTypes who containe only primitive type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.Execute(System.Type,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
+            <summary>
+            Serialalize type.
+            </summary>
+            <param name="tobj"></param>
+            <param name="exclude"></param>
+            <param name="noReturn"></param>
+            <param name="JSNamespace"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.Execute(System.Type,System.Int32,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
+            <summary>
+            Serialalize type. Recursive function.
+            </summary>
+            <param name="tobj">type of object</param>
+            <param name="_idx_max"></param>
+            <param name="noReturn"></param>
+            <param name="JSNamespace"></param>
+            <param name="exclude"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.ScriptHelper_TS">
+            <summary>
+            Helper for TS.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetKeyValue(System.String,System.String)">
+            <summary>
+            ex: "prop1" : Number
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetObjectFactoryName(System.Type,System.Boolean,System.Boolean,System.String)">
+            <summary>
+            Get name of object factory.
+            </summary>
+            <param name="telem_work"></param>
+            <param name="isCollection"></param>
+            <param name="functionReference"></param>
+            <param name="objectFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.CreateNamespace(System.String)">
+            <summary>
+            Create namespace.
+            </summary>
+            <param name="js_obj_fullName"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptHelper_TS.GetScriptTypeInfo">
+            <summary>
+            Singleton.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetFunction(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Function => FOR!!! => var func = function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }()
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetFunctionModule(System.String,System.Boolean,System.String,System.String)">
+            <summary>
+            Get Module => ex: (function funcName () { try { /*instructions*/; } catch (ex) { throw $dp.$shared.$innerExceptionFactory('Exception Message', ex); } }())
+            </summary>
+            <param name="body"></param>
+            <param name="call"></param>
+            <param name="funcName"></param>
+            <param name="exceptionMessage"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetFactory(System.String,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Get Factory:  function(){ return {param1:obj1, param2:2, param3:"" }; }
+            </summary>
+            <param name="jsObj">JS object.</param>
+            <param name="withArgs"></param>
+            <param name="constructorName">function name.</param>
+            <param name="stampFunc"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetFactory_Executing(System.String)">
+            <summary>
+            (function(){ return {param1:obj1, param2:2, param3:"" }; })();
+            </summary>
+            <param name="instructions"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetFactoryDeclaration(System.Type,System.String,System.Boolean,System.String)">
+            <summary>
+            $dp.namespace = $dp.namespace || function(){ return {param1:obj1, param2:2, param3:"" }; };
+            </summary>
+            <param name="t"></param>
+            <param name="jsObj"></param>
+            <param name="withArgs"></param>
+            <param name="objFullName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetNamespace(System.Type)">
+            <summary>
+            namespace.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper_TS.GetObjectDeclaration(System.String,System.String)">
+            <summary>
+            ex: 'interface objectName { prop1: number, prop2: string }'
+            </summary>
+            <param name="objectName"></param>
+            <param name="jsObj">content of interface: ex '{ prop1: number, prop2: string }'</param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.ScriptTypeInfo_TS">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_TS.TString">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_TS.TNumber">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_TS.TDatetime">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_TS.TBoolean">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ScriptTypeInfo_TS.TArray">
+            <summary>
+            
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptTypeInfo_TS.TArrayFactoryFunctionDefinitionCall(System.String)">
+            <summary>
+            
+            </summary>
+            <param name="T">Type of data</param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces">
+            <summary>
+            Create namespaces.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateAliases">
+            <summary>
+            alias of namespace
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateJsObjectDeclaration(System.Boolean)">
+            <summary>
+             Declaration of objects.
+            </summary>
+            <param name="withAlias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.ToJSCore(System.String)">
+            <summary>
+            Generates JS Codes.
+            </summary>
+            <param name="regionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.ToTSCore(System.String)">
+            <summary>
+            Generates TS (ambient) codes.
+            </summary>
+            <param name="regionName"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.Enum.DataInfoCol.CreateNamespaces(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Create namespaces.
+            </summary>
+            <param name="tobjArray"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Data.ModelInfo">
+            <summary>
+            Convert several types to JS.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Data.ModelInfo.Classes">
+            <summary>
+            Classes of dependencies. In a class, all types together no dependencies.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.Execute(Diphap.JsNetBridge.Common.EnumScript)">
+            <summary>
+            Sort types.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ExecuteCore(Diphap.JsNetBridge.Common.EnumScript,System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeSorter}@)">
+            <summary>
+            Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
+            </summary>
+            <param name="choice"></param>
+            <param name="tobjArray"></param>
+            <param name="JSNamespace"></param>
+            <param name="rTypeSorters"></param>
+            <param name="classes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.AddClass(Diphap.JsNetBridge.Common.EnumScript,System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeSorter}@)">
+            <summary>
+            Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
+            </summary>
+            <param name="choice"></param>
+            <param name="allTypes"></param>
+            <param name="oldClasses"></param>
+            <param name="JSNamespace"></param>
+            <param name="serializeTypes"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ToJSCore(System.String)">
+            <summary>
+            Code JS of factories of c# oldClasses.
+            There is not 'JSArrayFactory'
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ToTSCore">
+            <summary>
+            Code TS of factories of c# oldClasses.
+            There is not 'JSArrayFactory'
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.CreateJsObjectDeclaration(System.Boolean)">
+            <summary>
+            function declaration
+            ex: _alias0.LoginModel = _alias0.LoginModel || function () { var args = Array.prototype.slice.call(arguments); var obj = { "UserName": "", "Password": "", "RememberMe": false }; obj.constructor = _alias0.LoginModel; return obj; };
+            </summary>
+            <param name="withAlias"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.CreateNamespaces">
+            <summary>
+            
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.CreateAliases">
+            <summary>
+            Create aliases.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ToJS(System.Boolean)">
+            <summary>
+            All code js.
+            </summary>
+            <param name="withJsFileDependencies"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.WriteAllText(System.String,System.Boolean)">
+            <summary>
+            Generates file script
+            </summary>
+            <param name="jsFilePath"></param>
+            <param name="withJsFileDependencies"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.AppendAllText(System.String,System.Boolean)">
+            <summary>
+            Generates file script
+            </summary>
+            <param name="jsFilePath"></param>
+            <param name="withJsFileDependencies"></param>
+        </member>
+        <member name="P:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue">
+            <summary>
+            JS ENUM Intellisense.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.VS_JsEnumKeyValue_instruction(System.String)">
+            <summary>
+            JS ENUM Intellisense.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.GetObjectFullName(System.Type,System.Boolean)">
+            <summary>
+            full name of object.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.GetObjectFullName(System.Type)">
+            <summary>
+            full name of object.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.GetPseudoNamespace(System.Type)">
+            <summary>
+            [For JS]If t.IsNested, so t.Namespace + "." + t.DeclaringType.Name.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.ToJSInstruction(System.Collections.Generic.KeyValuePair{System.String,System.String})">
+            <summary>
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <param name="kv"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.ToJSInstructions(System.Collections.Generic.Dictionary{System.String,System.String})">
+            <summary>
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <param name="nsAliasDic"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.ToJSInstructions(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <param name="types"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ConfigJS.JSNamespace.ToJSInstructions(System.Text.StringBuilder)">
+            <summary>
+            ex: var _alias0 = $dp.$JsNet.ContosoUniversity.Models;
+            </summary>
+            <param name="sb"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.TypeHelper">
+            <summary>
+            Helper.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetElementTypeOfCollection(System.Type,System.Type@)">
+            <summary>
+            Get element type of collection if tmem is collection other else tmember.
+            </summary>
+            <param name="tmember"></param>
+            <param name="tElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetElementTypeOfTask(System.Type,System.Type@)">
+            <summary>
+            Get element type of task if tmem is collection other else tmember.
+            </summary>
+            <param name="tmember"></param>
+            <param name="tElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsGenericTypeAndNotCollection(System.Type)">
+            <summary>
+            Indicate if it's generic type and not Collection
+            </summary>
+            <param name="tmember"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetGenericArgumentTypeAndNotCollection(System.Type)">
+            <summary>
+            Get element type of generic type if tmem is generic type other else return tmember.
+            </summary>
+            <param name="tmember"></param>
+            <param name="tElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetGenericArgumentTypeOrDefault(System.Type,System.Func{System.Type,System.Boolean})">
+            <summary>
+            Get element type of generic type if tmem is generic type other else return tmember.
+            </summary>
+            <param name="t"></param>
+            <param name="funcCondition"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetGenericArgumentType(System.Type,System.Func{System.Type,System.Boolean},System.Type@)">
+            <summary>
+             Get element type of generic type if tmem is generic type other else return tmember.
+            </summary>
+            <param name="tmember"></param>
+            <param name="funcCondition"></param>
+            <param name="tElement"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetElementTypeOfCollectionOrDefault(System.Type)">
+            <summary>
+            Get element type of collection if 't' is collection other else return 't'.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsCollection(System.Type)">
+            <summary>
+            Is it collection.
+            </summary>
+            <param name="tmember"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsTask(System.Type)">
+            <summary>
+            Is it task.
+            </summary>
+            <param name="tmember"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetMemberType(System.Reflection.MemberInfo)">
+            <summary>
+            Get type of member.
+            </summary>
+            <param name="mi"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsNumber(System.Type)">
+            <summary>
+            Is it number?
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsDateTime(System.Type)">
+            <summary>
+            Is it DateTime?
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsBoolean(System.Type)">
+            <summary>
+            Is it boolean?
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetUnderlyingTypeOrDefault(System.Type)">
+            <summary>
+            Returns the underlying type argument of the specified nullable type.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.IsEnum(System.Type)">
+            <summary>
+            Is it Enum?
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetTypesOfClass(System.String,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Get allTypes
+            </summary>
+            <param name="fileName"></param>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetTypesOfClass(System.Reflection.Assembly,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Get allTypes of class.
+            </summary>
+            <param name="ass"></param>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetCustomTypes(System.Collections.Generic.IList{System.Type},System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            filter custom types.
+            </summary>
+            <param name="types"></param>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.FindCustomTypeOrDefault(System.Type)">
+            <summary>
+            Find custom type
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.FindCustomTypeOrDefault(System.Type,System.Boolean@)">
+            <summary>
+            Find custom type
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.AurthorizeTypeOfObject(System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String},System.Type,System.Collections.Generic.IList{System.Type})">
+            <summary>
+            Authorize  Type of object ?
+            </summary>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <param name="t">current type</param>
+            <param name="types_selected"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetTypesOfEnum(System.Reflection.Assembly,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Get types of enum.
+            </summary>
+            <param name="ass"></param>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetTypesOfEnum(System.Type[],System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Get types of enum.
+            </summary>
+            <param name="types"></param>
+            <param name="whiteNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetTypesOfEnum(System.String,System.Collections.Generic.IList{System.String},System.Collections.Generic.IList{System.String})">
+            <summary>
+            Get allTypes of enum.
+            </summary>
+            <param name="fileName"></param>
+            <param name="whiteNamespaces"></param>
+            <param name="blackNamespaces"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetName(System.Type)">
+            <summary>
+            Name of t.
+            </summary>
+            <param name="t"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Diphap.JsNetBridge.TypeHelper.GetAttributePropertyValue(System.Reflection.MemberInfo,System.Type,System.String)">
+            <summary>
+            Get value of property of attribute.
+            </summary>
+            <param name="target"></param>
+            <param name="tatt"></param>
+            <param name="propertyName"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Diphap.JsNetBridge.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+    </members>
+</doc>

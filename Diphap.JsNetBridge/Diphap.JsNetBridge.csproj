@@ -52,12 +52,13 @@
     <Compile Include="Common\JS\JSCircularReferenceManagerFactoryHelper.cs" />
     <Compile Include="Common\JS\ScriptTypeInfo_JS.cs" />
     <Compile Include="Common\Script\ScriptTypeInfo.cs" />
-    <Compile Include="Common\Script\TypeSorter\TypeSorter.cs" />
+    <Compile Include="Common\Script\TypeSorter\TypeSorter_Script.cs" />
     <Compile Include="Common\JS\TypeSorter\TypeSorter_JS.cs" />
     <Compile Include="Common\Script\SerializeEnum.cs" />
     <Compile Include="Common\Script\TypeSorter\RecursiveTypeSorter.cs" />
     <Compile Include="Common\JS\JSArrayFactory.cs" />
     <Compile Include="Common\ReflectionLoader.cs" />
+    <Compile Include="Common\Script\TypeSorter\TypeSorter_.cs" />
     <Compile Include="Common\TS\ScriptHelper_TS.cs" />
     <Compile Include="Common\TS\ScriptTypeInfo_TS.cs" />
     <Compile Include="Common\TS\TypeSorter\TypeSorter_TS.cs" />

@@ -76,14 +76,19 @@ namespace Diphap.JsNetBridge.Mvc
 
             this.Types_Controller = types.Where(t => t.Name.Contains("Controller")).ToList();
 
+            //this.Types_Model.Clear();//-- debug
+
             //-- Parameter and return types of action method.
             foreach (Type t in this.AllInOutClassTypes())
             {
-                if (this.Types_Model.Contains(t) == false)
-                {
-                    //-- add Type which is not Collection.
-                    this.Types_Model.Add(t);
-                }
+                //if (t.FullName == "QuadraEden.Domain.EffetFacture")//-- debug
+                //{
+                    if (this.Types_Model.Contains(t) == false)
+                    {
+                        //-- add Type which is not Collection.
+                        this.Types_Model.Add(t);
+                    }
+                //}
             }
 
             //-- Parameter and return types of action method.

@@ -47,6 +47,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="QuadraEden.Domain">
+      <HintPath>..\..\..\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenDomain\bin\Debug\QuadraEden.Domain.dll</HintPath>
+    </Reference>
+    <Reference Include="QuadraEden.Transverse">
+      <HintPath>..\..\..\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenDomain\bin\Debug\QuadraEden.Transverse.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">

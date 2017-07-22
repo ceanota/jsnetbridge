@@ -15,14 +15,11 @@ namespace Diphap.JsNetBridge
     /// </summary>
     public class RecursiveTypeSorter
     {
-
-        private readonly EnumScript _EnumScript;
         /// <summary>
         /// Sorts all types of type recursively 
         /// </summary>
-        public RecursiveTypeSorter(EnumScript choice)
+        public RecursiveTypeSorter()
         {
-            this._EnumScript = choice;
         }
 
         internal class GlobalRecursiveContext
@@ -69,7 +66,7 @@ namespace Diphap.JsNetBridge
         /// <summary>
         /// allTypes who containe only primitive type.
         /// </summary>
-        internal readonly Dictionary<Type, TypeSorter> ResolvedTypes = new Dictionary<Type, TypeSorter>();
+        internal readonly Dictionary<Type, TypeSorter_> ResolvedTypes = new Dictionary<Type, TypeSorter_>();
 
 
         public List<Type> TypesToIgnore = new List<Type>();
@@ -102,7 +99,7 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         internal void Execute(Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
-            TypeSorter tSorter = TypeSorter.GetInstance(this._EnumScript, tobj, JSNamespace);
+            TypeSorter_ tSorter = new TypeSorter_(tobj);
             tSorter.TypesToIgnore = TypesToIgnore;
             tSorter.DetermineIfMemberInfoAreComplexMembers();
 
@@ -112,6 +109,11 @@ namespace Diphap.JsNetBridge
             {
 
                 Type tmem = TypeHelper.GetMemberType(mi);
+
+                //if (this.ResolvedTypes.ContainsKey(tmem) == true)
+                //{
+                //    continue;
+                //}
 
                 Type telem_work;
                 bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);

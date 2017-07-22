@@ -50,45 +50,67 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Classes of dependencies. In a class, all types together no dependencies.
         /// </summary>
-        private readonly List<Dictionary<Type, TypeSorter>> Classes = new List<Dictionary<Type, TypeSorter>>(20);
+        private readonly List<Dictionary<Type, TypeSorter_>> Classes = new List<Dictionary<Type, TypeSorter_>>(0);
         public readonly List<Type> Types;
 
+        public readonly HashSet<Type> found_complex_types = new HashSet<Type>();
 
         /// <summary>
         /// Sort types.
         /// </summary>
-        public void Execute(EnumScript choice)
+        /// <param name="force">force reexecuting</param>
+        public void SortTypesInClasses(bool force = false)
         {
-            this.Classes.Clear();
-            List<RecursiveTypeSorter> serializeTypes = new List<RecursiveTypeSorter>();
-            List<Type> unresolvedTypes;
+            if (force)
+            {
+                this.Classes.Clear();
+            }
 
-            #region "First Pass"
-            unresolvedTypes = ModelInfo.ExecuteCore(choice, this.Types, this.Classes, _JSNamespace, ref serializeTypes);
-            #endregion
+            if (this.Classes.Count == 0)
+            {
+                List<RecursiveTypeSorter> serializeTypes = new List<RecursiveTypeSorter>();
+                List<Type> unresolvedTypes;
 
-            #region "2nd Pass: For recursive issues"
-            unresolvedTypes = ModelInfo.ExecuteCore(choice, unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
-            #endregion
+                #region "First Pass"
+                unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, _JSNamespace, ref serializeTypes);
+                #endregion
 
+                #region "2nd Pass: For recursive issues"
+                unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
+                #endregion
+
+                #region ""
+                this.found_complex_types.Clear();
+
+                foreach (var dic in this.Classes)
+                {
+                    foreach (var kv in dic)
+                    {
+                        if (this.found_complex_types.Contains(kv.Value.TObj) == false)
+                        {
+                            this.found_complex_types.Add(kv.Value.TObj);
+                        }
+                    }
+                }
+                #endregion
+            }
         }
 
         /// <summary>
         /// Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
         /// </summary>
-        /// <param name="choice"></param>
         /// <param name="tobjArray"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="rTypeSorters"></param>
         /// <param name="classes"></param>
         /// <returns></returns>
-        static private List<Type> ExecuteCore(EnumScript choice, List<Type> tobjArray, List<Dictionary<Type, TypeSorter>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
+        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter_>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
         {
             do
             {
                 //-- create each class.
             }
-            while (AddClass(choice, tobjArray, classes, JSNamespace, ref rTypeSorters));
+            while (AddClass(tobjArray, classes, JSNamespace, ref rTypeSorters));
 
             #region "unresolvedTypes"
             List<Type> unresolvedTypes;
@@ -105,15 +127,14 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
         /// </summary>
-        /// <param name="choice"></param>
         /// <param name="allTypes"></param>
         /// <param name="oldClasses"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="serializeTypes"></param>
         /// <returns></returns>
-        private static bool AddClass(EnumScript choice, List<Type> allTypes, List<Dictionary<Type, TypeSorter>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
+        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter_>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
         {
-            RecursiveTypeSorter st = new RecursiveTypeSorter(choice);
+            RecursiveTypeSorter st = new RecursiveTypeSorter();
             serializeTypes.Add(st);
 
             st.TypesToIgnore.AddRange(oldClasses.SelectMany(kv => kv.Keys));
@@ -144,7 +165,7 @@ namespace Diphap.JsNetBridge.Data
         public string ToJSCore(string regionName = "Model")
         {
             //-- sort types of oldClasses.
-            this.Execute(EnumScript.JS);
+            this.SortTypesInClasses();
 
             List<string> jsInstructions = new List<string>();
 
@@ -165,6 +186,7 @@ namespace Diphap.JsNetBridge.Data
             return string.Join("\r\n", jsInstructions);
 
         }
+
         /// <summary>
         /// Code TS of factories of c# oldClasses.
         /// There is not 'JSArrayFactory'
@@ -172,31 +194,15 @@ namespace Diphap.JsNetBridge.Data
         /// <returns></returns>
         public string ToTSCore()
         {
-            HashSet<Type> found_types;
-            return ToTSCore(out found_types);
-        }
-        /// <summary>
-        /// Code TS of factories of c# oldClasses.
-        /// There is not 'JSArrayFactory'
-        /// </summary>
-        /// <returns></returns>
-        public string ToTSCore(out HashSet<Type> found_complex_types)
-        {
             //-- sort types of oldClasses.
-            this.Execute(EnumScript.TS);
+            this.SortTypesInClasses();
 
-            Dictionary<string, List<TypeSorter>> groups_by_ns = new Dictionary<string, List<TypeSorter>>();
-            found_complex_types = new HashSet<Type>();
-            
+            Dictionary<string, List<TypeSorter_>> groups_by_ns = new Dictionary<string, List<TypeSorter_>>();
+
             foreach (var dic in this.Classes)
             {
                 foreach (var kv in dic)
                 {
-                    if (found_complex_types.Contains(kv.Value.TObj) == false)
-                    {
-                        found_complex_types.Add(kv.Value.TObj);
-                    }
-
                     var ns = kv.Value.GetScriptNamespace_Full();
                     if (groups_by_ns.ContainsKey(ns))
                     {
@@ -204,7 +210,7 @@ namespace Diphap.JsNetBridge.Data
                     }
                     else
                     {
-                        var list = new List<TypeSorter>();
+                        var list = new List<TypeSorter_>();
                         list.Add(kv.Value);
                         groups_by_ns.Add(ns, list);
                     }
@@ -231,7 +237,8 @@ namespace Diphap.JsNetBridge.Data
                     // interface Enrollment
                     // { EnrollmentID: number, CourseID: number, PersonID: number, Grade: number, Student: Student, Course: Course }
                     scriptInstructions.AppendLine("interface {name}".Replace("{name}", TypeHelper.GetName(typeSorter.TObj)/*model name*/));
-                    scriptInstructions.AppendLine(typeSorter.ScriptValue(found_complex_types));
+                    var ts_out = TypeSorter_Script.GetInstance(EnumScript.TS, typeSorter, _JSNamespace);
+                    scriptInstructions.AppendLine(ts_out.ScriptValue(this.found_complex_types));
                 }
                 scriptInstructions.AppendLine(JSRaw.Region.End());
 
@@ -266,9 +273,10 @@ namespace Diphap.JsNetBridge.Data
                 foreach (var kv in dic)
                 {
                     {
+                        var ts_out = TypeSorter_Script.GetInstance(EnumScript.JS, kv.Value, _JSNamespace);
                         string funcDecl = ScriptHelper.GetInstance(EnumScript.JS).GetFactoryDeclaration(
                             kv.Key,
-                            kv.Value.ScriptValue(null),
+                            ts_out.ScriptValue(this.found_complex_types),
                             true,
                             _JSNamespace.GetObjectFullName(kv.Key, withAlias));
                         funcDecl_Array.Add(funcDecl);

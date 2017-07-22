@@ -197,9 +197,7 @@ interface DocumentStyle
 interface DocumentModeleImpressionDestinataire
 {DocumentModeleImpressionDestinataireId:number,Libelle:string}
 interface DocumentTypePerso
-{DocumentTypePersoId:number,TypeDocumentId:number,Code:string,Libelle:string,Position:number,EnumTypeDocument:number}
-interface DocumentModeleImpressionPanel
-{DocumentModeleImpressionId:number,DocumentPanelId:number,TopPosition:number,LeftPosition:number,Width:number,Height:number,Visible:boolean}
+{DocumentTypePersoId:number,PereId:number,TypeDocumentId:number,Code:string,Libelle:string,Fils:$dp.$shared.$Array<string>,Position:number,EnumTypeDocument:number}
 interface SessionComptabilisation
 {SessionComptabilisationId:number,Libelle:string,UtilisateurId:number,DateCreation:Date,DateModif:Date,CreateurId:number,Debut:Date,Fin:Date,DocumentId:number}
 interface EffetFacture
@@ -211,14 +209,13 @@ interface DocumentModele
 interface DocumentModeleImpressionPerso
 {DocumentTypePersoId:number,DocumentModeleImpressionId:number,Visible:boolean,DocumentTypePerso:$dp.$JsNet.QuadraEden.Domain.DocumentTypePerso}
 interface DocumentModeleImpression
-{DocumentModeleImpressionId:number,DocumentStyleId:number,DocumentModeleId:number,DossierId:number,DocumentModeleImpressionDestinataireId:number,Libelle:string,UtilisateurId:number,CreateurId:number,DateCreation:Date,DateModif:Date,DocumentModele:$dp.$JsNet.QuadraEden.Domain.DocumentModele,DocumentModeleImpressionDestinataire:$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionDestinataire,DocumentStyle:$dp.$JsNet.QuadraEden.Domain.DocumentStyle,DocumentModeleImpressionPersoList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPerso>,DocumentModeleImpressionPanelList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPanel>,DocumentModeleImpressionDestinataire_Enum:number,EnCreation:boolean}
+{DocumentModeleImpressionId:number,DocumentStyleId:number,DocumentModeleId:number,DossierId:number,DocumentModeleImpressionDestinataireId:number,Libelle:string,UtilisateurId:number,CreateurId:number,DateCreation:Date,DateModif:Date,DocumentModele:$dp.$JsNet.QuadraEden.Domain.DocumentModele,DocumentModeleImpressionDestinataire:$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionDestinataire,DocumentStyle:$dp.$JsNet.QuadraEden.Domain.DocumentStyle,DocumentModeleImpressionPersoList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPerso>,DocumentModeleImpressionDestinataire_Enum:number,EnCreation:boolean}
 //#endregion
 //#region 'functions'
 var View_AdresseTiers: () => $dp.$JsNet.QuadraEden.Domain.View_AdresseTiers;
 var DocumentStyle: () => $dp.$JsNet.QuadraEden.Domain.DocumentStyle;
 var DocumentModeleImpressionDestinataire: () => $dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionDestinataire;
 var DocumentTypePerso: () => $dp.$JsNet.QuadraEden.Domain.DocumentTypePerso;
-var DocumentModeleImpressionPanel: () => $dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPanel;
 var SessionComptabilisation: () => $dp.$JsNet.QuadraEden.Domain.SessionComptabilisation;
 var EffetFacture: () => $dp.$JsNet.QuadraEden.Domain.EffetFacture;
 var Reglement: () => $dp.$JsNet.QuadraEden.Domain.Reglement;
@@ -559,7 +556,7 @@ declare namespace $dp.$JsNet.QuadraEdenMVC_UI.Models.DocumentModeleImpression {
 interface DocumentModeleImpression_MD
 {Libelle:string}
 interface DocumentModeleImpressionModel
-{DocumentModeleImpressionId:number,DocumentStyleId:number,DocumentModeleId:number,DossierId:number,DocumentModeleImpressionDestinataireId:number,Libelle:string,UtilisateurId:number,CreateurId:number,DateCreation:Date,DateModif:Date,DocumentModele:$dp.$JsNet.QuadraEden.Domain.DocumentModele,DocumentModeleImpressionDestinataire:$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionDestinataire,DocumentStyle:$dp.$JsNet.QuadraEden.Domain.DocumentStyle,DocumentModeleImpressionPersoList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPerso>,DocumentModeleImpressionPanelList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPanel>,DocumentModeleImpressionDestinataire_Enum:number,EnCreation:boolean}
+{DocumentModeleImpressionId:number,DocumentStyleId:number,DocumentModeleId:number,DossierId:number,DocumentModeleImpressionDestinataireId:number,Libelle:string,UtilisateurId:number,CreateurId:number,DateCreation:Date,DateModif:Date,DocumentModele:$dp.$JsNet.QuadraEden.Domain.DocumentModele,DocumentModeleImpressionDestinataire:$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionDestinataire,DocumentStyle:$dp.$JsNet.QuadraEden.Domain.DocumentStyle,DocumentModeleImpressionPersoList:$dp.$shared.$Array<$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpressionPerso>,DocumentModeleImpressionDestinataire_Enum:number,EnCreation:boolean}
 //#endregion
 //#region 'functions'
 var DocumentModeleImpression_MD: () => $dp.$JsNet.QuadraEdenMVC_UI.Models.DocumentModeleImpression.DocumentModeleImpression_MD;
@@ -738,7 +735,7 @@ interface EnumTypeImport {Tiers:{ $Key:string,$Value:number },Article:{ $Key:str
 }
 declare namespace $dp.$JsNet.QuadraEden.Transverse.QuadraEnum {
 interface EnumNomenclatureContextType {UNKNOWN:{ $Key:string,$Value:number },FamilleComptable:{ $Key:string,$Value:number },FamilleArt1:{ $Key:string,$Value:number },FamilleArt2:{ $Key:string,$Value:number },FamilleArt3:{ $Key:string,$Value:number },FamilleTarifArt:{ $Key:string,$Value:number },FamilleTarifClient:{ $Key:string,$Value:number },ImputationAnalytique:{ $Key:string,$Value:number },ImputationAnalCli:{ $Key:string,$Value:number },TypeDimension:{ $Key:string,$Value:number },Activite:{ $Key:string,$Value:number },Agence:{ $Key:string,$Value:number },FamilleCli1:{ $Key:string,$Value:number },FamilleCli2:{ $Key:string,$Value:number },FamilleComptableTiers:{ $Key:string,$Value:number },Depot:{ $Key:string,$Value:number },Tournee:{ $Key:string,$Value:number },MotifSortie:{ $Key:string,$Value:number },SecteurGeo:{ $Key:string,$Value:number },ModeleEtiq:{ $Key:string,$Value:number },Sous_Tournee:{ $Key:string,$Value:number },Factor:{ $Key:string,$Value:number },VentilCptaHT:{ $Key:string,$Value:number },Taxe:{ $Key:string,$Value:number },TVA:{ $Key:string,$Value:number },FamilleTVA1:{ $Key:string,$Value:number },FamilleTVA2:{ $Key:string,$Value:number },FamilleTVA3:{ $Key:string,$Value:number },Representant:{ $Key:string,$Value:number },ModeReglement:{ $Key:string,$Value:number },TauxDevise:{ $Key:string,$Value:number }} 
-interface EnumNomenclatureType {UNKNOWN:{ $Key:string,$Value:number },Pays:{ $Key:string,$Value:number },NatJuridique:{ $Key:string,$Value:number },CodeBarreType:{ $Key:string,$Value:number },Mesure:{ $Key:string,$Value:number },TypeDocument:{ $Key:string,$Value:number },AppliCoefPvPa:{ $Key:string,$Value:number },CritImpFact:{ $Key:string,$Value:number },Devise:{ $Key:string,$Value:number },FormatLibelleArt:{ $Key:string,$Value:number },ImpObligLiv:{ $Key:string,$Value:number },Incoterm:{ $Key:string,$Value:number },LieuDispo:{ $Key:string,$Value:number },MethAch:{ $Key:string,$Value:number },ModeExp:{ $Key:string,$Value:number },RegroupBLsurFact:{ $Key:string,$Value:number },StatutArticle:{ $Key:string,$Value:number },StatutClient:{ $Key:string,$Value:number },TypeAppartenance:{ $Key:string,$Value:number },TypeArt:{ $Key:string,$Value:number },TypeClient:{ $Key:string,$Value:number },TypeDonnee:{ $Key:string,$Value:number },TypeFlux:{ $Key:string,$Value:number },TypeJour:{ $Key:string,$Value:number },TypeMontant:{ $Key:string,$Value:number },TypeNomenclatureUE:{ $Key:string,$Value:number },TypeUL:{ $Key:string,$Value:number },Langue:{ $Key:string,$Value:number },QualifMesure:{ $Key:string,$Value:number },QualifTaxe:{ $Key:string,$Value:number },RegimeTVA:{ $Key:string,$Value:number },TypeTelephone:{ $Key:string,$Value:number },LocalisTaxe:{ $Key:string,$Value:number },CategorieTVA:{ $Key:string,$Value:number },CategorieReglement:{ $Key:string,$Value:number },Etat:{ $Key:string,$Value:number },Affectation:{ $Key:string,$Value:number },Comptabilite:{ $Key:string,$Value:number },Civilite:{ $Key:string,$Value:number },NiveauRelance:{ $Key:string,$Value:number },APE:{ $Key:string,$Value:number },TypeCalculTaxe:{ $Key:string,$Value:number }} 
+interface EnumNomenclatureType {UNKNOWN:{ $Key:string,$Value:number },Pays:{ $Key:string,$Value:number },NatJuridique:{ $Key:string,$Value:number },CodeBarreType:{ $Key:string,$Value:number },Mesure:{ $Key:string,$Value:number },TypeDocument:{ $Key:string,$Value:number },AppliCoefPvPa:{ $Key:string,$Value:number },CritImpFact:{ $Key:string,$Value:number },Devise:{ $Key:string,$Value:number },FormatLibelleArt:{ $Key:string,$Value:number },ImpObligLiv:{ $Key:string,$Value:number },Incoterm:{ $Key:string,$Value:number },LieuDispo:{ $Key:string,$Value:number },MethAch:{ $Key:string,$Value:number },ModeExp:{ $Key:string,$Value:number },RegroupBLsurFact:{ $Key:string,$Value:number },StatutArticle:{ $Key:string,$Value:number },StatutClient:{ $Key:string,$Value:number },TypeAppartenance:{ $Key:string,$Value:number },TypeArt:{ $Key:string,$Value:number },TypeClient:{ $Key:string,$Value:number },TypeDonnee:{ $Key:string,$Value:number },TypeFlux:{ $Key:string,$Value:number },TypeJour:{ $Key:string,$Value:number },TypeMontant:{ $Key:string,$Value:number },TypeNomenclatureUE:{ $Key:string,$Value:number },TypeUL:{ $Key:string,$Value:number },Langue:{ $Key:string,$Value:number },QualifMesure:{ $Key:string,$Value:number },QualifTaxe:{ $Key:string,$Value:number },RegimeTVA:{ $Key:string,$Value:number },TypeTelephone:{ $Key:string,$Value:number },LocalisTaxe:{ $Key:string,$Value:number },CategorieTVA:{ $Key:string,$Value:number },CategorieReglement:{ $Key:string,$Value:number },Etat:{ $Key:string,$Value:number },Affectation:{ $Key:string,$Value:number },Comptabilite:{ $Key:string,$Value:number },Civilite:{ $Key:string,$Value:number },NiveauRelance:{ $Key:string,$Value:number },APE:{ $Key:string,$Value:number }} 
 }
 declare namespace $dp.$JsNet.QuadraEden.Domain.Parametrage {
 interface EnumBundleUnivers {Article:{ $Key:string,$Value:number },Client:{ $Key:string,$Value:number },Fournisseur:{ $Key:string,$Value:number }} 
@@ -1009,17 +1006,9 @@ $Enums():{}
 }
 var $action0: _$action0;
 }
-declare namespace $dp.$JsNet.$UrlSet.DocumentModeleImpression.GetMediaByDMIMock{
-interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
-$Params():{dmi:$dp.$JsNet.QuadraEden.Domain.DocumentModeleImpression,dossierId:number}
-$Return():{}
-$Enums():{}
-}
-var $action0: _$action0;
-}
 declare namespace $dp.$JsNet.$UrlSet.DocumentModeleImpression.GetMediaByDMIId{
 interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
-$Params():{documentmodeleImpressionId:number,dossierId:number}
+$Params():{documentmodeleImpressionId:number}
 $Return():{}
 $Enums():{}
 }
@@ -1054,14 +1043,6 @@ interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
 $Params():{documentModeleImpressionId:number}
 $Return():{}
 $Enums():{}
-}
-var $action0: _$action0;
-}
-declare namespace $dp.$JsNet.$UrlSet.DocumentModeleImpression.GetDocumentPanel{
-interface _$action0 extends $dp.$JsNet.$Helpers.$Shared.$Action._$Action {
-$Params():{t:number}
-$Return():{}
-$Enums():{t: $dp.$JsNet.QuadraEden.Transverse.Business.EnumTypeDocument}
 }
 var $action0: _$action0;
 }

@@ -13,5 +13,11 @@ namespace WebApplication_vide.Controllers
         {
             throw new NotImplementedException();
         }
+
+        public ActionResult Index()
+        {
+            return View();
+        }
+
     }
 }

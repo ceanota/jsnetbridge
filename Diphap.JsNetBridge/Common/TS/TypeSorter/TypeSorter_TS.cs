@@ -10,7 +10,7 @@ namespace Diphap.JsNetBridge.Common
     /// <summary>
     /// Indicates if the type has members with complex or somple type.
     /// </summary>
-    internal class TypeSorter_TS : TypeSorter
+    internal class TypeSorter_TS : TypeSorter_Script
     {
 
         readonly ConfigJS.JSNamespace _JSNamespace;
@@ -18,9 +18,9 @@ namespace Diphap.JsNetBridge.Common
         /// <summary>
         /// Indicates if the type has members with complex or somple type.
         /// </summary>
-        /// <param name="tobj"></param>
+        /// <param name="ts"></param>
         /// <param name="JSNamespace"></param>
-        internal TypeSorter_TS(Type tobj, ConfigJS.JSNamespace JSNamespace) : base(tobj)
+        internal TypeSorter_TS(TypeSorter_ ts, ConfigJS.JSNamespace JSNamespace) : base(ts)
         {
             this._JSNamespace = JSNamespace;
         }
@@ -32,7 +32,7 @@ namespace Diphap.JsNetBridge.Common
         /// <param name="telem_work"></param>
         /// <param name="isCollection"></param>
         /// <returns></returns>
-        override protected string GetJsKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
+        override protected string GetScriptKeyValue_FactoryCall(MemberInfo mi, Type telem_work, bool isCollection)
         {
             string tname;
             if (telem_work == typeof(System.Object))
@@ -55,23 +55,6 @@ namespace Diphap.JsNetBridge.Common
             return key_value;
         }
 
-        ScriptTypeInfo _GetScriptTypeInfo;
-        /// <summary>
-        /// Singleton.
-        /// </summary>
-        /// <returns></returns>
-        public override ScriptTypeInfo GetScriptTypeInfo
-        {
-            get
-            {
-                if (this._GetScriptTypeInfo == null)
-                {
-                    this._GetScriptTypeInfo = new ScriptTypeInfo_TS();
-                }
-                return this._GetScriptTypeInfo;
-            }
-        }
-
         /// <summary>
         /// EnumScript
         /// </summary>
@@ -89,7 +72,7 @@ namespace Diphap.JsNetBridge.Common
         /// <param name="mi"></param>
         /// <param name="valueTemp"></param>
         /// <returns></returns>
-        override protected string get_js_key_value(MemberInfo mi, string valueTemp)
+        override protected string get_script_key_value(MemberInfo mi, string valueTemp)
         {
             return string.Format("{0}:{1}", mi.Name, valueTemp);
         }

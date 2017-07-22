@@ -302,9 +302,11 @@ namespace WebApplication_vide.Controllers
 
         public long CreateurId { get; set; }
 
-        public virtual ICollection<EffetFacture> EffetFacture { get; set; }
+        public virtual EffetFacture EffetFacture_unique { get; set; }
 
-        public virtual ICollection<Reglement> Reglement { get; set; }
+        //public virtual ICollection<EffetFacture> EffetFacture { get; set; }
+
+        //public virtual ICollection<Reglement> Reglement { get; set; }
 
     }
 }

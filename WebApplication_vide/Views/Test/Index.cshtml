@@ -1,0 +1,39 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>test</title>
+</head>
+<body>
+    <div>
+        test alex
+    </div>
+    <script src="~/scripts/Diphap.JsNetBridge/actionHelper.js"></script>
+    <script src="~/scripts/Diphap.JsNetBridge/arrayFactory.js"></script>
+    <script src="~/scripts/Diphap.JsNetBridge/circularReferenceManagerFactory.js"></script>
+    <script src="~/scripts/Diphap.JsNetBridge/CheckingDependencies.js"></script>
+    <script src="~/scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.js"></script>
+
+    @* JsNetBridge: it will generate the url. *@
+    <script>
+
+	    @* retrieves the route templates (ex: "{controller}/{action}/{id}" or api/{controller}/{id} *@
+        $dp.$JsNet.$Helpers.$Mvc.$Routes.$selectedRoute.$RouteTemplate = '@(System.Web.Routing.RouteTable.Routes["Default"] == null ? "" : (System.Web.Routing.RouteTable.Routes["Default"] as System.Web.Routing.Route).Url)';
+
+        @* generates the url of action method. *@
+        @(new MvcHtmlString(WebApplication_vide.MvcApplication.AspMvcInfo.UrlInfo.ToJS_SetUrl(new Diphap.JsNetBridge.Mvc.Proxy.UrlManager(this.Url.Action, this.Url.RouteUrl),"DefaultApi")))
+
+    </script>
+    @* JsNetBridge: example of use. Read the prerequisites in the script 'Diphap.JsNetBridge.Example.js' *@
+    @* <script src="~/Scripts/Diphap.JsNetBridge/Diphap.JsNetBridge.Example.js" ></script> *@
+
+</body>
+
+
+</html>

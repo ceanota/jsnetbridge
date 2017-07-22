@@ -15,27 +15,6 @@ namespace Diphap.JsNetBridge.Common
 
         protected abstract EnumScript _EnumScript { get; }
 
-        /// <summary>
-        /// Get instance.
-        /// </summary>
-        /// <param name="choice"></param>
-        /// <param name="tobj"></param>
-        /// <param name="JSNamespace"></param>
-        /// <returns></returns>
-        internal static TypeSorter GetInstance(EnumScript choice, Type tobj, ConfigJS.JSNamespace JSNamespace)
-        {
-            switch (choice)
-            {
-                case EnumScript.JS:
-                    return new TypeSorter_JS(tobj, JSNamespace);
-                case EnumScript.TS:
-                    return new TypeSorter_TS(tobj, JSNamespace);
-                default:
-                    throw new NotImplementedException();
-            }
-
-        }
-
         public readonly Type TObj;
         public IList<Type> TypesToIgnore = new Type[] { };
         private readonly List<Type> TypesIgnored = new List<Type>();

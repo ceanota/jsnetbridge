@@ -26,16 +26,22 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestMethod1()
         {
-            ModelInfo st = new ModelInfo(typeof(ContosoUniversity.Models.Student), typeof(ContosoUniversity.Models.Generic.ReturnData<ContosoUniversity.Models.Enrollment>));
+            var ef = new QuadraEden.Domain.EffetFacture();
+            var reg = new QuadraEden.Domain.Reglement();
+
+            var tef = typeof(QuadraEden.Domain.EffetFacture);
+            var treg = typeof(QuadraEden.Domain.Reglement);
+
+            ModelInfo st = new ModelInfo(typeof(QuadraEden.Domain.EffetFacture), typeof(QuadraEden.Domain.Reglement));
             File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts", st.ToTSCore());
 
             //st.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js", true);
 
-            EnumColInfo ei = new EnumColInfo(
-                new List<Type>() { typeof(ContosoUniversity.Models.Grade), typeof(General.Langue), typeof(General.Matiere) },
-                new ConfigJS.JSNamespace());
+            //EnumColInfo ei = new EnumColInfo(
+            //    new List<Type>() { typeof(ContosoUniversity.Models.Grade), typeof(General.Langue), typeof(General.Matiere) },
+            //    new ConfigJS.JSNamespace());
 
-            File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.d.ts", ei.ToTSCore());
+            //File.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.d.ts", ei.ToTSCore());
 
             //ei.WriteAllText(@"D:\Source\Repos\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.enum.js");
         }
@@ -82,7 +88,7 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string appAspNetPath = "";
 
             //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplication_vide\bin\WebApplication_vide.dll";
-            appAspNetPath = @"D:\Source\Quadratus\QuadraEdenMRTUI - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
+            appAspNetPath = @"D:\Source\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
 
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
 
@@ -90,6 +96,10 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             api.WriteAllText(
                 repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js",
                 repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
+
+            //           api.WriteAllText(
+            //@"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js",
+            //@"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts");
 
         }
 
