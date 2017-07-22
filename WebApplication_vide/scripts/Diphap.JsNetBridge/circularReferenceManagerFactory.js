@@ -11,7 +11,7 @@
         ///   <param name='sameIntance' type='bool'>If sameInstance === undefined: new instance of function. Otherwise, we use the same instance.</param>
         ///   <returns type='Function' />
         /// </signature>
-        debugger;
+
         if (sameIntance === undefined) {
             var newFunc = window.$dp.$shared.$circularReferenceManagerFactory._managerFunc.bind();
             newFunc.factories = [];
@@ -26,7 +26,7 @@
         ///   <param name='func' type='Function'>Factory of instances.</param>
         ///   <returns type='Object' />
         /// </signature>
-        debugger;
+
         var internalFunc = window.$dp.$shared.$circularReferenceManagerFactory.instance;
 
         var foundedIdx = -1;

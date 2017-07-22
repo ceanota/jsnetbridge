@@ -18,7 +18,7 @@ namespace Diphap.JsNetBridge.Data
         #region "Constructors"
         public ModelInfo(List<Type> allTypes, ConfigJS.JSNamespace JSNamespace)
         {
-            this.Types = allTypes;
+            this.Types_In = allTypes;
             this._JSNamespace = JSNamespace;
         }
 
@@ -42,7 +42,7 @@ namespace Diphap.JsNetBridge.Data
 
         public ModelInfo(string appAspNetPath, ConfigJS.JSNamespace JSNamespace)
         {
-            this.Types = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
+            this.Types_In = TypeHelper.GetTypesOfClass(appAspNetPath, new string[] { }, new string[] { });
             this._JSNamespace = JSNamespace;
         }
         #endregion
@@ -51,7 +51,7 @@ namespace Diphap.JsNetBridge.Data
         /// Classes of dependencies. In a class, all types together no dependencies.
         /// </summary>
         private readonly List<Dictionary<Type, TypeSorter_>> Classes = new List<Dictionary<Type, TypeSorter_>>(0);
-        public readonly List<Type> Types;
+        public readonly List<Type> Types_In;
 
         public readonly HashSet<Type> found_complex_types = new HashSet<Type>();
 
@@ -68,11 +68,11 @@ namespace Diphap.JsNetBridge.Data
 
             if (this.Classes.Count == 0)
             {
-                List<RecursiveTypeSorter> serializeTypes = new List<RecursiveTypeSorter>();
+                List<RecursiveTypeDependanceSorter> serializeTypes = new List<RecursiveTypeDependanceSorter>();
                 List<Type> unresolvedTypes;
 
                 #region "First Pass"
-                unresolvedTypes = ModelInfo.ExecuteCore(this.Types, this.Classes, _JSNamespace, ref serializeTypes);
+                unresolvedTypes = ModelInfo.ExecuteCore(this.Types_In, this.Classes, _JSNamespace, ref serializeTypes);
                 #endregion
 
                 #region "2nd Pass: For recursive issues"
@@ -99,24 +99,24 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
         /// </summary>
-        /// <param name="tobjArray"></param>
+        /// <param name="tobjArray_In"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="rTypeSorters"></param>
         /// <param name="classes"></param>
         /// <returns></returns>
-        static private List<Type> ExecuteCore(List<Type> tobjArray, List<Dictionary<Type, TypeSorter_>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> rTypeSorters)
+        static private List<Type> ExecuteCore(List<Type> tobjArray_In, List<Dictionary<Type, TypeSorter_>> classes, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeDependanceSorter> rTypeSorters)
         {
             do
             {
                 //-- create each class.
             }
-            while (AddClass(tobjArray, classes, JSNamespace, ref rTypeSorters));
+            while (AddClass(tobjArray_In, classes, JSNamespace, ref rTypeSorters));
 
             #region "unresolvedTypes"
             List<Type> unresolvedTypes;
             {
                 Type[] resolvedTypes = classes.SelectMany(x => x.Keys).ToArray();
-                Type[] allTypes = rTypeSorters.Where(x => x.Context_global != null).SelectMany(x => x.Context_global.Occurences.Keys).ToArray();
+                Type[] allTypes = rTypeSorters.SelectMany(r => r.OccurencesOfDependanceType_All.Keys).ToArray();
                 unresolvedTypes = allTypes.Except(resolvedTypes).ToList();
             }
             #endregion
@@ -127,33 +127,42 @@ namespace Diphap.JsNetBridge.Data
         /// <summary>
         /// Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
         /// </summary>
-        /// <param name="allTypes"></param>
+        /// <param name="allTypes_In"></param>
         /// <param name="oldClasses"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="serializeTypes"></param>
         /// <returns></returns>
-        private static bool AddClass(List<Type> allTypes, List<Dictionary<Type, TypeSorter_>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeSorter> serializeTypes)
+        private static bool AddClass(List<Type> allTypes_In, List<Dictionary<Type, TypeSorter_>> oldClasses, ConfigJS.JSNamespace JSNamespace, ref List<RecursiveTypeDependanceSorter> serializeTypes)
         {
-            RecursiveTypeSorter st = new RecursiveTypeSorter();
-            serializeTypes.Add(st);
+            var typesToIgnore_temp = oldClasses.SelectMany(kv => kv.Keys).ToArray();
+            var types_toResolve_In = allTypes_In.Where(t => typesToIgnore_temp.Contains(t) == false).ToArray();
 
-            st.TypesToIgnore.AddRange(oldClasses.SelectMany(kv => kv.Keys));
-
-            IList<Type> allTypesTemp = allTypes.Where(t => st.TypesToIgnore.Contains(t) == false).ToArray();
-
-            foreach (Type t in allTypesTemp)
+            if (types_toResolve_In.Length  > 0)
             {
-                st.Execute(t, true, JSNamespace);
+                RecursiveTypeDependanceSorter st = new RecursiveTypeDependanceSorter();
+                serializeTypes.Add(st);
+                st.TypesToIgnore.AddRange(typesToIgnore_temp);
+
+                foreach (Type t_in in types_toResolve_In)
+                {
+                    //-- sorts dependances.
+                    st.Execute(t_in, true, JSNamespace);
+                }
+
+                var cl = st.ResolvedTypes.ToDictionary(kv => kv.Key, kv => kv.Value);
+
+                if (cl.Count > 0)
+                {
+                    oldClasses.Add(cl);
+                }
+
+                return cl.Count > 0;
+
+            }else
+            {
+                return false;
             }
 
-            var cl = st.ResolvedTypes.ToDictionary(kv => kv.Key, kv => kv.Value);
-
-            if (cl.Count > 0)
-            {
-                oldClasses.Add(cl);
-            }
-
-            return cl.Count > 0;
 
         }
 
@@ -164,6 +173,8 @@ namespace Diphap.JsNetBridge.Data
         /// <returns></returns>
         public string ToJSCore(string regionName = "Model")
         {
+            var st = System.Diagnostics.Stopwatch.StartNew();
+
             //-- sort types of oldClasses.
             this.SortTypesInClasses();
 
@@ -182,6 +193,8 @@ namespace Diphap.JsNetBridge.Data
             jsInstructions.AddRange(this.CreateJsObjectDeclaration(true));
 
             jsInstructions.Add(JSRaw.Region.End());
+
+            st.Stop();
 
             return string.Join("\r\n", jsInstructions);
 
@@ -337,7 +350,7 @@ namespace Diphap.JsNetBridge.Data
         public static string ToJSTemplate(Func<StringBuilder, object> ToJSCore, bool withJsFileDependencies = true)
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine(JSRaw.AnynomousModule.Begin);
+            sb.AppendLine(JSRaw.AnonymousModule.Begin);
             {
                 if (withJsFileDependencies)
                 {
@@ -348,21 +361,21 @@ namespace Diphap.JsNetBridge.Data
                     #endregion
                 }
 
-                sb.AppendLine(JSRaw.AnynomousModule.Begin);
+                sb.AppendLine(JSRaw.AnonymousModule.Begin);
                 {
                     sb.AppendLine(JSRaw.CheckingDependencies);
                     sb.AppendLine(ConfigJS.stampFuncInstruction);
 
                     #region "Core"
-                    sb.AppendLine(JSRaw.AnynomousModule.Begin);
+                    sb.AppendLine(JSRaw.AnonymousModule.Begin);
                     ToJSCore(sb);
-                    sb.AppendLine(JSRaw.AnynomousModule.End);
+                    sb.AppendLine(JSRaw.AnonymousModule.End);
                     #endregion
                 }
 
-                sb.AppendLine(JSRaw.AnynomousModule.End);
+                sb.AppendLine(JSRaw.AnonymousModule.End);
             }
-            sb.AppendLine(JSRaw.AnynomousModule.End);
+            sb.AppendLine(JSRaw.AnonymousModule.End);
 
             return sb.ToString();
         }

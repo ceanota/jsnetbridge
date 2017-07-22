@@ -79,6 +79,8 @@ namespace Diphap.JsNetBridge.Mvc
             }
         }
 
+        public readonly ModelInfo ModelInfo;
+
         /// <summary>
         /// Intanciate an instance of informations on action method.
         /// </summary>
@@ -86,7 +88,8 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="areaName"></param>
         /// <param name="methodInfo">differents signatures of one method</param>
         /// <param name="JSNamespace"></param>
-        public ActionInfo(Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace)
+        /// <param name="modelInfo"></param>
+        public ActionInfo(Type type_controller, string areaName, MethodInfo methodInfo, ConfigJS.JSNamespace JSNamespace, ModelInfo modelInfo)
         {
             _JSNamespace = JSNamespace;
 
@@ -95,6 +98,7 @@ namespace Diphap.JsNetBridge.Mvc
             this.Area = areaName;
             this.Url = "";
             this.MethodInfo = methodInfo;
+            this.ModelInfo = modelInfo;
 
             if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
             {
@@ -259,6 +263,7 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="choice"></param>
         /// <param name="sb"></param>
         /// <param name="nsAlias"></param>
+        /// <param name="modelInfo"></param>
         /// <returns>true: appending, false: nothing</returns>
         public bool ToScript_Params(EnumScript choice, StringBuilder sb, bool nsAlias)
         {
@@ -267,7 +272,7 @@ namespace Diphap.JsNetBridge.Mvc
             if (piArray.Length > 0)
             {
                 sb.Append("{");
-                ActionInfo.GetScript_Params(piArray, _JSNamespace, choice, sb, nsAlias);
+                ActionInfo.GetScript_Params(piArray, _JSNamespace, choice, sb, nsAlias, this.ModelInfo);
                 sb.Append("}");
                 return true;
             }
@@ -290,7 +295,7 @@ namespace Diphap.JsNetBridge.Mvc
             if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
             {
                 Type type_return = WebApiHelper.GetEffectiveReturnType(this.MethodInfo);
-                jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice);
+                jsonValue = GetScript_EmptyValue_WithFactory(type_return, alias, _JSNamespace, choice, this.ModelInfo.found_complex_types);
             }
             else
             {
@@ -522,14 +527,14 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="nsAlias"></param>
         /// <param name="separator"></param>
         /// <returns>true => appending, false => nothing </returns>
-        static internal bool GetScript_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, StringBuilder jsParams, bool nsAlias, char separator = ',')
+        static internal bool GetScript_Params(ParameterInfo[] piArray, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, StringBuilder jsParams, bool nsAlias, ModelInfo modelInfo, char separator = ',')
         {
             for (var ii = 0; ii < piArray.Length; ii++)
             {
                 var pi = piArray[ii];
                 string paramName = pi.Name;
 
-                string scriptValue = GetScript_EmptyValue_WithFactory(pi.ParameterType, nsAlias, _JSNamespace, choice);
+                string scriptValue = GetScript_EmptyValue_WithFactory(pi.ParameterType, nsAlias, _JSNamespace, choice, modelInfo.found_complex_types);
 
                 if (ii >= 1)
                 {
@@ -549,8 +554,9 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="nsAlias"></param>
         /// <param name="_JSNamespace"></param>
         /// <param name="choice"></param>
+        /// <param name="found_complex_types"></param>
         /// <returns></returns>
-        internal static string GetScript_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice)
+        internal static string GetScript_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, HashSet<Type> found_complex_types)
         {
             string jsValue;
             if (!ScriptHelper.GetInstance(choice).GetPrimitiveEmptyValue(t, out jsValue))
@@ -562,46 +568,15 @@ namespace Diphap.JsNetBridge.Mvc
 
                 if (telem_work != null)
                 {
-                    if (isCollection)
+                    if (ScriptHelper.GetCategoryType(telem_work) == ScriptHelper.EnumType.tcomplex)
                     {
-                        //-- telem_work  is collection.
-                        jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
-                    }
-                    else
-                    {
-
-                        if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
+                        if (found_complex_types != null && found_complex_types.Contains(telem_work) == false)
                         {
-                            if (
-                                AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
-                                AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
-
-                                (
-                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult == null ||
-
-                                    (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
-                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)
-                                )
-                            )
-                            {
-                                jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
-                            }
-                            else { jsValue = "{}"; }
-                        }
-                        else
-                        {
-                            //-- no web api.
-                            if (AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false)
-                            {
-                                jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
-                            }
-                            else
-                            {
-                                jsValue = "{}";
-                            }
+                            telem_work = typeof(System.Object);
                         }
                     }
 
+                    jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
 
                 }
                 else { jsValue = "{}"; }

@@ -146,7 +146,7 @@ namespace Diphap.JsNetBridge
             /// <summary>
             /// Collection
             /// </summary>
-            tcollection
+            tpurecollection
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Diphap.JsNetBridge
         /// </summary>
         /// <param name="tmember"></param>
         /// <returns></returns>
-        static public EnumType IsPrimitiveOrPureCollection(Type tmember)
+        static public EnumType GetCategoryType(Type tmember)
         {
             EnumType result = EnumType.tcomplex;
 
@@ -184,11 +184,11 @@ namespace Diphap.JsNetBridge
                 Type telement;
                 if (TypeHelper.GetElementTypeOfCollection(tmember, out telement))
                 {
-                    result = ScriptHelper.IsPrimitiveOrPureCollection(telement);
+                    result = ScriptHelper.GetCategoryType(telement);
                 }
                 else
                 {
-                    result = EnumType.tcollection;
+                    result = EnumType.tpurecollection;
                 }
             }
 

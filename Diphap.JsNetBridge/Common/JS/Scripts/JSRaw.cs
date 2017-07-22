@@ -314,7 +314,7 @@ namespace Diphap.JsNetBridge.Common.JS
     $dp.$JsNet.$Helpers.$Shared.$Action.getRouteData = _getRouteData;
 })();";
 
-        public class AnynomousModule
+        public class AnonymousModule
         {
             public const string Begin = "(function () {";
             public const string End = "})();";

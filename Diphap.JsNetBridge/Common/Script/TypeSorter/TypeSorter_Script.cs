@@ -52,7 +52,7 @@ namespace Diphap.JsNetBridge.Common
                 List<string> _script_key_value_list = this.Execute_to_script_key_value_list(found_complex_types);
 
                 this._ScriptValue = "null";
-                if (this._ts.ComplexMembers.Count == 0)
+                if (this._ts.IsResolved)
                 {
                     this._ScriptValue = "{" + string.Join(",", _script_key_value_list) + "}";
                 }

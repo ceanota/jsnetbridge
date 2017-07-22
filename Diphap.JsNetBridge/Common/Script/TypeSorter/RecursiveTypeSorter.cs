@@ -13,24 +13,36 @@ namespace Diphap.JsNetBridge
     /// <summary>
     /// Sorts all types of type recursively 
     /// </summary>
-    public class RecursiveTypeSorter
+    public class RecursiveTypeDependanceSorter
     {
         /// <summary>
         /// Sorts all types of type recursively 
         /// </summary>
-        public RecursiveTypeSorter()
+        public RecursiveTypeDependanceSorter()
         {
         }
 
-        internal class GlobalRecursiveContext
+        /// <summary>
+        /// Recursive Execution Context.
+        /// </summary>
+        private class GlobalRecursiveContext
         {
             /// <summary>
-            /// complex types.
+            /// Occurences of complex types.
             /// </summary>
-            readonly public Dictionary<Type, int> Occurences = new Dictionary<Type, int>();
+            readonly public Dictionary<Type, int> OccurencesOfDependanceType = new Dictionary<Type, int>();
             readonly int _IdxMax;
             readonly Type TObj;
             public int Idx { get; private set; }
+
+            private int _Stamp = -1;
+
+            public int GetNext_Stamp()
+            {
+                return ++this._Stamp;
+            }
+
+            public List<object> RecursiveContext_Execution = new List<object>();
 
             public GlobalRecursiveContext(int idx_max, Type tobj)
             {
@@ -41,19 +53,19 @@ namespace Diphap.JsNetBridge
             public void Add(Type tmemb)
             {
                 this.Idx++;
-                if (Occurences.ContainsKey(tmemb) == false)
+                if (OccurencesOfDependanceType.ContainsKey(tmemb) == false)
                 {
-                    Occurences.Add(tmemb, 0);
+                    OccurencesOfDependanceType.Add(tmemb, 1);
                 }
                 else
                 {
-                    Occurences[tmemb]++;
+                    OccurencesOfDependanceType[tmemb]++;
                 }
             }
 
             public bool TestOverFlow(Type tmem)
             {
-                return this.Occurences.ContainsKey(tmem) && this.Occurences[tmem] >= this._IdxMax;
+                return this.OccurencesOfDependanceType.ContainsKey(tmem) && this.OccurencesOfDependanceType[tmem] >= this._IdxMax;
             }
 
             public override string ToString()
@@ -64,6 +76,11 @@ namespace Diphap.JsNetBridge
         }
 
         /// <summary>
+        /// All occurences of complex types
+        /// </summary>
+        readonly public Dictionary<Type, int> OccurencesOfDependanceType_All = new Dictionary<Type, int>();
+
+        /// <summary>
         /// allTypes who containe only primitive type.
         /// </summary>
         internal readonly Dictionary<Type, TypeSorter_> ResolvedTypes = new Dictionary<Type, TypeSorter_>();
@@ -72,7 +89,7 @@ namespace Diphap.JsNetBridge
         public List<Type> TypesToIgnore = new List<Type>();
 
         public int idx_max = 1;
-        internal Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext Context_global { get; private set; }
+        private Diphap.JsNetBridge.RecursiveTypeDependanceSorter.GlobalRecursiveContext Context_global { get; set; }
 
         /// <summary>
         /// Serialalize type.
@@ -84,44 +101,58 @@ namespace Diphap.JsNetBridge
         /// <returns></returns>
         public void Execute(Type tobj, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
-            Context_global = new GlobalRecursiveContext(idx_max, tobj);
-            this.Execute(tobj, this.idx_max, noReturn, JSNamespace, exclude);
+            this.Context_global = new GlobalRecursiveContext(idx_max, tobj);
+
+            //if (tobj.FullName == "QuadraEden.Domain.EffetFacture")//-- debug
+            //{
+            //    var aa = 1;
+            //}
+
+            var next_stamp = this.Context_global.GetNext_Stamp();
+            this.Context_global.RecursiveContext_Execution.Add(tobj);
+            this.Execute(next_stamp, tobj, this.idx_max, noReturn, JSNamespace, exclude);
+
+            foreach(var kv in this.Context_global.OccurencesOfDependanceType)
+            {
+                if (this.OccurencesOfDependanceType_All.ContainsKey(kv.Key) == false)
+                {
+                    //-- All occurences of complex types
+                    this.OccurencesOfDependanceType_All.Add(kv.Key, kv.Value);
+                }
+            }
+
+            this.Context_global = null;
+
         }
 
         /// <summary>
         /// Serialalize type. Recursive function.
         /// </summary>
+        /// <param name="stamp"></param>
         /// <param name="tobj">type of object</param>
         /// <param name="_idx_max"></param>
         /// <param name="noReturn"></param>
         /// <param name="JSNamespace"></param>
         /// <param name="exclude"></param>
         /// <returns></returns>
-        internal void Execute(Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
+        internal void Execute(int stamp, Type tobj, int _idx_max, bool noReturn, ConfigJS.JSNamespace JSNamespace, string exclude = "System.")
         {
             TypeSorter_ tSorter = new TypeSorter_(tobj);
-            tSorter.TypesToIgnore = TypesToIgnore;
-            tSorter.DetermineIfMemberInfoAreComplexMembers();
 
-            IList<MemberInfo> complexMembersTemp = tSorter.ComplexMembers.ToArray();
+            IList<MemberInfo> complexMembersTemp = tSorter.DetermineIfMemberInfoAreComplexMembers_unresolved(TypesToIgnore);
 
             foreach (MemberInfo mi in complexMembersTemp)
             {
-
                 Type tmem = TypeHelper.GetMemberType(mi);
 
-                //if (this.ResolvedTypes.ContainsKey(tmem) == true)
-                //{
-                //    continue;
-                //}
+                Type telem_work = TypeHelper.GetElementTypeOfCollectionOrDefault(tmem);
 
-                Type telem_work;
-                bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
-
-                if (isCollection == false)
+                if (this.ResolvedTypes.ContainsKey(telem_work) == true)
                 {
-                    telem_work = tmem;
+                    tSorter.ResolveComplexMember(mi);
+                    continue;
                 }
+
 
                 if (typeof(System.Object) == telem_work)
                 {
@@ -137,8 +168,9 @@ namespace Diphap.JsNetBridge
                             this.Context_global.Add(telem_work);
 
                             //-- recursive
-                            this.Execute(telem_work, _idx_max, noReturn, JSNamespace, exclude);
-
+                            this.Context_global.RecursiveContext_Execution.Add(telem_work);
+                            int next_stamp = this.Context_global.GetNext_Stamp();
+                            this.Execute(next_stamp, telem_work, _idx_max, noReturn, JSNamespace, exclude);
                         }
                         else
                         {
@@ -154,10 +186,27 @@ namespace Diphap.JsNetBridge
                 }
             }
 
-            if (tSorter.IsSimpleType && (ResolvedTypes.ContainsKey(tobj) == false))
+            #region "extra"
+            //------------------- DON'T DELETE
+            //if (tSorter.IsResolved == false)
+            //{
+            //    foreach (var mi in tSorter.GetComplexMembers_unresolved())
+            //    {
+            //        Type tmi = TypeHelper.GetMemberType(mi);
+            //        Type telem_work = TypeHelper.GetElementTypeOfCollectionOrDefault(tmi);
+            //        if (this.ResolvedTypes.ContainsKey(telem_work))
+            //        {
+            //            tSorter.ResolveComplexMember(mi);
+            //        }
+            //    } 
+            //}
+            #endregion
+
+            if (tSorter.IsResolved && (ResolvedTypes.ContainsKey(tobj) == false))
             {
                 this.ResolvedTypes.Add(tobj, tSorter);
             }
+
         }
 
 

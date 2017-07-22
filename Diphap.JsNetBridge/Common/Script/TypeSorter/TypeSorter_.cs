@@ -13,36 +13,19 @@ namespace Diphap.JsNetBridge.Common
     internal class TypeSorter_
     {
         public readonly Type TObj;
-        public IList<Type> TypesToIgnore = new Type[] { };
+        public IList<Type> TypesToIgnore { get; private set; }
         private readonly List<Type> TypesIgnored = new List<Type>();
-        public List<MemberInfo> ComplexMembers = new List<MemberInfo>();
+        readonly private List<MemberInfo> ComplexMembers = new List<MemberInfo>();
+        private List<MemberInfo> ComplexMembers_unresolved { get; set; }
         public readonly MemberInfo[] miArray;
         public static string prefix_namespace = ConfigJS.prefix_ns_jsnet;
 
-        public bool IsSimpleType
+        public bool IsResolved
         {
             get
             {
-                return ComplexMembers.Count == 0;
+                return ComplexMembers_unresolved.Count == 0;
             }
-        }
-
-        private Type[] _TComplexMembers;
-
-        /// <summary>
-        /// Get element type of collection if 't' is collection other else return 't'. 
-        /// </summary>
-        public Type[] TComplexMembers
-        {
-            get
-            {
-                if (_TComplexMembers == null)
-                {
-                    _TComplexMembers = this.ComplexMembers.Select(mi => TypeHelper.GetElementTypeOfCollectionOrDefault(TypeHelper.GetMemberType(mi))).ToArray();
-                }
-                return _TComplexMembers;
-            }
-
         }
 
         private readonly ConfigJS.JSNamespace _JSNamespace;
@@ -55,42 +38,59 @@ namespace Diphap.JsNetBridge.Common
             this.miArray = this.TObj.GetMembers(BindingFlags.Public | BindingFlags.Instance)
                 .Where(mi => (mi.MemberType == MemberTypes.Field || mi.MemberType == MemberTypes.Property)).ToArray();
 
+            this.DetermineComplexMembers();
+
+        }
+
+        public IList<MemberInfo> DetermineIfMemberInfoAreComplexMembers_unresolved(IList<Type> TypesToIgnore)
+        {
+            this.TypesToIgnore = TypesToIgnore;
+            this.ComplexMembers_unresolved = new List<MemberInfo>();
+
+            foreach (MemberInfo mi in this.ComplexMembers)
+            {
+                Type tmem = TypeHelper.GetMemberType(mi);
+
+                if (this.TypesToIgnore.Count == 0)
+                {
+                    ComplexMembers_unresolved.Add(mi);
+                }
+                else
+                {
+                    Type telem_work;
+                    bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
+
+                    if (isCollection == false)
+                    {
+                        telem_work = tmem;
+                    }
+
+                    if (!this.TypesToIgnore.Contains(telem_work))
+                    {
+                        ComplexMembers_unresolved.Add(mi);
+                    }
+                    else
+                    {
+                        this.TypesIgnored.Add(tmem);
+                    }
+                }
+
+            }
+
+            return this.ComplexMembers_unresolved.ToArray();
         }
 
         /// <summary>
         /// Executes.
         /// </summary>
-        public void DetermineIfMemberInfoAreComplexMembers()
+        private void DetermineComplexMembers()
         {
             foreach (MemberInfo mi in miArray)
             {
                 Type tmem = TypeHelper.GetMemberType(mi);
-
-                if (ScriptHelper.IsPrimitiveOrPureCollection(tmem) == ScriptHelper.EnumType.tcomplex)
+                if (ScriptHelper.GetCategoryType(tmem) == ScriptHelper.EnumType.tcomplex)
                 {
-                    if (this.TypesToIgnore.Count == 0)
-                    {
-                        ComplexMembers.Add(mi);
-                    }
-                    else
-                    {
-                        Type telem_work;
-                        bool isCollection = TypeHelper.GetElementTypeOfCollection(tmem, out telem_work);
-
-                        if (isCollection == false)
-                        {
-                            telem_work = tmem;
-                        }
-
-                        if (!this.TypesToIgnore.Contains(telem_work))
-                        {
-                            ComplexMembers.Add(mi);
-                        }
-                        else
-                        {
-                            this.TypesIgnored.Add(tmem);
-                        }
-                    }
+                    this.ComplexMembers.Add(mi);
                 }
             }
         }
@@ -101,10 +101,15 @@ namespace Diphap.JsNetBridge.Common
         /// <param name="mi"></param>
         internal void ResolveComplexMember(MemberInfo mi)
         {
-            if (this.ComplexMembers.Contains(mi))
+            if (this.ComplexMembers_unresolved.Contains(mi))
             {
-                this.ComplexMembers.Remove(mi);
+                this.ComplexMembers_unresolved.Remove(mi);
             }
+        }
+
+        internal MemberInfo[] GetComplexMembers_unresolved()
+        {
+            return this.ComplexMembers_unresolved.ToArray();
         }
 
         /// <summary>

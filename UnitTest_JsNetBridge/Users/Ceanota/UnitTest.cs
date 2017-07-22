@@ -82,6 +82,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
         [TestMethod]
         public void TestExe_gescom()
         {
+            var st = System.Diagnostics.Stopwatch.StartNew();
+
             //string appAspNetPath = GetUserFolder() + @"\Source\Repos\jsnet\ContosoUniversity\bin\ContosoUniversity.dll";
             //@"D:\Utilisateurs\diphap\Downloads\BookService-master\BookService-master\BookService\bin\BookService.dll"; 
             //string appAspNetPath =  GetUserFolder() + @"\Source\Repos\jsnet\TestJsNetBridgeApp\bin\TestJsNetBridgeApp.dll";
@@ -91,16 +93,17 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             appAspNetPath = @"D:\Source\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
 
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
-
+            
             string repertoire_destination = @"D:\Source\Repos";
+
+            //api.WriteAllText(
+            //    repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js",
+            //    repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
+
             api.WriteAllText(
-                repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.js",
-                repertoire_destination + @"\jsnet\UnitTest_JsNetBridge\Users\Ceanota\test.d.ts");
-
-            //           api.WriteAllText(
-            //@"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js",
-            //@"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts");
-
+ @"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.js",
+ @"D:\Source\Repos\jsnet\WebApplication_vide\scripts\Diphap.JsNetBridge\Diphap.JsNetBridge.d.ts");
+            st.Stop();
         }
 
         [TestMethod]

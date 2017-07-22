@@ -1,5 +1,6 @@
 ﻿using Diphap.JsNetBridge.Common;
 using Diphap.JsNetBridge.Common.JS;
+using Diphap.JsNetBridge.Data;
 using Diphap.JsNetBridge.Mvc.Helpers;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,8 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="areaName"></param>
         /// <param name="miGroup">differents signatures of one method</param>
         /// <param name="JSNamespace"></param>
-        public ActionInfoGroup(string action, Type type_controller, string areaName, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace)
+        /// <param name="modelInfo"></param>
+        public ActionInfoGroup(string action, Type type_controller, string areaName, IGrouping<string, MethodInfo> miGroup, ConfigJS.JSNamespace JSNamespace, ModelInfo modelInfo)
         {
             _JSNamespace = JSNamespace;
             this.MethodName = action;
@@ -74,7 +76,7 @@ namespace Diphap.JsNetBridge.Mvc
                 this._IsApiController = false;
             }
 
-            this.Signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace)).ToArray();
+            this.Signatures = miGroup.Select(x => new ActionInfo(this._type_controller, this.Area, x, JSNamespace, modelInfo)).ToArray();
 
             //-- set idx.
             for (int ii = 0; ii < this.Signatures.Length; ii++)

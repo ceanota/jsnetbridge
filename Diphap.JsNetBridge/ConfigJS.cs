@@ -55,7 +55,7 @@ namespace Diphap.JsNetBridge
             {
                 string objFullname = this.GetNamespaceAliasOrDefault(t, alias) + "." + TypeHelper.GetName(t);
                 return objFullname;
-            }   
+            }
 
             public void ClearAlias()
             {
@@ -64,8 +64,8 @@ namespace Diphap.JsNetBridge
 
             public string GetNamespaceAliasOrDefault(Type t, bool alias)
             {
-                return alias && NamespaceAliasDic.ContainsKey(ConfigJS.JSNamespace.GetPseudoNamespace(t)) ? 
-                    NamespaceAliasDic[ConfigJS.JSNamespace.GetPseudoNamespace(t)] : 
+                return alias && NamespaceAliasDic.ContainsKey(ConfigJS.JSNamespace.GetPseudoNamespace(t)) ?
+                    NamespaceAliasDic[ConfigJS.JSNamespace.GetPseudoNamespace(t)] :
                     ConfigJS.prefix_ns_jsnet + "." + ConfigJS.JSNamespace.GetPseudoNamespace(t);
             }
 

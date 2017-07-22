@@ -81,14 +81,14 @@ namespace Diphap.JsNetBridge.Mvc
             //-- Parameter and return types of action method.
             foreach (Type t in this.AllInOutClassTypes())
             {
-                //if (t.FullName == "QuadraEden.Domain.EffetFacture")//-- debug
-                //{
+                //if (t.FullName == "QuadraEden.Domain.EffetFacture" || t.FullName == "QuadraEden.Domain.Reglement")//-- debug
+                {
                     if (this.Types_Model.Contains(t) == false)
                     {
                         //-- add Type which is not Collection.
                         this.Types_Model.Add(t);
                     }
-                //}
+                }
             }
 
             //-- Parameter and return types of action method.
@@ -261,12 +261,15 @@ namespace Diphap.JsNetBridge.Mvc
         /// <param name="tsFilePath">[optionnal]</param>
         public void WriteAllText(string jsFilePath, string tsFilePath = null)
         {
+            var st = System.Diagnostics.Stopwatch.StartNew();
             var encoding = Encoding.UTF8;
             File.WriteAllText(jsFilePath, this.ToJS(false), encoding);
             if (tsFilePath != null)
             {
                 File.WriteAllText(tsFilePath, this.ToTS(), encoding);
             }
+
+            st.Stop();
         }
 
         public void AppendAllText(string jsFilePath)
@@ -283,6 +286,7 @@ namespace Diphap.JsNetBridge.Mvc
         {
             Func<StringBuilder, object> f = (sb) =>
             {
+                var st = System.Diagnostics.Stopwatch.StartNew();
                 sb.AppendLine(this.ModelInfo.ToJSCore());
                 sb.AppendLine(this.EnumInfo.ToJSCore());
                 sb.AppendLine(JSRaw.Region.Begin("UrlSet"));
@@ -294,6 +298,7 @@ namespace Diphap.JsNetBridge.Mvc
                 sb.AppendLine(string.Format("{0} = {1};", "window.$dpUrlSet", ConfigJS.url_set));
                 sb.AppendLine(string.Format("{0} = {1};", "window.$dpLib", ConfigJS.prefix_ns_jsnet));
                 sb.AppendLine(JSRaw.Region.End());
+                st.Stop();
                 return null;
             };
             return ModelInfo.ToJSTemplate(f, withJsFileDependencies);
@@ -350,14 +355,14 @@ namespace Diphap.JsNetBridge.Mvc
             sb.AppendLine(this.ModelInfo.ToTSCore());
             sb.AppendLine(this.EnumInfo.ToTSCore());
 
-            this.ToTS_UrlSet(sb);
+            this.ToTS_UrlSet(sb, this.ModelInfo);
 
             sb.AppendLine("import $dpUrlSet = $dp.$JsNet.$UrlSet;");
 
             return sb.ToString();
         }
 
-        private void ToTS_UrlSet(StringBuilder sb)
+        private void ToTS_UrlSet(StringBuilder sb, ModelInfo modelInfo)
         {
             foreach (var area in this.UrlInfo.AreaInfoList)
             {
@@ -464,7 +469,7 @@ namespace Diphap.JsNetBridge.Mvc
             {
                 if (this._UrlInfo == null)
                 {
-                    this._UrlInfo = new UrlInfo(this.Types_Controller, _JSNamespace);
+                    this._UrlInfo = new UrlInfo(this.Types_Controller, this.ModelInfo, _JSNamespace);
                 }
                 return this._UrlInfo;
             }
