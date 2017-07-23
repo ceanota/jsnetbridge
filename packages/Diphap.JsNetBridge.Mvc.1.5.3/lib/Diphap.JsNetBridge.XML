@@ -107,12 +107,12 @@
             <param name="var"></param>
             <returns></returns>
         </member>
-        <member name="T:Diphap.JsNetBridge.Common.TypeSorter">
+        <member name="T:Diphap.JsNetBridge.Common.TypeSorter_Script">
             <summary>
             Indicates if the type has members with complex or simple type.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetInstance(Diphap.JsNetBridge.Common.EnumScript,System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_Script.GetInstance(Diphap.JsNetBridge.Common.EnumScript,Diphap.JsNetBridge.Common.TypeSorter_,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Get instance.
             </summary>
@@ -121,22 +121,18 @@
             <param name="JSNamespace"></param>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.JSValue">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_Script.ScriptValue(System.Collections.Generic.HashSet{System.Type})">
             <summary>
-            Content of object ex: for TS,  '{ prop1: number, prop2: string }'
+            Script Value.
             </summary>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.TComplexMembers">
-            <summary>
-            Get element type of collection if 't' is collection other else return 't'. 
-            </summary>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_Script.Execute_to_script_key_value_list(System.Collections.Generic.HashSet{System.Type})">
+             <summary>
+             Executes.
+             </summary>
+            <param name="found_complex_types">optionnal</param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.Execute">
-            <summary>
-            Executes.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_Script.GetScriptKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
             <summary>
             ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
             </summary>
@@ -145,31 +141,12 @@
             <param name="isCollection"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_Script.get_script_key_value(System.Reflection.MemberInfo,System.String)">
             <summary>
             ex: 'propertyName : 78'
             </summary>
             <param name="mi"></param>
             <param name="valueTemp"></param>
-            <returns></returns>
-        </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter.GetScriptTypeInfo">
-            <summary>
-            Primitive Type of member or Collection of primitive types .
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.ResolveComplexMember(System.Reflection.MemberInfo,System.String)">
-            <summary>
-            Force.
-            </summary>
-            <param name="mi"></param>
-            <param name="jsvalue">force value</param>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter.GetScriptNamespace_Full">
-            <summary>
-            ex: $dp.$JsNet.ContosoUniversity.Models
-            </summary>
             <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.Common.TypeSorter_JS">
@@ -187,19 +164,14 @@
             <param name="objectFullName">For example: This '$dp.$JsNet.MvcApplicationExample.Models.Course' or '$dp.$JsNet.MvcApplicationExample.Models.Course()'</param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.#ctor(System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.#ctor(Diphap.JsNetBridge.Common.TypeSorter_,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Indicates if the type has members with complex or somple type.
             </summary>
-            <param name="tobj"></param>
+            <param name="ts"></param>
             <param name="JSNamespace"></param>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS.JSValue">
-            <summary>
-            JS Value.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.GetScriptKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
             <summary>
             ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
             ex: "Courses_":$dp.$shared.$arrayFactory($dp.$shared.$circularReferenceManagerFactory.apply(null, args)($dp.$JsNet.ContosoUniversity.Models.Course))
@@ -209,24 +181,35 @@
             <param name="isCollection"></param>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS.GetScriptTypeInfo">
-            <summary>
-            Singleton.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Diphap.JsNetBridge.Common.TypeSorter_JS._EnumScript">
             <summary>
             EnumScript
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_JS.get_script_key_value(System.Reflection.MemberInfo,System.String)">
             <summary>
             ex: 'propertyName : 78'
             </summary>
             <param name="mi"></param>
             <param name="valueTemp"></param>
             <returns></returns>
+        </member>
+        <member name="T:Diphap.JsNetBridge.Common.SystemNetHttpNotFoundException">
+            <summary>
+            System.Net.Http not found (no web api).
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.SystemNetHttpNotFoundException.#ctor">
+            <summary>
+            System.Net.Http not found (no web api).
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.SystemNetHttpNotFoundException.#ctor(System.String,System.Exception)">
+            <summary>
+            System.Net.Http not found (no web api).
+            </summary>
+            <param name="message"></param>
+            <param name="innerException"></param>
         </member>
         <member name="T:Diphap.JsNetBridge.Common.ReflectionLoader">
             <summary>
@@ -270,24 +253,41 @@
             <param name="AssemblyResolver_"></param>
             <returns></returns>
         </member>
+        <member name="T:Diphap.JsNetBridge.Common.TypeSorter_">
+            <summary>
+            Indicates if the type has members with complex or simple type.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_.DetermineComplexMembers">
+            <summary>
+            Executes.
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_.ResolveComplexMember(System.Reflection.MemberInfo)">
+            <summary>
+            Force.
+            </summary>
+            <param name="mi"></param>
+        </member>
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_.GetScriptNamespace_Full">
+            <summary>
+            ex: $dp.$JsNet.ContosoUniversity.Models
+            </summary>
+            <returns></returns>
+        </member>
         <member name="T:Diphap.JsNetBridge.Common.TypeSorter_TS">
             <summary>
             Indicates if the type has members with complex or somple type.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.#ctor(System.Type,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.#ctor(Diphap.JsNetBridge.Common.TypeSorter_,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Indicates if the type has members with complex or somple type.
             </summary>
-            <param name="tobj"></param>
+            <param name="ts"></param>
             <param name="JSNamespace"></param>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS.JSValue">
-            <summary>
-            JS Value.
-            </summary>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.GetJsKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.GetScriptKeyValue_FactoryCall(System.Reflection.MemberInfo,System.Type,System.Boolean)">
             <summary>
             ex: 'Course:$dp.$JsNet.MvcApplicationExample.Models.Course'. 'Course' is name of property.
             </summary>
@@ -296,18 +296,12 @@
             <param name="isCollection"></param>
             <returns></returns>
         </member>
-        <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS.GetScriptTypeInfo">
-            <summary>
-            Singleton.
-            </summary>
-            <returns></returns>
-        </member>
         <member name="P:Diphap.JsNetBridge.Common.TypeSorter_TS._EnumScript">
             <summary>
             EnumScript
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.get_js_key_value(System.Reflection.MemberInfo,System.String)">
+        <member name="M:Diphap.JsNetBridge.Common.TypeSorter_TS.get_script_key_value(System.Reflection.MemberInfo,System.String)">
             <summary>
             ex: 'propertyName : 78'
             </summary>
@@ -358,6 +352,48 @@
             </summary>
             <param name="tmember"></param>
             <param name="jsValue"></param>
+            <returns></returns>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tcomplex">
+            <summary>
+            complex type
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tstring">
+            <summary>
+            String
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tnumber">
+            <summary>
+            Number
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tenum">
+            <summary>
+            Enum
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tdatetime">
+            <summary>
+            Datetime
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tboolean">
+            <summary>
+            Boolean
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.ScriptHelper.EnumType.tpurecollection">
+            <summary>
+            Collection
+            </summary>
+        </member>
+        <member name="M:Diphap.JsNetBridge.ScriptHelper.GetCategoryType(System.Type)">
+            <summary>
+            Primitive Type of member or Collection of primitive types .
+            </summary>
+            <param name="tmember"></param>
             <returns></returns>
         </member>
         <member name="M:Diphap.JsNetBridge.ScriptHelper.GetFunction(System.String,System.Boolean,System.String,System.String)">
@@ -628,27 +664,37 @@
             <param name="t"></param>
             <returns></returns>
         </member>
-        <member name="T:Diphap.JsNetBridge.RecursiveTypeSorter">
+        <member name="T:Diphap.JsNetBridge.RecursiveTypeDependanceSorter">
             <summary>
             Sorts all types of type recursively 
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.#ctor(Diphap.JsNetBridge.Common.EnumScript)">
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.#ctor">
             <summary>
             Sorts all types of type recursively 
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.GlobalRecursiveContext.Occurences">
+        <member name="T:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.GlobalRecursiveContext">
             <summary>
-            complex types.
+            Recursive Execution Context.
             </summary>
         </member>
-        <member name="F:Diphap.JsNetBridge.RecursiveTypeSorter.ResolvedTypes">
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.GlobalRecursiveContext.OccurencesOfDependanceType">
+            <summary>
+            Occurences of complex types.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.OccurencesOfDependanceType_All">
+            <summary>
+            All occurences of complex types
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.ResolvedTypes">
             <summary>
             allTypes who containe only primitive type.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.Execute(System.Type,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.Execute(System.Type,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
             <summary>
             Serialalize type.
             </summary>
@@ -658,10 +704,11 @@
             <param name="JSNamespace"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.RecursiveTypeSorter.Execute(System.Type,System.Int32,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
+        <member name="M:Diphap.JsNetBridge.RecursiveTypeDependanceSorter.Execute(System.Int32,System.Type,System.Int32,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,System.String)">
             <summary>
             Serialalize type. Recursive function.
             </summary>
+            <param name="stamp"></param>
             <param name="tobj">type of object</param>
             <param name="_idx_max"></param>
             <param name="noReturn"></param>
@@ -853,28 +900,27 @@
             Classes of dependencies. In a class, all types together no dependencies.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.Execute(Diphap.JsNetBridge.Common.EnumScript)">
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.SortTypesInClasses(System.Boolean)">
             <summary>
             Sort types.
             </summary>
+            <param name="force">force reexecuting</param>
         </member>
-        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ExecuteCore(Diphap.JsNetBridge.Common.EnumScript,System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeSorter}@)">
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.ExecuteCore(System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter_}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeDependanceSorter}@)">
             <summary>
             Creates oldClasses from Types. Memorise all [RecursiveTypeSorter] in list.
             </summary>
-            <param name="choice"></param>
-            <param name="tobjArray"></param>
+            <param name="tobjArray_In"></param>
             <param name="JSNamespace"></param>
             <param name="rTypeSorters"></param>
             <param name="classes"></param>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.AddClass(Diphap.JsNetBridge.Common.EnumScript,System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeSorter}@)">
+        <member name="M:Diphap.JsNetBridge.Data.ModelInfo.AddClass(System.Collections.Generic.List{System.Type},System.Collections.Generic.List{System.Collections.Generic.Dictionary{System.Type,Diphap.JsNetBridge.Common.TypeSorter_}},Diphap.JsNetBridge.ConfigJS.JSNamespace,System.Collections.Generic.List{Diphap.JsNetBridge.RecursiveTypeDependanceSorter}@)">
             <summary>
             Add a new class for unresolved types, in old classes. Memorize all [RecursiveTypeSorter] in list.
             </summary>
-            <param name="choice"></param>
-            <param name="allTypes"></param>
+            <param name="allTypes_In"></param>
             <param name="oldClasses"></param>
             <param name="JSNamespace"></param>
             <param name="serializeTypes"></param>

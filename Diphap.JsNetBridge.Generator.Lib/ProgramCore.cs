@@ -23,8 +23,12 @@ namespace Diphap.JsNetBridge.Generator
             try
             {
                 Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
-
                 Console.WriteLine(string.Format("{0}: BEGIN [{1}]", config.file_name_exe, DateTimeOffset.Now));
+                
+                Console.WriteLine(Assembly.GetExecutingAssembly().FullName);
+                Console.WriteLine(Assembly.GetAssembly(typeof(Diphap.JsNetBridge.Data.ModelInfo)).FullName);
+                Console.WriteLine(Assembly.GetAssembly(typeof(Diphap.JsNetBridge.Mvc.AspMvcInfo)).FullName);
+                Console.WriteLine(Assembly.GetAssembly(typeof(Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapper)).FullName);
 
                 #region "First argument"
                 string js_config = null;

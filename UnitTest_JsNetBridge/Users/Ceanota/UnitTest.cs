@@ -90,8 +90,8 @@ namespace UnitTest_JsNetBridge.Users.Ceanota
             string appAspNetPath = "";
 
             //appAspNetPath = @"D:\Source\Repos\jsnet\WebApplication_vide\bin\WebApplication_vide.dll";
-            appAspNetPath = @"D:\Source\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
-
+            //appAspNetPath = @"D:\Source\Quadratus\QuadraEden.m\QuadraEden - Copie\QuadraEdenMVC_UI\bin\QuadraEdenMVC_UI.dll";
+            appAspNetPath = @"d:\source\quadratus\quadraedenmrtui - copie\quadraedenmvc_ui\bin\QuadraEdenMVC_UI.dll";
             AspMvcInfo api = new AspMvcInfo(appAspNetPath);
             
             string repertoire_destination = @"D:\Source\Repos";

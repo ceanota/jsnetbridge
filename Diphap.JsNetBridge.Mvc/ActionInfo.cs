@@ -547,17 +547,27 @@ namespace Diphap.JsNetBridge.Mvc
             return piArray.Length > 0;
         }
 
-        /// <summary>
-        /// Get js value or ts type.
-        /// </summary>
-        /// <param name="t"></param>
-        /// <param name="nsAlias"></param>
-        /// <param name="_JSNamespace"></param>
-        /// <param name="choice"></param>
-        /// <param name="found_complex_types"></param>
-        /// <returns></returns>
+        private static string GetObjectFactoryName_wrapper_with_found_complex_types(Type telem_work, bool isCollection, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, HashSet<Type> found_complex_types)
+        {
+            string jsValue_;
+
+            System.Diagnostics.Debug.Assert(ScriptHelper.GetCategoryType(telem_work) == ScriptHelper.EnumType.tcomplex, "it must be complex type");
+
+            //-- complex type
+            if (found_complex_types != null && found_complex_types.Contains(telem_work) == false)
+            {
+                telem_work = typeof(System.Object);
+            }
+
+            jsValue_ = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+
+            return jsValue_;
+        }
+
+
         internal static string GetScript_EmptyValue_WithFactory(Type t, bool nsAlias, ConfigJS.JSNamespace _JSNamespace, EnumScript choice, HashSet<Type> found_complex_types)
         {
+
             string jsValue;
             if (!ScriptHelper.GetInstance(choice).GetPrimitiveEmptyValue(t, out jsValue))
             {
@@ -568,15 +578,46 @@ namespace Diphap.JsNetBridge.Mvc
 
                 if (telem_work != null)
                 {
-                    if (ScriptHelper.GetCategoryType(telem_work) == ScriptHelper.EnumType.tcomplex)
+                    if (isCollection)
                     {
-                        if (found_complex_types != null && found_complex_types.Contains(telem_work) == false)
+                        //-- telem_work  is collection.
+                        jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
+                    }
+                    else
+                    {
+
+                        if (AspMvcInfo.TypesOfAspNetSetWebApi != null)
                         {
-                            telem_work = typeof(System.Object);
+                            if (
+                                AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false &&
+                                AspMvcInfo.TypesOfAspNetSetWebApi.TNetHttp.Type_HttpResponseMessage.IsAssignableFrom(telem_work) == false &&
+
+                                (
+                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult == null ||
+
+                                    (AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult != null &&
+                                    AspMvcInfo.TypesOfAspNetSetWebApi.TWebHttp.Type_IHttpActionResult.IsAssignableFrom(telem_work) == false)
+                                )
+                            )
+                            {
+                                jsValue = GetObjectFactoryName_wrapper_with_found_complex_types(telem_work, isCollection, nsAlias, _JSNamespace, choice, found_complex_types);
+                            }
+                            else { jsValue = "{}"; }
+                        }
+                        else
+                        {
+                            //-- no web api.
+                            if (AspMvcInfo.TypesOfAspNetSetMvc.TMvc.Type_ActionResult.IsAssignableFrom(telem_work) == false)
+                            {
+                                jsValue = GetObjectFactoryName_wrapper_with_found_complex_types(telem_work, isCollection, nsAlias, _JSNamespace, choice, found_complex_types);
+                            }
+                            else
+                            {
+                                jsValue = "{}";
+                            }
                         }
                     }
 
-                    jsValue = ScriptHelper.GetInstance(choice).GetObjectFactoryName(telem_work, isCollection, false, _JSNamespace.GetObjectFullName(telem_work, nsAlias));
 
                 }
                 else { jsValue = "{}"; }
@@ -585,7 +626,6 @@ namespace Diphap.JsNetBridge.Mvc
 
             return jsValue;
         }
-
         static internal List<string> GetJS_Enums(IList<ParameterInfo> piArray, ConfigJS.JSNamespace _JSNamespace)
         {
             List<string> jsParams = new List<string>();

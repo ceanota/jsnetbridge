@@ -44,28 +44,28 @@ declare namespace $dp.$shared {
 declare namespace $dp.$JsNet.TestJsNetBridgeApp.Models {
 //#region 'interfaces'
 interface LayoutModel
-{PackageNugetName:string,PackageNugetVersion:{}}
+{PackageNugetName:string,PackageNugetVersion:Object}
 interface ReturnData
-{Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
+{InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
 interface ReturnData_$gen$_T
-{Url:string,Success:boolean,Method:string,TypedBusinessData:{},InputStream:{},BusinessData:{}}
-interface ReturnData_$gen$_ContosoUniversityModelsStudent
-{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Student,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
-interface ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent
-{TypedBusinessData:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Student>,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
-interface ReturnData_$gen$_ContosoUniversityModelsInstructor
-{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Instructor,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
+{TypedBusinessData:Object,InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
 interface ReturnData_$gen$_ContosoUniversityModelsDepartment
-{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Department,Url:string,Success:boolean,Method:string,InputStream:{},BusinessData:{}}
+{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Department,InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
+interface ReturnData_$gen$_ContosoUniversityModelsInstructor
+{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Instructor,InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
+interface ReturnData_$gen$_ContosoUniversityModelsStudent
+{TypedBusinessData:$dp.$JsNet.ContosoUniversity.Models.Student,InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
+interface ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent
+{TypedBusinessData:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Student>,InputStream:Object,Url:string,Success:boolean,Method:string,BusinessData:Object}
 //#endregion
 //#region 'functions'
 var LayoutModel: () => $dp.$JsNet.TestJsNetBridgeApp.Models.LayoutModel;
 var ReturnData: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData;
 var ReturnData_$gen$_T: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_T;
+var ReturnData_$gen$_ContosoUniversityModelsDepartment: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsDepartment;
+var ReturnData_$gen$_ContosoUniversityModelsInstructor: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor;
 var ReturnData_$gen$_ContosoUniversityModelsStudent: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsStudent;
 var ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ICollection_$gen$_ContosoUniversityModelsStudent;
-var ReturnData_$gen$_ContosoUniversityModelsInstructor: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsInstructor;
-var ReturnData_$gen$_ContosoUniversityModelsDepartment: () => $dp.$JsNet.TestJsNetBridgeApp.Models.ReturnData_$gen$_ContosoUniversityModelsDepartment;
 //#endregion
 }
 declare namespace $dp.$JsNet.TestJsNetBridgeApp.Controllers.$JsNs$_HomeController {
@@ -81,24 +81,24 @@ declare namespace $dp.$JsNet.ContosoUniversity.Models {
 //#region 'interfaces'
 interface OfficeAssignment
 {PersonID:number,Location:string,Instructor:$dp.$JsNet.ContosoUniversity.Models.Instructor}
-interface Student
-{EnrollmentDate:Date,PersonID:number,LastName:string,FirstMidName:string,FullName:string,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>}
-interface Enrollment
-{EnrollmentID:number,CourseID:number,PersonID:number,Grade:number,Student:$dp.$JsNet.ContosoUniversity.Models.Student,Course:$dp.$JsNet.ContosoUniversity.Models.Course}
 interface Instructor
-{HireDate:Date,OfficeAssignment:$dp.$JsNet.ContosoUniversity.Models.OfficeAssignment,PersonID:number,LastName:string,FirstMidName:string,FullName:string,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
-interface Course
-{CourseID:number,Title:string,Credits:number,DepartmentID:number,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>,Instructors:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Instructor>,Department:$dp.$JsNet.ContosoUniversity.Models.Department}
+{HireDate:Date,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>,OfficeAssignment:$dp.$JsNet.ContosoUniversity.Models.OfficeAssignment,PersonID:number,LastName:string,FirstMidName:string,FullName:string}
 interface Department
 {DepartmentID:number,Name:string,Budget:number,StartDate:Date,PersonID:number,RowVersion:$dp.$shared.$Array<number>,Courses_:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>,Administrator:$dp.$JsNet.ContosoUniversity.Models.Instructor,Courses:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Course>}
+interface Student
+{EnrollmentDate:Date,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>,PersonID:number,LastName:string,FirstMidName:string,FullName:string}
+interface Enrollment
+{EnrollmentID:number,CourseID:number,PersonID:number,Grade:number,Course:$dp.$JsNet.ContosoUniversity.Models.Course,Student:$dp.$JsNet.ContosoUniversity.Models.Student}
+interface Course
+{CourseID:number,Title:string,Credits:number,DepartmentID:number,Department:$dp.$JsNet.ContosoUniversity.Models.Department,Enrollments:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Enrollment>,Instructors:$dp.$shared.$Array<$dp.$JsNet.ContosoUniversity.Models.Instructor>}
 //#endregion
 //#region 'functions'
 var OfficeAssignment: () => $dp.$JsNet.ContosoUniversity.Models.OfficeAssignment;
+var Instructor: () => $dp.$JsNet.ContosoUniversity.Models.Instructor;
+var Department: () => $dp.$JsNet.ContosoUniversity.Models.Department;
 var Student: () => $dp.$JsNet.ContosoUniversity.Models.Student;
 var Enrollment: () => $dp.$JsNet.ContosoUniversity.Models.Enrollment;
-var Instructor: () => $dp.$JsNet.ContosoUniversity.Models.Instructor;
 var Course: () => $dp.$JsNet.ContosoUniversity.Models.Course;
-var Department: () => $dp.$JsNet.ContosoUniversity.Models.Department;
 //#endregion
 }
 
