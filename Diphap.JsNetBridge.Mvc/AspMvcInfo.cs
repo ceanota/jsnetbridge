@@ -140,7 +140,7 @@ namespace Diphap.JsNetBridge.Mvc
                     var TNetHttp = new AssemblyInfoWrapperWebApi_NetHttp(ar);
                     AspMvcInfo.TypesOfAspNetSetWebApi = new TypesOfAspNetSetBaseWebApi(TNetHttp, new AssemblyInfoWrapperWebApi_WebHttp(ar, TNetHttp));
                 }
-                catch (SystemNetHttpNotFoundException ex)
+                catch (SystemNetHttp_Or_SystemWebHttp_NotFoundException ex)
                 {
                     //-- not System.Net.Http(not WebApi).
                     //-- do nothing because issue is managed.

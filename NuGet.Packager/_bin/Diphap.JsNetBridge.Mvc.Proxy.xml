@@ -139,6 +139,11 @@
             System.Web.Mvc
             </summary>
         </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperMvc.AssemblyName">
+            <summary>
+            AssemblyName
+            </summary>
+        </member>
         <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperMvc.Name">
             <summary>
             Name of assembly.
@@ -390,6 +395,11 @@
         <member name="T:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_NetHttp">
             <summary>
             System.Web.Http.
+            </summary>
+        </member>
+        <member name="F:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_NetHttp.AssemblyName">
+            <summary>
+            AssemblyName
             </summary>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.Proxy.AssemblyInfoWrapperWebApi_NetHttp.Name">

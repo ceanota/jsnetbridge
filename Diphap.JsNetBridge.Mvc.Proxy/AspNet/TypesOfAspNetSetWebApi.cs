@@ -20,13 +20,18 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
     public class AssemblyInfoWrapperWebApi_NetHttp : AssemblyInfoWrapperBaseWebApi_NetHttp
     {
         /// <summary>
+        /// AssemblyName
+        /// </summary>
+        public const string AssemblyName = "System.Net.Http";
+
+        /// <summary>
         /// Name of assembly
         /// </summary>
         internal protected override string Name
         {
             get
             {
-                return "System.Net.Http";
+                return AssemblyName;
             }
         }
 

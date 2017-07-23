@@ -79,7 +79,7 @@ namespace Diphap.JsNetBridge.Data
                 unresolvedTypes = ModelInfo.ExecuteCore(unresolvedTypes, this.Classes, _JSNamespace, ref serializeTypes);
                 #endregion
 
-                #region ""
+                #region "all complex_types"
                 this.found_complex_types.Clear();
 
                 foreach (var dic in this.Classes)

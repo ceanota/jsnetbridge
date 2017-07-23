@@ -45,14 +45,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Diphap.JsNetBridge, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.5.3\lib\Diphap.JsNetBridge.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.6.0\lib\Diphap.JsNetBridge.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.5.3\lib\Diphap.JsNetBridge.Mvc.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge.Mvc, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.6.0\lib\Diphap.JsNetBridge.Mvc.dll</HintPath>
+      <Private>True</Private>
     </Reference>
-    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.5.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.5.3\lib\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+    <Reference Include="Diphap.JsNetBridge.Mvc.Proxy, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Diphap.JsNetBridge.Mvc.1.6.0\lib\Diphap.JsNetBridge.Mvc.Proxy.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>

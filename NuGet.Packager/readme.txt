@@ -106,7 +106,7 @@
 	Read the PREREQUISITES in 'Diphap.JsNetBridge.Example.js'.
 
 12- You can download a sample application using the library.
-	http://jsnet.codeplex.com/releases/view/624368
+	http://jsnet.codeplex.com/
 
 	[********** optional: to use with TypeScript ***************** ]
 

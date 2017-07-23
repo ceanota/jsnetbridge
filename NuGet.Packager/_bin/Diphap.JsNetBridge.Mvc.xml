@@ -44,7 +44,7 @@
             index of signatures.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.#ctor(System.Type,System.String,System.Reflection.MethodInfo,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.#ctor(System.Type,System.String,System.Reflection.MethodInfo,Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Data.ModelInfo)">
             <summary>
             Intanciate an instance of informations on action method.
             </summary>
@@ -52,6 +52,7 @@
             <param name="areaName"></param>
             <param name="methodInfo">differents signatures of one method</param>
             <param name="JSNamespace"></param>
+            <param name="modelInfo"></param>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ParameterClassTypes">
             <summary>
@@ -101,8 +102,9 @@
             {param1:obj1, param2:2, param3:"" } or null
             </summary>
             <param name="choice"></param>
-            <param name="jsonParams"></param>
+            <param name="sb"></param>
             <param name="nsAlias"></param>
+            <param name="modelInfo"></param>
             <returns>true: appending, false: nothing</returns>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.ToScript_Return(Diphap.JsNetBridge.Common.EnumScript,System.Boolean)">
@@ -182,7 +184,7 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetJS_Params(System.Reflection.ParameterInfo[],Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Common.EnumScript,System.Text.StringBuilder,System.Boolean,System.Char)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetScript_Params(System.Reflection.ParameterInfo[],Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Common.EnumScript,System.Text.StringBuilder,System.Boolean,Diphap.JsNetBridge.Data.ModelInfo,System.Char)">
             <summary>
             Get parameters of action in JS in string.
             </summary>
@@ -193,16 +195,6 @@
             <param name="nsAlias"></param>
             <param name="separator"></param>
             <returns>true => appending, false => nothing </returns>
-        </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfo.GetScript_EmptyValue_WithFactory(System.Type,System.Boolean,Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Common.EnumScript)">
-            <summary>
-            Get js value or ts type.
-            </summary>
-            <param name="t"></param>
-            <param name="nsAlias"></param>
-            <param name="_JSNamespace"></param>
-            <param name="choice"></param>
-            <returns></returns>
         </member>
         <member name="T:Diphap.JsNetBridge.Mvc.ActionInfoGroup">
             <summary>
@@ -234,7 +226,7 @@
             Url.
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.#ctor(System.String,System.Type,System.String,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.#ctor(System.String,System.Type,System.String,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Data.ModelInfo)">
             <summary>
             Intanciate an instance of informations on action method.
             </summary>
@@ -243,6 +235,7 @@
             <param name="areaName"></param>
             <param name="miGroup">differents signatures of one method</param>
             <param name="JSNamespace"></param>
+            <param name="modelInfo"></param>
         </member>
         <member name="P:Diphap.JsNetBridge.Mvc.ActionInfoGroup.JsValue">
             <summary>
@@ -268,7 +261,7 @@
             </summary>
             <returns></returns>
         </member>
-        <!-- Badly formed XML comment ignored for member "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
+        <!-- Commentaire XML incorrect pour le membre "M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.AllInOutClassTypes" -->
         <member name="M:Diphap.JsNetBridge.Mvc.ActionInfoGroup.ToString">
             <summary>
             Text representing instance.
@@ -466,11 +459,12 @@
             Areas
             </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.#ctor(System.Collections.Generic.IList{System.Type},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.#ctor(System.Collections.Generic.IList{System.Type},Diphap.JsNetBridge.Data.ModelInfo,Diphap.JsNetBridge.ConfigJS.JSNamespace)">
             <summary>
             Generates Url
             </summary>
             <param name="types_contoller"></param>
+            <param name="modelInfo"></param>
             <param name="JSNamespace"></param>
         </member>
         <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.SetUrlValue(Diphap.JsNetBridge.Mvc.Proxy.UrlManager,System.String)">
@@ -537,13 +531,14 @@
             ex: 'AreaName.ControllerName.ActionName.Url="url_value"'
              </summary>
         </member>
-        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.CreateUrl(System.Type,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace)">
+        <member name="M:Diphap.JsNetBridge.Mvc.UrlInfo.CreateUrl(System.Type,System.Linq.IGrouping{System.String,System.Reflection.MethodInfo},Diphap.JsNetBridge.ConfigJS.JSNamespace,Diphap.JsNetBridge.Data.ModelInfo)">
             <summary>
             Creates instance of ActionInfo.
             </summary>
             <param name="type_controller_current"></param>
             <param name="miGroup">differents signatures of one method</param>
             <param name="JSNamespace"></param>
+            <param name="modelInfo"></param>
             <returns></returns>
         </member>
     </members>

@@ -4,7 +4,7 @@
 ***************************************************************************************************************/
 
 0- You can download a sample application using the library.
-	http://jsnet.codeplex.com/releases/view/624368
+	http://jsnet.codeplex.com
 
 1- Paste this code into the file 'BundleConfig.cs' in the function 'RegisterBundles' of the class 'BundleConfig':
 
@@ -106,7 +106,7 @@
 	Read the PREREQUISITES in 'Diphap.JsNetBridge.Example.js'.
 
 12- You can download a sample application using the library.
-	http://jsnet.codeplex.com/releases/view/624368
+	http://jsnet.codeplex.com/
 
 	[********** optional: to use with TypeScript ***************** ]
 

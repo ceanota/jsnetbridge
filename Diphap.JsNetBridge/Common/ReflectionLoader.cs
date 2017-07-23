@@ -27,22 +27,22 @@ namespace Diphap.JsNetBridge.Common
     /// <summary>
     /// System.Net.Http not found (no web api).
     /// </summary>
-    public class SystemNetHttpNotFoundException : Exception
+    public class SystemNetHttp_Or_SystemWebHttp_NotFoundException : Exception
     {
         /// <summary>
         /// System.Net.Http not found (no web api).
         /// </summary>
-        public SystemNetHttpNotFoundException() : base()
+        public SystemNetHttp_Or_SystemWebHttp_NotFoundException() : base()
         {
 
         }
 
         /// <summary>
-        /// System.Net.Http not found (no web api).
+        /// System.Net.Http or System.Web.Http are not found (no web api).
         /// </summary>
         /// <param name="message"></param>
         /// <param name="innerException"></param>
-        public SystemNetHttpNotFoundException(string message, Exception innerException) : base(message, innerException)
+        public SystemNetHttp_Or_SystemWebHttp_NotFoundException(string message, Exception innerException) : base(message, innerException)
         {
 
         }
@@ -171,9 +171,9 @@ namespace Diphap.JsNetBridge.Common
                     catch (Exception ex)
                     {
                         Exception my_ex;
-                        if (assNameOrFullname == "System.Net.Http")
+                        if (assNameOrFullname == "System.Net.Http" || assNameOrFullname == "System.Web.Http")
                         {
-                            my_ex = new SystemNetHttpNotFoundException("SystemNetHttpNotFoundException is managed", ex);
+                            my_ex = new SystemNetHttp_Or_SystemWebHttp_NotFoundException("SystemNetHttp_Or_SystemWebHttp_NotFoundException is managed", ex);
                         }
                         else
                         {

@@ -50,9 +50,14 @@ namespace Diphap.JsNetBridge.Mvc.Proxy
         }
 
         /// <summary>
+        /// AssemblyName
+        /// </summary>
+        public const string AssemblyName = "System.Web.Mvc";
+
+        /// <summary>
         /// Name of assembly.
         /// </summary>
-        override internal protected string Name { get { return "System.Web.Mvc"; } }
+        override internal protected string Name { get { return AssemblyName; } }
 
         /// <summary>
         /// Namespace.
