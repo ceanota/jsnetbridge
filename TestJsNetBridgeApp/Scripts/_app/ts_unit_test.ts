@@ -492,7 +492,6 @@
 
 } ());
 
-
 ((function () {
     $(function () {
         $('#toggle_all_outlining').click(function () {
